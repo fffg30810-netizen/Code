@@ -1,0 +1,12 @@
+project_id = "bar-di-notte"
+
+# Le funzioni validano da sole il token di sessione: niente JWT richiesto,
+# così il deploy funziona sia con le chiavi legacy sia con le publishable key.
+[functions.open-session]
+verify_jwt = false
+
+[functions.send-message]
+verify_jwt = false
+
+[functions.report-message]
+verify_jwt = false
