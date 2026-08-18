@@ -17,7 +17,7 @@ import { callFunction, getSupabase } from "@/lib/supabase";
 
 const MAX_LEN = 500;
 const COOLDOWN_MS = 20_000;
-const BURN_TOTAL_MS = 3800;
+const BURN_TOTAL_MS = 4600;
 
 interface Msg {
   id: string;
