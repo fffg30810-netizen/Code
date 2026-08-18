@@ -130,13 +130,14 @@ export default function Bar({ lat, lng, offsetMin, onDay }: Props) {
   /* ------------------------------------------------------------------ */
   const loadMessages = useCallback(async () => {
     const supabase = getSupabase();
+    // I 300 più recenti, poi in ordine cronologico per la lettura.
     const { data } = await supabase
       .from("messages")
       .select("id,session_id,pseudonym,body,created_at")
       .eq("utc_offset_min", offsetMin)
-      .order("created_at", { ascending: true })
+      .order("created_at", { ascending: false })
       .limit(300);
-    if (data) setMessages(data as Msg[]);
+    if (data) setMessages((data as Msg[]).reverse());
   }, [offsetMin]);
 
   useEffect(() => {
@@ -277,9 +278,7 @@ export default function Bar({ lat, lng, offsetMin, onDay }: Props) {
   if (phase === "closed") {
     return (
       <main className="fade-slow flex min-h-dvh flex-col items-center justify-center gap-6 px-6 text-center">
-        <div aria-hidden className="text-3xl opacity-60">
-          🌅
-        </div>
+        <div aria-hidden className="sunrise" />
         <h1 className="font-lettera text-3xl text-parchment">Il bar è chiuso.</h1>
         <p className="text-sm text-parchment-dim">
           Ogni parola di stanotte è cenere. Buona giornata.

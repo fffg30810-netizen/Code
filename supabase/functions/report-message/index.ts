@@ -1,14 +1,37 @@
 // report-message: una segnalazione al barista. Alla terza, il messaggio
 // viene nascosto e chi l'ha scritto resta in silenzio per il resto
 // della notte. All'alba, come tutto, anche questo viene dimenticato.
-import { json, preflight } from "../_shared/cors.ts";
-import { adminClient, isUuid } from "../_shared/admin.ts";
+//
+// File auto-contenuto: si può incollare così com'è nell'editor
+// Edge Functions della dashboard Supabase (JWT verification: OFF).
+import { createClient } from "npm:@supabase/supabase-js@2";
 
 const REPORTS_TO_HIDE = 3;
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+};
+
+function json(status: number, body: unknown): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...corsHeaders, "Content-Type": "application/json" },
+  });
+}
+
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function isUuid(v: unknown): v is string {
+  return typeof v === "string" && UUID_RE.test(v);
+}
+
 Deno.serve(async (req) => {
-  const early = preflight(req);
-  if (early) return early;
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  if (req.method !== "POST") return json(405, { error: "method_not_allowed" });
 
   let payload: { token?: unknown; messageId?: unknown };
   try {
@@ -21,7 +44,11 @@ Deno.serve(async (req) => {
   if (!isUuid(token)) return json(401, { error: "invalid_session" });
   if (!isUuid(messageId)) return json(400, { error: "bad_message" });
 
-  const supabase = adminClient();
+  const supabase = createClient(
+    Deno.env.get("SUPABASE_URL")!,
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    { auth: { persistSession: false, autoRefreshToken: false } }
+  );
 
   const { data: session } = await supabase
     .from("sessions")

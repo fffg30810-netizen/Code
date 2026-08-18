@@ -2,17 +2,91 @@
 // (anti-cheat: di giorno si rifiuta), il ritmo (1 ogni 20s), le regole
 // della casa (blocklist) e lo appoggia sul bancone con la sua scadenza:
 // l'alba locale del mittente. Le coordinate non vengono mai salvate.
-import { json, preflight } from "../_shared/cors.ts";
-import { isNight, nextSunrise, roundCoord, validCoords } from "../_shared/sun.ts";
-import { containsBlocked } from "../_shared/blocklist.ts";
-import { adminClient, isUuid } from "../_shared/admin.ts";
+//
+// File auto-contenuto: si può incollare così com'è nell'editor
+// Edge Functions della dashboard Supabase (JWT verification: OFF).
+import * as SunCalc from "npm:suncalc@2.0.1";
+import { createClient } from "npm:@supabase/supabase-js@2";
 
 const MAX_LEN = 500;
 const COOLDOWN_MS = 20_000;
 
+/* ---------------- risposte ---------------- */
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+};
+
+function json(status: number, body: unknown): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...corsHeaders, "Content-Type": "application/json" },
+  });
+}
+
+/* ---------------- sole (stessi conti del client: l'anti-cheat) ---------------- */
+const roundCoord = (v: number) => Math.round(v * 10) / 10;
+
+function isNight(lat: number, lng: number, at = new Date()): boolean {
+  return SunCalc.getPosition(at, lat, lng).altitude < 0;
+}
+
+function isValidDate(d: Date | null | undefined): d is Date {
+  return d instanceof Date && !Number.isNaN(d.getTime());
+}
+
+function nextSunrise(lat: number, lng: number, after = new Date()): Date | null {
+  for (let i = 0; i < 4; i++) {
+    const day = new Date(after.getTime() + i * 86_400_000);
+    const t = SunCalc.getTimes(day, lat, lng).sunrise;
+    if (isValidDate(t) && t.getTime() > after.getTime()) return t;
+  }
+  return null;
+}
+
+function validCoords(lat: unknown, lng: unknown): boolean {
+  return (
+    typeof lat === "number" &&
+    typeof lng === "number" &&
+    Number.isFinite(lat) &&
+    Number.isFinite(lng) &&
+    Math.abs(lat) <= 90 &&
+    Math.abs(lng) <= 180
+  );
+}
+
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function isUuid(v: unknown): v is string {
+  return typeof v === "string" && UUID_RE.test(v);
+}
+
+/* ---------------- regole della casa (sincronizzare con lib/blocklist.ts) ---------------- */
+const SLURS: string[] = [
+  "negro", "negri", "negra", "negre",
+  "frocio", "froci", "ricchione", "ricchioni",
+  "mongoloide", "ritardato", "ritardata",
+  "zingraccio", "sporco ebreo",
+  "nigger", "niggers", "faggot", "faggots",
+  "kike", "spic", "retard", "tranny",
+];
+
+const blockPattern = new RegExp(
+  `(?:^|[^\\p{L}])(?:${SLURS.map((s) => s.replace(/ /g, "\\s+")).join("|")})(?:[^\\p{L}]|$)`,
+  "iu"
+);
+
+function containsBlocked(text: string): boolean {
+  return blockPattern.test(text.normalize("NFKC"));
+}
+
+/* ---------------- la funzione ---------------- */
 Deno.serve(async (req) => {
-  const early = preflight(req);
-  if (early) return early;
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  if (req.method !== "POST") return json(405, { error: "method_not_allowed" });
 
   let payload: { token?: unknown; lat?: unknown; lng?: unknown; body?: unknown };
   try {
@@ -37,7 +111,11 @@ Deno.serve(async (req) => {
   // Anti-cheat: il server rifà i conti col sole. Di giorno, niente.
   if (!isNight(lat, lng)) return json(403, { error: "daylight" });
 
-  const supabase = adminClient();
+  const supabase = createClient(
+    Deno.env.get("SUPABASE_URL")!,
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    { auth: { persistSession: false, autoRefreshToken: false } }
+  );
 
   const { data: session } = await supabase
     .from("sessions")

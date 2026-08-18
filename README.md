@@ -42,52 +42,84 @@ lib/
   crisis.ts             parole chiave per l'angolo del barista
 supabase/
   migrations/…_bar_di_notte.sql   schema completo: tabelle, RLS, realtime, pg_cron
-  functions/
-    _shared/            sole, pseudonimi, blocklist, CORS, client admin
-    open-session/       crea l'identità della notte (verifica notturna)
-    send-message/       anti-cheat + rate limit + inserimento
-    report-message/     segnalazioni e silenziamenti
+  functions/            ogni funzione è UN SOLO file auto-contenuto,
+    open-session/         incollabile direttamente nella dashboard Supabase
+    send-message/         (crea identità / anti-cheat + rate limit / segnalazioni)
+    report-message/
 ```
 
 ---
 
-## Setup (Windows + PowerShell)
+## Setup — percorso semplice (niente CLI, ~15 minuti)
 
-Prerequisiti: [Node 20+](https://nodejs.org), un progetto su
-[supabase.com](https://supabase.com) (free tier), la
-[Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started)
-(`scoop install supabase` oppure `winget install Supabase.CLI`).
+Serve solo: [Node 20+](https://nodejs.org) sul PC e un account gratuito su
+[supabase.com](https://supabase.com). Tutto il resto si fa dal browser.
 
-### 1. Dipendenze e ambiente
+### 1. Crea il progetto Supabase
+
+Vai su [supabase.com](https://supabase.com) → **New project** (nome libero,
+regione Europa, genera una password database e dimenticala pure: non servirà).
+
+### 2. Incolla lo schema del database
+
+Dashboard → **SQL Editor** → **New query** → incolla l'intero contenuto di
+`supabase/migrations/20260818000000_bar_di_notte.sql` → **Run**.
+
+Se si lamenta di `pg_cron`: Dashboard → **Database → Extensions** → cerca
+`pg_cron` → **Enable**, poi ri-esegui la query.
+
+### 3. Crea le 3 Edge Functions (copia-incolla)
+
+Dashboard → **Edge Functions** → **Deploy a new function** → *Via Editor*.
+Per ognuna delle tre: dai **esattamente** questo nome, incolla il contenuto
+del file indicato al posto del codice di esempio, **spegni la voce "Verify
+JWT"** (o "Enforce JWT verification") e premi **Deploy**:
+
+| Nome funzione | File da incollare |
+|---|---|
+| `open-session` | `supabase/functions/open-session/index.ts` |
+| `send-message` | `supabase/functions/send-message/index.ts` |
+| `report-message` | `supabase/functions/report-message/index.ts` |
+
+Ogni file è auto-contenuto: non serve altro.
+
+### 4. Collega l'app alle tue chiavi
+
+Sul PC, nella cartella del progetto (PowerShell):
 
 ```powershell
 npm install
 Copy-Item .env.local.example .env.local
-# Apri .env.local e incolla URL + anon key del progetto
-# (Dashboard -> Project Settings -> API)
 notepad .env.local
 ```
 
-### 2. Database (schema + RLS + combustione)
+In `.env.local` incolla i due valori che trovi in Dashboard → **Project
+Settings → API**: l'URL del progetto e la chiave pubblica (anon / publishable).
 
-Opzione A — con la CLI collegata al progetto:
+### 5. Accendi le candele
 
 ```powershell
+npm run dev
+```
+
+Apri http://localhost:3000. Se da te è giorno, troverai la porta chiusa —
+com'è giusto che sia (per provare lo stesso, vedi "come viaggiare" sotto).
+
+### 6. (Quando vuoi renderlo pubblico) Deploy su Vercel
+
+Metti il repo su GitHub, vai su [vercel.com](https://vercel.com) → **Import
+project** → scegli il repo → in *Environment Variables* aggiungi le stesse due
+variabili di `.env.local` → **Deploy**. La geolocalizzazione richiede HTTPS:
+su Vercel è automatico.
+
+<details>
+<summary><b>In alternativa: setup con la Supabase CLI</b></summary>
+
+```powershell
+scoop install supabase   # oppure: winget install Supabase.CLI
 supabase login
 supabase link --project-ref TUO_PROJECT_REF
 supabase db push
-```
-
-Opzione B — a mano: apri il **SQL Editor** nella dashboard Supabase e incolla
-l'intero contenuto di `supabase/migrations/20260818000000_bar_di_notte.sql`.
-
-> ⚠️ `pg_cron` dev'essere abilitato sul progetto: Dashboard → Database →
-> Extensions → cerca `pg_cron` → Enable (la migrazione fa comunque
-> `create extension if not exists pg_cron`).
-
-### 3. Edge Functions
-
-```powershell
 supabase functions deploy open-session `
   --no-verify-jwt
 supabase functions deploy send-message `
@@ -96,32 +128,10 @@ supabase functions deploy report-message `
   --no-verify-jwt
 ```
 
-(Le funzioni validano da sole il token di sessione; `--no-verify-jwt` le rende
-indipendenti dal tipo di API key. `SUPABASE_URL` e
-`SUPABASE_SERVICE_ROLE_KEY` sono iniettate automaticamente da Supabase.)
-
-### 4. Avvio
-
-```powershell
-npm run dev
-```
-
-Apri http://localhost:3000. Se da te è giorno, troverai la porta chiusa —
-com'è giusto che sia (per i test, vedi sotto come "viaggiare").
-
-### 5. Deploy su Vercel
-
-```powershell
-npm install -g vercel
-vercel
-# poi configura le env nel progetto Vercel:
-vercel env add NEXT_PUBLIC_SUPABASE_URL
-vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY
-vercel --prod
-```
-
-> La geolocalizzazione browser richiede HTTPS (o localhost): su Vercel è
-> automatico.
+Le funzioni validano da sole il token di sessione; `--no-verify-jwt` le rende
+indipendenti dal tipo di API key. `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY`
+sono iniettate automaticamente da Supabase.
+</details>
 
 ---
 
@@ -199,5 +209,10 @@ forzare).
   altrove: senza account e senza tracciamento è il compromesso accettato
   (il danno massimo è… chattare di giorno da un fuso sbagliato).
 - Blocklist e parole chiave del barista sono liste base in
-  `lib/blocklist.ts` / `lib/crisis.ts` e `supabase/functions/_shared/` —
-  pensate per essere estese (tenere sincronizzate client e server).
+  `lib/blocklist.ts` / `lib/crisis.ts` e, lato server, dentro
+  `supabase/functions/send-message/index.ts` — pensate per essere estese
+  (tenere sincronizzate client e server).
+- **Dove tenere cosa**: il database e le funzioni DEVONO stare su Supabase
+  cloud (la chat è condivisa e la combustione gira anche a PC spento); il
+  codice dell'app lo sviluppi in locale con `npm run dev` e lo pubblichi su
+  Vercel quando vuoi un URL raggiungibile dagli altri.
