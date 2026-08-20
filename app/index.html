@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Che Pasta!</title>
+<meta name="description" content="Il mood tracker più italiano che c'è: ogni giorno scegli la pasta che ti rappresenta.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8EFD9">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111834">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Che Pasta!">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800;900&display=swap">
+<style>
+:root{
+  --bg:#F8EFD9; --surface:#FFFBF0; --surface-2:#F1E3C0; --line:#E2D1A6;
+  --ink:#2A338F; --ink-strong:#1D2670; --ink-soft:#6E7398;
+  --blue:#2A3AA0; --blue-deep:#20307F; --on-blue:#FFF6DC; --on-blue-soft:#C7CEF4;
+  --yellow:#F6C445; --yellow-deep:#DFA51E; --red:#D9432F; --green:#4E9455;
+  --overlay:rgba(24,29,74,.42);
+  --shadow:0 10px 30px rgba(41,50,140,.14);
+  --shadow-soft:0 4px 14px rgba(41,50,140,.10);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111834; --surface:#1B244C; --surface-2:#242F63; --line:#303B74;
+    --ink:#F1E7CC; --ink-strong:#FFF7DF; --ink-soft:#A9B0D6;
+    --blue:#233066; --blue-deep:#1A2450; --on-blue:#F6EDD2; --on-blue-soft:#AEB6E2;
+    --yellow:#F6C445; --yellow-deep:#F0B52F; --red:#EA6A50; --green:#79B97F;
+    --overlay:rgba(4,7,22,.6);
+    --shadow:0 12px 30px rgba(0,0,0,.4);
+    --shadow-soft:0 4px 14px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111834; --surface:#1B244C; --surface-2:#242F63; --line:#303B74;
+  --ink:#F1E7CC; --ink-strong:#FFF7DF; --ink-soft:#A9B0D6;
+  --blue:#233066; --blue-deep:#1A2450; --on-blue:#F6EDD2; --on-blue-soft:#AEB6E2;
+  --yellow:#F6C445; --yellow-deep:#F0B52F; --red:#EA6A50; --green:#79B97F;
+  --overlay:rgba(4,7,22,.6);
+  --shadow:0 12px 30px rgba(0,0,0,.4);
+  --shadow-soft:0 4px 14px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent}
+html{height:100%}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:'Nunito','Trebuchet MS',system-ui,sans-serif;
+  font-size:15.5px; line-height:1.55; min-height:100%;
+}
+button{font:inherit; color:inherit; background:none; border:none; cursor:pointer; touch-action:manipulation}
+button:focus-visible, a:focus-visible, textarea:focus-visible{outline:3px solid var(--yellow-deep); outline-offset:2px; border-radius:8px}
+.display{font-family:'Lilita One','Arial Rounded MT Bold','Trebuchet MS',sans-serif; font-weight:400; letter-spacing:.01em}
+#app{max-width:480px; margin:0 auto; min-height:100dvh; display:flex; flex-direction:column}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:calc(10px + env(safe-area-inset-top)) 18px 10px;
+  background:var(--bg);
+  border-bottom:2px solid var(--line);
+}
+.wordmark{
+  display:inline-flex; align-items:center; gap:8px;
+}
+.wordmark .chip{
+  background:var(--blue); color:var(--on-blue);
+  padding:4px 12px 6px; border-radius:12px; transform:rotate(-2deg);
+  font-size:19px; line-height:1; box-shadow:var(--shadow-soft);
+}
+.wordmark .chip em{font-style:normal; color:var(--yellow)}
+.streak-pill{
+  font-weight:900; font-size:13px; color:var(--ink-strong);
+  background:var(--surface-2); border:2px solid var(--line);
+  padding:4px 10px; border-radius:999px; font-variant-numeric:tabular-nums;
+}
+
+/* ---------- main / tabs ---------- */
+main{flex:1; padding:18px 18px calc(96px + env(safe-area-inset-bottom))}
+.tabbar{
+  position:fixed; bottom:0; left:0; right:0; z-index:30;
+  display:flex; justify-content:center; gap:8px;
+  padding:8px 14px calc(10px + env(safe-area-inset-bottom));
+  background:var(--surface);
+  border-top:2px solid var(--line);
+}
+.tabbar-inner{display:flex; gap:8px; width:100%; max-width:480px; justify-content:space-around}
+.tab-btn{
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+  padding:8px 6px; border-radius:16px; color:var(--ink-soft);
+  font-size:11.5px; font-weight:800; letter-spacing:.04em;
+  transition:background .18s, color .18s, transform .1s;
+}
+.tab-btn svg{width:23px; height:23px}
+.tab-btn.active{background:var(--blue); color:var(--on-blue)}
+.tab-btn:active{transform:scale(.95)}
+
+/* ---------- oggi ---------- */
+.today-date{font-weight:800; color:var(--ink-soft); font-size:13.5px; text-transform:capitalize; letter-spacing:.02em}
+.big-q{font-size:clamp(27px,7.5vw,33px); color:var(--ink-strong); line-height:1.12; margin:4px 0 4px; text-wrap:balance}
+.sub{color:var(--ink-soft); font-weight:700; font-size:14px; margin-bottom:16px}
+.pasta-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+.pasta-card{
+  background:var(--surface); border:2px solid var(--line); border-radius:18px;
+  padding:12px 6px 10px; display:flex; flex-direction:column; align-items:center; gap:2px;
+  box-shadow:var(--shadow-soft); transition:transform .12s, border-color .15s;
+}
+.pasta-card:active{transform:scale(.94)}
+.pasta-card .nome{font-size:14.5px; color:var(--ink-strong); line-height:1.1; margin-top:4px}
+.pasta-card .umore{font-size:11px; font-weight:800; color:var(--ink-soft)}
+
+/* the pasta box (saved state) */
+.box{
+  background:var(--blue); border-radius:24px; padding:18px 18px 14px;
+  color:var(--on-blue); box-shadow:var(--shadow); overflow:hidden; position:relative;
+  border:2px solid var(--blue-deep);
+}
+.box-brand{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px}
+.box-brand .mini-logo{font-size:16px; color:var(--yellow); transform:rotate(-2deg)}
+.box-brand .peso{font-size:10px; font-weight:800; letter-spacing:.12em; color:var(--on-blue-soft); text-transform:uppercase}
+.box-window{
+  background:var(--surface); border-radius:18px; padding:18px 14px 14px;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  position:relative; overflow:hidden; color:var(--ink);
+  box-shadow:inset 0 3px 10px rgba(0,0,0,.14);
+}
+.box-window .shine{
+  position:absolute; top:-30%; left:-62%; width:44%; height:170%;
+  background:linear-gradient(105deg, transparent, rgba(255,255,255,.30), transparent);
+  transform:rotate(9deg); pointer-events:none;
+}
+.box-window .nome{font-size:26px; color:var(--ink-strong)}
+.box-window .umore-tag{
+  font-size:11px; font-weight:900; letter-spacing:.1em; text-transform:uppercase;
+  padding:3px 10px; border-radius:999px; color:var(--ink-strong);
+}
+.box-window .desc{text-align:center; font-weight:700; font-size:14px; color:var(--ink-soft); max-width:30ch}
+.box-note{
+  margin-top:6px; background:var(--surface-2); border-radius:12px; padding:8px 12px;
+  font-size:13.5px; font-weight:700; color:var(--ink); width:100%; text-align:center;
+}
+.box-note::before{content:'“'} .box-note::after{content:'”'}
+.box-fineprint{
+  margin-top:12px; display:flex; justify-content:space-between; gap:8px;
+  font-size:9px; font-weight:800; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--on-blue-soft);
+}
+.box-actions{display:flex; gap:10px; margin-top:14px}
+.tomorrow-hint{margin-top:14px; text-align:center; color:var(--ink-soft); font-weight:700; font-size:13px}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  border-radius:16px; padding:13px 18px; font-weight:900; font-size:15px;
+  transition:transform .1s, filter .15s; flex:1;
+}
+.btn:active{transform:scale(.96)}
+.btn-primary{background:var(--yellow); color:#1D2670; box-shadow:0 4px 0 var(--yellow-deep)}
+.btn-primary:active{box-shadow:0 1px 0 var(--yellow-deep); transform:translateY(3px)}
+.btn-ghost{background:transparent; border:2px solid var(--line); color:var(--ink); background:var(--surface)}
+.btn-onblue{background:rgba(255,255,255,.14); color:var(--on-blue); border:2px solid rgba(255,255,255,.25)}
+.btn-danger-ghost{color:var(--red); font-weight:900}
+
+/* ---------- sheet ---------- */
+.sheet-overlay{
+  position:fixed; inset:0; background:var(--overlay); z-index:50;
+  display:flex; align-items:flex-end; justify-content:center;
+  animation:fadeIn .2s ease;
+}
+.sheet{
+  background:var(--surface); width:100%; max-width:480px;
+  border-radius:26px 26px 0 0; padding:10px 20px calc(22px + env(safe-area-inset-bottom));
+  animation:slideUp .26s cubic-bezier(.2,.9,.3,1.1);
+  max-height:88dvh; overflow-y:auto;
+}
+.grabber{width:44px; height:5px; border-radius:99px; background:var(--line); margin:4px auto 14px}
+@keyframes slideUp{from{transform:translateY(60%)} to{transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0} to{opacity:1}}
+.sheet .hero-pasta{display:flex; flex-direction:column; align-items:center; gap:4px; margin-bottom:8px}
+.sheet .hero-pasta .nome{font-size:28px; color:var(--ink-strong)}
+.sheet .desc{text-align:center; color:var(--ink-soft); font-weight:700; margin:2px auto 14px; max-width:32ch}
+.note-label{font-size:11.5px; font-weight:900; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px; display:block}
+textarea.note{
+  width:100%; background:var(--surface-2); border:2px solid var(--line); border-radius:14px;
+  padding:11px 13px; font:inherit; font-weight:700; color:var(--ink); resize:none; height:74px;
+}
+textarea.note::placeholder{color:var(--ink-soft); opacity:.8}
+.sheet-actions{display:flex; gap:10px; margin-top:14px}
+.sheet .close-x{position:sticky; top:0; float:right; color:var(--ink-soft); font-size:22px; font-weight:900; padding:2px 8px}
+
+/* ---------- diario ---------- */
+.cal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px}
+.cal-title{font-size:23px; color:var(--ink-strong); text-transform:capitalize}
+.cal-nav{display:flex; gap:8px}
+.cal-nav button{
+  width:38px; height:38px; border-radius:12px; background:var(--surface);
+  border:2px solid var(--line); font-size:17px; font-weight:900; color:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+}
+.cal-nav button:disabled{opacity:.35; cursor:default}
+.dow{display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-bottom:5px}
+.dow span{text-align:center; font-size:10.5px; font-weight:900; letter-spacing:.06em; color:var(--ink-soft); text-transform:uppercase}
+.cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:5px}
+.day{
+  aspect-ratio:1; border-radius:12px; background:var(--surface);
+  border:2px solid var(--line); position:relative;
+  display:flex; align-items:center; justify-content:center; padding:0;
+}
+.day .n{position:absolute; top:3px; left:5px; font-size:9px; font-weight:900; color:var(--ink-soft); font-variant-numeric:tabular-nums}
+.day.today{border-color:var(--ink); border-width:2.5px}
+.day.future{opacity:.32; cursor:default}
+.day.empty-cell{background:transparent; border-color:transparent; cursor:default}
+.day:not(.future):not(.empty-cell):active{transform:scale(.92)}
+.cal-hint{margin-top:14px; text-align:center; color:var(--ink-soft); font-weight:700; font-size:13px}
+.month-recap{
+  margin-top:16px; background:var(--surface); border:2px solid var(--line); border-radius:16px;
+  padding:12px 16px; font-weight:700; font-size:13.5px; color:var(--ink);
+  display:flex; align-items:center; gap:10px;
+}
+
+/* ---------- menù / stats ---------- */
+.seg{
+  display:flex; background:var(--surface-2); border-radius:14px; padding:4px; gap:4px; margin-bottom:16px;
+  border:2px solid var(--line);
+}
+.seg button{
+  flex:1; padding:8px; border-radius:10px; font-weight:900; font-size:13.5px; color:var(--ink-soft);
+}
+.seg button.active{background:var(--surface); color:var(--ink-strong); box-shadow:var(--shadow-soft)}
+.tiles{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:18px}
+.tile{
+  background:var(--surface); border:2px solid var(--line); border-radius:16px;
+  padding:12px 8px 10px; text-align:center; box-shadow:var(--shadow-soft);
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:2px;
+}
+.tile .big{font-size:26px; color:var(--ink-strong); line-height:1.1; font-variant-numeric:tabular-nums}
+.tile .lbl{font-size:9.5px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft)}
+.section-t{font-size:20px; color:var(--ink-strong); margin:4px 0 12px}
+.rank{display:flex; flex-direction:column; gap:12px; margin-bottom:20px}
+.rank-row{display:grid; grid-template-columns:34px 1fr auto; gap:10px; align-items:center}
+.rank-row .chip-ic{
+  width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+}
+.rank-row .meta{display:flex; flex-direction:column; gap:3px; min-width:0}
+.rank-row .nm{font-weight:900; font-size:13.5px; color:var(--ink-strong); line-height:1.1}
+.rank-row .track{height:8px; border-radius:99px; background:var(--surface-2); overflow:hidden}
+.rank-row .fill{height:100%; border-radius:99px; background:var(--yellow-deep); min-width:8px}
+.rank-row .ct{font-weight:900; font-variant-numeric:tabular-nums; color:var(--ink-soft); font-size:13px}
+.chef{
+  background:var(--blue); color:var(--on-blue); border-radius:18px; padding:14px 16px;
+  display:flex; gap:12px; align-items:flex-start; box-shadow:var(--shadow); margin-bottom:22px;
+  border:2px solid var(--blue-deep);
+}
+.chef .hat{flex-shrink:0; margin-top:2px}
+.chef .t{font-size:15px; color:var(--yellow); margin-bottom:2px}
+.chef .b{font-weight:700; font-size:14px}
+.tools{display:flex; flex-direction:column; gap:8px; align-items:center; padding-bottom:8px}
+.tools button{font-weight:800; font-size:13px; color:var(--ink-soft); text-decoration:underline; text-underline-offset:3px}
+.tools .privacy{font-size:11.5px; font-weight:700; color:var(--ink-soft); text-align:center; margin-top:6px}
+.empty-state{
+  text-align:center; padding:28px 18px; background:var(--surface); border:2px dashed var(--line);
+  border-radius:18px; color:var(--ink-soft); font-weight:700;
+}
+.empty-state .display{color:var(--ink-strong); font-size:19px; margin-bottom:4px}
+
+/* ---------- toast & rain ---------- */
+#toast{
+  position:fixed; left:50%; bottom:calc(104px + env(safe-area-inset-bottom)); transform:translateX(-50%) translateY(20px);
+  background:var(--blue); color:var(--on-blue); font-weight:900; font-size:14px;
+  padding:10px 20px; border-radius:999px; box-shadow:var(--shadow);
+  opacity:0; pointer-events:none; transition:opacity .22s, transform .22s; z-index:70;
+  max-width:88vw; text-align:center;
+}
+#toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+#rain-root{position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:60}
+.drop{position:absolute; top:-56px; animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(340deg)}}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important; transition-duration:.01ms !important}
+}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="wordmark display"><span class="chip">Che <em>Pasta!</em></span></div>
+    <div class="streak-pill" id="streak-pill" hidden>🔥 <span id="streak-n">0</span></div>
+  </header>
+  <main>
+    <section id="view-oggi"></section>
+    <section id="view-diario" hidden></section>
+    <section id="view-menu" hidden></section>
+  </main>
+  <nav class="tabbar" aria-label="Navigazione principale"><div class="tabbar-inner">
+    <button class="tab-btn active" data-tab="oggi" aria-label="Oggi">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.6"/></svg>
+      Oggi
+    </button>
+    <button class="tab-btn" data-tab="diario" aria-label="Diario">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 9.5h17M8 2.8v3.4M16 2.8v3.4"/><path d="M7.5 13.5h.01M12 13.5h.01M16.5 13.5h.01M7.5 17h.01M12 17h.01"/></svg>
+      Diario
+    </button>
+    <button class="tab-btn" data-tab="menu" aria-label="Menù">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 13.2c-2.3 0-3.4-2.2-2.2-3.9-.9-2.3 1.4-4.3 3.5-3.5.9-2 4.5-2 5.4 0 2.1-.8 4.4 1.2 3.5 3.5 1.2 1.7.1 3.9-2.2 3.9"/><path d="M6.5 13v5.5c0 1 .8 1.8 1.8 1.8h6.4c1 0 1.8-.8 1.8-1.8V13"/><path d="M6.5 16.5h10"/></svg>
+      Menù
+    </button>
+  </div></nav>
+</div>
+<div id="sheet-root"></div>
+<div id="rain-root" aria-hidden="true"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+/* ============================================================
+   CHE PASTA! — il mood tracker più italiano che c'è
+   Dati solo in locale (localStorage). Nessun server, nessun account.
+   ============================================================ */
+
+/* ---------- disegni: la dispensa ---------- */
+const FILL='#F7CB55', DARK='#6B451F', SHADE='#DFA93C', FACE='#4A2C14', BLUSH='#F29B80';
+const S = 'stroke="'+DARK+'" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"';
+const Sf = 'stroke="'+FACE+'" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"';
+const Sg = 'stroke="'+SHADE+'" stroke-width="2.3" stroke-linecap="round" fill="none"';
+
+const SHAPES = {
+fusillo: `
+ <path d="M32 6 C41 6 43 15 43 24 L43 40 C43 49 41 58 32 58 C23 58 21 49 21 40 L21 24 C21 15 23 6 32 6 Z" fill="${FILL}" ${S}/>
+ <path d="M22.5 14.5 C29 17.5 35 11.5 41.5 14.5" ${Sg}/>
+ <path d="M21.7 33 C29 36 35 30 42.3 33" ${Sg}/>
+ <path d="M21.7 41.5 C29 44.5 35 38.5 42.3 41.5" ${Sg}/>
+ <path d="M22.5 50 C29 53 35 47 41.5 50" ${Sg}/>
+ <path d="M23.8 18.6 q2.1 -1.7 4.2 -0.6" ${Sf}/>
+ <path d="M40.2 18.6 q-2.1 -1.7 -4.2 -0.6" ${Sf}/>
+ <circle cx="26.6" cy="22.8" r="1.9" fill="${FACE}"/>
+ <circle cx="37.4" cy="22.8" r="1.9" fill="${FACE}"/>
+ <path d="M26.4 28.3 c1.9 2.1 3.7 -2.1 5.6 0 c1.9 2.1 3.7 -2.1 5.6 0" ${Sf}/>`,
+farfalla: `
+ <path d="M30 32 C24 24 16 18 11 14 C8.5 18 9 22 11 25 C9 26 8.5 30 10 32 C8.5 34 9 38 11 39 C9 42 8.5 46 11 50 C16 46 24 40 30 32 Z" fill="${FILL}" ${S}/>
+ <path d="M34 32 C40 24 48 18 53 14 C55.5 18 55 22 53 25 C55 26 55.5 30 54 32 C55.5 34 55 38 53 39 C55 42 55.5 46 53 50 C48 46 40 40 34 32 Z" fill="${FILL}" ${S}/>
+ <ellipse cx="32" cy="32" rx="6.8" ry="9" fill="${FILL}" ${S}/>
+ <path d="M29.3 38.5 q2.7 -2 5.4 0" ${Sg}/>
+ <path d="M28.7 30.6 q1.5 -1.9 3 0" ${Sf}/>
+ <path d="M32.3 30.6 q1.5 -1.9 3 0" ${Sf}/>
+ <path d="M30.1 34.4 q1.9 1.7 3.8 0" ${Sf}/>
+ <path d="M50 8 q0.6 2.6 3.4 3.4 q-2.8 0.8 -3.4 3.4 q-0.6 -2.6 -3.4 -3.4 q2.8 -0.8 3.4 -3.4 z" fill="${SHADE}"/>`,
+rigatone: `
+ <path d="M20 16 L20 47 C20 52 25 55.5 32 55.5 C39 55.5 44 52 44 47 L44 16" fill="${FILL}" ${S}/>
+ <path d="M23.5 23 V48.5 M27.2 24.5 V51.5 M36.8 24.5 V51.5 M40.5 23 V48.5" ${Sg}/>
+ <ellipse cx="32" cy="16" rx="12" ry="5.4" fill="#F9DC82" ${S}/>
+ <ellipse cx="32" cy="16" rx="6.6" ry="2.7" fill="#8A5A2B" stroke="${DARK}" stroke-width="1.6"/>
+ <path d="M26.4 30.6 l4 -0.9 M37.6 29.7 l-4 0.9" stroke="${FACE}" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+ <circle cx="28.6" cy="35" r="1.8" fill="${FACE}"/>
+ <circle cx="35.4" cy="35" r="1.8" fill="${FACE}"/>
+ <path d="M28.4 40.5 q3.6 3.2 7.2 0.6" ${Sf}/>`,
+penna: `
+ <path d="M14 26 L36 9 L50 38 L28 55 Z" fill="#E25640" stroke="#7E2417" stroke-width="2.6" stroke-linejoin="round"/>
+ <path d="M14 26 L36 9 L38.6 14.4 L16.6 31.4 Z" fill="#B23425" stroke="none"/>
+ <path d="M19.5 21.75 L33.5 50.75 M30.5 13.25 L44.5 42.25" stroke="#B93A28" stroke-width="2.3" stroke-linecap="round"/>
+ <path d="M40 3.5 q1.8 2.4 0 4.8 M46.5 6.5 q1.8 2.4 0 4.8" stroke="#7E2417" stroke-width="2" stroke-linecap="round" fill="none" opacity=".8"/>
+ <path d="M25.5 26 l5.5 2.4 M39 26 l-5.5 2.4" stroke="#3E0F06" stroke-width="2.6" stroke-linecap="round"/>
+ <circle cx="28.6" cy="33" r="1.8" fill="#3E0F06"/>
+ <circle cx="35.4" cy="33" r="1.8" fill="#3E0F06"/>
+ <path d="M28.6 40 q3.4 -2.8 6.8 0" stroke="#3E0F06" stroke-width="2.2" stroke-linecap="round" fill="none"/>`,
+gnocco: `
+ <path d="M32 21 C44 21 50 28.5 50 36.5 C50 45.5 42 51 32 51 C22 51 14 45.5 14 36.5 C14 28.5 20 21 32 21 Z" fill="${FILL}" ${S}/>
+ <path d="M21 29.5 q11 -5.5 22 0" ${Sg}/>
+ <path d="M18.5 34 q13.5 -6 27 0" ${Sg}/>
+ <path d="M24.8 40.5 q1.8 2 3.6 0" ${Sf}/>
+ <path d="M35.6 40.5 q1.8 2 3.6 0" ${Sf}/>
+ <path d="M30.2 44.8 q1.8 1.7 3.6 0" ${Sf}/>
+ <circle cx="21" cy="44" r="2.7" fill="${BLUSH}" opacity=".8"/>
+ <circle cx="43" cy="44" r="2.7" fill="${BLUSH}" opacity=".8"/>
+ <path d="M52.5 15 c-1.1 -1.4 -3.3 -0.8 -3.3 1 c0 1.5 1.9 2.7 3.3 3.7 c1.4 -1 3.3 -2.2 3.3 -3.7 c0 -1.8 -2.2 -2.4 -3.3 -1 z" fill="#E86A8A"/>`,
+scotto: `
+ <path d="M24.5 7 q1.7 2.3 0 4.6 M32 5.5 q1.7 2.3 0 4.6 M39.5 7 q1.7 2.3 0 4.6" stroke="${DARK}" stroke-width="2" stroke-linecap="round" fill="none" opacity=".55"/>
+ <path d="M18 14 C15 25 17.5 34 14 47 M27 12 C25 27 28.5 38 24 53 M37 12 C39 27 35.5 38 40 53 M46 14 C49 25 46.5 34 50 47" stroke="${DARK}" stroke-width="5.6" stroke-linecap="round" fill="none"/>
+ <path d="M18 14 C15 25 17.5 34 14 47 M27 12 C25 27 28.5 38 24 53 M37 12 C39 27 35.5 38 40 53 M46 14 C49 25 46.5 34 50 47" stroke="${FILL}" stroke-width="3" stroke-linecap="round" fill="none"/>
+ <ellipse cx="32" cy="30" rx="10.5" ry="8.8" fill="${FILL}" ${S}/>
+ <path d="M25.8 27.4 l4.4 1.2" ${Sf}/>
+ <path d="M38.2 28.6 l-4.4 -1.2" ${Sf}/>
+ <path d="M29.2 33.8 c1.6 1.5 3.2 -1.5 4.8 0" ${Sf}/>
+ <path d="M44.5 20 q3.2 4.2 0 6.4 q-3.2 -2.2 0 -6.4 z" fill="#8FBFDF"/>`,
+tortellino: `
+ <path d="M32 14 C46 14 53 24.5 52 33 C51 41 45 47.5 37 47.5 L27 47.5 C19 47.5 13 41 12 33 C11 24.5 18 14 32 14 Z" fill="${FILL}" ${S}/>
+ <path d="M12.5 31 L5.5 34.5 L11.5 38.5" fill="${FILL}" ${S}/>
+ <path d="M51.5 31 L58.5 34.5 L52.5 38.5" fill="${FILL}" ${S}/>
+ <path d="M16 26 Q32 17.5 48 26" ${Sg}/>
+ <path d="M24.5 27.2 c-1.7 -2.3 -5.2 -1.4 -5.2 1.5 c0 2.4 3 4.4 5.2 5.9 c2.2 -1.5 5.2 -3.5 5.2 -5.9 c0 -2.9 -3.5 -3.8 -5.2 -1.5 z" fill="#E8506E"/>
+ <path d="M39.5 27.2 c-1.7 -2.3 -5.2 -1.4 -5.2 1.5 c0 2.4 3 4.4 5.2 5.9 c2.2 -1.5 5.2 -3.5 5.2 -5.9 c0 -2.9 -3.5 -3.8 -5.2 -1.5 z" fill="#E8506E"/>
+ <path d="M28.8 37.4 a3.2 3.2 0 0 0 6.4 0 z" fill="${FACE}"/>
+ <path d="M55 10 c-0.9 -1.2 -2.8 -0.7 -2.8 0.9 c0 1.3 1.6 2.3 2.8 3.1 c1.2 -0.8 2.8 -1.8 2.8 -3.1 c0 -1.6 -1.9 -2.1 -2.8 -0.9 z" fill="#E86A8A"/>`,
+lasagna: `
+ <path d="M12 22 h40 v3.5 q-3.3 2.8 -6.6 0 q-3.4 2.8 -6.7 0 q-3.3 2.8 -6.6 0 q-3.4 2.8 -6.7 0 q-3.3 2.8 -6.6 0 q-3.4 2.8 -6.8 0 z" fill="#D9432F" stroke="#9C2B1B" stroke-width="1.8" stroke-linejoin="round"/>
+ <path d="M12 36 h40 v3.5 q-3.3 2.8 -6.6 0 q-3.4 2.8 -6.7 0 q-3.3 2.8 -6.6 0 q-3.4 2.8 -6.7 0 q-3.3 2.8 -6.6 0 q-3.4 2.8 -6.8 0 z" fill="#D9432F" stroke="#9C2B1B" stroke-width="1.8" stroke-linejoin="round"/>
+ <rect x="10" y="13" width="44" height="10" rx="5" fill="${FILL}" ${S}/>
+ <rect x="10" y="27" width="44" height="10" rx="5" fill="${FILL}" ${S}/>
+ <rect x="10" y="41" width="44" height="10" rx="5" fill="${FILL}" ${S}/>
+ <path d="M25.4 17.2 q1.8 1.5 3.6 0" ${Sf}/>
+ <path d="M35 17.2 q1.8 1.5 3.6 0" ${Sf}/>
+ <path d="M30.4 19.8 q1.6 1.2 3.2 0" ${Sf}/>`,
+conchiglia: `
+ <ellipse cx="32" cy="47" rx="16.5" ry="6" fill="#3D2410" stroke="${DARK}" stroke-width="2.4"/>
+ <circle cx="26" cy="47" r="2.6" fill="#FFF6DC"/>
+ <circle cx="26.6" cy="47.2" r="1.1" fill="#26150A"/>
+ <circle cx="38" cy="47" r="2.6" fill="#FFF6DC"/>
+ <circle cx="38.6" cy="47.2" r="1.1" fill="#26150A"/>
+ <path d="M32 9.5 C45 9.5 53.5 21 53.5 32.5 C53.5 38.5 50 43 44.5 44.5 L19.5 44.5 C14 43 10.5 38.5 10.5 32.5 C10.5 21 19 9.5 32 9.5 Z" fill="${FILL}" ${S}/>
+ <path d="M32 44 C28.5 34 23.5 25 17.5 18.5 M32 44 C31 32.5 29.5 22 27.5 12.5 M32 44 C33 32.5 34.5 22 36.5 12.5 M32 44 C35.5 34 40.5 25 46.5 18.5" ${Sg}/>`,
+stellina: `
+ <path d="M32 11 L38.2 24.3 L52.5 26.4 L42 36.6 L44.6 51 L32 44 L19.4 51 L22 36.6 L11.5 26.4 L25.8 24.3 Z" fill="${FILL}" ${S} stroke-width="3"/>
+ <path d="M26 30.8 q1.9 -2.2 3.8 0" ${Sf}/>
+ <path d="M34.2 30.8 q1.9 -2.2 3.8 0" ${Sf}/>
+ <circle cx="32" cy="35.6" r="1.7" fill="${FACE}"/>
+ <circle cx="24" cy="34.6" r="2.2" fill="${BLUSH}" opacity=".8"/>
+ <circle cx="40" cy="34.6" r="2.2" fill="${BLUSH}" opacity=".8"/>
+ <path d="M53 8 q0.6 2.8 3.6 3.6 q-3 0.8 -3.6 3.6 q-0.6 -2.8 -3.6 -3.6 q3 -0.8 3.6 -3.6 z" fill="${SHADE}"/>
+ <path d="M10 50 q0.5 2.3 3 3 q-2.5 0.7 -3 3 q-0.5 -2.3 -3 -3 q2.5 -0.7 3 -3 z" fill="${SHADE}"/>`,
+linguine: `
+ <path d="M10 26 C22 17 42 17 54 26 M8 34 C24 23.5 44 25.5 56 33 M10 42 C24 31.5 42 33.5 54 41 M14 49.5 C26 40 40 42 52 48.5 M52 48.5 C55.5 52 54.5 56.5 50 58.5 M12 42 C8 45 7.5 50 10.5 53.5" stroke="${DARK}" stroke-width="5.4" stroke-linecap="round" fill="none"/>
+ <path d="M10 26 C22 17 42 17 54 26 M8 34 C24 23.5 44 25.5 56 33 M10 42 C24 31.5 42 33.5 54 41 M14 49.5 C26 40 40 42 52 48.5 M52 48.5 C55.5 52 54.5 56.5 50 58.5 M12 42 C8 45 7.5 50 10.5 53.5" stroke="${FILL}" stroke-width="2.9" stroke-linecap="round" fill="none"/>
+ <ellipse cx="30" cy="37" rx="9.5" ry="8" fill="${FILL}" ${S}/>
+ <circle cx="26.6" cy="35.2" r="1.7" fill="${FACE}"/>
+ <circle cx="33.4" cy="35.2" r="1.7" fill="${FACE}"/>
+ <path d="M26.8 39.5 a3.2 2.7 0 0 0 6.4 0 z" fill="${FACE}"/>
+ <rect x="41" y="9" width="17" height="12" rx="6" fill="#FFF6DC" stroke="${DARK}" stroke-width="2"/>
+ <path d="M45.5 20.5 L43.5 25 L49.5 21" fill="#FFF6DC" stroke="${DARK}" stroke-width="2" stroke-linejoin="round"/>
+ <circle cx="45.5" cy="15" r="1.3" fill="${FACE}"/>
+ <circle cx="49.5" cy="15" r="1.3" fill="${FACE}"/>
+ <circle cx="53.5" cy="15" r="1.3" fill="${FACE}"/>`,
+ruota: `
+ <path d="M53.5 24 q5 9.5 0.5 19.5" stroke="${DARK}" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".5"/>
+ <path d="M7 29 h5 M6 38 h6" stroke="${DARK}" stroke-width="2.2" stroke-linecap="round" opacity=".5"/>
+ <circle cx="31" cy="33" r="17.5" fill="${FILL}" ${S}/>
+ <circle cx="31" cy="33" r="12.6" fill="none" ${Sg}/>
+ <path d="M39 33 L43.6 33 M35 39.9 L37.3 43.9 M27 39.9 L24.7 43.9 M23 33 L18.4 33 M27 26.1 L24.7 22.1 M35 26.1 L37.3 22.1" ${Sg}/>
+ <circle cx="31" cy="33" r="8" fill="${FILL}" ${S} stroke-width="2.2"/>
+ <circle cx="28.3" cy="31.6" r="1.7" fill="${FACE}"/>
+ <circle cx="33.7" cy="31.6" r="1.7" fill="${FACE}"/>
+ <path d="M27.5 35 q3.5 3.4 7 0" ${Sf}/>`
+};
+
+function pastaSVG(id, size, cls){
+  return '<svg class="'+(cls||'')+'" viewBox="0 0 64 64" width="'+size+'" height="'+size+'" role="img" aria-label="'+(PASTE_BY_ID[id]?PASTE_BY_ID[id].nome:id)+'">'+SHAPES[id]+'</svg>';
+}
+
+/* ---------- la dispensa: 12 stati d'animo ---------- */
+const PASTE = [
+ {id:'fusillo',    nome:'Fusillo',              umore:'Ingarbugliato', emoji:'🌀', colore:'#8F7BC8', desc:'Mille pensieri che girano: oggi la testa fa i tornanti.'},
+ {id:'farfalla',   nome:'Farfalla',             umore:'Leggero',       emoji:'🦋', colore:'#66BEE4', desc:'Leggerezza assoluta: oggi si svolazza di qua e di là.'},
+ {id:'rigatone',   nome:'Rigatone',             umore:'Tosto',         emoji:'💪', colore:'#C3922E', desc:'Robusto e rigato: oggi reggo qualsiasi sugo mi arrivi.'},
+ {id:'penna',      nome:'Penna all’arrabbiata', umore:'Arrabbiato', emoji:'🌶️', colore:'#D9432F', desc:'Al dente sì, ma non provocarmi: oggi sono all’arrabbiata.'},
+ {id:'gnocco',     nome:'Gnocco',               umore:'Coccoloso',     emoji:'🫶', colore:'#F49BB0', desc:'Morbido morbido: oggi servono coccole. (E sì, sono anche un bel gnocco.)'},
+ {id:'scotto',     nome:'Spaghetto scotto',     umore:'Sfinito',       emoji:'🫠', colore:'#9A948A', desc:'La giornata mi ha lessato: scolatemi e mettetemi sul divano.'},
+ {id:'tortellino', nome:'Tortellino',           umore:'Innamorato',    emoji:'😍', colore:'#CC4E74', desc:'Pieno fino all’orlo: di ripieno e di sentimenti.'},
+ {id:'lasagna',    nome:'Lasagna',              umore:'A strati',      emoji:'🎭', colore:'#A9603A', desc:'In superficie tutto ok. Sotto, altri sette strati di roba.'},
+ {id:'conchiglia', nome:'Conchiglia',           umore:'In guscio',     emoji:'🐚', colore:'#4A7FA0', desc:'Modalità conchiglia: oggi non disturbare, per favore.'},
+ {id:'stellina',   nome:'Stellina',             umore:'Sognante',      emoji:'✨', colore:'#5057AE', desc:'Testa fra le stelle, piedi nel brodo.'},
+ {id:'linguine',   nome:'Linguine',             umore:'Chiacchierone', emoji:'💬', colore:'#55A05C', desc:'Oggi la lingua va da sola: chiamate, vocali, comizi al bar.'},
+ {id:'ruota',      nome:'Ruota',                umore:'Su di giri',    emoji:'⚡', colore:'#F07E2A', desc:'Carico a mille: oggi tutto fila a ruota.'}
+];
+const PASTE_BY_ID = Object.fromEntries(PASTE.map(p=>[p.id,p]));
+
+const CHEF = {
+ fusillo:'Parecchi giri di testa, ultimamente. Ricetta dello chef: acqua, sale grosso e una passeggiata lunga.',
+ farfalla:'Che leggerezza in cucina! Continua a svolazzare, ma ogni tanto posati su un buon piatto.',
+ rigatone:'Robustezza da vendere: sei la pasta che regge il sugo di tutti. Ricorda di farti condire anche tu.',
+ penna:'Periodo un filo piccante, eh? Respira: non tutto merita il peperoncino.',
+ gnocco:'Periodo morbidezza. Le coccole sono ingredienti, non extra: abbonda pure.',
+ scotto:'Troppi minuti in pentola. Lo chef prescrive fuoco basso, coperchio e un weekend vero.',
+ tortellino:'C’è più ripieno che pasta: qui qualcuno è innamorato. Buon appetito al cuore.',
+ lasagna:'Tanti strati, tutti buoni. Ma ricorda: a tavola si può sempre parlarne.',
+ conchiglia:'Un po’ di guscio va benissimo. Però il mare, fuori, è ancora lì che aspetta.',
+ stellina:'Testa fra le stelle: segnali i sogni sul quaderno, che poi in brodo maturano.',
+ linguine:'Gran chiacchiere, questo periodo. D’altronde le ricette migliori nascono a tavola.',
+ ruota:'Sei su di giri come una ruota in discesa: goditela, ma ogni tanto frena in curva.'
+};
+
+const NOTE_DEMO = [
+ 'Giornata lunga ma ce l’ho fatta.','Caffè della moka venuto perfetto.','Riunione infinita, sopravvissuto.',
+ 'Telefonata con la nonna ♥','Ho vinto a briscola.','Pioggia tutto il giorno, uffa.',
+ 'Pranzo della domenica, dieci e lode.','Ho iniziato un libro nuovo.','Traffico assurdo stamattina.',
+ 'Serata pizza con gli amici!','Sonno arretrato da smaltire.','Piccola vittoria al lavoro ✌','Gelato al pistacchio, sempre la risposta.'
+];
+
+/* ---------- stato ---------- */
+const STORE_KEY = 'chepasta.v1';
+let mem = null; // fallback se localStorage non è disponibile
+function load(){
+  try{ const raw = localStorage.getItem(STORE_KEY); return raw ? JSON.parse(raw) : {entries:{}}; }
+  catch(e){ return mem || {entries:{}}; }
+}
+function save(data){
+  mem = data;
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(data)); }catch(e){}
+}
+let db = load();
+if(!db || typeof db!=='object' || !db.entries) db = {entries:{}};
+
+const pad = n => String(n).padStart(2,'0');
+function keyOf(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+function todayKey(){ return keyOf(new Date()); }
+function parseKey(k){ const [y,m,d]=k.split('-').map(Number); return new Date(y,m-1,d); }
+
+const fmtLong = new Intl.DateTimeFormat('it-IT',{weekday:'long', day:'numeric', month:'long'});
+const fmtMonth = new Intl.DateTimeFormat('it-IT',{month:'long', year:'numeric'});
+const esc = s => String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+let activeTab = 'oggi';
+let calCursor = (()=>{ const t=new Date(); return new Date(t.getFullYear(), t.getMonth(), 1); })();
+let statScope = 'mese'; // 'mese' | 'sempre'
+
+/* ---------- util ---------- */
+const $ = sel => document.querySelector(sel);
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._h); toast._h = setTimeout(()=>t.classList.remove('show'), 2100);
+}
+function tint(hex, pct){ return 'color-mix(in oklab, var(--surface), '+hex+' '+pct+'%)'; }
+
+function streakDays(){
+  let n = 0; const d = new Date();
+  if(!db.entries[keyOf(d)]) d.setDate(d.getDate()-1); // se oggi manca, parte da ieri
+  while(db.entries[keyOf(d)]){ n++; d.setDate(d.getDate()-1); }
+  return n;
+}
+function refreshStreak(){
+  const n = streakDays(); const pill = $('#streak-pill');
+  if(n>0){ pill.hidden = false; $('#streak-n').textContent = n; pill.title = n+' giorni di fila'; }
+  else pill.hidden = true;
+}
+
+/* ---------- pioggia di pasta ---------- */
+function pastaRain(id){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const root = $('#rain-root');
+  for(let i=0;i<22;i++){
+    const el = document.createElement('span');
+    el.className = 'drop';
+    const size = 22 + Math.random()*22;
+    el.innerHTML = Math.random()<0.82 ? pastaSVG(id, size) : '<span style="font-size:'+size+'px">✨</span>';
+    el.style.left = (Math.random()*96)+'vw';
+    el.style.animationDuration = (1.3 + Math.random()*1.2)+'s';
+    el.style.animationDelay = (Math.random()*0.5)+'s';
+    root.appendChild(el);
+    setTimeout(()=>el.remove(), 3200);
+  }
+}
+
+/* ---------- sheet (foglio dal basso) ---------- */
+function sheetOpen(html){
+  const root = $('#sheet-root');
+  root.innerHTML = '<div class="sheet-overlay"><div class="sheet" role="dialog" aria-modal="true">'+html+'</div></div>';
+  root.querySelector('.sheet-overlay').addEventListener('click', e=>{ if(e.target===e.currentTarget) sheetClose(); });
+  document.body.style.overflow = 'hidden';
+  return root.querySelector('.sheet');
+}
+function sheetClose(){ $('#sheet-root').innerHTML=''; document.body.style.overflow=''; }
+
+/* ---------- scelta pasta (per oggi o per un giorno del diario) ---------- */
+function openPicker(dateKey){
+  const isToday = dateKey === todayKey();
+  const label = isToday ? 'Che pasta sei oggi?' : 'Che pasta eri ' + fmtLong.format(parseKey(dateKey)) + '?';
+  const sheet = sheetOpen(
+    '<div class="grabber"></div>'+
+    '<h2 class="display big-q" style="text-align:center; font-size:24px; margin-bottom:14px">'+esc(label)+'</h2>'+
+    '<div class="pasta-grid">'+ PASTE.map(p=>(
+      '<button class="pasta-card" data-pick="'+p.id+'" style="border-color:'+tint(p.colore,55)+'">'+
+        pastaSVG(p.id, 52)+
+        '<span class="nome display">'+p.nome.split(' ')[0]+'</span>'+
+        '<span class="umore">'+p.umore+'</span>'+
+      '</button>')).join('') + '</div>'
+  );
+  sheet.querySelectorAll('[data-pick]').forEach(btn=>{
+    btn.addEventListener('click', ()=> openDetail(btn.dataset.pick, dateKey));
+  });
+}
+
+function openDetail(pid, dateKey){
+  const p = PASTE_BY_ID[pid];
+  const existing = db.entries[dateKey];
+  const isToday = dateKey === todayKey();
+  const sheet = sheetOpen(
+    '<div class="grabber"></div>'+
+    '<div class="hero-pasta">'+ pastaSVG(pid, 116) +
+      '<div class="nome display">'+esc(p.nome)+'</div>'+
+      '<span class="box-window umore-tag" style="background:'+tint(p.colore,32)+'; box-shadow:none; padding:3px 10px; display:inline-block">'+p.umore+'</span>'+
+    '</div>'+
+    '<p class="desc">'+esc(p.desc)+'</p>'+
+    '<label class="note-label" for="nota">Il sugo del giorno <span style="opacity:.6">(opzionale)</span></label>'+
+    '<textarea id="nota" class="note" maxlength="140" placeholder="Due righe su com’è andata…"></textarea>'+
+    '<div class="sheet-actions">'+
+      '<button class="btn btn-ghost" data-back>Indietro</button>'+
+      '<button class="btn btn-primary" data-save>Impiatta 🍽️</button>'+
+    '</div>'
+  );
+  const ta = sheet.querySelector('#nota');
+  if(existing && existing.nota) ta.value = existing.nota;
+  sheet.querySelector('[data-back]').addEventListener('click', ()=> openPicker(dateKey));
+  sheet.querySelector('[data-save]').addEventListener('click', ()=>{
+    db.entries[dateKey] = { pasta: pid, nota: ta.value.trim() };
+    save(db); sheetClose();
+    toast(isToday ? 'Impiattato! Oggi sei ' + p.nome + ' ' + p.emoji : 'Segnato sul diario ' + p.emoji);
+    pastaRain(pid);
+    renderAll();
+  });
+}
+
+/* ---------- condividi ---------- */
+function sharePasta(entry){
+  const p = PASTE_BY_ID[entry.pasta];
+  const text = 'Oggi sono ' + p.nome + ' ' + p.emoji + ' — ' + p.umore.toLowerCase() + '. E tu, che pasta sei? 🍝';
+  if(navigator.share){ navigator.share({text}).catch(()=>{}); }
+  else if(navigator.clipboard){ navigator.clipboard.writeText(text).then(()=>toast('Copiato! Incollalo dove vuoi 🍝')).catch(()=>toast(text)); }
+  else toast(text);
+}
+
+/* ---------- vista: OGGI ---------- */
+function renderOggi(){
+  const v = $('#view-oggi');
+  const tk = todayKey();
+  const entry = db.entries[tk];
+  const dateLine = '<p class="today-date">'+fmtLong.format(new Date())+'</p>';
+  if(!entry){
+    v.innerHTML = dateLine +
+      '<h1 class="display big-q">Che pasta sei oggi?</h1>'+
+      '<p class="sub">Scegli dalla dispensa qui sotto. Vale l’istinto.</p>'+
+      '<div class="pasta-grid">'+ PASTE.map(p=>(
+        '<button class="pasta-card" data-pick="'+p.id+'">'+
+          pastaSVG(p.id, 54)+
+          '<span class="nome display">'+p.nome.split(' ')[0]+'</span>'+
+          '<span class="umore">'+p.umore+'</span>'+
+        '</button>')).join('') + '</div>';
+    v.querySelectorAll('[data-pick]').forEach(btn=>{
+      btn.addEventListener('click', ()=> openDetail(btn.dataset.pick, tk));
+    });
+  }else{
+    const p = PASTE_BY_ID[entry.pasta];
+    v.innerHTML = dateLine +
+      '<h1 class="display big-q">La tua scatola di oggi</h1>'+
+      '<p class="sub">Porzione singola, qualità garantita.</p>'+
+      '<div class="box">'+
+        '<div class="box-brand"><span class="mini-logo display">Che Pasta!</span><span class="peso">Peso netto: 1 giornata ℮</span></div>'+
+        '<div class="box-window">'+
+          '<div class="shine"></div>'+
+          pastaSVG(p.id, 130)+
+          '<div class="nome display">'+esc(p.nome)+'</div>'+
+          '<span class="umore-tag" style="background:'+tint(p.colore,32)+'">'+p.umore+'</span>'+
+          '<p class="desc">'+esc(p.desc)+'</p>'+
+          (entry.nota ? '<div class="box-note">'+esc(entry.nota)+'</div>' : '')+
+        '</div>'+
+        '<div class="box-fineprint"><span>Umore di semola trafilato al bronzo</span><span>Cottura: 24 ore</span></div>'+
+        '<div class="box-actions">'+
+          '<button class="btn btn-onblue" data-change>Cambia pasta</button>'+
+          '<button class="btn btn-primary" data-share>Condividi</button>'+
+        '</div>'+
+      '</div>'+
+      '<p class="tomorrow-hint">Domani una nuova porzione ti aspetta 🍝</p>';
+    v.querySelector('[data-change]').addEventListener('click', ()=> openPicker(tk));
+    v.querySelector('[data-share]').addEventListener('click', ()=> sharePasta(entry));
+  }
+}
+
+/* ---------- vista: DIARIO ---------- */
+function renderDiario(){
+  const v = $('#view-diario');
+  const y = calCursor.getFullYear(), m = calCursor.getMonth();
+  const today = new Date(); today.setHours(0,0,0,0);
+  const isCurrentMonth = (y===today.getFullYear() && m===today.getMonth());
+  const first = new Date(y,m,1);
+  const daysIn = new Date(y,m+1,0).getDate();
+  const offset = (first.getDay()+6)%7; // lunedì = 0
+
+  let cells = '';
+  for(let i=0;i<offset;i++) cells += '<div class="day empty-cell" aria-hidden="true"></div>';
+  for(let d=1; d<=daysIn; d++){
+    const dt = new Date(y,m,d); const k = keyOf(dt);
+    const entry = db.entries[k];
+    const isFuture = dt > today;
+    const isToday = k === todayKey();
+    const style = entry ? ' style="background:'+tint(PASTE_BY_ID[entry.pasta].colore,26)+'"' : '';
+    cells += '<button class="day'+(isToday?' today':'')+(isFuture?' future':'')+'" data-day="'+k+'"'+style+
+      (isFuture?' disabled':'')+' aria-label="'+d+' '+fmtMonth.format(calCursor)+(entry?', '+PASTE_BY_ID[entry.pasta].nome:'')+'">'+
+      '<span class="n">'+d+'</span>'+
+      (entry ? pastaSVG(entry.pasta, 24) : '')+
+      '</button>';
+  }
+
+  const monthEntries = Object.keys(db.entries).filter(k=>k.startsWith(y+'-'+pad(m+1)));
+  let recap = '';
+  if(monthEntries.length){
+    const counts = {};
+    monthEntries.forEach(k=>{ const id=db.entries[k].pasta; counts[id]=(counts[id]||0)+1; });
+    const top = Object.entries(counts).sort((a,b)=>b[1]-a[1])[0];
+    recap = '<div class="month-recap">'+pastaSVG(top[0],30)+'<span>Questo mese in cucina: <strong>'+monthEntries.length+
+      ' porzion'+(monthEntries.length===1?'e':'i')+'</strong>, soprattutto <strong>'+PASTE_BY_ID[top[0]].nome+'</strong>.</span></div>';
+  }
+
+  v.innerHTML =
+    '<div class="cal-head">'+
+      '<h1 class="display cal-title">'+fmtMonth.format(calCursor)+'</h1>'+
+      '<div class="cal-nav">'+
+        '<button data-nav="-1" aria-label="Mese precedente">‹</button>'+
+        '<button data-nav="1" aria-label="Mese successivo"'+(isCurrentMonth?' disabled':'')+'>›</button>'+
+      '</div>'+
+    '</div>'+
+    '<div class="dow">'+['lun','mar','mer','gio','ven','sab','dom'].map(d=>'<span>'+d+'</span>').join('')+'</div>'+
+    '<div class="cal-grid">'+cells+'</div>'+
+    '<p class="cal-hint">Tocca un giorno per aggiungere o cambiare la pasta.</p>'+
+    recap;
+
+  v.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click', ()=>{
+    calCursor = new Date(y, m + Number(b.dataset.nav), 1); renderDiario();
+  }));
+  v.querySelectorAll('[data-day]:not(.future)').forEach(b=>b.addEventListener('click', ()=>{
+    const k = b.dataset.day;
+    if(db.entries[k]) openDayDetail(k); else openPicker(k);
+  }));
+}
+
+function openDayDetail(k){
+  const entry = db.entries[k]; const p = PASTE_BY_ID[entry.pasta];
+  const sheet = sheetOpen(
+    '<div class="grabber"></div>'+
+    '<p class="today-date" style="text-align:center">'+fmtLong.format(parseKey(k))+'</p>'+
+    '<div class="hero-pasta">'+pastaSVG(p.id, 104)+
+      '<div class="nome display">'+esc(p.nome)+'</div>'+
+      '<span class="umore-tag" style="background:'+tint(p.colore,32)+'; font-size:11px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; padding:3px 10px; border-radius:999px; color:var(--ink-strong)">'+p.umore+'</span>'+
+    '</div>'+
+    (entry.nota ? '<div class="box-note" style="margin:10px 0 4px">'+esc(entry.nota)+'</div>' : '')+
+    '<div class="sheet-actions">'+
+      '<button class="btn btn-ghost" data-edit>Cambia</button>'+
+      '<button class="btn btn-primary" data-ok>Va bene così</button>'+
+    '</div>'+
+    '<div style="text-align:center; margin-top:10px"><button class="btn-danger-ghost" data-del>Togli dal diario</button></div>'
+  );
+  sheet.querySelector('[data-edit]').addEventListener('click', ()=> openPicker(k));
+  sheet.querySelector('[data-ok]').addEventListener('click', sheetClose);
+  sheet.querySelector('[data-del]').addEventListener('click', ()=>{
+    delete db.entries[k]; save(db); sheetClose(); toast('Tolto dal diario'); renderAll();
+  });
+}
+
+/* ---------- vista: MENÙ (statistiche) ---------- */
+function entriesInScope(){
+  const keys = Object.keys(db.entries);
+  if(statScope==='sempre') return keys;
+  const t = new Date(); const pre = t.getFullYear()+'-'+pad(t.getMonth()+1);
+  return keys.filter(k=>k.startsWith(pre));
+}
+
+function renderMenu(){
+  const v = $('#view-menu');
+  const keys = entriesInScope();
+  const total = keys.length;
+  const counts = {};
+  keys.forEach(k=>{ const id=db.entries[k].pasta; counts[id]=(counts[id]||0)+1; });
+  const ranked = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const top = ranked[0];
+  const streak = streakDays();
+
+  const seg =
+    '<div class="seg" role="tablist">'+
+      '<button role="tab" aria-selected="'+(statScope==='mese')+'" class="'+(statScope==='mese'?'active':'')+'" data-scope="mese">Questo mese</button>'+
+      '<button role="tab" aria-selected="'+(statScope==='sempre')+'" class="'+(statScope==='sempre'?'active':'')+'" data-scope="sempre">Da sempre</button>'+
+    '</div>';
+
+  let body;
+  if(total===0){
+    body = '<div class="empty-state"><div class="display">La cucina è fredda</div>'+
+      'Nessuna porzione '+(statScope==='mese'?'questo mese':'in dispensa')+'.<br>Vai su <strong>Oggi</strong> e butta la pasta!</div>';
+  }else{
+    const max = top[1];
+    body =
+      '<div class="tiles">'+
+        '<div class="tile"><span class="big display">'+total+'</span><span class="lbl">Porzioni<br>servite</span></div>'+
+        '<div class="tile"><span class="big display">'+streak+'</span><span class="lbl">Giorni<br>di fila</span></div>'+
+        '<div class="tile">'+pastaSVG(top[0],34)+'<span class="lbl" style="margin-top:2px">'+PASTE_BY_ID[top[0]].nome.split(' ')[0]+'<br>del periodo</span></div>'+
+      '</div>'+
+      '<h2 class="display section-t">La classifica del menù</h2>'+
+      '<div class="rank">'+ ranked.map(([id,n])=>{
+        const p = PASTE_BY_ID[id]; const w = Math.round(n/max*100);
+        return '<div class="rank-row">'+
+          '<span class="chip-ic" style="background:'+tint(p.colore,26)+'">'+pastaSVG(id,26)+'</span>'+
+          '<span class="meta"><span class="nm">'+esc(p.nome)+'</span><span class="track"><span class="fill" style="width:'+w+'%"></span></span></span>'+
+          '<span class="ct">'+n+'×</span>'+
+        '</div>'; }).join('') +
+      '</div>'+
+      '<div class="chef">'+
+        '<svg class="hat" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 13.2c-2.3 0-3.4-2.2-2.2-3.9-.9-2.3 1.4-4.3 3.5-3.5.9-2 4.5-2 5.4 0 2.1-.8 4.4 1.2 3.5 3.5 1.2 1.7.1 3.9-2.2 3.9"/><path d="M6.5 13v5.5c0 1 .8 1.8 1.8 1.8h6.4c1 0 1.8-.8 1.8-1.8V13"/><path d="M6.5 16.5h10"/></svg>'+
+        '<div><div class="t display">Il commento dello chef</div>'+
+        '<div class="b">'+CHEF[top[0]]+(streak>=5?' E con '+streak+' giorni di fila, il fuoco è ben acceso. 🔥':'')+'</div></div>'+
+      '</div>';
+  }
+
+  v.innerHTML = seg + body +
+    '<div class="tools">'+
+      '<button data-demo>🍳 Cucina un po’ di dati di prova</button>'+
+      '<button data-wipe>🗑️ Svuota la dispensa</button>'+
+      '<p class="privacy">I tuoi dati restano su questo dispositivo. Niente account, niente nuvola: solo pasta.</p>'+
+    '</div>';
+
+  v.querySelectorAll('[data-scope]').forEach(b=>b.addEventListener('click', ()=>{ statScope=b.dataset.scope; renderMenu(); }));
+  v.querySelector('[data-demo]').addEventListener('click', seedDemo);
+  v.querySelector('[data-wipe]').addEventListener('click', confirmWipe);
+}
+
+function seedDemo(){
+  const sheet = sheetOpen(
+    '<div class="grabber"></div>'+
+    '<h2 class="display" style="font-size:22px; text-align:center; color:var(--ink-strong)">Cucino dati di prova?</h2>'+
+    '<p class="desc" style="margin-top:6px">Riempio le ultime settimane con paste a caso, così vedi diario e menù in azione. Oggi resta libero: quello è tuo.</p>'+
+    '<div class="sheet-actions">'+
+      '<button class="btn btn-ghost" data-no>Annulla</button>'+
+      '<button class="btn btn-primary" data-yes>Sì, ai fornelli!</button>'+
+    '</div>'
+  );
+  sheet.querySelector('[data-no]').addEventListener('click', sheetClose);
+  sheet.querySelector('[data-yes]').addEventListener('click', ()=>{
+    const d = new Date();
+    for(let i=1;i<=42;i++){
+      d.setDate(d.getDate()-1);
+      const k = keyOf(d);
+      if(db.entries[k] || Math.random()<0.22) continue;
+      const p = PASTE[Math.floor(Math.random()*PASTE.length)];
+      db.entries[k] = { pasta:p.id, nota: Math.random()<0.35 ? NOTE_DEMO[Math.floor(Math.random()*NOTE_DEMO.length)] : '' };
+    }
+    save(db); sheetClose(); toast('Fatto! Sei settimane di pasta in dispensa 🍳'); renderAll();
+  });
+}
+
+function confirmWipe(){
+  const sheet = sheetOpen(
+    '<div class="grabber"></div>'+
+    '<h2 class="display" style="font-size:22px; text-align:center; color:var(--ink-strong)">Svuoto tutta la dispensa?</h2>'+
+    '<p class="desc" style="margin-top:6px">Via tutte le porzioni, note comprese. Non si torna indietro (nemmeno col ragù della nonna).</p>'+
+    '<div class="sheet-actions">'+
+      '<button class="btn btn-ghost" data-no>No, tienila</button>'+
+      '<button class="btn btn-primary" style="background:var(--red); color:#FFF6DC; box-shadow:0 4px 0 #9C2B1B" data-yes>Svuota tutto</button>'+
+    '</div>'
+  );
+  sheet.querySelector('[data-no]').addEventListener('click', sheetClose);
+  sheet.querySelector('[data-yes]').addEventListener('click', ()=>{
+    db = {entries:{}}; save(db); sheetClose(); toast('Dispensa vuota. Si ricomincia da zero 🧹'); renderAll();
+  });
+}
+
+/* ---------- navigazione ---------- */
+function switchTab(tab){
+  activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+  $('#view-oggi').hidden = tab!=='oggi';
+  $('#view-diario').hidden = tab!=='diario';
+  $('#view-menu').hidden = tab!=='menu';
+  window.scrollTo({top:0});
+}
+document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click', ()=>switchTab(b.dataset.tab)));
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') sheetClose(); });
+
+function renderAll(){ renderOggi(); renderDiario(); renderMenu(); refreshStreak(); }
+
+/* parametri comodi per demo e test: ?demo=1 precarica dati, ?tab=diario apre una tab */
+(function(){
+  try{
+    const q = new URLSearchParams(location.search);
+    if(q.get('demo')==='1' && Object.keys(db.entries).length===0){
+      const d = new Date();
+      for(let i=0;i<=42;i++){
+        if(i>0) d.setDate(d.getDate()-1); else continue;
+        const k = keyOf(d);
+        if(Math.random()<0.2) continue;
+        const p = PASTE[Math.floor(Math.random()*PASTE.length)];
+        db.entries[k] = { pasta:p.id, nota: Math.random()<0.35 ? NOTE_DEMO[Math.floor(Math.random()*NOTE_DEMO.length)] : '' };
+      }
+      save(db);
+    }
+    if(q.get('oggi')){ const p=q.get('oggi'); if(PASTE_BY_ID[p]){ db.entries[todayKey()]={pasta:p, nota:q.get('nota')||''}; save(db);} }
+    if(q.get('tab')) switchTab(q.get('tab'));
+  }catch(e){}
+})();
+
+renderAll();
+
+/* ---------- PWA ---------- */
+if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost')){
+  window.addEventListener('load', ()=>{ try{ navigator.serviceWorker.register('./sw.js'); }catch(e){} });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Che pasta sei oggi?</title>
+<meta name="description" content="Che Pasta! è il mood tracker più italiano che c'è: ogni giorno scegli la pasta che ti rappresenta.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#2A3AA0">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111834">
+<link rel="icon" href="../app/icons/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800;900&display=swap">
+<style>
+:root{
+  --bg:#F8EFD9; --surface:#FFFBF0; --surface-2:#F1E3C0; --line:#E2D1A6;
+  --ink:#2A338F; --ink-strong:#1D2670; --ink-soft:#6E7398;
+  --blue:#2A3AA0; --blue-deep:#20307F; --blue-panel:#26359A;
+  --on-blue:#FFF6DC; --on-blue-soft:#B9C1F0;
+  --yellow:#F6C445; --yellow-deep:#DFA51E; --red:#D9432F; --green:#4E9455;
+  --shadow:0 14px 40px rgba(41,50,140,.16);
+  --shadow-soft:0 5px 16px rgba(41,50,140,.10);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111834; --surface:#1B244C; --surface-2:#242F63; --line:#303B74;
+    --ink:#F1E7CC; --ink-strong:#FFF7DF; --ink-soft:#A9B0D6;
+    --blue:#1C2650; --blue-deep:#141C3E; --blue-panel:#202B5E;
+    --on-blue:#F6EDD2; --on-blue-soft:#9FA8DC;
+    --yellow:#F6C445; --yellow-deep:#F0B52F; --red:#EA6A50; --green:#79B97F;
+    --shadow:0 14px 40px rgba(0,0,0,.45);
+    --shadow-soft:0 5px 16px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111834; --surface:#1B244C; --surface-2:#242F63; --line:#303B74;
+  --ink:#F1E7CC; --ink-strong:#FFF7DF; --ink-soft:#A9B0D6;
+  --blue:#1C2650; --blue-deep:#141C3E; --blue-panel:#202B5E;
+  --on-blue:#F6EDD2; --on-blue-soft:#9FA8DC;
+  --yellow:#F6C445; --yellow-deep:#F0B52F; --red:#EA6A50; --green:#79B97F;
+  --shadow:0 14px 40px rgba(0,0,0,.45);
+  --shadow-soft:0 5px 16px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:'Nunito','Trebuchet MS',system-ui,sans-serif;
+  font-size:16.5px; line-height:1.6;
+}
+.display{font-family:'Lilita One','Arial Rounded MT Bold','Trebuchet MS',sans-serif; font-weight:400; letter-spacing:.01em}
+a{color:inherit}
+img,svg{max-width:100%}
+button{font:inherit; cursor:pointer}
+a:focus-visible, button:focus-visible, summary:focus-visible{outline:3px solid var(--yellow-deep); outline-offset:3px; border-radius:8px}
+.wrap{max-width:1120px; margin:0 auto; padding:0 22px}
+section{padding:72px 0}
+.eyebrow{font-size:12px; font-weight:900; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft)}
+h2.title{font-size:clamp(30px,4.5vw,42px); color:var(--ink-strong); line-height:1.1; text-wrap:balance; margin:8px 0 12px}
+.lead{font-weight:700; color:var(--ink-soft); max-width:58ch}
+
+/* reveal on scroll (attivo solo con JS: senza JS tutto resta visibile) */
+html.js .rv{opacity:0; transform:translateY(16px); transition:opacity .55s ease, transform .55s ease}
+html.js .rv.in{opacity:1; transform:none}
+@media (prefers-reduced-motion: reduce){
+  .rv{opacity:1; transform:none; transition:none}
+  *{animation:none !important; transition:none !important}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- topbar ---------- */
+.topbar{
+  position:sticky; top:0; z-index:40; background:var(--bg);
+  border-bottom:2px solid var(--line);
+}
+.topbar .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:12px; padding-bottom:12px}
+.wordmark{display:inline-block; background:var(--blue); color:var(--on-blue); padding:5px 14px 7px; border-radius:12px; transform:rotate(-2deg); font-size:21px; line-height:1; text-decoration:none; box-shadow:var(--shadow-soft)}
+.wordmark em{font-style:normal; color:var(--yellow)}
+.btn{
+  display:inline-flex; align-items:center; gap:9px; justify-content:center;
+  border-radius:16px; padding:13px 22px; font-weight:900; font-size:16px;
+  text-decoration:none; border:none; transition:transform .12s;
+}
+.btn:active{transform:scale(.96)}
+.btn-primary{background:var(--yellow); color:#1D2670; box-shadow:0 4px 0 var(--yellow-deep)}
+.btn-primary:hover{filter:brightness(1.04)}
+.btn-onblue{background:rgba(255,255,255,.13); color:var(--on-blue); border:2px solid rgba(255,255,255,.3)}
+.btn-sm{padding:9px 16px; font-size:14.5px; border-radius:12px}
+
+/* ---------- hero: la scatola ---------- */
+.hero{
+  background:var(--blue-panel); color:var(--on-blue); overflow:hidden; position:relative;
+  border-bottom:6px solid var(--blue-deep);
+}
+.hero .wrap{
+  display:grid; grid-template-columns:1.15fr .85fr; gap:40px; align-items:center;
+  padding-top:84px; padding-bottom:96px; position:relative;
+}
+.hero .eyebrow{color:var(--on-blue-soft)}
+.hero h1{
+  font-size:clamp(44px,7vw,84px); line-height:.98; margin:14px 0 18px; text-wrap:balance;
+  color:var(--on-blue);
+}
+.hero h1 .giallo{color:var(--yellow)}
+.hero .lead{color:var(--on-blue-soft); font-size:19px; max-width:44ch}
+.hero .cta-row{display:flex; gap:14px; margin-top:30px; flex-wrap:wrap}
+.hero .fineprint{
+  margin-top:44px; display:flex; align-items:flex-end; gap:26px; flex-wrap:wrap;
+  color:var(--on-blue-soft);
+}
+.stamp{
+  border:2px solid var(--on-blue-soft); border-radius:10px; padding:6px 12px;
+  font-size:11px; font-weight:900; letter-spacing:.14em; text-transform:uppercase;
+}
+.barcode{display:flex; flex-direction:column; gap:4px; align-items:center}
+.barcode .bars{
+  width:130px; height:38px; border-radius:3px;
+  background:repeating-linear-gradient(90deg, var(--on-blue) 0 2px, transparent 2px 5px, var(--on-blue) 5px 8px, transparent 8px 10px, var(--on-blue) 10px 11px, transparent 11px 15px);
+}
+.barcode span{font-size:10.5px; font-weight:800; letter-spacing:.28em}
+.float-pasta{position:absolute; opacity:.95; animation:float 5.2s ease-in-out infinite; filter:drop-shadow(0 8px 14px rgba(0,0,0,.22)); pointer-events:none; z-index:0}
+.hero .wrap{position:relative; z-index:1}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--r,0deg))} 50%{transform:translateY(-14px) rotate(var(--r,0deg))}}
+
+/* phone mockup */
+.phone{
+  width:min(320px,86vw); margin:0 auto; background:var(--bg); border-radius:44px;
+  border:10px solid #10163A; box-shadow:0 30px 60px rgba(0,0,0,.35);
+  overflow:hidden; position:relative; transform:rotate(2deg);
+}
+.phone .notch{height:26px; display:flex; align-items:center; justify-content:center}
+.phone .notch i{width:86px; height:17px; background:#10163A; border-radius:99px; display:block}
+.phone .screen{padding:8px 14px 0; color:var(--ink)}
+.phone .p-date{font-size:10.5px; font-weight:800; color:var(--ink-soft); text-transform:capitalize}
+.phone .p-title{font-size:21px; color:var(--ink-strong); line-height:1.1; margin:2px 0 8px}
+.phone .p-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:7px; padding-bottom:12px}
+.phone .p-card{
+  background:var(--surface); border:1.5px solid var(--line); border-radius:13px;
+  padding:8px 3px 7px; display:flex; flex-direction:column; align-items:center; gap:1px;
+}
+.phone .p-card .n{font-size:9.5px; color:var(--ink-strong)}
+.phone .p-card .u{font-size:7.5px; font-weight:800; color:var(--ink-soft)}
+.phone .p-tabbar{
+  display:flex; justify-content:space-around; align-items:center;
+  border-top:1.5px solid var(--line); background:var(--surface); padding:7px 8px 14px;
+}
+.phone .p-tab{font-size:9px; font-weight:800; color:var(--ink-soft); display:flex; flex-direction:column; align-items:center; gap:2px}
+.phone .p-tab.on{background:var(--blue); color:var(--on-blue); padding:4px 12px; border-radius:10px}
+
+/* ---------- idiom strip ---------- */
+.idiom{padding:56px 0; text-align:center}
+.idiom blockquote{
+  font-size:clamp(21px,3vw,28px); color:var(--ink-strong); max-width:34ch; margin:0 auto;
+  line-height:1.3; text-wrap:balance;
+}
+.idiom blockquote strong{color:var(--red)}
+.idiom .who{margin-top:12px; font-weight:800; color:var(--ink-soft); font-size:14px}
+
+/* ---------- passi ---------- */
+.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:34px}
+.step{
+  background:var(--surface); border:2px solid var(--line); border-radius:22px; padding:24px;
+  box-shadow:var(--shadow-soft);
+}
+.step .num{
+  display:inline-block; background:var(--blue); color:var(--on-blue);
+  font-size:13px; padding:3px 12px; border-radius:999px; margin-bottom:14px;
+}
+.step h3{font-size:21px; color:var(--ink-strong); margin-bottom:6px}
+.step p{font-weight:700; color:var(--ink-soft); font-size:15px}
+.step .art{margin-top:16px; display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+.step .art .mini-note{
+  flex:1; min-width:120px; background:var(--surface-2); border-radius:10px; padding:8px 12px;
+  font-size:12.5px; font-weight:700; color:var(--ink-soft); font-style:italic;
+}
+.step .art .mini-bar{flex:1; min-width:110px; display:flex; flex-direction:column; gap:5px}
+.step .art .mini-bar i{display:block; height:8px; border-radius:99px; background:var(--yellow-deep)}
+.step .art .mini-bar i:nth-child(2){width:70%} .step .art .mini-bar i:nth-child(3){width:45%}
+
+/* ---------- dispensa ---------- */
+.dispensa{background:var(--surface); border-top:2px solid var(--line); border-bottom:2px solid var(--line)}
+.shelf{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:16px; margin-top:36px}
+.pack{
+  background:var(--blue-panel); border-radius:18px; padding:12px; color:var(--on-blue);
+  box-shadow:var(--shadow-soft); border:2px solid var(--blue-deep);
+  transition:transform .16s ease;
+}
+.pack:hover{transform:translateY(-4px) rotate(-.5deg)}
+.pack .head{display:flex; justify-content:space-between; align-items:baseline; padding:2px 4px 8px}
+.pack .head .nm{font-size:16px}
+.pack .head .em{font-size:12px}
+.pack .win{
+  background:var(--bg); border-radius:12px; display:flex; align-items:center; justify-content:center;
+  padding:14px; box-shadow:inset 0 2px 8px rgba(0,0,0,.16); position:relative; overflow:hidden;
+}
+.pack .win::after{
+  content:''; position:absolute; top:-40%; left:-70%; width:45%; height:180%;
+  background:linear-gradient(105deg, transparent, rgba(255,255,255,.22), transparent); transform:rotate(9deg);
+}
+.pack .mood{padding:10px 4px 2px; font-weight:900; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--yellow)}
+.pack .desc{padding:0 4px 4px; font-weight:700; font-size:13.5px; color:var(--on-blue-soft)}
+
+/* ---------- diario & menù ---------- */
+.due{display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:center; margin-top:30px}
+.due + .due{margin-top:64px}
+.cal-mock{
+  background:var(--surface); border:2px solid var(--line); border-radius:20px; padding:16px;
+  box-shadow:var(--shadow); max-width:420px;
+}
+.cal-mock .m-head{font-size:18px; color:var(--ink-strong); margin-bottom:10px; text-transform:capitalize}
+.cal-mock .m-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:5px}
+.cal-mock .m-day{
+  aspect-ratio:1; border-radius:9px; background:var(--surface-2); border:1.5px solid var(--line);
+  display:flex; align-items:center; justify-content:center;
+}
+.menu-mock{
+  background:var(--surface); border:2px solid var(--line); border-radius:20px; padding:18px;
+  box-shadow:var(--shadow); max-width:420px; display:flex; flex-direction:column; gap:13px;
+}
+.menu-mock .r{display:grid; grid-template-columns:30px 1fr auto; gap:10px; align-items:center}
+.menu-mock .r .ic{width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center}
+.menu-mock .r .meta{display:flex; flex-direction:column; gap:3px}
+.menu-mock .r .nm{font-weight:900; font-size:12.5px; color:var(--ink-strong); line-height:1}
+.menu-mock .r .track{height:7px; border-radius:99px; background:var(--surface-2)}
+.menu-mock .r .track i{display:block; height:100%; border-radius:99px; background:var(--yellow-deep)}
+.menu-mock .r .ct{font-weight:900; font-size:12px; color:var(--ink-soft); font-variant-numeric:tabular-nums}
+.menu-mock .chef-line{
+  background:var(--blue-panel); color:var(--on-blue); border-radius:12px; padding:10px 14px;
+  font-weight:700; font-size:13px;
+}
+.menu-mock .chef-line b{color:var(--yellow); display:block; font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:2px}
+
+/* ---------- pastificio (quotes) ---------- */
+.quotes{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:34px}
+.quote{
+  background:var(--surface); border:2px solid var(--line); border-radius:20px; padding:22px;
+  box-shadow:var(--shadow-soft); position:relative;
+}
+.quote .mark{font-family:'Lilita One',sans-serif; font-size:44px; color:var(--yellow-deep); line-height:.6; display:block; margin-bottom:10px}
+.quote p{font-weight:700; color:var(--ink); font-size:16px}
+.quote .who{margin-top:14px; font-weight:800; font-size:13px; color:var(--ink-soft); display:flex; align-items:center; gap:8px}
+
+/* ---------- faq ---------- */
+.faq{max-width:720px; margin:34px auto 0; display:flex; flex-direction:column; gap:12px}
+.faq details{
+  background:var(--surface); border:2px solid var(--line); border-radius:16px; padding:0 20px;
+}
+.faq summary{
+  cursor:pointer; list-style:none; padding:16px 0; font-weight:900; font-size:16.5px; color:var(--ink-strong);
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+'; font-family:'Lilita One',sans-serif; font-size:22px; color:var(--yellow-deep); transition:transform .18s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 16px; font-weight:700; color:var(--ink-soft)}
+
+/* ---------- finale ---------- */
+.finale{
+  background:var(--blue-panel); color:var(--on-blue); text-align:center;
+  border-top:6px solid var(--blue-deep);
+}
+.finale h2{font-size:clamp(38px,6vw,64px); color:var(--on-blue); line-height:1; text-wrap:balance}
+.finale h2 .giallo{color:var(--yellow)}
+.finale p{color:var(--on-blue-soft); font-weight:700; margin:14px auto 30px; max-width:46ch}
+.finale .micro{margin-top:36px; font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--on-blue-soft); display:flex; gap:24px; justify-content:center; flex-wrap:wrap}
+footer{padding:26px 0 34px; text-align:center; font-weight:700; font-size:13.5px; color:var(--ink-soft)}
+
+@media (max-width:900px){
+  section{padding:56px 0}
+  .float-pasta{display:none}
+  .hero .wrap{grid-template-columns:1fr; padding-top:56px; padding-bottom:64px}
+  .phone{transform:rotate(0); margin-top:8px}
+  .steps{grid-template-columns:1fr}
+  .due{grid-template-columns:1fr; gap:24px}
+  .due.flip .visual{order:-1}
+  .quotes{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="wordmark display" href="#top">Che <em>Pasta!</em></a>
+    <a class="btn btn-primary btn-sm" href="../app/" data-app-link>Apri l’app 🍝</a>
+  </div>
+</header>
+
+<div class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Pastificio digitale · porzione singola quotidiana</span>
+      <h1 class="display">Che pasta<br>sei <span class="giallo">oggi?</span></h1>
+      <p class="lead">In italiano si dice <strong>«essere di pasta buona»</strong>. Che Pasta! la prende alla lettera: ogni giorno scegli la pasta che ti rappresenta, e il tuo umore diventa un menù.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="../app/" data-app-link>Prova l’app 🍝</a>
+        <a class="btn btn-onblue" href="#dispensa">Scopri la dispensa</a>
+      </div>
+      <div class="fineprint">
+        <span class="stamp">Peso netto: 1 umore ℮</span>
+        <span class="stamp">Cottura: 24 ore</span>
+        <div class="barcode" aria-hidden="true"><div class="bars"></div><span>8 020026 001212</span></div>
+      </div>
+    </div>
+    <div class="phone" aria-label="Anteprima dell’app">
+      <div class="notch"><i></i></div>
+      <div class="screen">
+        <p class="p-date" id="mock-date">giovedì 20 agosto</p>
+        <p class="p-title display">Che pasta sei oggi?</p>
+        <div class="p-grid" id="mock-grid"></div>
+      </div>
+      <div class="p-tabbar">
+        <span class="p-tab on">◎ Oggi</span>
+        <span class="p-tab">▦ Diario</span>
+        <span class="p-tab">♨ Menù</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="idiom">
+  <div class="wrap rv">
+    <blockquote class="display">«Sei proprio una <strong>pasta d’uomo</strong>» si dice da sempre.<br>Noi abbiamo solo aggiunto il diario.</blockquote>
+    <p class="who">— Il pastificio, con affetto</p>
+  </div>
+</section>
+
+<section id="come">
+  <div class="wrap">
+    <div class="rv">
+      <span class="eyebrow">Come funziona</span>
+      <h2 class="title display">Tre passi, zero grumi</h2>
+      <p class="lead">Trenta secondi al giorno. Il resto lo fa la semola.</p>
+    </div>
+    <div class="steps">
+      <div class="step rv">
+        <span class="num display">Passo 1</span>
+        <h3 class="display">Scegli la tua pasta</h3>
+        <p>Dodici formati, dodici stati d’animo. Fusillo se la testa gira, Gnocco se servono coccole. Vale l’istinto.</p>
+        <div class="art" id="step1-art"></div>
+      </div>
+      <div class="step rv">
+        <span class="num display">Passo 2</span>
+        <h3 class="display">Aggiungi il sugo</h3>
+        <p>Due righe su com’è andata, se ti va. Il sugo del giorno resta tra te e la scatola.</p>
+        <div class="art"><span class="mini-note">“Riunione infinita, ma il caffè della moka ha salvato tutto.”</span></div>
+      </div>
+      <div class="step rv">
+        <span class="num display">Passo 3</span>
+        <h3 class="display">Guarda il menù</h3>
+        <p>Diario a calendario, classifica delle paste, giorni di fila e il commento dello chef. Il tuo mese, impiattato.</p>
+        <div class="art"><div class="mini-bar"><i></i><i></i><i></i></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dispensa" id="dispensa">
+  <div class="wrap">
+    <div class="rv">
+      <span class="eyebrow">La dispensa</span>
+      <h2 class="title display">Dodici formati di umore</h2>
+      <p class="lead">Trafilati al bronzo, essiccati lentamente, ciascuno con il suo caratterino.</p>
+    </div>
+    <div class="shelf" id="shelf"></div>
+  </div>
+</section>
+
+<section id="diario">
+  <div class="wrap">
+    <div class="rv">
+      <span class="eyebrow">Il diario</span>
+      <h2 class="title display">Il tuo mese diventa un menù</h2>
+    </div>
+    <div class="due">
+      <div class="rv">
+        <h3 class="display" style="font-size:24px; color:var(--ink-strong); margin-bottom:8px">Un calendario che profuma di ragù</h3>
+        <p class="lead">Ogni giorno una casellina, ogni casellina una pasta. A fine mese ti basta uno sguardo per capire com’è andata: settimane di farfalle, martedì all’arrabbiata, domeniche di gnocchi.</p>
+      </div>
+      <div class="visual rv"><div class="cal-mock" id="cal-mock"><p class="m-head display">agosto 2026</p><div class="m-grid" id="cal-mock-grid"></div></div></div>
+    </div>
+    <div class="due flip">
+      <div class="visual rv">
+        <div class="menu-mock" id="menu-mock">
+          <div class="chef-line"><b>Il commento dello chef</b>C’è più ripieno che pasta: qui qualcuno è innamorato.</div>
+        </div>
+      </div>
+      <div class="rv">
+        <h3 class="display" style="font-size:24px; color:var(--ink-strong); margin-bottom:8px">Statistiche al dente</h3>
+        <p class="lead">Porzioni servite, giorni di fila, la pasta del periodo e una classifica onesta. Chiude lo chef, con un commento che non ti aspetti (ma un po’ sì).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="rv">
+      <span class="eyebrow">Dicono di noi</span>
+      <h2 class="title display">Testimonianze dal pastificio</h2>
+      <p class="lead">Raccolte in pentola. Assolutamente non verificabili.</p>
+    </div>
+    <div class="quotes">
+      <div class="quote rv">
+        <span class="mark">“</span>
+        <p>Finalmente un’app che mi capisce quando sono scotto.</p>
+        <p class="who" data-q="scotto">Uno spaghetto, ore 23:47</p>
+      </div>
+      <div class="quote rv">
+        <span class="mark">“</span>
+        <p>Da quando la uso litigo solo il martedì. Progressi.</p>
+        <p class="who" data-q="penna">Una penna, ex arrabbiata</p>
+      </div>
+      <div class="quote rv">
+        <span class="mark">“</span>
+        <p>Cinque stelline. Ma sono di parte.</p>
+        <p class="who" data-q="stellina">Una stellina, di parte</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="rv">
+      <span class="eyebrow">Domande dal banco frigo</span>
+      <h2 class="title display">FAQ</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>È gratis?</summary>
+        <p>Sì, completamente. Niente abbonamenti, niente pubblicità, niente «sblocca il tortellino premium».</p>
+      </details>
+      <details>
+        <summary>Dove finiscono i miei dati?</summary>
+        <p>Da nessuna parte: restano sul tuo dispositivo. Niente account, niente cloud, niente server. Solo tu e la tua dispensa.</p>
+      </details>
+      <details>
+        <summary>Serve internet?</summary>
+        <p>Solo la prima volta. È una web app installabile (PWA): aggiungila alla schermata home e funziona anche offline, come una vera scorta di pasta.</p>
+      </details>
+      <details>
+        <summary>Posso cambiare pasta durante il giorno?</summary>
+        <p>Certo, fino a mezzanotte: nelle migliori cucine si può sempre ripiattare. Poi il piatto va in menù e si passa alla porzione successiva.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="finale">
+  <section>
+    <div class="wrap rv">
+      <span class="eyebrow" style="color:var(--on-blue-soft)">L’acqua bolle</span>
+      <h2 class="display">Butta la <span class="giallo">pasta.</span></h2>
+      <p>Trenta secondi al giorno per sapere che pasta sei. Il fusillo ti sta già aspettando (e sta già girando su sé stesso).</p>
+      <a class="btn btn-primary" href="../app/" data-app-link>Apri Che Pasta! 🍝</a>
+      <div class="micro">
+        <span>Umore di semola trafilato al bronzo</span>
+        <span>Senza conservanti né notifiche moleste</span>
+        <span>℮ 1 giornata a porzione</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">Fatto con semola e voler bene · Che Pasta! 2026 · Nessun fusillo è stato maltrattato</div>
+</footer>
+
+<script>
+'use strict';
+/* Stessa dispensa dell'app: disegni condivisi */
+const FILL='#F7CB55', DARK='#6B451F', SHADE='#DFA93C', FACE='#4A2C14', BLUSH='#F29B80';
+const S = 'stroke="'+DARK+'" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"';
+const Sf = 'stroke="'+FACE+'" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"';
+const Sg = 'stroke="'+SHADE+'" stroke-width="2.3" stroke-linecap="round" fill="none"';
+const SHAPES = {
+fusillo: `
+ <path d="M32 6 C41 6 43 15 43 24 L43 40 C43 49 41 58 32 58 C23 58 21 49 21 40 L21 24 C21 15 23 6 32 6 Z" fill="${FILL}" ${S}/>
+ <path d="M22.5 14.5 C29 17.5 35 11.5 41.5 14.5" ${Sg}/>
+ <path d="M21.7 33 C29 36 35 30 42.3 33" ${Sg}/>
+ <path d="M21.7 41.5 C29 44.5 35 38.5 42.3 41.5" ${Sg}/>
+ <path d="M22.5 50 C29 53 35 47 41.5 50" ${Sg}/>
+ <path d="M23.8 18.6 q2.1 -1.7 4.2 -0.6" ${Sf}/>
+ <path d="M40.2 18.6 q-2.1 -1.7 -4.2 -0.6" ${Sf}/>
+ <circle cx="26.6" cy="22.8" r="1.9" fill="${FACE}"/>
+ <circle cx="37.4" cy="22.8" r="1.9" fill="${FACE}"/>
+ <path d="M26.4 28.3 c1.9 2.1 3.7 -2.1 5.6 0 c1.9 2.1 3.7 -2.1 5.6 0" ${Sf}/>`,
+farfalla: `
+ <path d="M30 32 C24 24 16 18 11 14 C8.5 18 9 22 11 25 C9 26 8.5 30 10 32 C8.5 34 9 38 11 39 C9 42 8.5 46 11 50 C16 46 24 40 30 32 Z" fill="${FILL}" ${S}/>
+ <path d="M34 32 C40 24 48 18 53 14 C55.5 18 55 22 53 25 C55 26 55.5 30 54 32 C55.5 34 55 38 53 39 C55 42 55.5 46 53 50 C48 46 40 40 34 32 Z" fill="${FILL}" ${S}/>
+ <ellipse cx="32" cy="32" rx="6.8" ry="9" fill="${FILL}" ${S}/>
+ <path d="M29.3 38.5 q2.7 -2 5.4 0" ${Sg}/>
+ <path d="M28.7 30.6 q1.5 -1.9 3 0" ${Sf}/>
+ <path d="M32.3 30.6 q1.5 -1.9 3 0" ${Sf}/>
+ <path d="M30.1 34.4 q1.9 1.7 3.8 0" ${Sf}/>
+ <path d="M50 8 q0.6 2.6 3.4 3.4 q-2.8 0.8 -3.4 3.4 q-0.6 -2.6 -3.4 -3.4 q2.8 -0.8 3.4 -3.4 z" fill="${SHADE}"/>`,
+rigatone: `
+ <path d="M20 16 L20 47 C20 52 25 55.5 32 55.5 C39 55.5 44 52 44 47 L44 16" fill="${FILL}" ${S}/>
+ <path d="M23.5 23 V48.5 M27.2 24.5 V51.5 M36.8 24.5 V51.5 M40.5 23 V48.5" ${Sg}/>
+ <ellipse cx="32" cy="16" rx="12" ry="5.4" fill="#F9DC82" ${S}/>
+ <ellipse cx="32" cy="16" rx="6.6" ry="2.7" fill="#8A5A2B" stroke="${DARK}" stroke-width="1.6"/>
+ <path d="M26.4 30.6 l4 -0.9 M37.6 29.7 l-4 0.9" stroke="${FACE}" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+ <circle cx="28.6" cy="35" r="1.8" fill="${FACE}"/>
+ <circle cx="35.4" cy="35" r="1.8" fill="${FACE}"/>
+ <path d="M28.4 40.5 q3.6 3.2 7.2 0.6" ${Sf}/>`,
+penna: `
+ <path d="M14 26 L36 9 L50 38 L28 55 Z" fill="#E25640" stroke="#7E2417" stroke-width="2.6" stroke-linejoin="round"/>
+ <path d="M14 26 L36 9 L38.6 14.4 L16.6 31.4 Z" fill="#B23425" stroke="none"/>
+ <path d="M19.5 21.75 L33.5 50.75 M30.5 13.25 L44.5 42.25" stroke="#B93A28" stroke-width="2.3" stroke-linecap="round"/>
+ <path d="M40 3.5 q1.8 2.4 0 4.8 M46.5 6.5 q1.8 2.4 0 4.8" stroke="#7E2417" stroke-width="2" stroke-linecap="round" fill="none" opacity=".8"/>
+ <path d="M25.5 26 l5.5 2.4 M39 26 l-5.5 2.4" stroke="#3E0F06" stroke-width="2.6" stroke-linecap="round"/>
+ <circle cx="28.6" cy="33" r="1.8" fill="#3E0F06"/>
+ <circle cx="35.4" cy="33" r="1.8" fill="#3E0F06"/>
+ <path d="M28.6 40 q3.4 -2.8 6.8 0" stroke="#3E0F06" stroke-width="2.2" stroke-linecap="round" fill="none"/>`,
+gnocco: `
+ <path d="M32 21 C44 21 50 28.5 50 36.5 C50 45.5 42 51 32 51 C22 51 14 45.5 14 36.5 C14 28.5 20 21 32 21 Z" fill="${FILL}" ${S}/>
+ <path d="M21 29.5 q11 -5.5 22 0" ${Sg}/>
+ <path d="M18.5 34 q13.5 -6 27 0" ${Sg}/>
+ <path d="M24.8 40.5 q1.8 2 3.6 0" ${Sf}/>
+ <path d="M35.6 40.5 q1.8 2 3.6 0" ${Sf}/>
+ <path d="M30.2 44.8 q1.8 1.7 3.6 0" ${Sf}/>
+ <circle cx="21" cy="44" r="2.7" fill="${BLUSH}" opacity=".8"/>
+ <circle cx="43" cy="44" r="2.7" fill="${BLUSH}" opacity=".8"/>
+ <path d="M52.5 15 c-1.1 -1.4 -3.3 -0.8 -3.3 1 c0 1.5 1.9 2.7 3.3 3.7 c1.4 -1 3.3 -2.2 3.3 -3.7 c0 -1.8 -2.2 -2.4 -3.3 -1 z" fill="#E86A8A"/>`,
+scotto: `
+ <path d="M24.5 7 q1.7 2.3 0 4.6 M32 5.5 q1.7 2.3 0 4.6 M39.5 7 q1.7 2.3 0 4.6" stroke="${DARK}" stroke-width="2" stroke-linecap="round" fill="none" opacity=".55"/>
+ <path d="M18 14 C15 25 17.5 34 14 47 M27 12 C25 27 28.5 38 24 53 M37 12 C39 27 35.5 38 40 53 M46 14 C49 25 46.5 34 50 47" stroke="${DARK}" stroke-width="5.6" stroke-linecap="round" fill="none"/>
+ <path d="M18 14 C15 25 17.5 34 14 47 M27 12 C25 27 28.5 38 24 53 M37 12 C39 27 35.5 38 40 53 M46 14 C49 25 46.5 34 50 47" stroke="${FILL}" stroke-width="3" stroke-linecap="round" fill="none"/>
+ <ellipse cx="32" cy="30" rx="10.5" ry="8.8" fill="${FILL}" ${S}/>
+ <path d="M25.8 27.4 l4.4 1.2" ${Sf}/>
+ <path d="M38.2 28.6 l-4.4 -1.2" ${Sf}/>
+ <path d="M29.2 33.8 c1.6 1.5 3.2 -1.5 4.8 0" ${Sf}/>
+ <path d="M44.5 20 q3.2 4.2 0 6.4 q-3.2 -2.2 0 -6.4 z" fill="#8FBFDF"/>`,
+tortellino: `
+ <path d="M32 14 C46 14 53 24.5 52 33 C51 41 45 47.5 37 47.5 L27 47.5 C19 47.5 13 41 12 33 C11 24.5 18 14 32 14 Z" fill="${FILL}" ${S}/>
+ <path d="M12.5 31 L5.5 34.5 L11.5 38.5" fill="${FILL}" ${S}/>
+ <path d="M51.5 31 L58.5 34.5 L52.5 38.5" fill="${FILL}" ${S}/>
+ <path d="M16 26 Q32 17.5 48 26" ${Sg}/>
+ <path d="M24.5 27.2 c-1.7 -2.3 -5.2 -1.4 -5.2 1.5 c0 2.4 3 4.4 5.2 5.9 c2.2 -1.5 5.2 -3.5 5.2 -5.9 c0 -2.9 -3.5 -3.8 -5.2 -1.5 z" fill="#E8506E"/>
+ <path d="M39.5 27.2 c-1.7 -2.3 -5.2 -1.4 -5.2 1.5 c0 2.4 3 4.4 5.2 5.9 c2.2 -1.5 5.2 -3.5 5.2 -5.9 c0 -2.9 -3.5 -3.8 -5.2 -1.5 z" fill="#E8506E"/>
+ <path d="M28.8 37.4 a3.2 3.2 0 0 0 6.4 0 z" fill="${FACE}"/>
+ <path d="M55 10 c-0.9 -1.2 -2.8 -0.7 -2.8 0.9 c0 1.3 1.6 2.3 2.8 3.1 c1.2 -0.8 2.8 -1.8 2.8 -3.1 c0 -1.6 -1.9 -2.1 -2.8 -0.9 z" fill="#E86A8A"/>`,
+lasagna: `
+ <path d="M12 22 h40 v3.5 q-3.3 2.8 -6.6 0 q-3.4 2.8 -6.7 0 q-3.3 2.8 -6.6 0 q-3.4 2.8 -6.7 0 q-3.3 2.8 -6.6 0 q-3.4 2.8 -6.8 0 z" fill="#D9432F" stroke="#9C2B1B" stroke-width="1.8" stroke-linejoin="round"/>
+ <path d="M12 36 h40 v3.5 q-3.3 2.8 -6.6 0 q-3.4 2.8 -6.7 0 q-3.3 2.8 -6.6 0 q-3.4 2.8 -6.7 0 q-3.3 2.8 -6.6 0 q-3.4 2.8 -6.8 0 z" fill="#D9432F" stroke="#9C2B1B" stroke-width="1.8" stroke-linejoin="round"/>
+ <rect x="10" y="13" width="44" height="10" rx="5" fill="${FILL}" ${S}/>
+ <rect x="10" y="27" width="44" height="10" rx="5" fill="${FILL}" ${S}/>
+ <rect x="10" y="41" width="44" height="10" rx="5" fill="${FILL}" ${S}/>
+ <path d="M25.4 17.2 q1.8 1.5 3.6 0" ${Sf}/>
+ <path d="M35 17.2 q1.8 1.5 3.6 0" ${Sf}/>
+ <path d="M30.4 19.8 q1.6 1.2 3.2 0" ${Sf}/>`,
+conchiglia: `
+ <ellipse cx="32" cy="47" rx="16.5" ry="6" fill="#3D2410" stroke="${DARK}" stroke-width="2.4"/>
+ <circle cx="26" cy="47" r="2.6" fill="#FFF6DC"/>
+ <circle cx="26.6" cy="47.2" r="1.1" fill="#26150A"/>
+ <circle cx="38" cy="47" r="2.6" fill="#FFF6DC"/>
+ <circle cx="38.6" cy="47.2" r="1.1" fill="#26150A"/>
+ <path d="M32 9.5 C45 9.5 53.5 21 53.5 32.5 C53.5 38.5 50 43 44.5 44.5 L19.5 44.5 C14 43 10.5 38.5 10.5 32.5 C10.5 21 19 9.5 32 9.5 Z" fill="${FILL}" ${S}/>
+ <path d="M32 44 C28.5 34 23.5 25 17.5 18.5 M32 44 C31 32.5 29.5 22 27.5 12.5 M32 44 C33 32.5 34.5 22 36.5 12.5 M32 44 C35.5 34 40.5 25 46.5 18.5" ${Sg}/>`,
+stellina: `
+ <path d="M32 11 L38.2 24.3 L52.5 26.4 L42 36.6 L44.6 51 L32 44 L19.4 51 L22 36.6 L11.5 26.4 L25.8 24.3 Z" fill="${FILL}" ${S} stroke-width="3"/>
+ <path d="M26 30.8 q1.9 -2.2 3.8 0" ${Sf}/>
+ <path d="M34.2 30.8 q1.9 -2.2 3.8 0" ${Sf}/>
+ <circle cx="32" cy="35.6" r="1.7" fill="${FACE}"/>
+ <circle cx="24" cy="34.6" r="2.2" fill="${BLUSH}" opacity=".8"/>
+ <circle cx="40" cy="34.6" r="2.2" fill="${BLUSH}" opacity=".8"/>
+ <path d="M53 8 q0.6 2.8 3.6 3.6 q-3 0.8 -3.6 3.6 q-0.6 -2.8 -3.6 -3.6 q3 -0.8 3.6 -3.6 z" fill="${SHADE}"/>
+ <path d="M10 50 q0.5 2.3 3 3 q-2.5 0.7 -3 3 q-0.5 -2.3 -3 -3 q2.5 -0.7 3 -3 z" fill="${SHADE}"/>`,
+linguine: `
+ <path d="M10 26 C22 17 42 17 54 26 M8 34 C24 23.5 44 25.5 56 33 M10 42 C24 31.5 42 33.5 54 41 M14 49.5 C26 40 40 42 52 48.5 M52 48.5 C55.5 52 54.5 56.5 50 58.5 M12 42 C8 45 7.5 50 10.5 53.5" stroke="${DARK}" stroke-width="5.4" stroke-linecap="round" fill="none"/>
+ <path d="M10 26 C22 17 42 17 54 26 M8 34 C24 23.5 44 25.5 56 33 M10 42 C24 31.5 42 33.5 54 41 M14 49.5 C26 40 40 42 52 48.5 M52 48.5 C55.5 52 54.5 56.5 50 58.5 M12 42 C8 45 7.5 50 10.5 53.5" stroke="${FILL}" stroke-width="2.9" stroke-linecap="round" fill="none"/>
+ <ellipse cx="30" cy="37" rx="9.5" ry="8" fill="${FILL}" ${S}/>
+ <circle cx="26.6" cy="35.2" r="1.7" fill="${FACE}"/>
+ <circle cx="33.4" cy="35.2" r="1.7" fill="${FACE}"/>
+ <path d="M26.8 39.5 a3.2 2.7 0 0 0 6.4 0 z" fill="${FACE}"/>
+ <rect x="41" y="9" width="17" height="12" rx="6" fill="#FFF6DC" stroke="${DARK}" stroke-width="2"/>
+ <path d="M45.5 20.5 L43.5 25 L49.5 21" fill="#FFF6DC" stroke="${DARK}" stroke-width="2" stroke-linejoin="round"/>
+ <circle cx="45.5" cy="15" r="1.3" fill="${FACE}"/>
+ <circle cx="49.5" cy="15" r="1.3" fill="${FACE}"/>
+ <circle cx="53.5" cy="15" r="1.3" fill="${FACE}"/>`,
+ruota: `
+ <path d="M53.5 24 q5 9.5 0.5 19.5" stroke="${DARK}" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".5"/>
+ <path d="M7 29 h5 M6 38 h6" stroke="${DARK}" stroke-width="2.2" stroke-linecap="round" opacity=".5"/>
+ <circle cx="31" cy="33" r="17.5" fill="${FILL}" ${S}/>
+ <circle cx="31" cy="33" r="12.6" fill="none" ${Sg}/>
+ <path d="M39 33 L43.6 33 M35 39.9 L37.3 43.9 M27 39.9 L24.7 43.9 M23 33 L18.4 33 M27 26.1 L24.7 22.1 M35 26.1 L37.3 22.1" ${Sg}/>
+ <circle cx="31" cy="33" r="8" fill="${FILL}" ${S} stroke-width="2.2"/>
+ <circle cx="28.3" cy="31.6" r="1.7" fill="${FACE}"/>
+ <circle cx="33.7" cy="31.6" r="1.7" fill="${FACE}"/>
+ <path d="M27.5 35 q3.5 3.4 7 0" ${Sf}/>`
+};
+const PASTE = [
+ {id:'fusillo',    nome:'Fusillo',              umore:'Ingarbugliato', colore:'#8F7BC8', desc:'Mille pensieri che girano: oggi la testa fa i tornanti.'},
+ {id:'farfalla',   nome:'Farfalla',             umore:'Leggero',       colore:'#66BEE4', desc:'Leggerezza assoluta: oggi si svolazza di qua e di là.'},
+ {id:'rigatone',   nome:'Rigatone',             umore:'Tosto',         colore:'#C3922E', desc:'Robusto e rigato: oggi reggo qualsiasi sugo mi arrivi.'},
+ {id:'penna',      nome:'Penna all’arrabbiata', umore:'Arrabbiato',    colore:'#D9432F', desc:'Al dente sì, ma non provocarmi: oggi sono all’arrabbiata.'},
+ {id:'gnocco',     nome:'Gnocco',               umore:'Coccoloso',     colore:'#F49BB0', desc:'Morbido morbido: oggi servono coccole. (E sì, sono anche un bel gnocco.)'},
+ {id:'scotto',     nome:'Spaghetto scotto',     umore:'Sfinito',       colore:'#9A948A', desc:'La giornata mi ha lessato: scolatemi e mettetemi sul divano.'},
+ {id:'tortellino', nome:'Tortellino',           umore:'Innamorato',    colore:'#CC4E74', desc:'Pieno fino all’orlo: di ripieno e di sentimenti.'},
+ {id:'lasagna',    nome:'Lasagna',              umore:'A strati',      colore:'#A9603A', desc:'In superficie tutto ok. Sotto, altri sette strati di roba.'},
+ {id:'conchiglia', nome:'Conchiglia',           umore:'In guscio',     colore:'#4A7FA0', desc:'Modalità conchiglia: oggi non disturbare, per favore.'},
+ {id:'stellina',   nome:'Stellina',             umore:'Sognante',      colore:'#5057AE', desc:'Testa fra le stelle, piedi nel brodo.'},
+ {id:'linguine',   nome:'Linguine',             umore:'Chiacchierone', colore:'#55A05C', desc:'Oggi la lingua va da sola: chiamate, vocali, comizi al bar.'},
+ {id:'ruota',      nome:'Ruota',                umore:'Su di giri',    colore:'#F07E2A', desc:'Carico a mille: oggi tutto fila a ruota.'}
+];
+function svg(id, size){ return '<svg viewBox="0 0 64 64" width="'+size+'" height="'+size+'" role="img" aria-label="'+id+'">'+SHAPES[id]+'</svg>'; }
+
+/* data del mockup */
+document.getElementById('mock-date').textContent =
+  new Intl.DateTimeFormat('it-IT',{weekday:'long', day:'numeric', month:'long'}).format(new Date());
+
+/* griglia del telefono */
+document.getElementById('mock-grid').innerHTML = PASTE.slice(0,9).map(p=>(
+  '<div class="p-card">'+svg(p.id,36)+'<span class="n display">'+p.nome.split(' ')[0]+'</span><span class="u">'+p.umore+'</span></div>'
+)).join('');
+
+/* scaffale della dispensa */
+document.getElementById('shelf').innerHTML = PASTE.map(p=>(
+  '<div class="pack rv"><div class="head"><span class="nm display">'+p.nome+'</span></div>'+
+  '<div class="win">'+svg(p.id,84)+'</div>'+
+  '<p class="mood">'+p.umore+'</p><p class="desc">'+p.desc+'</p></div>'
+)).join('');
+
+/* calendario finto */
+(function(){
+  const picks=['farfalla','','gnocco','fusillo','','penna','stellina','ruota','','farfalla','linguine','','tortellino','gnocco','scotto','','rigatone','conchiglia','','lasagna','fusillo','tortellino','','farfalla','stellina','gnocco','','ruota'];
+  document.getElementById('cal-mock-grid').innerHTML = picks.map(id=>(
+    '<div class="m-day"'+(id?' style="background:color-mix(in oklab, var(--surface), '+PASTE.find(p=>p.id===id).colore+' 26%)"':'')+'>'+(id?svg(id,18):'')+'</div>'
+  )).join('');
+})();
+
+/* classifica finta */
+(function(){
+  const rows=[['tortellino',8,100],['farfalla',6,75],['fusillo',5,62],['gnocco',3,38],['penna',2,25]];
+  const html = rows.map(([id,n,w])=>{
+    const p=PASTE.find(x=>x.id===id);
+    return '<div class="r"><span class="ic" style="background:color-mix(in oklab, var(--surface), '+p.colore+' 26%)">'+svg(id,22)+'</span>'+
+      '<span class="meta"><span class="nm">'+p.nome+'</span><span class="track"><i style="width:'+w+'%"></i></span></span>'+
+      '<span class="ct">'+n+'×</span></div>';
+  }).join('');
+  const mock = document.getElementById('menu-mock');
+  mock.insertAdjacentHTML('afterbegin', html);
+})();
+
+/* pastine che fluttuano nell'hero */
+(function(){
+  const hero = document.querySelector('.hero');
+  const spots = [
+    ['farfalla',  54, '40%', '56%', -8],
+    ['stellina',  48, '44%', '5%',  10],
+    ['tortellino',58, '90%', '20%', -6],
+    ['ruota',     50, '1.5%','5%',   7],
+    ['conchiglia',46, '89%', '76%', -10]
+  ];
+  spots.forEach(([id,size,left,top,rot],i)=>{
+    const el = document.createElement('div');
+    el.className = 'float-pasta';
+    el.style.left = left; el.style.top = top;
+    el.style.setProperty('--r', rot+'deg');
+    el.style.animationDelay = (i*0.7)+'s';
+    el.innerHTML = svg(id,size);
+    hero.appendChild(el);
+  });
+})();
+
+/* citazioni: icona accanto alla firma */
+document.querySelectorAll('[data-q]').forEach(el=>{
+  el.insertAdjacentHTML('afterbegin', svg(el.dataset.q, 26));
+});
+
+/* reveal on scroll */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('js');
+  const io = new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  }),{threshold:.12, rootMargin:'0px 0px -5% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+})();
+</script>
+</body>
+</html>
