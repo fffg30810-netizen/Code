@@ -1,0 +1,9 @@
+{
+ "route": "REG-FCO",
+ "date": "2026-10-11",
+ "source_url": "https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMTAtMTFqBRIDUkVHcgUSA0ZDT0IBAUgBmAEC&hl=it&curr=EUR",
+ "fetched_at": "2026-09-07T13:06:17.245764Z",
+ "http_status": 200,
+ "parse_error": "FlightsNotFound('no flights found; received error')",
+ "flights": []
+}

@@ -1,0 +1,462 @@
+[
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "CTA",
+   "destination": "FCO",
+   "beginDate": "2026-09-25",
+   "endDate": "2026-10-01",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_CTA_FCO_2026-09-25.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:11.448Z",
+  "days": 1,
+  "journeys": 3
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "CTA",
+   "destination": "FCO",
+   "beginDate": "2026-10-02",
+   "endDate": "2026-10-08",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_CTA_FCO_2026-10-02.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:13.269Z",
+  "days": 1,
+  "journeys": 3
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "CTA",
+   "destination": "FCO",
+   "beginDate": "2026-10-09",
+   "endDate": "2026-10-15",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_CTA_FCO_2026-10-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:14.734Z",
+  "days": 1,
+  "journeys": 3
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "CTA",
+   "destination": "FCO",
+   "beginDate": "2026-10-16",
+   "endDate": "2026-10-22",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_CTA_FCO_2026-10-16.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:16.205Z",
+  "days": 1,
+  "journeys": 3
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "CTA",
+   "destination": "FCO",
+   "beginDate": "2026-10-23",
+   "endDate": "2026-10-29",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_CTA_FCO_2026-10-23.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:17.658Z",
+  "days": 1,
+  "journeys": 3
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "CTA",
+   "destination": "FCO",
+   "beginDate": "2026-10-30",
+   "endDate": "2026-11-05",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_CTA_FCO_2026-10-30.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:19.263Z",
+  "days": 1,
+  "journeys": 4
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "CTA",
+   "destination": "FCO",
+   "beginDate": "2026-11-06",
+   "endDate": "2026-11-12",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_CTA_FCO_2026-11-06.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:20.744Z",
+  "days": 1,
+  "journeys": 4
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "CTA",
+   "destination": "FCO",
+   "beginDate": "2026-11-13",
+   "endDate": "2026-11-19",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_CTA_FCO_2026-11-13.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:22.211Z",
+  "days": 1,
+  "journeys": 4
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "CTA",
+   "destination": "FCO",
+   "beginDate": "2026-11-20",
+   "endDate": "2026-11-26",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_CTA_FCO_2026-11-20.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:23.673Z",
+  "days": 1,
+  "journeys": 4
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "CTA",
+   "destination": "FCO",
+   "beginDate": "2026-11-27",
+   "endDate": "2026-12-03",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_CTA_FCO_2026-11-27.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:25.263Z",
+  "days": 1,
+  "journeys": 4
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "FCO",
+   "destination": "CTA",
+   "beginDate": "2026-09-25",
+   "endDate": "2026-10-01",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_FCO_CTA_2026-09-25.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:26.733Z",
+  "days": 1,
+  "journeys": 3
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "FCO",
+   "destination": "CTA",
+   "beginDate": "2026-10-02",
+   "endDate": "2026-10-08",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_FCO_CTA_2026-10-02.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:28.189Z",
+  "days": 1,
+  "journeys": 3
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "FCO",
+   "destination": "CTA",
+   "beginDate": "2026-10-09",
+   "endDate": "2026-10-15",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_FCO_CTA_2026-10-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:29.656Z",
+  "days": 1,
+  "journeys": 3
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "FCO",
+   "destination": "CTA",
+   "beginDate": "2026-10-16",
+   "endDate": "2026-10-22",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_FCO_CTA_2026-10-16.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:31.243Z",
+  "days": 1,
+  "journeys": 3
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "FCO",
+   "destination": "CTA",
+   "beginDate": "2026-10-23",
+   "endDate": "2026-10-29",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_FCO_CTA_2026-10-23.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:32.709Z",
+  "days": 1,
+  "journeys": 3
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "FCO",
+   "destination": "CTA",
+   "beginDate": "2026-10-30",
+   "endDate": "2026-11-05",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_FCO_CTA_2026-10-30.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:34.179Z",
+  "days": 1,
+  "journeys": 4
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "FCO",
+   "destination": "CTA",
+   "beginDate": "2026-11-06",
+   "endDate": "2026-11-12",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_FCO_CTA_2026-11-06.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:35.638Z",
+  "days": 1,
+  "journeys": 4
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "FCO",
+   "destination": "CTA",
+   "beginDate": "2026-11-13",
+   "endDate": "2026-11-19",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_FCO_CTA_2026-11-13.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:37.229Z",
+  "days": 1,
+  "journeys": 4
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "FCO",
+   "destination": "CTA",
+   "beginDate": "2026-11-20",
+   "endDate": "2026-11-26",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_FCO_CTA_2026-11-20.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:38.716Z",
+  "days": 1,
+  "journeys": 4
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v4/availability/search/simple",
+  "post": {
+   "origin": "FCO",
+   "destination": "CTA",
+   "beginDate": "2026-11-27",
+   "endDate": "2026-12-03",
+   "passengers": {
+    "types": [
+     {
+      "type": "ADT",
+      "count": 1
+     }
+    ]
+   },
+   "currencyCode": "EUR"
+  },
+  "file": "data/flights/raw/aeroitalia_avail_FCO_CTA_2026-11-27.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:08:40.179Z",
+  "days": 1,
+  "journeys": 4
+ }
+]

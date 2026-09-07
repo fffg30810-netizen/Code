@@ -1,0 +1,899 @@
+{
+ "route": "FCO-REG",
+ "date": "2026-10-23",
+ "source_url": "https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMTAtMjNqBRIDRkNPcgUSA1JFR0IBAUgBmAEC&hl=it&curr=EUR",
+ "fetched_at": "2026-09-07T13:08:23.378572Z",
+ "http_status": 200,
+ "parse_error": null,
+ "flights": [
+  {
+   "type": "AZ",
+   "price": 252,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       22,
+       0
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       23,
+       20
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Airbus A320"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       12,
+       5
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       14,
+       0
+      ]
+     },
+     "duration": 115,
+     "plane_type": "Airbus A220-300 Passenger"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "to_airport": {
+      "name": "Aeroporto dello Stretto \"Tito Minniti\"",
+      "code": "REG"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       15,
+       5
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       16,
+       50
+      ]
+     },
+     "duration": 105,
+     "plane_type": "Airbus A319"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 278000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 252,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       22,
+       0
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       23,
+       20
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Airbus A320"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       9,
+       55
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       11,
+       50
+      ]
+     },
+     "duration": 115,
+     "plane_type": "Airbus A220-300 Passenger"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "to_airport": {
+      "name": "Aeroporto dello Stretto \"Tito Minniti\"",
+      "code": "REG"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       15,
+       5
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       16,
+       50
+      ]
+     },
+     "duration": 105,
+     "plane_type": "Airbus A319"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 278000
+   }
+  },
+  {
+   "type": "multi",
+   "price": 255,
+   "airlines": [
+    "LOT",
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Varsavia-Chopin",
+      "code": "WAW"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       19,
+       5
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       21,
+       25
+      ]
+     },
+     "duration": 140,
+     "plane_type": "Boeing 737MAX 8 Passenger"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Varsavia-Chopin",
+      "code": "WAW"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Milano Malpensa",
+      "code": "MXP"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       7,
+       35
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       9,
+       45
+      ]
+     },
+     "duration": 130,
+     "plane_type": "Embraer 175"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "to_airport": {
+      "name": "Aeroporto dello Stretto \"Tito Minniti\"",
+      "code": "REG"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       15,
+       5
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       16,
+       50
+      ]
+     },
+     "duration": 105,
+     "plane_type": "Airbus A319"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 373000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 260,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto Internazionale di Napoli",
+      "code": "NAP"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       21,
+       45
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       22,
+       45
+      ]
+     },
+     "duration": 60,
+     "plane_type": "Airbus A319"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto Internazionale di Napoli",
+      "code": "NAP"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       6,
+       20
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       7,
+       40
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Airbus A220-100 Passenger"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "to_airport": {
+      "name": "Aeroporto dello Stretto \"Tito Minniti\"",
+      "code": "REG"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       9,
+       40
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       11,
+       25
+      ]
+     },
+     "duration": 105,
+     "plane_type": "Airbus A319"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 244000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 264,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Palermo Falcone e Borsellino",
+      "code": "PMO"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       22,
+       0
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       23,
+       5
+      ]
+     },
+     "duration": 65,
+     "plane_type": "Airbus A320"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Palermo Falcone e Borsellino",
+      "code": "PMO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       6,
+       25
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       8,
+       0
+      ]
+     },
+     "duration": 95,
+     "plane_type": "Airbus A320"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "to_airport": {
+      "name": "Aeroporto dello Stretto \"Tito Minniti\"",
+      "code": "REG"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       9,
+       40
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       11,
+       25
+      ]
+     },
+     "duration": 105,
+     "plane_type": "Airbus A319"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 274000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 274,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       22,
+       0
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       23,
+       10
+      ]
+     },
+     "duration": 70,
+     "plane_type": "Airbus A319"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "to_airport": {
+      "name": "Aeroporto dello Stretto \"Tito Minniti\"",
+      "code": "REG"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       9,
+       40
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       24
+      ],
+      "time": [
+       11,
+       25
+      ]
+     },
+     "duration": 105,
+     "plane_type": "Airbus A319"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 176000
+   }
+  },
+  {
+   "type": "multi",
+   "price": 343,
+   "airlines": [
+    "Lufthansa",
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Francoforte sul Meno",
+      "code": "FRA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       10,
+       0
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       12,
+       0
+      ]
+     },
+     "duration": 120,
+     "plane_type": "Airbus A321neo"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Francoforte sul Meno",
+      "code": "FRA"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       13,
+       25
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       14,
+       40
+      ]
+     },
+     "duration": 75,
+     "plane_type": "Airbus A320"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "to_airport": {
+      "name": "Aeroporto dello Stretto \"Tito Minniti\"",
+      "code": "REG"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       15,
+       40
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       17,
+       25
+      ]
+     },
+     "duration": 105,
+     "plane_type": "Airbus A319"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 256000
+   }
+  },
+  {
+   "type": "multi",
+   "price": 512,
+   "airlines": [
+    "KLM",
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Amsterdam-Schiphol",
+      "code": "AMS"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       6,
+       30
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       8,
+       50
+      ]
+     },
+     "duration": 140,
+     "plane_type": "Airbus A321neo"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Amsterdam-Schiphol",
+      "code": "AMS"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       10,
+       20
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       12,
+       0
+      ]
+     },
+     "duration": 100,
+     "plane_type": "Airbus A321neo"
+    },
+    {
+     "from_airport": {
+      "name": "Aeroporto di Milano Linate",
+      "code": "LIN"
+     },
+     "to_airport": {
+      "name": "Aeroporto dello Stretto \"Tito Minniti\"",
+      "code": "REG"
+     },
+     "departure": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       15,
+       40
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       10,
+       23
+      ],
+      "time": [
+       17,
+       25
+      ]
+     },
+     "duration": 105,
+     "plane_type": "Airbus A319"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 266000
+   }
+  }
+ ]
+}

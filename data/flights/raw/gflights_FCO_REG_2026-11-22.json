@@ -1,0 +1,9 @@
+{
+ "route": "FCO-REG",
+ "date": "2026-11-22",
+ "source_url": "https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMTEtMjJqBRIDRkNPcgUSA1JFR0IBAUgBmAEC&hl=it&curr=EUR",
+ "fetched_at": "2026-09-07T13:09:09.597050Z",
+ "http_status": 200,
+ "parse_error": "TypeError(\"'NoneType' object is not subscriptable\")",
+ "flights": []
+}

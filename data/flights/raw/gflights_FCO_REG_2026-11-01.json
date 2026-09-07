@@ -1,0 +1,104 @@
+{
+ "route": "FCO-REG",
+ "date": "2026-11-01",
+ "source_url": "https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMTEtMDFqBRIDRkNPcgUSA1JFR0IBAUgBmAEC&hl=it&curr=EUR",
+ "fetched_at": "2026-09-07T13:08:37.441467Z",
+ "http_status": 200,
+ "parse_error": null,
+ "flights": [
+  {
+   "type": "AZ",
+   "price": 66,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto dello Stretto \"Tito Minniti\"",
+      "code": "REG"
+     },
+     "departure": {
+      "date": [
+       2026,
+       11,
+       1
+      ],
+      "time": [
+       13,
+       15
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       11,
+       1
+      ],
+      "time": [
+       14,
+       30
+      ]
+     },
+     "duration": 75,
+     "plane_type": "Airbus A319"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 71000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 66,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto dello Stretto \"Tito Minniti\"",
+      "code": "REG"
+     },
+     "departure": {
+      "date": [
+       2026,
+       11,
+       1
+      ],
+      "time": [
+       21,
+       35
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       11,
+       1
+      ],
+      "time": [
+       22,
+       45
+      ]
+     },
+     "duration": 70,
+     "plane_type": "Airbus A319"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 71000
+   }
+  }
+ ]
+}
