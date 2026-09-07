@@ -52,7 +52,9 @@ def main():
       "The Playwright fallback was impossible: the pre-installed Chromium cannot complete ANY TLS handshake through this sandbox's egress proxy (net::ERR_CONNECTION_RESET even for example.com; proxy log: 'tunnel closed after 6s; ClientHello sent, no reply'), tested with default flags, TLS1.2-only, post-quantum/ECH disabled and the headless-shell build. "
       "Only the Italo station list (no token needed) was saved: codes VSG = Villa San Giovanni, RCE = Reggio Calabria, RTB = Roma Tiburtina, RMT = Roma Termini, RM0 = Roma (Tutte).")
     A("* **Trainline cross-check: NOT DONE.** `POST https://www.thetrainline.com/api/journey-search/` answers HTTP 403 with a DataDome captcha challenge (geo.captcha-delivery.com). Location search works but is useless without journey search.")
-    A("* **Omio cross-check: NOT DONE.** `https://www.omio.it/` returns HTTP 403 to this environment.")
+    A("* **Omio cross-check: NOT DONE.** `https://www.omio.it/` answers HTTP 403 with a Cloudflare 'Just a moment...' JavaScript challenge, which cannot be solved without a browser.")
+    A("* **Trainline static timetable pages** (`https://www.thetrainline.com/it/orari-treni/villa-san-giovanni-a-roma`) are reachable but only carry one aggregate 'lowPrice' (in USD) in their structured data, not per-day prices, so they cannot cross-check individual dates.")
+    A("* Because no independent seller could be queried, the 5 cheapest combinations were instead RE-FETCHED from the same Trenitalia API at the end of the run (see 'Re-fetch consistency check' below). This is a same-source stability check, NOT an independent cross-check.")
     A("* **Itabus reference: NOT DONE.** `https://www.itabus.it/it/search` is a Salesforce Commerce single-page app; its search API could not be identified from the served bundles without executing them in a browser (see Chromium note above). FlixBus was collected instead (see below).")
     A("* **Trenitalia `bestFare:true` mode** returns a `minimumPrices` calendar with amount 0 for every day and no solutions, so it was not usable; all prices come from the normal solutions search, paged 10 at a time until the day was exhausted.")
     if errors:
@@ -127,6 +129,14 @@ def main():
         for d in sorted(set(r["date"] for r in fb)):
             rs = [r for r in fb if r["date"] == d]; b = min(rs, key=lambda r: float(r["price_eur"]))
             A(f"| {d} {dow(d)} | {b['price_eur']} | {b['dep_time']}-{b['arr_time']} ({b['arr_date']}) | {b['duration']} | {b['changes']} | {b['fetched_at'][:16]} |")
+        A("")
+    rc = os.path.join(OUT, "recheck_cheapest.csv")
+    if os.path.exists(rc):
+        A("## Re-fetch consistency check (same source, end of run)\n")
+        A("| Route | Date | Train | Price recorded | Price re-fetched | Offer re-fetched | Re-fetched at (UTC) |")
+        A("|---|---|---|---|---|---|---|")
+        for r in csv.DictReader(open(rc)):
+            A(f"| {r['route']} | {r['date']} | {r['train']} | {r['price_recorded_eur']} | {r['price_refetched_eur']} | {r['offer_refetched']} | {r['refetched_at'][:16]} |")
         A("")
     open(os.path.join(OUT, "README.md"), "w").write("\n".join(L) + "\n")
     print("README written", len(L), "lines")
