@@ -1,0 +1,310 @@
+[
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/REG/FCO/cheapestPerDay?outboundMonthOfDate=2026-09-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_REG_FCO_2026-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:22.836594Z",
+  "bytes": 3324
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/REG/FCO/cheapestPerDay?outboundMonthOfDate=2026-10-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_REG_FCO_2026-10.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:24.218010Z",
+  "bytes": 3433
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/REG/FCO/cheapestPerDay?outboundMonthOfDate=2026-11-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_REG_FCO_2026-11.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:25.805901Z",
+  "bytes": 3324
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/REG/FCO/cheapestPerDay?outboundMonthOfDate=2026-12-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_REG_FCO_2026-12.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:27.387650Z",
+  "bytes": 3433
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/FCO/REG/cheapestPerDay?outboundMonthOfDate=2026-09-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_FCO_REG_2026-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:28.962968Z",
+  "bytes": 3324
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/FCO/REG/cheapestPerDay?outboundMonthOfDate=2026-10-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_FCO_REG_2026-10.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:30.727558Z",
+  "bytes": 3433
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/FCO/REG/cheapestPerDay?outboundMonthOfDate=2026-11-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_FCO_REG_2026-11.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:32.258272Z",
+  "bytes": 3324
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/FCO/REG/cheapestPerDay?outboundMonthOfDate=2026-12-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_FCO_REG_2026-12.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:33.719790Z",
+  "bytes": 3433
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CTA/FCO/cheapestPerDay?outboundMonthOfDate=2026-09-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CTA_FCO_2026-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:35.254090Z",
+  "bytes": 7076
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CTA/FCO/cheapestPerDay?outboundMonthOfDate=2026-10-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CTA_FCO_2026-10.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:36.621887Z",
+  "bytes": 8129
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CTA/FCO/cheapestPerDay?outboundMonthOfDate=2026-11-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CTA_FCO_2026-11.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:38.105888Z",
+  "bytes": 7884
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CTA/FCO/cheapestPerDay?outboundMonthOfDate=2026-12-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CTA_FCO_2026-12.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:39.496192Z",
+  "bytes": 7993
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/FCO/CTA/cheapestPerDay?outboundMonthOfDate=2026-09-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_FCO_CTA_2026-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:40.874406Z",
+  "bytes": 7074
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/FCO/CTA/cheapestPerDay?outboundMonthOfDate=2026-10-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_FCO_CTA_2026-10.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:42.259993Z",
+  "bytes": 8129
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/FCO/CTA/cheapestPerDay?outboundMonthOfDate=2026-11-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_FCO_CTA_2026-11.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:43.841511Z",
+  "bytes": 7884
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/FCO/CTA/cheapestPerDay?outboundMonthOfDate=2026-12-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_FCO_CTA_2026-12.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:45.236160Z",
+  "bytes": 7993
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CTA/CIA/cheapestPerDay?outboundMonthOfDate=2026-09-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CTA_CIA_2026-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:46.597634Z",
+  "bytes": 3324
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CTA/CIA/cheapestPerDay?outboundMonthOfDate=2026-10-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CTA_CIA_2026-10.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:48.112595Z",
+  "bytes": 3433
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CTA/CIA/cheapestPerDay?outboundMonthOfDate=2026-11-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CTA_CIA_2026-11.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:49.400214Z",
+  "bytes": 3324
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CTA/CIA/cheapestPerDay?outboundMonthOfDate=2026-12-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CTA_CIA_2026-12.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:51.017187Z",
+  "bytes": 3433
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CIA/CTA/cheapestPerDay?outboundMonthOfDate=2026-09-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CIA_CTA_2026-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:52.455487Z",
+  "bytes": 3324
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CIA/CTA/cheapestPerDay?outboundMonthOfDate=2026-10-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CIA_CTA_2026-10.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:53.963922Z",
+  "bytes": 3433
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CIA/CTA/cheapestPerDay?outboundMonthOfDate=2026-11-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CIA_CTA_2026-11.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:55.377577Z",
+  "bytes": 3324
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CIA/CTA/cheapestPerDay?outboundMonthOfDate=2026-12-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CIA_CTA_2026-12.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:56.807969Z",
+  "bytes": 3433
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/REG/CIA/cheapestPerDay?outboundMonthOfDate=2026-09-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_REG_CIA_2026-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:58.048293Z",
+  "bytes": 3324
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/REG/CIA/cheapestPerDay?outboundMonthOfDate=2026-10-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_REG_CIA_2026-10.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:30:59.342142Z",
+  "bytes": 3433
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/REG/CIA/cheapestPerDay?outboundMonthOfDate=2026-11-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_REG_CIA_2026-11.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:31:00.764771Z",
+  "bytes": 3324
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/REG/CIA/cheapestPerDay?outboundMonthOfDate=2026-12-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_REG_CIA_2026-12.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:31:02.163879Z",
+  "bytes": 3433
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CIA/REG/cheapestPerDay?outboundMonthOfDate=2026-09-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CIA_REG_2026-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:31:03.629802Z",
+  "bytes": 3324
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CIA/REG/cheapestPerDay?outboundMonthOfDate=2026-10-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CIA_REG_2026-10.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:31:04.965809Z",
+  "bytes": 3433
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CIA/REG/cheapestPerDay?outboundMonthOfDate=2026-11-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CIA_REG_2026-11.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:31:06.338581Z",
+  "bytes": 3324
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/oneWayFares/CIA/REG/cheapestPerDay?outboundMonthOfDate=2026-12-01&currency=EUR",
+  "file": "data/flights/raw/ryanair_CIA_REG_2026-12.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:31:07.730433Z",
+  "bytes": 3433
+ },
+ {
+  "url": "https://www.ryanair.com/api/views/locate/searchWidget/routes/en/airport/REG",
+  "file": "data/flights/raw/ryanair_routes_REG.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:31:09.479885Z",
+  "bytes": 6442
+ },
+ {
+  "url": "https://www.ryanair.com/api/views/locate/searchWidget/routes/en/airport/CTA",
+  "file": "data/flights/raw/ryanair_routes_CTA.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:31:11.064331Z",
+  "bytes": 22146
+ },
+ {
+  "url": "https://www.ryanair.com/api/views/locate/searchWidget/routes/en/airport/FCO",
+  "file": "data/flights/raw/ryanair_routes_FCO.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:31:12.686996Z",
+  "bytes": 27619
+ },
+ {
+  "url": "https://www.ryanair.com/api/views/locate/searchWidget/routes/en/airport/CIA",
+  "file": "data/flights/raw/ryanair_routes_CIA.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:31:14.300340Z",
+  "bytes": 11887
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/roundTripFares?departureAirportIataCode=REG&arrivalAirportIataCode=FCO&outboundDepartureDateFrom=2026-09-25&outboundDepartureDateTo=2026-11-30&inboundDepartureDateFrom=2026-09-27&inboundDepartureDateTo=2026-12-03&durationFrom=2&durationTo=2&currency=EUR&market=it-it&adultPaxCount=1&limit=200",
+  "file": "data/flights/raw/ryanair_roundtrip_REG_FCO_dur2.json",
+  "status": 400,
+  "fetched_at": "2026-09-07T12:31:15.930902Z",
+  "bytes": 49
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/roundTripFares?departureAirportIataCode=REG&arrivalAirportIataCode=FCO&outboundDepartureDateFrom=2026-09-25&outboundDepartureDateTo=2026-11-30&inboundDepartureDateFrom=2026-09-27&inboundDepartureDateTo=2026-12-03&durationFrom=3&durationTo=3&currency=EUR&market=it-it&adultPaxCount=1&limit=200",
+  "file": "data/flights/raw/ryanair_roundtrip_REG_FCO_dur3.json",
+  "status": 400,
+  "fetched_at": "2026-09-07T12:31:17.449744Z",
+  "bytes": 49
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/roundTripFares?departureAirportIataCode=CTA&arrivalAirportIataCode=FCO&outboundDepartureDateFrom=2026-09-25&outboundDepartureDateTo=2026-11-30&inboundDepartureDateFrom=2026-09-27&inboundDepartureDateTo=2026-12-03&durationFrom=2&durationTo=2&currency=EUR&market=it-it&adultPaxCount=1&limit=200",
+  "file": "data/flights/raw/ryanair_roundtrip_CTA_FCO_dur2.json",
+  "status": 400,
+  "fetched_at": "2026-09-07T12:31:18.789551Z",
+  "bytes": 49
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/roundTripFares?departureAirportIataCode=CTA&arrivalAirportIataCode=FCO&outboundDepartureDateFrom=2026-09-25&outboundDepartureDateTo=2026-11-30&inboundDepartureDateFrom=2026-09-27&inboundDepartureDateTo=2026-12-03&durationFrom=3&durationTo=3&currency=EUR&market=it-it&adultPaxCount=1&limit=200",
+  "file": "data/flights/raw/ryanair_roundtrip_CTA_FCO_dur3.json",
+  "status": 400,
+  "fetched_at": "2026-09-07T12:31:20.110991Z",
+  "bytes": 49
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/roundTripFares?departureAirportIataCode=CTA&arrivalAirportIataCode=CIA&outboundDepartureDateFrom=2026-09-25&outboundDepartureDateTo=2026-11-30&inboundDepartureDateFrom=2026-09-27&inboundDepartureDateTo=2026-12-03&durationFrom=2&durationTo=2&currency=EUR&market=it-it&adultPaxCount=1&limit=200",
+  "file": "data/flights/raw/ryanair_roundtrip_CTA_CIA_dur2.json",
+  "status": 400,
+  "fetched_at": "2026-09-07T12:31:21.553300Z",
+  "bytes": 49
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/roundTripFares?departureAirportIataCode=CTA&arrivalAirportIataCode=CIA&outboundDepartureDateFrom=2026-09-25&outboundDepartureDateTo=2026-11-30&inboundDepartureDateFrom=2026-09-27&inboundDepartureDateTo=2026-12-03&durationFrom=3&durationTo=3&currency=EUR&market=it-it&adultPaxCount=1&limit=200",
+  "file": "data/flights/raw/ryanair_roundtrip_CTA_CIA_dur3.json",
+  "status": 400,
+  "fetched_at": "2026-09-07T12:31:22.901669Z",
+  "bytes": 49
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/roundTripFares?departureAirportIataCode=REG&arrivalAirportIataCode=CIA&outboundDepartureDateFrom=2026-09-25&outboundDepartureDateTo=2026-11-30&inboundDepartureDateFrom=2026-09-27&inboundDepartureDateTo=2026-12-03&durationFrom=2&durationTo=2&currency=EUR&market=it-it&adultPaxCount=1&limit=200",
+  "file": "data/flights/raw/ryanair_roundtrip_REG_CIA_dur2.json",
+  "status": 400,
+  "fetched_at": "2026-09-07T12:31:24.228466Z",
+  "bytes": 49
+ },
+ {
+  "url": "https://www.ryanair.com/api/farfnd/v4/roundTripFares?departureAirportIataCode=REG&arrivalAirportIataCode=CIA&outboundDepartureDateFrom=2026-09-25&outboundDepartureDateTo=2026-11-30&inboundDepartureDateFrom=2026-09-27&inboundDepartureDateTo=2026-12-03&durationFrom=3&durationTo=3&currency=EUR&market=it-it&adultPaxCount=1&limit=200",
+  "file": "data/flights/raw/ryanair_roundtrip_REG_CIA_dur3.json",
+  "status": 400,
+  "fetched_at": "2026-09-07T12:31:25.732502Z",
+  "bytes": 49
+ }
+]
