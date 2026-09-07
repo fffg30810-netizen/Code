@@ -1,1 +1,23 @@
 2026-09-07T12:42:04.884Z 2026-10-06 done in 29s: 4 queries, 26 candidates <=1.5km, cheapest 109.09 B&B SPQR
+2026-09-07T12:44:43.602Z 2026-09-25 done in 27s: 4 queries, 26 candidates <=1.5km, cheapest 114.76 Roma Tiberius Suite
+2026-09-07T12:45:08.983Z 2026-09-26 done in 25s: 4 queries, 28 candidates <=1.5km, cheapest 163.64 Testa Gioacchino B&B
+2026-09-07T12:45:36.723Z 2026-09-27 done in 28s: 4 queries, 26 candidates <=1.5km, cheapest 100 Gmm
+2026-09-07T12:46:04.027Z 2026-09-28 done in 27s: 4 queries, 26 candidates <=1.5km, cheapest 100 Gmm
+2026-09-07T12:46:29.980Z 2026-09-29 done in 26s: 4 queries, 26 candidates <=1.5km, cheapest 100 Gmm
+2026-09-07T12:46:33.767Z ERR 2026-09-30 q1_1km attempt 1: Cannot read properties of null (reading 'results')
+2026-09-07T12:47:06.640Z 2026-09-30 done in 37s: 4 queries, 27 candidates <=1.5km, cheapest 109.09 B&B SPQR
+2026-09-07T12:47:36.225Z 2026-10-01 done in 30s: 4 queries, 26 candidates <=1.5km, cheapest 109.09 B&B SPQR
+2026-09-07T12:48:02.645Z 2026-10-02 done in 26s: 4 queries, 25 candidates <=1.5km, cheapest 109.09 B&B SPQR
+2026-09-07T12:48:28.296Z 2026-10-03 done in 26s: 4 queries, 27 candidates <=1.5km, cheapest 125.45 Mikasa Piazza Bologna
+2026-09-07T12:48:58.951Z 2026-10-04 done in 31s: 4 queries, 27 candidates <=1.5km, cheapest 125.45 Mikasa Piazza Bologna
+2026-09-07T12:49:15.259Z ERR 2026-10-05 q3_3km_band1_73 attempt 1: Cannot read properties of null (reading 'results')
+2026-09-07T12:49:33.727Z 2026-10-05 done in 35s: 4 queries, 27 candidates <=1.5km, cheapest 109.09 B&B SPQR
+2026-09-07T12:49:59.785Z 2026-10-06 done in 26s: 4 queries, 26 candidates <=1.5km, cheapest 109.09 B&B SPQR
+2026-09-07T12:50:20.552Z 2026-10-07 done in 21s: 3 queries, 26 candidates <=1.5km, cheapest 109.09 B&B SPQR
+2026-09-07T12:50:49.889Z 2026-10-08 done in 29s: 4 queries, 27 candidates <=1.5km, cheapest 114.55 TIBURTINA INN GUEST HOUSE
+2026-09-07T12:51:10.500Z 2026-10-09 done in 21s: 3 queries, 26 candidates <=1.5km, cheapest 125.45 Mikasa Piazza Bologna
+2026-09-07T12:51:38.459Z 2026-10-10 done in 28s: 4 queries, 27 candidates <=1.5km, cheapest 125.45 Mikasa Piazza Bologna
+2026-09-07T12:52:06.362Z 2026-10-11 done in 28s: 4 queries, 27 candidates <=1.5km, cheapest 125.45 Mikasa Piazza Bologna
+2026-09-07T12:52:33.247Z 2026-10-12 done in 27s: 4 queries, 26 candidates <=1.5km, cheapest 125.45 Mikasa Piazza Bologna
+2026-09-07T12:53:00.765Z 2026-10-13 done in 28s: 4 queries, 26 candidates <=1.5km, cheapest 114.55 TIBURTINA INN GUEST HOUSE
+2026-09-07T12:53:26.987Z 2026-10-14 done in 26s: 4 queries, 27 candidates <=1.5km, cheapest 127.37 Domus Remo Room #2
