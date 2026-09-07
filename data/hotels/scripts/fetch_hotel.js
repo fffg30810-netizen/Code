@@ -14,7 +14,16 @@ const { sleep } = require('./booking_lib');
   await sleep(1500);
   const html = await page.content(); fs.writeFileSync(out, zlib.gzipSync(html));
   console.log('status', r.status(), 'title', JSON.stringify(await page.title()), 'url', page.url().slice(0, 100));
-  const rows = await page.$$eval('#hprt-table tr, .hprt-table tr', trs => trs.map(tr => tr.innerText.replace(/\s+/g, ' ').trim()).filter(t => t).slice(0, 40));
-  console.log(rows.join('\n'));
+  const rows = await page.$$eval('#hprt-table tbody tr, .hprt-table tbody tr', trs => trs.map(tr => {
+    const name = tr.querySelector('.hprt-roomtype-icon-link, .hprt-roomtype-link, [data-room-name]');
+    const occ = tr.querySelector('.hprt-occupancy-occupancy-info, .c-occupancy-icons');
+    const price = tr.querySelector('.prco-valign-middle-helper, .bui-price-display__value, [data-testid="price-and-discounted-price"]');
+    const cond = tr.querySelector('.hprt-conditions, .hprt-block');
+    return { room: name ? name.innerText.trim() : null, occupancy: occ ? occ.innerText.replace(/\s+/g, ' ').trim() : null, price_text: price ? price.innerText.replace(/\s+/g, ' ').trim() : null, text: tr.innerText.replace(/\s+/g, ' ').trim().slice(0, 500) };
+  }).filter(r => r.text));
+  let current = null; const parsed = [];
+  for (const r of rows) { if (r.room) current = r.room; const m = r.text.match(/Prezzo attuale\s*€\s?([\d.]+)|Prezzo:?\s*€\s?([\d.]+)|€\s?([\d.]+)\s*(?:\d+ nott|Prezzo)/); parsed.push({ room: current, occupancy: r.occupancy, price_text: r.price_text, total_eur: m ? +(m[1] || m[2] || m[3]).replace('.', '') : null, free_cancellation: /Cancellazione gratuita/.test(r.text), breakfast: /[Cc]olazione (?:inclusa|compresa|ottima|buona|eccellente)/.test(r.text) && !/Colazione .* per €/.test(r.text), non_refundable: /Non rimborsabile/.test(r.text), text: r.text }); }
+  fs.writeFileSync(out.replace(/\.html\.gz$/, '') + '.json', JSON.stringify({ pageName, checkin, checkout, adults: +adults, url, status: r.status(), title: await page.title(), fetched_at: new Date().toISOString(), rows: parsed }, null, 1));
+  console.log(parsed.map(p => `${p.room} | ${p.occupancy} | ${p.total_eur} | ${p.free_cancellation ? 'FC' : ''} ${p.non_refundable ? 'NR' : ''} | ${p.text.slice(0, 120)}`).join('\n'));
   await browser.close();
 })().catch(e => { console.error('FATAL', e.message); process.exit(1); });

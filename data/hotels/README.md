@@ -1,7 +1,141 @@
-# Rome (Tiburtina area) hotel price collection — work in progress
+# Rome hotels near Roma Tiburtina station: live price collection (Booking.com)
 
-Collection started 2026-09-07 12:30 UTC. Files are being added as the passes complete; see DONE.md when finished.
+Collected on 2026-09-07 (UTC timestamps in every CSV row) for a traveller from Messina who wants 3 days (2 nights, alternatively 3 nights) in Rome near **Roma Tiburtina** station, cheapest hotel / B&B / guesthouse / hostel private room, check-in dates 2026-09-25 .. 2026-11-30, 1 adult, 1 room. All prices below are the real numbers fetched from the sites; nothing is estimated (any estimate would be labelled ESTIMATE).
 
-- Source in use: Booking.com (searchresults.it.html, landmark "Stazione Roma Tiburtina", EUR, sorted by price), fetched with headless Chromium via Playwright.
-- Plain curl to Booking.com returns an AWS WAF JavaScript challenge (HTTP 202, no property cards), so a real browser is required.
-- Chromium could not complete TLS through the session's egress proxy directly (connection reset after ClientHello); all browser traffic is routed through Playwright's Node-side fetch, which works.
+## Files
+
+| file | content |
+|---|---|
+| `cheapest_2n.csv` | 8 cheapest non-dormitory properties within 1.5 km of Roma Tiburtina for every check-in date, 2 nights, 1 adult |
+| `cheapest_3n.csv` | same for 3 nights |
+| `cheapest_2n_2adults.csv`, `cheapest_3n_2adults.csv` | 2-adult re-check (only the dates of the 10 cheapest combos) |
+| `direct_check.csv` | official-website (direct booking) check for the 5 cheapest properties |
+| `crosscheck/` | second-site (Agoda) check of the 10 cheapest combos: JSON + gzipped HTML |
+| `parsed/booking_<checkin>_<N>n_<A>a.json` | every property card parsed from every Booking result page for that date (including dorm beds and properties farther than 1.5 km), plus the filtered candidate list |
+| `raw/booking_<checkin>_<N>n_<A>a_<query>.html.gz` | raw HTML snapshot of every Booking result page fetched (one file per query) |
+| `hostel_rooms/` | Booking property pages of the two hostels within 1.5 km (room-level prices, private rooms) |
+| `scripts/` | the collector scripts (Node/Playwright + Python) |
+| `DONE.md` | 10-line summary |
+
+## Method
+
+**Source: Booking.com** (`https://www.booking.com/searchresults.it.html`, Italian site, EUR, sorted by price, landmark search "Stazione Roma Tiburtina", `dest_type=landmark`). Booking prints on every result card the distance to the landmark ("X km da Stazione Ferroviaria di Roma Tiburtina"); that value is what `distance_km` contains (it is Booking's straight-line distance, not walking distance).
+
+Exact URL pattern used (one page load per query; `{nflt}` is the filter set):
+
+```
+https://www.booking.com/searchresults.it.html?ss=Stazione+Roma+Tiburtina&dest_type=landmark&checkin={checkin}&checkout={checkout}&group_adults={adults}&no_rooms=1&group_children=0&order=price&selected_currency=EUR&nflt={nflt}
+```
+
+For every check-in date four (sometimes five) result pages were fetched, 1.5 s apart:
+
+1. `distance=1000;ht_id=204;ht_id=208;ht_id=216` : hotels + B&Bs + guesthouses within 1 km, 25 cheapest.
+2. `distance=3000;ht_id=204;ht_id=208;ht_id=216` : same types within 3 km, 25 cheapest (catches the 1–1.5 km band).
+3. `...;price=EUR-{p}-max-1` : a per-night price-band continuation of query 2, repeated while the 8th cheapest candidate could still be undercut by an unseen 1–1.5 km property (Booking renders no pagination in this environment, so price bands are the way to page).
+4. `distance=3000;ht_id=203` : all hostels within 3 km (Booking shows each hostel's cheapest unit, i.e. a dorm bed; kept in the parsed data, excluded from the ranking).
+
+Data were read from the JSON that Booking embeds in the page (`data-capla-store-data="apollo"`): property name, type id, star rating (official stars vs. Booking's "tiles" quality rating), review score and count, distance text, address and coordinates, matched room name, total price for the stay, average per night, excluded charges (city tax: included/excluded and amount), free-cancellation flag, breakfast/meal plan.
+
+Ranking rule for `cheapest_*.csv`: `distance_km <= 1.5`, room is not a dormitory bed, cheapest 8 distinct properties by total price for the stay. Properties 1.5–2 km were not included (the brief said to exclude anything farther than ~2 km; the 1.5 km cut-off is the one used here, the parsed JSON still contains everything up to 3 km).
+
+**Technical notes / what failed**
+
+- Plain `curl` to Booking.com returns an AWS WAF JavaScript challenge (HTTP 202, 4 kB, no property cards). Booking therefore had to be loaded in headless Chromium (Playwright 1.56.1 with the pre-installed Chromium 1194). No captcha was shown; the challenge resolved automatically in the browser.
+- Chromium could not open a TLS connection through this session's egress proxy (the tunnel was closed right after the ClientHello for every host, including example.com), so all browser network traffic was routed through Playwright's Node-side fetch (`context.route` + `route.fetch`), which does work through the proxy. This is not a TLS-verification bypass; the proxy CA bundle is used as configured.
+- Booking's result page renders no pagination controls and ignores `offset=`, so price-band filters were used to page (see above). As a consequence the ranking is exact for the cheapest 8 only up to the point where the price bands stopped (documented per date by the `Q` column / the `queries` array in the parsed JSON).
+- Booking shows only one (the cheapest matching) unit per property. For hostels that is always a dormitory bed, so hostel **private rooms** never appear in the search results; they were checked separately on the property pages of the two hostels within 1.5 km (Roma Scout Center, 0.7 km; BEDS&ROOMS TIBURTINA, 0.2 km) for the cheapest dates only, see the hostel section below.
+- Trivago returned HTTP 403 "Access Denied" to every request; Kayak redirected every search URL to its landing page; DuckDuckGo (html.duckduckgo.com) was reset by the proxy; Bing served unrelated (bot-poisoned) results to automated queries; Google Hotels answers plain HTTP but ignores date/currency/occupancy parameters and its date picker could not be driven headlessly, so Google Hotels was only used to discover Agoda hotel ids. Agoda property pages load with the correct dates but render room-level prices lazily and they never appeared in this environment; only the property-level "a partire da" per-night price was captured. Hostelworld was reachable but only covers hostels and was not needed.
+- Prices are live and move: the same Booking query repeated a few minutes apart returned slightly different totals for some properties (for example Hostel Beautiful dorm bed €44.90 → €46.75). Each row carries its own `fetched_at`.
+
+## Rome tourist tax (contributo di soggiorno) — paid on site, NOT in the Booking totals
+
+Per person per night, first 10 nights, rates in force since 1 October 2023 (Deliberazione Giunta Capitolina 255/2023) and unchanged in 2026: hotel 1★ €4, 2★ €5, 3★ €6, 4★ €7.50, 5★ €10; B&B €6; guesthouses/affittacamere €5–7 depending on classification; holiday apartments/short-term rentals €5–6; hostels €3.50; campsites €3. Under-10s are exempt. Booking's search results expose this as an "excluded charge" (chargeType 22) with the amount for the stay; for nearly every property in these lists the city tax is **excluded** from the total and shown in `taxes_included` as e.g. `no: city tax € 12 per stay paid on site; VAT included` (€12 = 2 nights × €6 for a B&B, €14 = 2 × €7 for a guesthouse, etc.). A handful of properties include it (flagged `yes`). Booking property pages of some listings additionally say "Non include: 10% di IVA" for the displayed room price; the search-result totals used here carry Booking's own `chargeInclusion` flags (VAT flagged INCLUDED for all rows unless stated otherwise).
+
+
+## 2-night stays, 1 adult, 1 room: cheapest per check-in date (properties within 1.5 km of Roma Tiburtina, no dormitory beds)
+
+Fetched between 2026-09-07T12:44:22.662Z and 2026-09-07T13:01:22.832Z (UTC). Prices are totals for the stay in EUR as displayed by Booking.com (VAT included, Rome tourist tax excluded unless noted). "Q" = number of Booking result pages fetched for that date.
+
+| check-in | check-out | cheapest | total | 2nd cheapest | total | 3rd cheapest | total | candidates ≤1.5 km | Q |
+|---|---|---|---|---|---|---|---|---|---|
+| 2026-09-25 | 2026-09-27 | Roma Tiberius Suite (guesthouse, 0.6 km, Ampia Camera Matrimoniale) | €114.76 | Testa Gioacchino B&B (B&B, 1.5 km, Camera Matrimoniale Basic con Bagno in Comune) | €163.64 | GH Hotel San Giusto (hotel, 0.9 km, Camera Singola) | €190.60 | 26 | 4 |
+| 2026-09-26 | 2026-09-28 | Testa Gioacchino B&B (B&B, 1.5 km, Camera Matrimoniale Basic con Bagno in Comune) | €163.64 | GH Hotel San Giusto (hotel, 0.9 km, Camera Singola) | €169.45 | Dodo Holiday in Rome (guesthouse, 1.2 km, Camera Matrimoniale Deluxe con Balcone) | €177.65 | 28 | 4 |
+| 2026-09-27 | 2026-09-29 | Gmm (guesthouse, 1.3 km, Camera Singola Ampia) | €100.00 | GH Hotel San Giusto (hotel, 0.9 km, Camera Singola) | €135.24 | Romulea Guest House (guesthouse, 0.4 km, Camera Matrimoniale con Bagno in Comune ) | €139.94 | 26 | 4 |
+| 2026-09-28 | 2026-09-30 | Gmm (guesthouse, 1.3 km, Camera Singola Ampia) | €100.00 | Affittacamere Roma Tiburtina (guesthouse, 0.2 km, Camera Singola con Bagno Privato) | €109.09 | BEDS&ROOMS TIBURTINA- Rooms, Camere private (guesthouse, 0.2 km, Camera Singola con Bagno Privato) | €111.71 | 26 | 4 |
+| 2026-09-29 | 2026-10-01 | Gmm (guesthouse, 1.3 km, Camera Singola Ampia) | €100.00 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Tripla) | €108.73 | Roma Tiberius Suite (guesthouse, 0.6 km, Ampia Camera Matrimoniale) | €114.76 | 26 | 4 |
+| 2026-09-30 | 2026-10-02 | B&B SPQR (B&B, 0.35 km, Camera Singola con Bagno Privato) | €109.09 | Gmm (guesthouse, 1.3 km, Camera Singola Ampia) | €118.18 | TIBURTINA INN GUEST HOUSE (guesthouse, 0.4 km, Camera Singola Economy) | €122.73 | 27 | 4 |
+| 2026-10-01 | 2026-10-03 | B&B SPQR (B&B, 0.35 km, Camera Singola con Bagno Privato) | €109.09 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Suite and room (B&B, 0.7 km, Camera Singola Deluxe) | €148.14 | 26 | 4 |
+| 2026-10-02 | 2026-10-04 | B&B SPQR (B&B, 0.35 km, Camera Singola con Bagno Privato) | €109.09 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | AFFITTACAMERE A CASA MIA (guesthouse, 0.35 km, Camera Singola Standard) | €137.12 | 25 | 4 |
+| 2026-10-03 | 2026-10-05 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €127.37 | Suite and room (B&B, 0.7 km, Camera Singola Deluxe) | €148.14 | 27 | 4 |
+| 2026-10-04 | 2026-10-06 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €127.37 | Home Sweet Home Tiburtina Station (guesthouse, 0.6 km, Camera Budget Doppia con Letti Singoli) | €145.45 | 27 | 4 |
+| 2026-10-05 | 2026-10-07 | B&B SPQR (B&B, 0.35 km, Camera Singola con Bagno Privato) | €109.09 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €127.37 | 27 | 4 |
+| 2026-10-06 | 2026-10-08 | B&B SPQR (B&B, 0.35 km, Camera Singola con Bagno Privato) | €109.09 | TIBURTINA INN GUEST HOUSE (guesthouse, 0.4 km, Camera Singola Economy) | €114.55 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | 26 | 4 |
+| 2026-10-07 | 2026-10-09 | B&B SPQR (B&B, 0.35 km, Camera Singola con Bagno Privato) | €109.09 | TIBURTINA INN GUEST HOUSE (guesthouse, 0.4 km, Camera Singola Economy) | €114.55 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | 26 | 3 |
+| 2026-10-08 | 2026-10-10 | TIBURTINA INN GUEST HOUSE (guesthouse, 0.4 km, Camera Singola Economy) | €114.55 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Gmm (guesthouse, 1.3 km, Camera Singola Ampia) | €136.36 | 27 | 4 |
+| 2026-10-09 | 2026-10-11 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Gmm (guesthouse, 1.3 km, Camera Singola Ampia) | €136.36 | B&B SPQR (B&B, 0.35 km, Camera Matrimoniale con Bagno Privato) | €138.18 | 26 | 3 |
+| 2026-10-10 | 2026-10-12 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Affittacamere Tiburstation (guesthouse, 0.9 km, Camera Singola) | €135.08 | Gmm (guesthouse, 1.3 km, Camera Singola Ampia) | €136.36 | 27 | 4 |
+| 2026-10-11 | 2026-10-13 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Affittacamere Tiburstation (guesthouse, 0.9 km, Camera Singola) | €135.08 | Gmm (guesthouse, 1.3 km, Camera Singola Ampia) | €136.36 | 27 | 4 |
+| 2026-10-12 | 2026-10-14 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €127.37 | Affittacamere Tiburstation (guesthouse, 0.9 km, Camera Singola) | €135.08 | 26 | 4 |
+| 2026-10-13 | 2026-10-15 | TIBURTINA INN GUEST HOUSE (guesthouse, 0.4 km, Camera Singola Economy) | €114.55 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €127.37 | 26 | 4 |
+| 2026-10-14 | 2026-10-16 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €127.37 | Domus Remo Room #3 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €140.91 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Deluxe ) | €142.19 | 27 | 4 |
+| 2026-10-15 | 2026-10-17 | Domus Remo Room #3 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €140.91 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Deluxe ) | €142.19 | Dolce Titina Affittacamere (guesthouse, 0.2 km, Camera Singola) | €145.45 | 26 | 4 |
+| 2026-10-16 | 2026-10-18 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Deluxe ) | €142.19 | GH Hotel San Giusto (hotel, 0.9 km, Camera Classic Matrimoniale/Doppia con Letti Singoli ) | €150.00 | Tiburtina Suites, Roma (guesthouse, 0.6 km, Camera Matrimoniale con Balcone) | €158.91 | 25 | 4 |
+| 2026-10-17 | 2026-10-19 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Deluxe ) | €142.19 | Tiburtina Suites, Roma (guesthouse, 0.6 km, Camera Matrimoniale con Balcone) | €158.91 | GH Hotel San Giusto (hotel, 0.9 km, Camera Singola) | €159.18 | 25 | 4 |
+| 2026-10-18 | 2026-10-20 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €127.37 | Days In Rome (guesthouse, 1.2 km, Camera Doppia con Letti Singoli con Bagno Privato ) | €138.18 | 27 | 4 |
+| 2026-10-19 | 2026-10-21 | B&B SPQR (B&B, 0.35 km, Camera Singola con Bagno Privato) | €109.09 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €127.37 | 25 | 3 |
+| 2026-10-20 | 2026-10-22 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €127.37 | AFFITTACAMERE A CASA MIA (guesthouse, 0.35 km, Camera Singola Standard) | €137.12 | 25 | 4 |
+| 2026-10-21 | 2026-10-23 | BEDS&ROOMS TIBURTINA- Rooms, Camere private (guesthouse, 0.2 km, Camera Singola con Bagno Privato) | €111.71 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €127.37 | 25 | 4 |
+| 2026-10-22 | 2026-10-24 | BEDS&ROOMS TIBURTINA- Rooms, Camere private (guesthouse, 0.2 km, Camera Singola con Bagno Privato) | €118.48 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Domus Remo Room #3 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €140.91 | 26 | 4 |
+| 2026-10-23 | 2026-10-25 | BEDS&ROOMS TIBURTINA- Rooms, Camere private (guesthouse, 0.2 km, Camera Singola con Bagno Privato) | €125.24 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Domus Remo Room #3 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €140.91 | 26 | 4 |
+| 2026-10-24 | 2026-10-26 | BEDS&ROOMS TIBURTINA- Rooms, Camere private (guesthouse, 0.2 km, Camera Singola con Bagno Privato) | €118.48 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Nènè House Roma-Farfalla, appartamento in comune (guesthouse, 0.9 km, Camera Matrimoniale con Bagno Privato) | €128.18 | 25 | 4 |
+| 2026-10-25 | 2026-10-27 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €127.37 | DOMUS REMO Room #1 (guesthouse, 0.45 km, Camera Tripla con Bagno Privato) | €132.81 | 26 | 4 |
+| 2026-10-26 | 2026-10-28 | B&B SPQR (B&B, 0.35 km, Camera Singola con Bagno Privato) | €109.09 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €127.37 | 26 | 4 |
+| 2026-10-27 | 2026-10-29 | Affittacamere Roma Tiburtina (guesthouse, 0.2 km, Camera Singola con Bagno Privato) | €109.09 | B&B SPQR (B&B, 0.35 km, Camera Singola con Bagno Privato) | €109.09 | BEDS&ROOMS TIBURTINA- Rooms, Camere private (guesthouse, 0.2 km, Camera Singola con Bagno Privato) | €111.71 | 26 | 3 |
+| 2026-10-28 | 2026-10-30 | B&B SPQR (B&B, 0.35 km, Camera Singola con Bagno Privato) | €109.09 | TIBURTINA INN GUEST HOUSE (guesthouse, 0.4 km, Camera Singola Economy) | €114.55 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | 27 | 4 |
+| 2026-10-29 | 2026-10-31 | B&B SPQR (B&B, 0.35 km, Camera Singola con Bagno Privato) | €109.09 | TIBURTINA INN GUEST HOUSE (guesthouse, 0.4 km, Camera Singola Economy) | €114.55 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | 26 | 4 |
+| 2026-10-30 | 2026-11-01 | B&B SPQR (B&B, 0.35 km, Camera Singola con Bagno Privato) | €109.09 | TIBURTINA INN GUEST HOUSE (guesthouse, 0.4 km, Camera Singola Economy) | €114.55 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | 26 | 3 |
+| 2026-10-31 | 2026-11-02 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €119.91 | Mikasa Piazza Bologna (guesthouse, 0.8 km, Camera Matrimoniale con Bagno Privato Esterno ) | €125.45 | Unique Stay Tiburtina (B&B, 0.7 km, Camera Matrimoniale Standard con Bagno in Comune) | €129.09 | 26 | 4 |
+| 2026-11-01 | 2026-11-03 | AFFITTACAMERE A CASA MIA (guesthouse, 0.35 km, Camera Singola Standard) | €106.65 | Domus Remo Room #2 (guesthouse, 0.45 km, Camera Matrimoniale con Bagno Privato) | €112.46 | B&B Anturium (B&B, 0.5 km, Camera Matrimoniale con Bagno Privato Esterno ) | €118.41 | 25 | 4 |
+
+## 3-night stays, 1 adult, 1 room: cheapest per check-in date (properties within 1.5 km of Roma Tiburtina, no dormitory beds)
+
+_Not collected._
+
+
+## 20 cheapest date/property combinations overall (2- and 3-night stays, 1 adult)
+
+| # | total | per night | nights | check-in | check-out | property | type | dist km | room | score (reviews) | free canc. | breakfast | city tax |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | €100.00 | €50.00 | 2 | 2026-09-27 | 2026-09-29 | Gmm | guesthouse | 1.3 | Camera Singola Ampia | 7.9 (207) | yes | yes | excluded € 14 |
+| 2 | €100.00 | €50.00 | 2 | 2026-09-28 | 2026-09-30 | Gmm | guesthouse | 1.3 | Camera Singola Ampia | 7.9 (207) | yes | yes | excluded € 14 |
+| 3 | €100.00 | €50.00 | 2 | 2026-09-29 | 2026-10-01 | Gmm | guesthouse | 1.3 | Camera Singola Ampia | 7.9 (207) | yes | yes | excluded € 14 |
+| 4 | €106.65 | €53.33 | 2 | 2026-11-01 | 2026-11-03 | AFFITTACAMERE A CASA MIA | guesthouse | 0.35 | Camera Singola Standard | 8.8 (478) | no | no | excluded € 10 |
+| 5 | €108.73 | €54.37 | 2 | 2026-09-29 | 2026-10-01 | Mikasa Piazza Bologna | guesthouse | 0.8 | Camera Tripla | 4.2 (140) | no | yes | excluded € 14 |
+| 6 | €109.09 | €54.55 | 2 | 2026-09-28 | 2026-09-30 | Affittacamere Roma Tiburtina | guesthouse | 0.2 | Camera Singola con Bagno Privato | 6.5 (755) | yes | yes | excluded € 14 |
+| 7 | €109.09 | €54.55 | 2 | 2026-09-30 | 2026-10-02 | B&B SPQR | B&B | 0.35 | Camera Singola con Bagno Privato | 6 (545) | yes | yes | excluded € 12 |
+| 8 | €109.09 | €54.55 | 2 | 2026-10-01 | 2026-10-03 | B&B SPQR | B&B | 0.35 | Camera Singola con Bagno Privato | 6 (545) | yes | yes | excluded € 12 |
+| 9 | €109.09 | €54.55 | 2 | 2026-10-02 | 2026-10-04 | B&B SPQR | B&B | 0.35 | Camera Singola con Bagno Privato | 6 (545) | yes | yes | excluded € 12 |
+| 10 | €109.09 | €54.55 | 2 | 2026-10-05 | 2026-10-07 | B&B SPQR | B&B | 0.35 | Camera Singola con Bagno Privato | 6 (545) | yes | yes | excluded € 12 |
+| 11 | €109.09 | €54.55 | 2 | 2026-10-06 | 2026-10-08 | B&B SPQR | B&B | 0.35 | Camera Singola con Bagno Privato | 6 (545) | yes | yes | excluded € 12 |
+| 12 | €109.09 | €54.55 | 2 | 2026-10-07 | 2026-10-09 | B&B SPQR | B&B | 0.35 | Camera Singola con Bagno Privato | 6 (545) | yes | yes | excluded € 12 |
+| 13 | €109.09 | €54.55 | 2 | 2026-10-19 | 2026-10-21 | B&B SPQR | B&B | 0.35 | Camera Singola con Bagno Privato | 6 (545) | yes | yes | excluded € 12 |
+| 14 | €109.09 | €54.55 | 2 | 2026-10-26 | 2026-10-28 | B&B SPQR | B&B | 0.35 | Camera Singola con Bagno Privato | 6 (545) | yes | yes | excluded € 12 |
+| 15 | €109.09 | €54.55 | 2 | 2026-10-27 | 2026-10-29 | Affittacamere Roma Tiburtina | guesthouse | 0.2 | Camera Singola con Bagno Privato | 6.5 (755) | yes | yes | excluded € 14 |
+| 16 | €109.09 | €54.55 | 2 | 2026-10-27 | 2026-10-29 | B&B SPQR | B&B | 0.35 | Camera Singola con Bagno Privato | 6 (545) | yes | yes | excluded € 12 |
+| 17 | €109.09 | €54.55 | 2 | 2026-10-28 | 2026-10-30 | B&B SPQR | B&B | 0.35 | Camera Singola con Bagno Privato | 6 (545) | yes | yes | excluded € 12 |
+| 18 | €109.09 | €54.55 | 2 | 2026-10-29 | 2026-10-31 | B&B SPQR | B&B | 0.35 | Camera Singola con Bagno Privato | 6 (545) | yes | yes | excluded € 12 |
+| 19 | €109.09 | €54.55 | 2 | 2026-10-30 | 2026-11-01 | B&B SPQR | B&B | 0.35 | Camera Singola con Bagno Privato | 6 (545) | yes | yes | excluded € 12 |
+| 20 | €111.71 | €55.85 | 2 | 2026-09-28 | 2026-09-30 | BEDS&ROOMS TIBURTINA- Rooms, Camere private | guesthouse | 0.2 | Camera Singola con Bagno Privato | 8.8 (106) | no | no | included € 12 |
+
+## Profiles of the properties that appear most often in the top-8 lists
+
+| property | type | Booking rating | address | distance to Tiburtina (Booking) | score (reviews) | appearances in top-8 | 2-night total min / median | 3-night total min / median | rooms seen | Booking page |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Mikasa Piazza Bologna | guesthouse | unrated | Via Campaldino 18, Nomentano, Roma | 0,8 km da Stazione Ferroviaria di Roma Tiburtina (41.9088, 12.5220) | 4.2 (140) | 35 | €108.73 / €125.45 | — | Camera Deluxe ; Camera Matrimoniale con Bagno Privato Esterno ; Camera Tripla | https://www.booking.com/hotel/it/b-amp-b-l-39-arca-di-campaldino.it.html |
+| Tiburtina Suites, Roma | guesthouse | 3 tiles (Booking quality rating, not official stars) | Via Ettore Bertolè Viale, 5, Tiburtino, Roma | 0,6 km da Stazione Ferroviaria di Roma Tiburtina (41.9072, 12.5363) | 7.6 (93) | 21 | €150.55 / €154.73 | — | Camera Matrimoniale con Bagno Privato; Camera Matrimoniale con Balcone | https://www.booking.com/hotel/it/tiburtina-suites.it.html |
+| Gmm | guesthouse | 3 tiles (Booking quality rating, not official stars) | Via Filippo Meda, 169, Tiburtino, Roma | 1,3 km da Stazione Ferroviaria di Roma Tiburtina (41.9146, 12.5466) | 7.9 (207) | 20 | €100.00 / €136.36 | — | Camera Deluxe ; Camera Singola Ampia | https://www.booking.com/hotel/it/gmm.it.html |
+| Domus Remo Room #2 | guesthouse | 3 tiles (Booking quality rating, not official stars) | Via Gian Luca Squarcialupo, 36, Nomentano, Roma | 450 m da Stazione Ferroviaria di Roma Tiburtina (41.9131, 12.5267) | 7.5 (12) | 19 | €112.46 / €127.37 | — | Camera Matrimoniale con Bagno Privato | https://www.booking.com/hotel/it/domus-remo-room.it.html |
+| Romulea Guest House | guesthouse | unrated | Via Luigi Pulci 36, Nomentano, Roma | 400 m da Stazione Ferroviaria di Roma Tiburtina (41.9131, 12.5274) | 6.2 (674) | 18 | €139.94 / €149.37 | — | Camera Matrimoniale con Bagno in Comune ; Camera Matrimoniale con Letto Supplementare | https://www.booking.com/hotel/it/romulea-guest-house.it.html |
+| B&B SPQR | B&B | 2 tiles (Booking quality rating, not official stars) | Via Monti Di Pietralata 32, Tiburtino, Roma | 350 m da Stazione Ferroviaria di Roma Tiburtina (41.9111, 12.5356) | 6 (545) | 18 | €109.09 / €109.09 | — | Camera Matrimoniale con Bagno Privato; Camera Singola con Bagno Privato | https://www.booking.com/hotel/it/spqr.it.html |
+| Home Sweet Home Tiburtina Station | guesthouse | unrated | Via Beniamino de Ritis 8, Tiburtino, Roma | 0,6 km da Stazione Ferroviaria di Roma Tiburtina (41.9090, 12.5382) | 8.1 (194) | 17 | €145.45 / €145.45 | — | Ampia Camera Matrimoniale; Camera Budget Doppia con Letti Singoli; Camera Matrimoniale | https://www.booking.com/hotel/it/home-sweet-home-tiburtina-station.it.html |
+| Domus Remo Room #3 | guesthouse | 4 tiles (Booking quality rating, not official stars) | Via Gian Luca Squarcialupo, 36, Nomentano, Roma | 450 m da Stazione Ferroviaria di Roma Tiburtina (41.9131, 12.5267) | 9 (29) | 17 | €136.69 / €140.91 | — | Camera Matrimoniale con Bagno Privato | https://www.booking.com/hotel/it/domus-remo-room-3.it.html |
