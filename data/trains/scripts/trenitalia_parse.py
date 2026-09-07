@@ -51,7 +51,12 @@ def parse_solution(s):
     legs = [leg_label(t) for t in trains]
     legs = [l for l in legs if l]
     n_walk = sum(1 for t in trains if t.get("acronym") == "UB")
-    direct = len(legs) == 1
+    # destination actually reached by the last real vehicle (a trailing UB = walk/metro leg means the
+    # train itself terminates elsewhere, e.g. Roma Termini, and the passenger continues on foot/metro)
+    real_nodes = [n for n in sol.get("nodes", []) if (n.get("train") or {}).get("acronym") != "UB"]
+    train_dest = real_nodes[-1]["destination"] if real_nodes else sol.get("destination")
+    train_orig = real_nodes[0]["origin"] if real_nodes else sol.get("origin")
+    direct = len(legs) == 1 and train_dest == sol.get("destination") and train_orig == sol.get("origin")
     dep = sol["departureTime"]; arr = sol["arrivalTime"]
     dep_h = int(dep[11:13])
     is_night = any(t.get("acronym") == "NI" for t in trains)
@@ -60,19 +65,23 @@ def parse_solution(s):
     offers = []
     pub_total = 0.0; pub_ok = True
     for g in s.get("grids", []):
+        if not g.get("services"):
+            continue  # walk / ferry legs carry no fare grid (included in the train fare)
         po = public_offer(g)
         if po is None:
             pub_ok = False; continue
         pub_total += po[0]
         offers.append(f"{po[1]} ({po[2]})")
     return {
-        "origin": sol.get("origin"), "destination": sol.get("destination"),
+        "origin": sol.get("origin"), "destination": sol.get("destination"), "train_dest": train_dest, "train_orig": train_orig,
         "date": dep[:10], "dep_time": dep[11:16], "arr_time": arr[11:16],
         "arr_date": arr[:10], "duration": sol.get("duration"),
         "train": " + ".join(legs), "changes": max(len(legs) - 1, 0), "walk_transfers": n_walk,
         "direct": direct, "daytime": daytime, "night_train": is_night,
         "price_eur": price, "public_min_eur": round(pub_total, 2) if pub_ok and s.get("grids") else None,
         "offer": " + ".join(offers), "status": sol.get("status"), "solution_id": sol.get("id"),
+        # complete_fares: every leg has a SALEABLE public offer and their sum equals the headline price
+        "complete_fares": bool(pub_ok and s.get("grids") and price is not None and abs(pub_total - price) < 0.011),
     }
 
 
@@ -97,7 +106,7 @@ def main():
             seen.add(r["solution_id"]); uniq.append(r)
         by_rd[k] = uniq
     cols = ["route", "date", "price_eur", "public_min_eur", "train", "dep_time", "arr_time", "arr_date", "duration",
-            "changes", "walk_transfers", "direct", "daytime", "night_train", "offer", "origin", "destination", "status",
+            "changes", "walk_transfers", "direct", "daytime", "night_train", "offer", "origin", "destination", "train_orig", "train_dest", "status", "complete_fares",
             "fetched_at", "raw_file"]
     with open(os.path.join(OUT, "trenitalia_all_solutions.csv"), "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore"); w.writeheader()
@@ -109,7 +118,7 @@ def main():
              "arrival_station", "source_url", "fetched_at"]
     rows_out = []
     for (route, date) in sorted(by_rd):
-        rows = [r for r in by_rd[(route, date)] if r["price_eur"] is not None and r["status"] == "SALEABLE"]
+        rows = [r for r in by_rd[(route, date)] if r["price_eur"] is not None and r["status"] == "SALEABLE" and r["complete_fares"]]
         if not rows:
             rows_out.append({"route": route, "kind": "cheapest_overall", "date": date, "price_eur": "",
                              "train": "NO_SALEABLE_SOLUTION", "source_url": SRC_URL}); continue
