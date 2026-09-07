@@ -57,30 +57,36 @@ for p in top:
     p3 = f"{eur(min(p['prices3']))} / {eur(statistics.median(p['prices3']))}" if p['prices3'] else '—'
     L(f"| {r['name']} | {r['type']} | {st} | {r['address']}, {r['area']} | {r['distance_text']} ({r['lat']:.4f}, {r['lon']:.4f}) | {r['score']} ({r['reviews']}) | {p['n']} | {p2} | {p3} | {'; '.join(sorted(p['rooms']))[:120]} | https://www.booking.com/hotel/it/{r['pageName']}.it.html |")
 # two adults
-d2a2, d3a2 = load(2, 2), load(3, 2)
-if d2a2 or d3a2:
-    L('\n## Re-check for 2 adults sharing one double room (10 cheapest 1-adult combos)\n')
-    L('| nights | check-in | property | 1-adult total | 1-adult room | 2-adult total | 2-adult room | fetched (2 adults) |')
-    L('|---|---|---|---|---|---|---|---|')
-    for tot, n, ci, co, r in combos[:10]:
-        ds = d2a2 if n == 2 else d3a2
-        if ci not in ds: L(f"| {n} | {ci} | {r['name']} | {eur(tot)} | {r['room']} | not fetched | | |"); continue
-        m = None
-        for q in ds[ci]['queries']:
-            for x in q['results']:
-                if x['property_id'] == r['property_id'] and (m is None or x['total_eur'] < m['total_eur']): m = x; mt = q['fetched_at']
-        if m: L(f"| {n} | {ci} | {r['name']} | {eur(tot)} | {r['room']} | {eur(m['total_eur'])} | {m['room']} | {mt} |")
-        else: L(f"| {n} | {ci} | {r['name']} | {eur(tot)} | {r['room']} | not listed for 2 adults on these dates (no room for 2 available on Booking) | | {ds[ci]['queries'][0]['fetched_at']} |")
-# cross-check
+ta = os.path.join(base, 'two_adults_check.csv')
+if os.path.exists(ta):
+    L('\n## Re-check for 2 adults sharing one double room (10 cheapest 1-adult combos, 2 nights)\n')
+    L('Same Booking search repeated with `group_adults=2` on the same dates; the row shows the cheapest unit Booking offered for 2 adults at the same property.\n')
+    L('| check-in | property | 1 adult: total / room | 2 adults: total / room | note | fetched (2 adults) |'); L('|---|---|---|---|---|---|')
+    for r in csv.DictReader(open(ta)):
+        L(f"| {r['checkin']} | {r['property']} | €{r['one_adult_total_eur']} / {r['one_adult_room']} | {('€' + r['two_adults_total_eur']) if r['two_adults_total_eur'] else '—'} / {r['two_adults_room']} | {r['two_adults_note']} | {r['two_adults_fetched_at']} |")
+# cross-check (Agoda)
 cc = sorted(glob.glob(os.path.join(base, 'crosscheck', 'cc_*_agoda.json')))
 if cc:
     L('\n## Cross-check of the 10 cheapest combos on a second site (Agoda)\n')
-    L('Agoda property pages were loaded with the same dates and occupancy. Agoda renders room-level prices lazily and they did not render in this environment, so the value recorded is the property\'s "a partire da" (from) price per night as displayed by Agoda for those dates (Agoda shows per-night prices before taxes by default).\n')
-    L('| nights | check-in | property | Booking total | Booking per night | Agoda from-price per night | Agoda URL | fetched |')
-    L('|---|---|---|---|---|---|---|---|')
+    L('Agoda property pages were loaded with the same dates and occupancy (1 adult, 1 room, EUR). Agoda renders its room grid lazily and it never rendered headlessly here, so the value recorded is the property-level "a partire da" (from) price **per night** that Agoda displays for those dates (Agoda shows per-night prices before taxes by default). Google Hotels, Trivago and Kayak could not be used (see notes above).\n')
+    L('| check-in | nights | property | Booking total (VAT incl., city tax excl.) | Booking per night | Agoda from-price per night | Agoda page | fetched |'); L('|---|---|---|---|---|---|---|---|')
+    b2 = {(r['checkin'], r['property']): r for r in csv.DictReader(open(os.path.join(base, 'cheapest_2n.csv')))}
     for f in cc:
-        j = json.load(open(f)); meta = j.get('meta', {})
-        L(f"| {meta.get('nights')} | {j['checkin']} | {meta.get('property')} | {eur(meta['booking_total']) if meta.get('booking_total') else ''} | {eur(meta['booking_total'] / meta['nights']) if meta.get('booking_total') else ''} | {('€' + j['from_price_per_night_eur']) if j.get('from_price_per_night_eur') else 'no price shown'} | {j['url']} | {j['fetched_at']} |")
+        j = json.load(open(f)); nm = j.get('hotel_name') or j['key']
+        cand = [v for (ci, p), v in b2.items() if ci == j['checkin'] and (p.lower().startswith(nm.lower()[:12]) or nm.lower().startswith(p.lower()[:12]))]
+        bt = float(cand[0]['total_eur']) if cand else None; n = 2
+        L(f"| {j['checkin']} | {n} | {nm} | {eur(bt) if bt else '—'} | {eur(bt / n) if bt else '—'} | {('€' + j['from_price_per_night_eur']) if j.get('from_price_per_night_eur') else 'no price shown (' + (j.get('title') or '')[:40] + ')'} | {j['url'].split('?')[0]} | {j['fetched_at']} |")
+# hostel private rooms
+hr = sorted(glob.glob(os.path.join(base, 'hostel_rooms', '*.json')))
+if hr:
+    L('\n## Hostels within 1.5 km: private rooms (Booking property pages)\n')
+    L('Booking search results show only a hostel\'s cheapest unit (a dorm bed), so the two hostels within 1.5 km were opened directly for three of the cheapest dates and every room row was read (1 adult, 2 nights). Dorm beds are listed for reference only.\n')
+    L('| hostel | check-in | room | total for 2 nights | conditions |'); L('|---|---|---|---|---|')
+    for f in hr:
+        j = json.load(open(f))
+        for row in j['rows']:
+            if row.get('total_eur') is None: continue
+            L(f"| {j['pageName']} | {j['checkin']} | {row['room']} | €{row['total_eur']} | {'free cancellation' if row['free_cancellation'] else ('non-refundable' if row['non_refundable'] else '')} {'· breakfast' if row['breakfast'] else ''} · {row['text'][row['text'].find('Non include'):][:60] if 'Non include' in row['text'] else ''} |")
 # direct check
 dc = os.path.join(base, 'direct_check.csv')
 if os.path.exists(dc):
