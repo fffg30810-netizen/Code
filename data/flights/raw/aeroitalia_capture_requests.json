@@ -1,0 +1,189 @@
+[
+ {
+  "status": 200,
+  "url": "https://aeroitalia-gateway.azure-api.net/mobileappprod-api/api/user/v1/website/anonymousToken",
+  "method": "POST",
+  "post": "{}",
+  "hdrs": {
+   "accept": "*/*",
+   "accept-language": "it-IT,it;q=0.9,en;q=0.8",
+   "connection": "keep-alive",
+   "content-length": "2",
+   "content-type": "application/json",
+   "host": "aeroitalia-gateway.azure-api.net",
+   "origin": "https://www.aeroitalia.com",
+   "referer": "https://www.aeroitalia.com/"
+  },
+  "file": "data/flights/raw/aeroitalia_capture_1_other.json"
+ },
+ {
+  "status": 200,
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v1/trip/schedule?Origin=CTA&Destination=FCO&BeginDate=2026-09-01&EndDate=2026-11-30T23:59:59.000Z",
+  "method": "GET",
+  "post": null,
+  "hdrs": {
+   "accept": "*/*",
+   "accept-language": "it-IT,it;q=0.9,en;q=0.8",
+   "authorization": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzMDZkZmFjZC0zNTI4LTQ4ZjAtOWUyOS00NzdhNGM4ODg3ZjQiLCJhdXRoX3RpbWUiOiIxNzg4Nzg2MTI1Iiwic2Vzc2lvbklEIjoiMCIsInRva2VuVHlwZSI6IiIsImFnZW50SUQiOiIyMTUxNDM0IiwiZG9tYWluQ29kZSI6IldXMiIsImFnZW50TmFtZSI6IldlYkFwcEFub255bW91cyIsIm9yZ2FuaXphdGlvbkNvZGUiOiJTWVNURU0iLCJyb2xlQ29kZSI6IldXV0EiLCJtZmFUeXBlIjoiIiwiY2hhbm5lbFR5cGUiOiJEaWdpdGFsQVBJIiwic3lzdGVtVHlwZSI6IjE4IiwiY2xpZW50TmFtZSI6IlVua25vd24iLCJjdWx0dXJlQ29kZSI6Iml0LUlUIiwiY3VycmVuY3lDb2RlIjoiRVVSIiwibG9jYXRpb25Db2RlIjoiV1dXIiwicGVyc29uSUQiOiIyNTExMDU4IiwicGVyc29uVHlwZSI6IjIiLCJ0cmFjZUxldmVsIjoiMCIsInRyYWNlU3dpdGNoZXMiOiIwIiwiYWdlbnRRdWV1ZUNvZGUiOiJCMkMiLCJvcmdhbml6YXRpb25RdWV1ZUNvZGUiOiIiLCJleHAiOjE3ODg3ODczMjV9.ntgFqNSReMtOW20KuBv0zksyOseGA4Y-veZLwlB1xbpeU1mZpgYvUaqhIu7lChjonrBBtx4xlDmLT_fLRSMIdOTVRDvZgy_ToIAN9NLepyDPJyplWS3fe_A_Asl8kSS1ocICUTYeZdoA5c35zAev9Fsy_6GnkMWDH1LVkJEBWi5J6v9ZvkKq93gmrQK6RsLBxkrRfHPwWUTolYtf3pS711jgtakhksTCKnMwLaBimQFx_ft_GnQ9YBy35AdVXdrWuR_0c8R5EHUlhCPIJpxBnhYwvnILiWYHlLXAW4acF_E3s1aj8Owtq3P0ijdXM-yPCEtXpqTgM6SbXh7_EaOsGSXWYZklh4nsm6Wnd7ScHMiMJlzJIwzuBP9StBNQaPKokFNJz8YoNFKeAbpIKUll-e_DB1kW6nQCO4L956qAjNw22EwSpU5f29z_X-OF-X2pRXlZOshDEJ5LdatILnGJxh3-yX3VG0NRTofkg_4xwuOfSctl-TSlIwrKonMeSn8H",
+   "connection": "keep-alive",
+   "content-type": "application/json",
+   "host": "aeroitalia-gateway.azure-api.net",
+   "ocp-apim-subscription-key": "67d318c9d50e453f93860a7600bcb910",
+   "origin": "https://www.aeroitalia.com",
+   "referer": "https://www.aeroitalia.com/"
+  },
+  "file": "data/flights/raw/aeroitalia_capture_2_schedule.json"
+ },
+ {
+  "status": 200,
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v2/trip/info",
+  "method": "POST",
+  "post": "{\"beginDate\":\"2026-09-01\",\"endDate\":\"2026-11-30T23:59:59.000Z\",\"carrierCode\":\"AZ\",\"originStations\":[\"CTA\"],\"destinationStations\":[\"FCO\"],\"numberOfJourneys\":100}",
+  "hdrs": {
+   "accept": "*/*",
+   "accept-language": "it-IT,it;q=0.9,en;q=0.8",
+   "authorization": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzMDZkZmFjZC0zNTI4LTQ4ZjAtOWUyOS00NzdhNGM4ODg3ZjQiLCJhdXRoX3RpbWUiOiIxNzg4Nzg2MTI1Iiwic2Vzc2lvbklEIjoiMCIsInRva2VuVHlwZSI6IiIsImFnZW50SUQiOiIyMTUxNDM0IiwiZG9tYWluQ29kZSI6IldXMiIsImFnZW50TmFtZSI6IldlYkFwcEFub255bW91cyIsIm9yZ2FuaXphdGlvbkNvZGUiOiJTWVNURU0iLCJyb2xlQ29kZSI6IldXV0EiLCJtZmFUeXBlIjoiIiwiY2hhbm5lbFR5cGUiOiJEaWdpdGFsQVBJIiwic3lzdGVtVHlwZSI6IjE4IiwiY2xpZW50TmFtZSI6IlVua25vd24iLCJjdWx0dXJlQ29kZSI6Iml0LUlUIiwiY3VycmVuY3lDb2RlIjoiRVVSIiwibG9jYXRpb25Db2RlIjoiV1dXIiwicGVyc29uSUQiOiIyNTExMDU4IiwicGVyc29uVHlwZSI6IjIiLCJ0cmFjZUxldmVsIjoiMCIsInRyYWNlU3dpdGNoZXMiOiIwIiwiYWdlbnRRdWV1ZUNvZGUiOiJCMkMiLCJvcmdhbml6YXRpb25RdWV1ZUNvZGUiOiIiLCJleHAiOjE3ODg3ODczMjV9.ntgFqNSReMtOW20KuBv0zksyOseGA4Y-veZLwlB1xbpeU1mZpgYvUaqhIu7lChjonrBBtx4xlDmLT_fLRSMIdOTVRDvZgy_ToIAN9NLepyDPJyplWS3fe_A_Asl8kSS1ocICUTYeZdoA5c35zAev9Fsy_6GnkMWDH1LVkJEBWi5J6v9ZvkKq93gmrQK6RsLBxkrRfHPwWUTolYtf3pS711jgtakhksTCKnMwLaBimQFx_ft_GnQ9YBy35AdVXdrWuR_0c8R5EHUlhCPIJpxBnhYwvnILiWYHlLXAW4acF_E3s1aj8Owtq3P0ijdXM-yPCEtXpqTgM6SbXh7_EaOsGSXWYZklh4nsm6Wnd7ScHMiMJlzJIwzuBP9StBNQaPKokFNJz8YoNFKeAbpIKUll-e_DB1kW6nQCO4L956qAjNw22EwSpU5f29z_X-OF-X2pRXlZOshDEJ5LdatILnGJxh3-yX3VG0NRTofkg_4xwuOfSctl-TSlIwrKonMeSn8H",
+   "connection": "keep-alive",
+   "content-length": "160",
+   "content-type": "application/json",
+   "host": "aeroitalia-gateway.azure-api.net",
+   "ocp-apim-subscription-key": "67d318c9d50e453f93860a7600bcb910",
+   "origin": "https://www.aeroitalia.com",
+   "referer": "https://www.aeroitalia.com/"
+  },
+  "file": "data/flights/raw/aeroitalia_capture_3_tripinfo.json"
+ },
+ {
+  "status": 200,
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v2/trip/info",
+  "method": "POST",
+  "post": "{\"beginDate\":\"2026-09-11\",\"endDate\":\"2026-11-30T23:59:59.000Z\",\"carrierCode\":\"AZ\",\"originStations\":[\"CTA\"],\"destinationStations\":[\"FCO\"],\"numberOfJourneys\":100}",
+  "hdrs": {
+   "accept": "*/*",
+   "accept-language": "it-IT,it;q=0.9,en;q=0.8",
+   "authorization": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzMDZkZmFjZC0zNTI4LTQ4ZjAtOWUyOS00NzdhNGM4ODg3ZjQiLCJhdXRoX3RpbWUiOiIxNzg4Nzg2MTI1Iiwic2Vzc2lvbklEIjoiMCIsInRva2VuVHlwZSI6IiIsImFnZW50SUQiOiIyMTUxNDM0IiwiZG9tYWluQ29kZSI6IldXMiIsImFnZW50TmFtZSI6IldlYkFwcEFub255bW91cyIsIm9yZ2FuaXphdGlvbkNvZGUiOiJTWVNURU0iLCJyb2xlQ29kZSI6IldXV0EiLCJtZmFUeXBlIjoiIiwiY2hhbm5lbFR5cGUiOiJEaWdpdGFsQVBJIiwic3lzdGVtVHlwZSI6IjE4IiwiY2xpZW50TmFtZSI6IlVua25vd24iLCJjdWx0dXJlQ29kZSI6Iml0LUlUIiwiY3VycmVuY3lDb2RlIjoiRVVSIiwibG9jYXRpb25Db2RlIjoiV1dXIiwicGVyc29uSUQiOiIyNTExMDU4IiwicGVyc29uVHlwZSI6IjIiLCJ0cmFjZUxldmVsIjoiMCIsInRyYWNlU3dpdGNoZXMiOiIwIiwiYWdlbnRRdWV1ZUNvZGUiOiJCMkMiLCJvcmdhbml6YXRpb25RdWV1ZUNvZGUiOiIiLCJleHAiOjE3ODg3ODczMjV9.ntgFqNSReMtOW20KuBv0zksyOseGA4Y-veZLwlB1xbpeU1mZpgYvUaqhIu7lChjonrBBtx4xlDmLT_fLRSMIdOTVRDvZgy_ToIAN9NLepyDPJyplWS3fe_A_Asl8kSS1ocICUTYeZdoA5c35zAev9Fsy_6GnkMWDH1LVkJEBWi5J6v9ZvkKq93gmrQK6RsLBxkrRfHPwWUTolYtf3pS711jgtakhksTCKnMwLaBimQFx_ft_GnQ9YBy35AdVXdrWuR_0c8R5EHUlhCPIJpxBnhYwvnILiWYHlLXAW4acF_E3s1aj8Owtq3P0ijdXM-yPCEtXpqTgM6SbXh7_EaOsGSXWYZklh4nsm6Wnd7ScHMiMJlzJIwzuBP9StBNQaPKokFNJz8YoNFKeAbpIKUll-e_DB1kW6nQCO4L956qAjNw22EwSpU5f29z_X-OF-X2pRXlZOshDEJ5LdatILnGJxh3-yX3VG0NRTofkg_4xwuOfSctl-TSlIwrKonMeSn8H",
+   "connection": "keep-alive",
+   "content-length": "160",
+   "content-type": "application/json",
+   "host": "aeroitalia-gateway.azure-api.net",
+   "ocp-apim-subscription-key": "67d318c9d50e453f93860a7600bcb910",
+   "origin": "https://www.aeroitalia.com",
+   "referer": "https://www.aeroitalia.com/"
+  },
+  "file": "data/flights/raw/aeroitalia_capture_4_tripinfo.json"
+ },
+ {
+  "status": 200,
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v2/trip/info",
+  "method": "POST",
+  "post": "{\"beginDate\":\"2026-09-20\",\"endDate\":\"2026-11-30T23:59:59.000Z\",\"carrierCode\":\"AZ\",\"originStations\":[\"CTA\"],\"destinationStations\":[\"FCO\"],\"numberOfJourneys\":100}",
+  "hdrs": {
+   "accept": "*/*",
+   "accept-language": "it-IT,it;q=0.9,en;q=0.8",
+   "authorization": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzMDZkZmFjZC0zNTI4LTQ4ZjAtOWUyOS00NzdhNGM4ODg3ZjQiLCJhdXRoX3RpbWUiOiIxNzg4Nzg2MTI1Iiwic2Vzc2lvbklEIjoiMCIsInRva2VuVHlwZSI6IiIsImFnZW50SUQiOiIyMTUxNDM0IiwiZG9tYWluQ29kZSI6IldXMiIsImFnZW50TmFtZSI6IldlYkFwcEFub255bW91cyIsIm9yZ2FuaXphdGlvbkNvZGUiOiJTWVNURU0iLCJyb2xlQ29kZSI6IldXV0EiLCJtZmFUeXBlIjoiIiwiY2hhbm5lbFR5cGUiOiJEaWdpdGFsQVBJIiwic3lzdGVtVHlwZSI6IjE4IiwiY2xpZW50TmFtZSI6IlVua25vd24iLCJjdWx0dXJlQ29kZSI6Iml0LUlUIiwiY3VycmVuY3lDb2RlIjoiRVVSIiwibG9jYXRpb25Db2RlIjoiV1dXIiwicGVyc29uSUQiOiIyNTExMDU4IiwicGVyc29uVHlwZSI6IjIiLCJ0cmFjZUxldmVsIjoiMCIsInRyYWNlU3dpdGNoZXMiOiIwIiwiYWdlbnRRdWV1ZUNvZGUiOiJCMkMiLCJvcmdhbml6YXRpb25RdWV1ZUNvZGUiOiIiLCJleHAiOjE3ODg3ODczMjV9.ntgFqNSReMtOW20KuBv0zksyOseGA4Y-veZLwlB1xbpeU1mZpgYvUaqhIu7lChjonrBBtx4xlDmLT_fLRSMIdOTVRDvZgy_ToIAN9NLepyDPJyplWS3fe_A_Asl8kSS1ocICUTYeZdoA5c35zAev9Fsy_6GnkMWDH1LVkJEBWi5J6v9ZvkKq93gmrQK6RsLBxkrRfHPwWUTolYtf3pS711jgtakhksTCKnMwLaBimQFx_ft_GnQ9YBy35AdVXdrWuR_0c8R5EHUlhCPIJpxBnhYwvnILiWYHlLXAW4acF_E3s1aj8Owtq3P0ijdXM-yPCEtXpqTgM6SbXh7_EaOsGSXWYZklh4nsm6Wnd7ScHMiMJlzJIwzuBP9StBNQaPKokFNJz8YoNFKeAbpIKUll-e_DB1kW6nQCO4L956qAjNw22EwSpU5f29z_X-OF-X2pRXlZOshDEJ5LdatILnGJxh3-yX3VG0NRTofkg_4xwuOfSctl-TSlIwrKonMeSn8H",
+   "connection": "keep-alive",
+   "content-length": "160",
+   "content-type": "application/json",
+   "host": "aeroitalia-gateway.azure-api.net",
+   "ocp-apim-subscription-key": "67d318c9d50e453f93860a7600bcb910",
+   "origin": "https://www.aeroitalia.com",
+   "referer": "https://www.aeroitalia.com/"
+  },
+  "file": "data/flights/raw/aeroitalia_capture_5_tripinfo.json"
+ },
+ {
+  "status": 200,
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v2/trip/info",
+  "method": "POST",
+  "post": "{\"beginDate\":\"2026-09-29\",\"endDate\":\"2026-11-30T23:59:59.000Z\",\"carrierCode\":\"AZ\",\"originStations\":[\"CTA\"],\"destinationStations\":[\"FCO\"],\"numberOfJourneys\":100}",
+  "hdrs": {
+   "accept": "*/*",
+   "accept-language": "it-IT,it;q=0.9,en;q=0.8",
+   "authorization": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzMDZkZmFjZC0zNTI4LTQ4ZjAtOWUyOS00NzdhNGM4ODg3ZjQiLCJhdXRoX3RpbWUiOiIxNzg4Nzg2MTI1Iiwic2Vzc2lvbklEIjoiMCIsInRva2VuVHlwZSI6IiIsImFnZW50SUQiOiIyMTUxNDM0IiwiZG9tYWluQ29kZSI6IldXMiIsImFnZW50TmFtZSI6IldlYkFwcEFub255bW91cyIsIm9yZ2FuaXphdGlvbkNvZGUiOiJTWVNURU0iLCJyb2xlQ29kZSI6IldXV0EiLCJtZmFUeXBlIjoiIiwiY2hhbm5lbFR5cGUiOiJEaWdpdGFsQVBJIiwic3lzdGVtVHlwZSI6IjE4IiwiY2xpZW50TmFtZSI6IlVua25vd24iLCJjdWx0dXJlQ29kZSI6Iml0LUlUIiwiY3VycmVuY3lDb2RlIjoiRVVSIiwibG9jYXRpb25Db2RlIjoiV1dXIiwicGVyc29uSUQiOiIyNTExMDU4IiwicGVyc29uVHlwZSI6IjIiLCJ0cmFjZUxldmVsIjoiMCIsInRyYWNlU3dpdGNoZXMiOiIwIiwiYWdlbnRRdWV1ZUNvZGUiOiJCMkMiLCJvcmdhbml6YXRpb25RdWV1ZUNvZGUiOiIiLCJleHAiOjE3ODg3ODczMjV9.ntgFqNSReMtOW20KuBv0zksyOseGA4Y-veZLwlB1xbpeU1mZpgYvUaqhIu7lChjonrBBtx4xlDmLT_fLRSMIdOTVRDvZgy_ToIAN9NLepyDPJyplWS3fe_A_Asl8kSS1ocICUTYeZdoA5c35zAev9Fsy_6GnkMWDH1LVkJEBWi5J6v9ZvkKq93gmrQK6RsLBxkrRfHPwWUTolYtf3pS711jgtakhksTCKnMwLaBimQFx_ft_GnQ9YBy35AdVXdrWuR_0c8R5EHUlhCPIJpxBnhYwvnILiWYHlLXAW4acF_E3s1aj8Owtq3P0ijdXM-yPCEtXpqTgM6SbXh7_EaOsGSXWYZklh4nsm6Wnd7ScHMiMJlzJIwzuBP9StBNQaPKokFNJz8YoNFKeAbpIKUll-e_DB1kW6nQCO4L956qAjNw22EwSpU5f29z_X-OF-X2pRXlZOshDEJ5LdatILnGJxh3-yX3VG0NRTofkg_4xwuOfSctl-TSlIwrKonMeSn8H",
+   "connection": "keep-alive",
+   "content-length": "160",
+   "content-type": "application/json",
+   "host": "aeroitalia-gateway.azure-api.net",
+   "ocp-apim-subscription-key": "67d318c9d50e453f93860a7600bcb910",
+   "origin": "https://www.aeroitalia.com",
+   "referer": "https://www.aeroitalia.com/"
+  },
+  "file": "data/flights/raw/aeroitalia_capture_6_tripinfo.json"
+ },
+ {
+  "status": 200,
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v2/trip/info",
+  "method": "POST",
+  "post": "{\"beginDate\":\"2026-10-09\",\"endDate\":\"2026-11-30T23:59:59.000Z\",\"carrierCode\":\"AZ\",\"originStations\":[\"CTA\"],\"destinationStations\":[\"FCO\"],\"numberOfJourneys\":100}",
+  "hdrs": {
+   "accept": "*/*",
+   "accept-language": "it-IT,it;q=0.9,en;q=0.8",
+   "authorization": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzMDZkZmFjZC0zNTI4LTQ4ZjAtOWUyOS00NzdhNGM4ODg3ZjQiLCJhdXRoX3RpbWUiOiIxNzg4Nzg2MTI1Iiwic2Vzc2lvbklEIjoiMCIsInRva2VuVHlwZSI6IiIsImFnZW50SUQiOiIyMTUxNDM0IiwiZG9tYWluQ29kZSI6IldXMiIsImFnZW50TmFtZSI6IldlYkFwcEFub255bW91cyIsIm9yZ2FuaXphdGlvbkNvZGUiOiJTWVNURU0iLCJyb2xlQ29kZSI6IldXV0EiLCJtZmFUeXBlIjoiIiwiY2hhbm5lbFR5cGUiOiJEaWdpdGFsQVBJIiwic3lzdGVtVHlwZSI6IjE4IiwiY2xpZW50TmFtZSI6IlVua25vd24iLCJjdWx0dXJlQ29kZSI6Iml0LUlUIiwiY3VycmVuY3lDb2RlIjoiRVVSIiwibG9jYXRpb25Db2RlIjoiV1dXIiwicGVyc29uSUQiOiIyNTExMDU4IiwicGVyc29uVHlwZSI6IjIiLCJ0cmFjZUxldmVsIjoiMCIsInRyYWNlU3dpdGNoZXMiOiIwIiwiYWdlbnRRdWV1ZUNvZGUiOiJCMkMiLCJvcmdhbml6YXRpb25RdWV1ZUNvZGUiOiIiLCJleHAiOjE3ODg3ODczMjV9.ntgFqNSReMtOW20KuBv0zksyOseGA4Y-veZLwlB1xbpeU1mZpgYvUaqhIu7lChjonrBBtx4xlDmLT_fLRSMIdOTVRDvZgy_ToIAN9NLepyDPJyplWS3fe_A_Asl8kSS1ocICUTYeZdoA5c35zAev9Fsy_6GnkMWDH1LVkJEBWi5J6v9ZvkKq93gmrQK6RsLBxkrRfHPwWUTolYtf3pS711jgtakhksTCKnMwLaBimQFx_ft_GnQ9YBy35AdVXdrWuR_0c8R5EHUlhCPIJpxBnhYwvnILiWYHlLXAW4acF_E3s1aj8Owtq3P0ijdXM-yPCEtXpqTgM6SbXh7_EaOsGSXWYZklh4nsm6Wnd7ScHMiMJlzJIwzuBP9StBNQaPKokFNJz8YoNFKeAbpIKUll-e_DB1kW6nQCO4L956qAjNw22EwSpU5f29z_X-OF-X2pRXlZOshDEJ5LdatILnGJxh3-yX3VG0NRTofkg_4xwuOfSctl-TSlIwrKonMeSn8H",
+   "connection": "keep-alive",
+   "content-length": "160",
+   "content-type": "application/json",
+   "host": "aeroitalia-gateway.azure-api.net",
+   "ocp-apim-subscription-key": "67d318c9d50e453f93860a7600bcb910",
+   "origin": "https://www.aeroitalia.com",
+   "referer": "https://www.aeroitalia.com/"
+  },
+  "file": "data/flights/raw/aeroitalia_capture_7_tripinfo.json"
+ },
+ {
+  "status": 200,
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v2/trip/info",
+  "method": "POST",
+  "post": "{\"beginDate\":\"2026-10-20\",\"endDate\":\"2026-11-30T23:59:59.000Z\",\"carrierCode\":\"AZ\",\"originStations\":[\"CTA\"],\"destinationStations\":[\"FCO\"],\"numberOfJourneys\":100}",
+  "hdrs": {
+   "accept": "*/*",
+   "accept-language": "it-IT,it;q=0.9,en;q=0.8",
+   "authorization": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzMDZkZmFjZC0zNTI4LTQ4ZjAtOWUyOS00NzdhNGM4ODg3ZjQiLCJhdXRoX3RpbWUiOiIxNzg4Nzg2MTI1Iiwic2Vzc2lvbklEIjoiMCIsInRva2VuVHlwZSI6IiIsImFnZW50SUQiOiIyMTUxNDM0IiwiZG9tYWluQ29kZSI6IldXMiIsImFnZW50TmFtZSI6IldlYkFwcEFub255bW91cyIsIm9yZ2FuaXphdGlvbkNvZGUiOiJTWVNURU0iLCJyb2xlQ29kZSI6IldXV0EiLCJtZmFUeXBlIjoiIiwiY2hhbm5lbFR5cGUiOiJEaWdpdGFsQVBJIiwic3lzdGVtVHlwZSI6IjE4IiwiY2xpZW50TmFtZSI6IlVua25vd24iLCJjdWx0dXJlQ29kZSI6Iml0LUlUIiwiY3VycmVuY3lDb2RlIjoiRVVSIiwibG9jYXRpb25Db2RlIjoiV1dXIiwicGVyc29uSUQiOiIyNTExMDU4IiwicGVyc29uVHlwZSI6IjIiLCJ0cmFjZUxldmVsIjoiMCIsInRyYWNlU3dpdGNoZXMiOiIwIiwiYWdlbnRRdWV1ZUNvZGUiOiJCMkMiLCJvcmdhbml6YXRpb25RdWV1ZUNvZGUiOiIiLCJleHAiOjE3ODg3ODczMjV9.ntgFqNSReMtOW20KuBv0zksyOseGA4Y-veZLwlB1xbpeU1mZpgYvUaqhIu7lChjonrBBtx4xlDmLT_fLRSMIdOTVRDvZgy_ToIAN9NLepyDPJyplWS3fe_A_Asl8kSS1ocICUTYeZdoA5c35zAev9Fsy_6GnkMWDH1LVkJEBWi5J6v9ZvkKq93gmrQK6RsLBxkrRfHPwWUTolYtf3pS711jgtakhksTCKnMwLaBimQFx_ft_GnQ9YBy35AdVXdrWuR_0c8R5EHUlhCPIJpxBnhYwvnILiWYHlLXAW4acF_E3s1aj8Owtq3P0ijdXM-yPCEtXpqTgM6SbXh7_EaOsGSXWYZklh4nsm6Wnd7ScHMiMJlzJIwzuBP9StBNQaPKokFNJz8YoNFKeAbpIKUll-e_DB1kW6nQCO4L956qAjNw22EwSpU5f29z_X-OF-X2pRXlZOshDEJ5LdatILnGJxh3-yX3VG0NRTofkg_4xwuOfSctl-TSlIwrKonMeSn8H",
+   "connection": "keep-alive",
+   "content-length": "160",
+   "content-type": "application/json",
+   "host": "aeroitalia-gateway.azure-api.net",
+   "ocp-apim-subscription-key": "67d318c9d50e453f93860a7600bcb910",
+   "origin": "https://www.aeroitalia.com",
+   "referer": "https://www.aeroitalia.com/"
+  },
+  "file": "data/flights/raw/aeroitalia_capture_8_tripinfo.json"
+ },
+ {
+  "status": 200,
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v2/trip/info",
+  "method": "POST",
+  "post": "{\"beginDate\":\"2026-11-03\",\"endDate\":\"2026-11-30T23:59:59.000Z\",\"carrierCode\":\"AZ\",\"originStations\":[\"CTA\"],\"destinationStations\":[\"FCO\"],\"numberOfJourneys\":100}",
+  "hdrs": {
+   "accept": "*/*",
+   "accept-language": "it-IT,it;q=0.9,en;q=0.8",
+   "authorization": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzMDZkZmFjZC0zNTI4LTQ4ZjAtOWUyOS00NzdhNGM4ODg3ZjQiLCJhdXRoX3RpbWUiOiIxNzg4Nzg2MTI1Iiwic2Vzc2lvbklEIjoiMCIsInRva2VuVHlwZSI6IiIsImFnZW50SUQiOiIyMTUxNDM0IiwiZG9tYWluQ29kZSI6IldXMiIsImFnZW50TmFtZSI6IldlYkFwcEFub255bW91cyIsIm9yZ2FuaXphdGlvbkNvZGUiOiJTWVNURU0iLCJyb2xlQ29kZSI6IldXV0EiLCJtZmFUeXBlIjoiIiwiY2hhbm5lbFR5cGUiOiJEaWdpdGFsQVBJIiwic3lzdGVtVHlwZSI6IjE4IiwiY2xpZW50TmFtZSI6IlVua25vd24iLCJjdWx0dXJlQ29kZSI6Iml0LUlUIiwiY3VycmVuY3lDb2RlIjoiRVVSIiwibG9jYXRpb25Db2RlIjoiV1dXIiwicGVyc29uSUQiOiIyNTExMDU4IiwicGVyc29uVHlwZSI6IjIiLCJ0cmFjZUxldmVsIjoiMCIsInRyYWNlU3dpdGNoZXMiOiIwIiwiYWdlbnRRdWV1ZUNvZGUiOiJCMkMiLCJvcmdhbml6YXRpb25RdWV1ZUNvZGUiOiIiLCJleHAiOjE3ODg3ODczMjV9.ntgFqNSReMtOW20KuBv0zksyOseGA4Y-veZLwlB1xbpeU1mZpgYvUaqhIu7lChjonrBBtx4xlDmLT_fLRSMIdOTVRDvZgy_ToIAN9NLepyDPJyplWS3fe_A_Asl8kSS1ocICUTYeZdoA5c35zAev9Fsy_6GnkMWDH1LVkJEBWi5J6v9ZvkKq93gmrQK6RsLBxkrRfHPwWUTolYtf3pS711jgtakhksTCKnMwLaBimQFx_ft_GnQ9YBy35AdVXdrWuR_0c8R5EHUlhCPIJpxBnhYwvnILiWYHlLXAW4acF_E3s1aj8Owtq3P0ijdXM-yPCEtXpqTgM6SbXh7_EaOsGSXWYZklh4nsm6Wnd7ScHMiMJlzJIwzuBP9StBNQaPKokFNJz8YoNFKeAbpIKUll-e_DB1kW6nQCO4L956qAjNw22EwSpU5f29z_X-OF-X2pRXlZOshDEJ5LdatILnGJxh3-yX3VG0NRTofkg_4xwuOfSctl-TSlIwrKonMeSn8H",
+   "connection": "keep-alive",
+   "content-length": "160",
+   "content-type": "application/json",
+   "host": "aeroitalia-gateway.azure-api.net",
+   "ocp-apim-subscription-key": "67d318c9d50e453f93860a7600bcb910",
+   "origin": "https://www.aeroitalia.com",
+   "referer": "https://www.aeroitalia.com/"
+  },
+  "file": "data/flights/raw/aeroitalia_capture_9_tripinfo.json"
+ },
+ {
+  "status": 200,
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v2/trip/info",
+  "method": "POST",
+  "post": "{\"beginDate\":\"2026-11-19\",\"endDate\":\"2026-11-30T23:59:59.000Z\",\"carrierCode\":\"AZ\",\"originStations\":[\"CTA\"],\"destinationStations\":[\"FCO\"],\"numberOfJourneys\":100}",
+  "hdrs": {
+   "accept": "*/*",
+   "accept-language": "it-IT,it;q=0.9,en;q=0.8",
+   "authorization": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzMDZkZmFjZC0zNTI4LTQ4ZjAtOWUyOS00NzdhNGM4ODg3ZjQiLCJhdXRoX3RpbWUiOiIxNzg4Nzg2MTI1Iiwic2Vzc2lvbklEIjoiMCIsInRva2VuVHlwZSI6IiIsImFnZW50SUQiOiIyMTUxNDM0IiwiZG9tYWluQ29kZSI6IldXMiIsImFnZW50TmFtZSI6IldlYkFwcEFub255bW91cyIsIm9yZ2FuaXphdGlvbkNvZGUiOiJTWVNURU0iLCJyb2xlQ29kZSI6IldXV0EiLCJtZmFUeXBlIjoiIiwiY2hhbm5lbFR5cGUiOiJEaWdpdGFsQVBJIiwic3lzdGVtVHlwZSI6IjE4IiwiY2xpZW50TmFtZSI6IlVua25vd24iLCJjdWx0dXJlQ29kZSI6Iml0LUlUIiwiY3VycmVuY3lDb2RlIjoiRVVSIiwibG9jYXRpb25Db2RlIjoiV1dXIiwicGVyc29uSUQiOiIyNTExMDU4IiwicGVyc29uVHlwZSI6IjIiLCJ0cmFjZUxldmVsIjoiMCIsInRyYWNlU3dpdGNoZXMiOiIwIiwiYWdlbnRRdWV1ZUNvZGUiOiJCMkMiLCJvcmdhbml6YXRpb25RdWV1ZUNvZGUiOiIiLCJleHAiOjE3ODg3ODczMjV9.ntgFqNSReMtOW20KuBv0zksyOseGA4Y-veZLwlB1xbpeU1mZpgYvUaqhIu7lChjonrBBtx4xlDmLT_fLRSMIdOTVRDvZgy_ToIAN9NLepyDPJyplWS3fe_A_Asl8kSS1ocICUTYeZdoA5c35zAev9Fsy_6GnkMWDH1LVkJEBWi5J6v9ZvkKq93gmrQK6RsLBxkrRfHPwWUTolYtf3pS711jgtakhksTCKnMwLaBimQFx_ft_GnQ9YBy35AdVXdrWuR_0c8R5EHUlhCPIJpxBnhYwvnILiWYHlLXAW4acF_E3s1aj8Owtq3P0ijdXM-yPCEtXpqTgM6SbXh7_EaOsGSXWYZklh4nsm6Wnd7ScHMiMJlzJIwzuBP9StBNQaPKokFNJz8YoNFKeAbpIKUll-e_DB1kW6nQCO4L956qAjNw22EwSpU5f29z_X-OF-X2pRXlZOshDEJ5LdatILnGJxh3-yX3VG0NRTofkg_4xwuOfSctl-TSlIwrKonMeSn8H",
+   "connection": "keep-alive",
+   "content-length": "160",
+   "content-type": "application/json",
+   "host": "aeroitalia-gateway.azure-api.net",
+   "ocp-apim-subscription-key": "67d318c9d50e453f93860a7600bcb910",
+   "origin": "https://www.aeroitalia.com",
+   "referer": "https://www.aeroitalia.com/"
+  },
+  "file": "data/flights/raw/aeroitalia_capture_10_tripinfo.json"
+ }
+]

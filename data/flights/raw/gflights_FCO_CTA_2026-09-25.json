@@ -1,0 +1,809 @@
+{
+ "route": "FCO-CTA",
+ "date": "2026-09-25",
+ "source_url": "https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjVqBRIDRkNPcgUSA0NUQUIBAUgBmAEC&hl=it&curr=EUR",
+ "fetched_at": "2026-09-07T13:03:56.644091Z",
+ "http_status": 200,
+ "parse_error": null,
+ "flights": [
+  {
+   "type": "FR",
+   "price": 31,
+   "airlines": [
+    "Ryanair"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       8,
+       25
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       9,
+       45
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Boeing 737"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 64000
+   }
+  },
+  {
+   "type": "FR",
+   "price": 37,
+   "airlines": [
+    "Ryanair"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       21,
+       0
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       22,
+       20
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Boeing 737"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 64000
+   }
+  },
+  {
+   "type": "XZ",
+   "price": 40,
+   "airlines": [
+    "Aeroitalia"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       9,
+       30
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       10,
+       50
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Boeing 737"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 64000
+   }
+  },
+  {
+   "type": "XZ",
+   "price": 45,
+   "airlines": [
+    "Aeroitalia"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       21,
+       40
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       23,
+       0
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Boeing 737"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 64000
+   }
+  },
+  {
+   "type": "FR",
+   "price": 51,
+   "airlines": [
+    "Ryanair"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       20,
+       15
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       21,
+       35
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Boeing 737"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 64000
+   }
+  },
+  {
+   "type": "FR",
+   "price": 52,
+   "airlines": [
+    "Ryanair"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       17,
+       45
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       19,
+       5
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Boeing 737"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 64000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 67,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       21,
+       15
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       22,
+       30
+      ]
+     },
+     "duration": 75,
+     "plane_type": "Airbus A220-300 Passenger"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 69000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 67,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       22,
+       0
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       23,
+       20
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Airbus A320"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 66000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 87,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       10,
+       40
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       12,
+       0
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Airbus A320"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 86000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 87,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       12,
+       5
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       13,
+       25
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Airbus A320neo"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 57000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 87,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       20,
+       30
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       21,
+       45
+      ]
+     },
+     "duration": 75,
+     "plane_type": "Airbus A220-300 Passenger"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 69000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 119,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       13,
+       20
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       14,
+       40
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Airbus A320"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 66000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 119,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       14,
+       30
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       15,
+       45
+      ]
+     },
+     "duration": 75,
+     "plane_type": "Airbus A320neo"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 57000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 137,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       8,
+       15
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       9,
+       30
+      ]
+     },
+     "duration": 75,
+     "plane_type": "Airbus A220 Passenger"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 70000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 137,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       19,
+       30
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       20,
+       45
+      ]
+     },
+     "duration": 75,
+     "plane_type": "Airbus A220-300 Passenger"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 69000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 176,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       9,
+       35
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       10,
+       55
+      ]
+     },
+     "duration": 80,
+     "plane_type": "Airbus A220-300 Passenger"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 69000
+   }
+  },
+  {
+   "type": "AZ",
+   "price": 176,
+   "airlines": [
+    "ITA"
+   ],
+   "flights": [
+    {
+     "from_airport": {
+      "name": "Aeroporto di Roma - Fiumicino Leonardo da Vinci",
+      "code": "FCO"
+     },
+     "to_airport": {
+      "name": "Aeroporto di Catania",
+      "code": "CTA"
+     },
+     "departure": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       17,
+       15
+      ]
+     },
+     "arrival": {
+      "date": [
+       2026,
+       9,
+       25
+      ],
+      "time": [
+       18,
+       30
+      ]
+     },
+     "duration": 75,
+     "plane_type": "Airbus A320"
+    }
+   ],
+   "carbon": {
+    "typical_on_route": 64000,
+    "emission": 66000
+   }
+  }
+ ]
+}
