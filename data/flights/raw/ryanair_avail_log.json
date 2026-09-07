@@ -1,0 +1,352 @@
+[
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-09-25&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_FCO_2026-09-25.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:27.474Z",
+  "flights": 44
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-02&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_FCO_2026-10-02.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:29.017Z",
+  "flights": 44
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-09&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_FCO_2026-10-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:30.554Z",
+  "flights": 44
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-16&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_FCO_2026-10-16.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:32.047Z",
+  "flights": 44
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-23&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_FCO_2026-10-23.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:33.595Z",
+  "flights": 44
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-30&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_FCO_2026-10-30.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:35.132Z",
+  "flights": 42
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-06&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_FCO_2026-11-06.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:36.556Z",
+  "flights": 35
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-13&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_FCO_2026-11-13.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:38.028Z",
+  "flights": 35
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-20&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_FCO_2026-11-20.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:39.715Z",
+  "flights": 35
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-27&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_FCO_2026-11-27.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:41.239Z",
+  "flights": 36
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=CTA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-09-25&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_CTA_2026-09-25.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:42.661Z",
+  "flights": 44
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=CTA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-02&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_CTA_2026-10-02.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:44.354Z",
+  "flights": 44
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=CTA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-09&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_CTA_2026-10-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:45.863Z",
+  "flights": 44
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=CTA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-16&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_CTA_2026-10-16.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:47.316Z",
+  "flights": 44
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=CTA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-23&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_CTA_2026-10-23.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:48.750Z",
+  "flights": 44
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=CTA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-30&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_CTA_2026-10-30.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:50.264Z",
+  "flights": 42
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=CTA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-06&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_CTA_2026-11-06.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:51.877Z",
+  "flights": 35
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=CTA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-13&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_CTA_2026-11-13.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:53.340Z",
+  "flights": 35
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=CTA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-20&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_CTA_2026-11-20.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:54.766Z",
+  "flights": 35
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=CTA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-27&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_CTA_2026-11-27.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:56.213Z",
+  "flights": 36
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=REG&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-09-25&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_REG_FCO_2026-09-25.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:57.615Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=REG&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-02&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_REG_FCO_2026-10-02.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:47:58.915Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=REG&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-09&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_REG_FCO_2026-10-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:00.217Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=REG&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-16&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_REG_FCO_2026-10-16.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:01.529Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=REG&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-23&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_REG_FCO_2026-10-23.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:02.890Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=REG&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-30&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_REG_FCO_2026-10-30.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:04.211Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=REG&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-06&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_REG_FCO_2026-11-06.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:05.516Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=REG&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-13&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_REG_FCO_2026-11-13.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:06.834Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=REG&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-20&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_REG_FCO_2026-11-20.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:08.128Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=REG&Destination=FCO&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-27&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_REG_FCO_2026-11-27.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:09.431Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=REG&promoCode=&IncludeConnectingFlights=false&DateOut=2026-09-25&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_REG_2026-09-25.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:10.816Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=REG&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-02&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_REG_2026-10-02.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:12.115Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=REG&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-09&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_REG_2026-10-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:13.409Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=REG&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-16&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_REG_2026-10-16.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:14.708Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=REG&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-23&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_REG_2026-10-23.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:15.984Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=REG&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-30&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_REG_2026-10-30.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:17.284Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=REG&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-06&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_REG_2026-11-06.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:18.604Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=REG&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-13&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_REG_2026-11-13.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:19.909Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=REG&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-20&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_REG_2026-11-20.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:21.231Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=FCO&Destination=REG&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-27&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_FCO_REG_2026-11-27.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:22.530Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=CIA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-09-25&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_CIA_2026-09-25.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:23.857Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=CIA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-02&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_CIA_2026-10-02.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:25.163Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=CIA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-09&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_CIA_2026-10-09.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:26.611Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=CIA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-16&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_CIA_2026-10-16.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:28.079Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=CIA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-23&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_CIA_2026-10-23.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:29.382Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=CIA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-10-30&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_CIA_2026-10-30.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:30.690Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=CIA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-06&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_CIA_2026-11-06.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:32.003Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=CIA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-13&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_CIA_2026-11-13.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:33.325Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=CIA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-20&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_CIA_2026-11-20.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:34.639Z",
+  "flights": 0
+ },
+ {
+  "url": "https://www.ryanair.com/api/booking/v4/it-it/availability?ADT=1&TEEN=0&CHD=0&INF=0&Origin=CTA&Destination=CIA&promoCode=&IncludeConnectingFlights=false&DateOut=2026-11-27&FlexDaysBeforeOut=0&FlexDaysOut=6&RoundTrip=false&ToUs=AGREED",
+  "file": "data/flights/raw/ryanair_avail_CTA_CIA_2026-11-27.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T12:48:35.969Z",
+  "flights": 0
+ }
+]
