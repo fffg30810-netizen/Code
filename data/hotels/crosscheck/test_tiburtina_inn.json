@@ -1,0 +1,11 @@
+{
+ "name": "TIBURTINA INN GUEST HOUSE",
+ "checkin": "2026-10-06",
+ "checkout": "2026-10-08",
+ "adults": 1,
+ "google_url": "https://www.google.com/travel/search?q=TIBURTINA%20INN%20GUEST%20HOUSE%20Roma&hl=it&gl=it&curr=EUR",
+ "google_status": 200,
+ "google_title": "TIBURTINA INN GUEST HOUSE Roma - Ricerca di hotel su Google",
+ "agoda_hid": null,
+ "error": "no agoda hid found on google hotels page"
+}
