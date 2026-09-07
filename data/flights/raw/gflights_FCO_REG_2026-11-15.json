@@ -2,8 +2,8 @@
  "route": "FCO-REG",
  "date": "2026-11-15",
  "source_url": "https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMTEtMTVqBRIDRkNPcgUSA1JFR0IBAUgBmAEC&hl=it&curr=EUR",
- "fetched_at": "2026-09-07T13:08:58.976576Z",
+ "fetched_at": "2026-09-07T13:18:34.304639Z",
  "http_status": 200,
- "parse_error": "TypeError(\"'NoneType' object is not subscriptable\")",
+ "parse_error": null,
  "flights": []
 }

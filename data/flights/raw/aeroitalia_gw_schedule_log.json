@@ -1,0 +1,110 @@
+[
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v1/trip/schedule?Origin=REG&Destination=FCO&BeginDate=2026-09-25&EndDate=2026-12-03T23:59:59.000Z",
+  "method": "GET",
+  "post": null,
+  "file": "data/flights/raw/aeroitalia_gw_schedule_REG_FCO.json",
+  "status": 400,
+  "fetched_at": "2026-09-07T13:17:44.242Z"
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v2/trip/info",
+  "method": "POST",
+  "post": {
+   "beginDate": "2026-11-01",
+   "endDate": "2026-12-03T23:59:59.000Z",
+   "carrierCode": "AZ",
+   "originStations": [
+    "REG"
+   ],
+   "destinationStations": [
+    "FCO"
+   ],
+   "numberOfJourneys": 100
+  },
+  "file": "data/flights/raw/aeroitalia_gw_tripinfo_AZ_REG_FCO_2026-11.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:17:45.724Z"
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v1/trip/schedule?Origin=FCO&Destination=REG&BeginDate=2026-09-25&EndDate=2026-12-03T23:59:59.000Z",
+  "method": "GET",
+  "post": null,
+  "file": "data/flights/raw/aeroitalia_gw_schedule_FCO_REG.json",
+  "status": 400,
+  "fetched_at": "2026-09-07T13:17:47.579Z"
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v2/trip/info",
+  "method": "POST",
+  "post": {
+   "beginDate": "2026-11-01",
+   "endDate": "2026-12-03T23:59:59.000Z",
+   "carrierCode": "AZ",
+   "originStations": [
+    "FCO"
+   ],
+   "destinationStations": [
+    "REG"
+   ],
+   "numberOfJourneys": 100
+  },
+  "file": "data/flights/raw/aeroitalia_gw_tripinfo_AZ_FCO_REG_2026-11.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:17:49.176Z"
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v1/trip/schedule?Origin=CTA&Destination=FCO&BeginDate=2026-09-25&EndDate=2026-12-03T23:59:59.000Z",
+  "method": "GET",
+  "post": null,
+  "file": "data/flights/raw/aeroitalia_gw_schedule_CTA_FCO.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:17:50.812Z"
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v2/trip/info",
+  "method": "POST",
+  "post": {
+   "beginDate": "2026-11-01",
+   "endDate": "2026-12-03T23:59:59.000Z",
+   "carrierCode": "AZ",
+   "originStations": [
+    "CTA"
+   ],
+   "destinationStations": [
+    "FCO"
+   ],
+   "numberOfJourneys": 100
+  },
+  "file": "data/flights/raw/aeroitalia_gw_tripinfo_AZ_CTA_FCO_2026-11.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:17:52.276Z"
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v1/trip/schedule?Origin=FCO&Destination=CTA&BeginDate=2026-09-25&EndDate=2026-12-03T23:59:59.000Z",
+  "method": "GET",
+  "post": null,
+  "file": "data/flights/raw/aeroitalia_gw_schedule_FCO_CTA.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:17:54.048Z"
+ },
+ {
+  "url": "https://aeroitalia-gateway.azure-api.net/dotrezprod/api/nsk/v2/trip/info",
+  "method": "POST",
+  "post": {
+   "beginDate": "2026-11-01",
+   "endDate": "2026-12-03T23:59:59.000Z",
+   "carrierCode": "AZ",
+   "originStations": [
+    "FCO"
+   ],
+   "destinationStations": [
+    "CTA"
+   ],
+   "numberOfJourneys": 100
+  },
+  "file": "data/flights/raw/aeroitalia_gw_tripinfo_AZ_FCO_CTA_2026-11.json",
+  "status": 200,
+  "fetched_at": "2026-09-07T13:17:55.713Z"
+ }
+]

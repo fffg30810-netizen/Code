@@ -1,0 +1,492 @@
+[
+ {
+  "pair": "CTA-FCO",
+  "out_date": "2026-10-02",
+  "ret_date": "2026-10-04",
+  "our_total": "29.98",
+  "url": "https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMTAtMDJqBRIDQ1RBcgUSA0ZDTxoaEgoyMDI2LTEwLTA0agUSA0ZDT3IFEgNDVEFCAQFIAZgBAQ==&hl=it&curr=EUR",
+  "fetched_at": "2026-09-07T13:11:48.988436Z",
+  "status": 200,
+  "gf_price": 53,
+  "gf_airlines": "Ryanair",
+  "gf_top": [
+   {
+    "price": 53,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      2
+     ],
+     "time": [
+      18,
+      10
+     ]
+    }
+   },
+   {
+    "price": 62,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      2
+     ],
+     "time": [
+      8,
+      0
+     ]
+    }
+   },
+   {
+    "price": 66,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      2
+     ],
+     "time": [
+      15,
+      40
+     ]
+    }
+   },
+   {
+    "price": 76,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      2
+     ],
+     "time": [
+      11,
+      55
+     ]
+    }
+   },
+   {
+    "price": 80,
+    "airlines": [
+     "Aeroitalia"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      2
+     ],
+     "time": [
+      19,
+      20
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "pair": "CTA-FCO",
+  "out_date": "2026-10-03",
+  "ret_date": "2026-10-06",
+  "our_total": "29.98",
+  "url": "https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMTAtMDNqBRIDQ1RBcgUSA0ZDTxoaEgoyMDI2LTEwLTA2agUSA0ZDT3IFEgNDVEFCAQFIAZgBAQ==&hl=it&curr=EUR",
+  "fetched_at": "2026-09-07T13:11:51.096479Z",
+  "status": 200,
+  "gf_price": 53,
+  "gf_airlines": "Ryanair",
+  "gf_top": [
+   {
+    "price": 53,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      3
+     ],
+     "time": [
+      15,
+      35
+     ]
+    }
+   },
+   {
+    "price": 61,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      3
+     ],
+     "time": [
+      6,
+      0
+     ]
+    }
+   },
+   {
+    "price": 63,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      3
+     ],
+     "time": [
+      12,
+      0
+     ]
+    }
+   },
+   {
+    "price": 70,
+    "airlines": [
+     "Aeroitalia"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      3
+     ],
+     "time": [
+      11,
+      40
+     ]
+    }
+   },
+   {
+    "price": 70,
+    "airlines": [
+     "Aeroitalia"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      3
+     ],
+     "time": [
+      19,
+      20
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "pair": "CTA-FCO",
+  "out_date": "2026-10-04",
+  "ret_date": "2026-10-06",
+  "our_total": "29.98",
+  "url": "https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMTAtMDRqBRIDQ1RBcgUSA0ZDTxoaEgoyMDI2LTEwLTA2agUSA0ZDT3IFEgNDVEFCAQFIAZgBAQ==&hl=it&curr=EUR",
+  "fetched_at": "2026-09-07T13:11:53.017916Z",
+  "status": 200,
+  "gf_price": 54,
+  "gf_airlines": "Ryanair",
+  "gf_top": [
+   {
+    "price": 54,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      4
+     ],
+     "time": [
+      14,
+      5
+     ]
+    }
+   },
+   {
+    "price": 70,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      4
+     ],
+     "time": [
+      18,
+      10
+     ]
+    }
+   },
+   {
+    "price": 73,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      4
+     ],
+     "time": [
+      17,
+      35
+     ]
+    }
+   },
+   {
+    "price": 73,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      4
+     ],
+     "time": [
+      23,
+      20
+     ]
+    }
+   },
+   {
+    "price": 80,
+    "airlines": [
+     "Aeroitalia"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      4
+     ],
+     "time": [
+      15,
+      50
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "pair": "CTA-FCO",
+  "out_date": "2026-10-04",
+  "ret_date": "2026-10-07",
+  "our_total": "29.98",
+  "url": "https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMTAtMDRqBRIDQ1RBcgUSA0ZDTxoaEgoyMDI2LTEwLTA3agUSA0ZDT3IFEgNDVEFCAQFIAZgBAQ==&hl=it&curr=EUR",
+  "fetched_at": "2026-09-07T13:11:54.924408Z",
+  "status": 200,
+  "gf_price": 54,
+  "gf_airlines": "Ryanair",
+  "gf_top": [
+   {
+    "price": 54,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      4
+     ],
+     "time": [
+      14,
+      5
+     ]
+    }
+   },
+   {
+    "price": 70,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      4
+     ],
+     "time": [
+      18,
+      10
+     ]
+    }
+   },
+   {
+    "price": 73,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      4
+     ],
+     "time": [
+      17,
+      35
+     ]
+    }
+   },
+   {
+    "price": 73,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      4
+     ],
+     "time": [
+      23,
+      20
+     ]
+    }
+   },
+   {
+    "price": 80,
+    "airlines": [
+     "Aeroitalia"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      4
+     ],
+     "time": [
+      15,
+      50
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "pair": "CTA-FCO",
+  "out_date": "2026-10-08",
+  "ret_date": "2026-10-11",
+  "our_total": "29.98",
+  "url": "https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMTAtMDhqBRIDQ1RBcgUSA0ZDTxoaEgoyMDI2LTEwLTExagUSA0ZDT3IFEgNDVEFCAQFIAZgBAQ==&hl=it&curr=EUR",
+  "fetched_at": "2026-09-07T13:11:56.801483Z",
+  "status": 200,
+  "gf_price": 42,
+  "gf_airlines": "Ryanair",
+  "gf_top": [
+   {
+    "price": 42,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      8
+     ],
+     "time": [
+      7,
+      50
+     ]
+    }
+   },
+   {
+    "price": 42,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      8
+     ],
+     "time": [
+      15,
+      40
+     ]
+    }
+   },
+   {
+    "price": 49,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      8
+     ],
+     "time": [
+      11,
+      50
+     ]
+    }
+   },
+   {
+    "price": 51,
+    "airlines": [
+     "Ryanair"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      8
+     ],
+     "time": [
+      14,
+      30
+     ]
+    }
+   },
+   {
+    "price": 60,
+    "airlines": [
+     "Aeroitalia"
+    ],
+    "dep": {
+     "date": [
+      2026,
+      10,
+      8
+     ],
+     "time": [
+      19,
+      20
+     ]
+    }
+   }
+  ]
+ }
+]

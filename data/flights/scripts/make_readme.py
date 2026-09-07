@@ -33,14 +33,14 @@ def best_direct(route, date):
     return min(per.values(), key=lambda r: r["price_eur"]) if per else None
 
 # ---------- counts / sources ----------
-n_gf = len(glob.glob(f"{RAW}/gflights_*.json")); n_ryr_avail = len(glob.glob(f"{RAW}/ryanair_avail_*_2026-??-??.json")); n_aero = len(glob.glob(f"{RAW}/aeroitalia_avail_*.json"))
+n_gf = len(glob.glob(f"{RAW}/gflights_???_???_2026-??-??.json")); n_ryr_avail = len(glob.glob(f"{RAW}/ryanair_avail_*_2026-??-??.json")); n_aero = len(glob.glob(f"{RAW}/aeroitalia_avail_*.json"))
 gf_missing = []
 for pr in ["CTA-FCO", "FCO-CTA", "REG-FCO", "FCO-REG"]:
     d = D0
     while d <= D1:
         if not os.path.exists(f"{RAW}/gflights_{pr.replace('-', '_')}_{d.isoformat()}.json"): gf_missing.append(f"{pr} {d}")
         d += datetime.timedelta(days=1)
-gf_parse_err = [f for f in glob.glob(f"{RAW}/gflights_*.json") if json.load(open(f)).get("parse_error")]
+gf_parse_err = [f for f in glob.glob(f"{RAW}/gflights_???_???_2026-??-??.json") if json.load(open(f)).get("parse_error")]
 
 p("# Flight price data: Messina area (REG / CTA) ⇄ Rome (FCO / CIA), 2026-09-25 → 2026-12-03")
 p()
@@ -60,7 +60,14 @@ wm = json.load(open(f"{RAW}/wizzair_map.json")); cta_w = next(c for c in wm["cit
 p(f"| CTA | Wizz Air | FCO, **but only from {fco_conn['operationStartDate'][:10]}** | `be.wizzair.com/…/Api/asset/map`: CTA→FCO connection has operationStartDate {fco_conn['operationStartDate'][:10]}. Timetable API for Sep 25–Nov 30 returns no flights; for December it returns flights from 14 Dec (24.99 EUR on 2026-12-14, `raw/wizzair_timetable_CTA_FCO_2026-12_validation.json`). No Wizz Air REG routes. |")
 sm = json.load(open(f"{RAW}/aeroitalia_searchMask.json"))["data"]["configurations"]["stations"]
 cta_m = next(s for s in sm if s["code"] == "CTA"); p(f"| CTA | Aeroitalia | FCO | Aeroitalia search mask: CTA markets = {', '.join(k['code'] for k in cta_m['markets'])}. REG is not an Aeroitalia station. Live availability collected (`raw/aeroitalia_avail_*.json`). |")
-p("| REG | ITA Airways | FCO | Google Flights shows ITA (AZ) nonstop REG⇄FCO on every day of the window (`raw/gflights_REG_FCO_*.json`). ITA's own site could not be queried (see §6). |")
+ita_reg = {}
+for o, d in (("REG", "FCO"), ("FCO", "REG")):
+    try:
+        j = json.load(open(f"{RAW}/aeroitalia_gw_tripinfo_AZ_{o}_{d}_2026-11.json"))
+        ita_reg[f"{o}-{d}"] = [(x["date"][:10], [(s["identifier"]["carrierCode"] + s["identifier"]["identifier"], s["designator"]["departure"][11:16]) for jn in x["journeys"] for s in jn["segments"]]) for x in j["data"]]
+    except Exception as e: ita_reg[f"{o}-{d}"] = []
+reg_sched = "; ".join(f"{k}: {len(v)} days 2026-11-01..2026-12-03 with flights, e.g. {v[0][0]} {v[0][1]}" for k, v in ita_reg.items() if v)
+p(f"| REG | ITA Airways | FCO | Google Flights shows ITA (AZ) nonstop REG⇄FCO (`raw/gflights_REG_FCO_*.json`), and the Navitaire gateway used by aeroitalia.com returns ITA's REG⇄FCO schedule with carrierCode=AZ for every day 2026-11-01..2026-12-03 (`raw/aeroitalia_gw_tripinfo_AZ_REG_FCO_2026-11.json`; {reg_sched}). ITA's own site could not be queried (see §6). |")
 p("| CTA | ITA Airways | FCO | Google Flights shows ITA (AZ) nonstop CTA⇄FCO (10–13 flights/day). Aeroitalia's Navitaire `trip/info` with carrierCode=AZ also returns the ITA CTA-FCO schedule (`raw/aeroitalia_capture_*_tripinfo.json`), no prices. |")
 p("| CTA / REG | easyJet | not verified | www.easyjet.com returned Akamai *Access Denied* (HTTP 403) to both curl and headless Chromium. Google Flights results for CTA-FCO and REG-FCO contain no easyJet itineraries on any sampled day, which indicates easyJet does not fly these routes. |")
 p()
@@ -133,19 +140,31 @@ p("## 5. Cross-check: Google Flights")
 p()
 p(f"Google Flights was queried once per route and day (one-way, 1 adult, EUR, nonstop itineraries kept): {n_gf} pages fetched (`raw/gflights_<route>_<date>.json`, each records the exact URL and UTC timestamp; the HTML was parsed with the `fast-flights` library). Google's prices are rounded to whole euros and may include a different bag/fare assumption than the airline site, so treat them as a cross-check: for Ryanair the direct booking-API figure is authoritative; for ITA Airways Google Flights is the only source available (see §6).")
 if gf_missing: p(f"\nMissing Google Flights days: {', '.join(gf_missing)}")
+gf_zero = []
+for f in sorted(glob.glob(f"{RAW}/gflights_???_???_2026-??-??.json")):
+    j = json.load(open(f))
+    if not any(fl.get("price") is not None for fl in j.get("flights", [])): gf_zero.append(f"{j['route']} {j['date']}")
+if gf_zero: p(f"\n**Google Flights returned no priced itinerary at all on {len(gf_zero)} route-days** (the page's itinerary payload is empty, every retry). Days: {', '.join(gf_zero)}. For REG⇄FCO these are the only source of ITA prices, so those days have **no price** in the tables (shown as —) although ITA's schedule confirms the flights operate (§1).")
 if gf_parse_err: p(f"\nGoogle Flights pages with parse errors (no flights extracted): {len(gf_parse_err)}: " + ", ".join(os.path.basename(f) for f in gf_parse_err))
 p()
-p("Ryanair: direct booking API vs Google Flights, cheapest per day (first 10 days where both exist):")
+p("Ryanair: same flight (matched by route, date and departure time), Ryanair booking API `amount` (the discounted fare Ryanair shows; `publishedFare` before discount is in `ryanair_all_flights.csv` raw data) vs the price Google Flights shows for that flight, first 12 matches:")
 p()
-p("| route | date | Ryanair API | Google Flights (Ryanair) |")
-p("|---|---|---|---|")
-cnt = 0
-for route in ["CTA-FCO", "FCO-CTA"]:
-    d = D0
-    while d <= D1 and cnt < 10:
-        ry = get(route, d.isoformat(), "Ryanair", "ryanair_booking_api"); g = get(route, d.isoformat(), "Ryanair", "google_flights")
-        if ry and g: p(f"| {route} | {d} | {eur(ry['price_eur'])} {ry['dep_time']} | {eur(g['price_eur'])} {g['dep_time']} |"); cnt += 1
-        d += datetime.timedelta(days=1)
+p("| route | date | dep | flight | Ryanair API | Google Flights |")
+p("|---|---|---|---|---|---|")
+ryall = list(csv.DictReader(open(f"{OUT}/ryanair_all_flights.csv")))
+gf_by = {}
+for f in sorted(glob.glob(f"{RAW}/gflights_???_???_2026-??-??.json")):
+    j = json.load(open(f))
+    for fl in j.get("flights", []):
+        if len(fl.get("flights", [])) == 1 and fl.get("price") is not None and "Ryanair" in fl["airlines"]:
+            gf_by[(j["route"], j["date"], "%02d:%02d" % tuple(fl["flights"][0]["departure"]["time"]))] = fl["price"]
+cnt = 0; diffs = []
+for r in ryall:
+    g = gf_by.get((r["route"], r["date"], r["dep_time"]))
+    if g is None: continue
+    diffs.append(g - float(r["price_eur"]))
+    if cnt < 12: p(f"| {r['route']} | {r['date']} | {r['dep_time']} | {r['flight_no']} | {r['price_eur']} | {g} |"); cnt += 1
+if diffs: p(f"\nAcross all {len(diffs)} matched Ryanair flights, Google Flights is on average {sum(diffs)/len(diffs):+.2f} EUR vs the Ryanair API amount (min {min(diffs):+.2f}, max {max(diffs):+.2f}). Google Flights therefore does not reflect Ryanair's discounted `amount`; use the Ryanair API figures for Ryanair.")
 p()
 if os.path.exists(f"{RAW}/gflights_roundtrip_check.json"):
     p("Google Flights round-trip search for the 5 cheapest combinations found above (what Google shows for the same dates, cheapest itinerary, any airline):")
