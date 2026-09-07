@@ -1,6 +1,6 @@
 # Train prices Messina / Villa S. Giovanni / Reggio Calabria <-> Roma, 25 Sep - 3 Dec 2026
 
-Collected live on 2026-09-07 between 12:35 and 12:56 UTC (1 adult, no discount cards, prices in EUR as shown by Trenitalia's own booking API). All numbers below are the real values returned by the sources at fetch time; nothing is estimated. Prices change continuously, so treat them as a snapshot.
+Collected live on 2026-09-07 between 12:35 and 13:04 UTC (1 adult, no discount cards, prices in EUR as shown by Trenitalia's own booking API). All numbers below are the real values returned by the sources at fetch time; nothing is estimated. Prices change continuously, so treat them as a snapshot.
 
 ## Files
 
@@ -251,6 +251,26 @@ Columns: cheapest overall (price / train / dep-arr / changes / offer) and cheape
 | 2026-11-08 Sun | 32.0 | NI 812 + RE 21404 | 22:25-06:24 | 1 | Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE) | 66.9 | FR 9588 | 10:25-16:17 | Economy (STANDARD) |
 | 2026-11-09 Mon | 22.9 | IC 95072 + RV 4734 | 11:50-19:10 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 39.9 | FR 9588 | 10:25-16:17 | Super Economy (STANDARD) |
 | 2026-11-10 Tue | 22.9 | IC 95072 + RV 4734 | 11:50-19:10 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 9588 | 10:25-16:17 | FrecciaDAYS (STANDARD) |
+| 2026-11-11 Wed | 22.9 | IC 95072 + RV 4734 | 11:50-19:10 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 9588 | 10:25-16:17 | FrecciaDAYS (STANDARD) |
+| 2026-11-12 Thu | 22.9 | IC 95072 + RV 4734 | 11:50-19:10 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 9588 | 10:25-16:17 | FrecciaDAYS (STANDARD) |
+| 2026-11-13 Fri | 26.9 | NI 794 + RE 20571 | 22:03-06:45 | 1 | Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE) | 39.9 | FR 9588 | 10:25-16:17 | Super Economy (STANDARD) |
+| 2026-11-14 Sat | 21.9 | IC 95070 | 14:50-22:10 | 0 | Super Economy (2ª CLASSE EASY) | 33.9 | FR 9588 | 10:25-16:17 | FrecciaDAYS (STANDARD) |
+| 2026-11-15 Sun | 27.9 | IC 1588 | 09:01-16:31 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 1588 | 09:01-16:31 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-16 Mon | 22.9 | IC 95070 + RV 4108 | 14:50-21:58 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 39.9 | FR 9588 | 10:25-16:17 | Super Economy (STANDARD) |
+| 2026-11-17 Tue | 22.9 | IC 95072 + RV 4734 | 11:50-19:10 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 9588 | 10:25-16:17 | FrecciaDAYS (STANDARD) |
+| 2026-11-18 Wed | 22.9 | IC 95072 + RV 4734 | 11:50-19:10 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 9588 | 10:25-16:17 | FrecciaDAYS (STANDARD) |
+| 2026-11-19 Thu | 22.9 | IC 95070 + RV 4108 | 14:50-21:58 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 9588 | 10:25-16:17 | FrecciaDAYS (STANDARD) |
+| 2026-11-20 Fri | 22.9 | IC 95072 + RV 4734 | 11:50-19:10 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 39.9 | FR 9588 | 10:25-16:17 | Super Economy (STANDARD) |
+| 2026-11-21 Sat | 21.9 | IC 95070 | 14:50-22:10 | 0 | Super Economy (2ª CLASSE EASY) | 33.9 | FR 9588 | 10:25-16:17 | FrecciaDAYS (STANDARD) |
+| 2026-11-22 Sun | 21.9 | IC 1588 | 09:01-16:31 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 1588 | 09:01-16:31 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-23 Mon | 22.9 | IC 95072 + RV 4734 | 11:50-19:10 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 39.9 | FR 9588 | 10:25-16:17 | Super Economy (STANDARD) |
+| 2026-11-24 Tue | 22.9 | IC 95072 + RV 4734 | 11:50-19:10 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 9588 | 10:25-16:17 | FrecciaDAYS (STANDARD) |
+| 2026-11-25 Wed | 22.9 | IC 95072 + RV 4734 | 11:50-19:10 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 9588 | 10:25-16:17 | FrecciaDAYS (STANDARD) |
+| 2026-11-26 Thu | 22.9 | IC 95072 + RV 4734 | 11:50-19:10 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 9588 | 10:25-16:17 | FrecciaDAYS (STANDARD) |
+| 2026-11-27 Fri | 22.9 | IC 95072 + RV 4734 | 11:50-19:10 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 39.9 | FR 9588 | 10:25-16:17 | Super Economy (STANDARD) |
+| 2026-11-28 Sat | 21.9 | IC 95070 | 14:50-22:10 | 0 | Super Economy (2ª CLASSE EASY) | 33.9 | FR 9588 | 10:25-16:17 | FrecciaDAYS (STANDARD) |
+| 2026-11-29 Sun | 28.9 | IC 95072 + RV 4196 | 11:50-19:04 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE PRENOTAZIONE) |  |  | - |  |
+| 2026-11-30 Mon | 22.9 | IC 95072 + RV 4734 | 11:50-19:10 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 47.9 | FR 9588 | 10:25-16:17 | Super Economy (STANDARD) |
 
 ### Villa S. Giovanni -> Roma Termini (`VillaSG-RomaTer`)
 
@@ -319,6 +339,10 @@ Columns: cheapest overall (price / train / dep-arr / changes / offer) and cheape
 | 2026-11-24 Tue | 21.9 | IC 552 | 08:12-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 08:12-15:34 | Super Economy (2ª CLASSE EASY) |
 | 2026-11-25 Wed | 21.9 | IC 552 | 08:12-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 08:12-15:34 | Super Economy (2ª CLASSE EASY) |
 | 2026-11-26 Thu | 21.9 | IC 552 | 08:12-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 08:12-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-27 Fri | 21.9 | IC 95072 | 11:50-18:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 95072 | 11:50-18:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-28 Sat | 21.9 | IC 552 | 08:12-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 08:12-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-29 Sun | 27.9 | IC 95072 | 11:50-18:34 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 95072 | 11:50-18:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-30 Mon | 21.9 | IC 552 | 08:12-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 08:12-15:34 | Super Economy (2ª CLASSE EASY) |
 
 ### Reggio di Calabria Centrale -> Roma Tiburtina (`ReggioC-RomaTib`)
 
@@ -396,6 +420,64 @@ Columns: cheapest overall (price / train / dep-arr / changes / offer) and cheape
 
 | Date | Cheapest EUR | Train(s) | Dep-Arr | Chg | Offer | Direct daytime EUR | Train | Dep-Arr | Offer |
 |---|---|---|---|---|---|---|---|---|---|
+| 2026-09-25 Fri | 33.9 | FR 8332 | 15:45-21:20 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8332 | 15:45-21:20 | FrecciaDAYS (STANDARD) |
+| 2026-09-26 Sat | 27.9 | IC 560 | 14:21-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 560 | 14:21-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-09-27 Sun | 42.3 | NI 812 + RE 21052 | 22:04-06:30 | 1 | Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE PRENOTAZIONE) | 47.9 | FR 8418 | 05:55-11:25 | Super Economy (STANDARD) |
+| 2026-09-28 Mon | 21.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-09-29 Tue | 21.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-09-30 Wed | 21.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-01 Thu | 21.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-02 Fri | 33.9 | FR 8868 | 14:16-20:16 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8868 | 14:16-20:16 | FrecciaDAYS (STANDARD) |
+| 2026-10-03 Sat | 27.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-04 Sun | 35.3 | NI 812 + RE 21052 | 22:04-06:30 | 1 | Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE PRENOTAZIONE) | 39.9 | FR 8418 | 05:58-11:25 | Super Economy (STANDARD) |
+| 2026-10-05 Mon | 27.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-06 Tue | 21.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-07 Wed | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-08 Thu | 21.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-09 Fri | 27.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-10 Sat | 21.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-11 Sun | 33.9 | FR 8418 | 05:58-11:25 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8418 | 05:58-11:25 | FrecciaDAYS (STANDARD) |
+| 2026-10-12 Mon | 27.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-13 Tue | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-14 Wed | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-15 Thu | 21.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-16 Fri | 27.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-17 Sat | 27.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-18 Sun | 33.9 | FR 8418 | 05:58-11:25 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8418 | 05:58-11:25 | FrecciaDAYS (STANDARD) |
+| 2026-10-19 Mon | 26.9 | NI 794 + RE 12503 | 21:43-06:25 | 1 | Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE) | 27.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-20 Tue | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-21 Wed | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-22 Thu | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-23 Fri | 21.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-24 Sat | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-25 Sun | 33.9 | FR 8418 | 05:58-11:25 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8418 | 05:58-11:25 | FrecciaDAYS (STANDARD) |
+| 2026-10-26 Mon | 21.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-27 Tue | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-28 Wed | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-29 Thu | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-30 Fri | 29.9 | NI 794 + RE 12503 | 21:43-06:25 | 1 | Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 8868 | 14:16-20:16 | FrecciaDAYS (STANDARD) |
+| 2026-10-31 Sat | 21.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-01 Sun | 33.9 | FR 8418 | 06:01-11:25 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8418 | 06:01-11:25 | FrecciaDAYS (STANDARD) |
+| 2026-11-02 Mon | 21.9 | IC 560 | 15:13-22:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 560 | 15:13-22:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-03 Tue | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-04 Wed | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-05 Thu | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-06 Fri | 29.9 | NI 794 + RE 12503 | 21:43-06:25 | 1 | Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 9658 | 12:07-17:40 | FrecciaDAYS (STANDARD) |
+| 2026-11-07 Sat | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-08 Sun | 33.9 | FR 8418 | 06:01-11:25 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8418 | 06:01-11:25 | FrecciaDAYS (STANDARD) |
+| 2026-11-09 Mon | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-10 Tue | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-11 Wed | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-12 Thu | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-13 Fri | 26.9 | NI 794 + RE 12503 | 21:43-06:25 | 1 | Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 8418 | 06:01-11:25 | FrecciaDAYS (STANDARD) |
+| 2026-11-14 Sat | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-15 Sun | 28.9 | IC 1588 + RV 4105 | 08:39-17:05 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 8418 | 06:01-11:25 | FrecciaDAYS (STANDARD) |
+| 2026-11-16 Mon | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-17 Tue | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-18 Wed | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-19 Thu | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-20 Fri | 24.0 | RE 5598 + IC 95072 | 10:30-18:34 | 1 | ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY) | 33.9 | FR 8418 | 06:01-11:25 | FrecciaDAYS (STANDARD) |
+| 2026-11-21 Sat | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
 | 2026-11-22 Sun | 22.9 | IC 1588 + RV 4105 | 08:39-17:05 | 1 | Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE) | 33.9 | FR 8418 | 06:01-11:25 | FrecciaDAYS (STANDARD) |
 | 2026-11-23 Mon | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
 | 2026-11-24 Tue | 21.9 | IC 552 | 07:54-15:34 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 552 | 07:54-15:34 | Super Economy (2ª CLASSE EASY) |
@@ -592,7 +674,38 @@ Columns: cheapest overall (price / train / dep-arr / changes / offer) and cheape
 | 2026-10-30 Fri | 33.9 | FR 8333 | 06:48-12:43 | 0 | FrecciaDAYS (STANDARD) | 66.9 | FR 9587 | 14:43-21:08 | Economy (STANDARD) |
 | 2026-10-31 Sat | 21.9 | IC 1589 | 14:26-23:16 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 1589 | 14:26-23:16 | Super Economy (2ª CLASSE EASY) |
 | 2026-11-01 Sun | 33.9 | FR 8333 | 06:49-12:43 | 0 | FrecciaDAYS (STANDARD) | 66.9 | FR 9583 | 12:43-18:35 | Economy (STANDARD) |
-| 2026-11-02 Mon | 33.9 | FR 8333 | 06:49-12:43 | 0 | FrecciaDAYS (STANDARD) |  |  | - |  |
+| 2026-11-02 Mon | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 56.9 | FR 9583 | 12:43-18:35 | Super Economy (STANDARD) |
+| 2026-11-03 Tue | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 50.9 | FR 9583 | 12:43-18:35 | FrecciaDAYS (BUSINESS) |
+| 2026-11-04 Wed | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 50.9 | FR 9583 | 12:43-18:35 | FrecciaDAYS (BUSINESS) |
+| 2026-11-05 Thu | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 50.9 | FR 9587 | 14:43-21:08 | FrecciaDAYS (BUSINESS) |
+| 2026-11-06 Fri | 27.9 | NI 795 | 22:33-08:25 | 0 | Super Economy (Posto a sedere 2ª classe-EASY) | 61.9 | FR 9583 | 12:43-18:35 | Super Economy (STANDARD) |
+| 2026-11-07 Sat | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 65.9 | FR 9587 | 14:43-21:08 | Super Economy (PREMIUM) |
+| 2026-11-08 Sun | 33.9 | FR 8333 | 06:49-12:43 | 0 | FrecciaDAYS (STANDARD) |  |  | - |  |
+| 2026-11-09 Mon | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 56.9 | FR 9583 | 12:43-18:35 | Super Economy (STANDARD) |
+| 2026-11-10 Tue | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 50.9 | FR 9583 | 12:43-18:35 | FrecciaDAYS (BUSINESS) |
+| 2026-11-11 Wed | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 50.9 | FR 9583 | 12:43-18:35 | FrecciaDAYS (BUSINESS) |
+| 2026-11-12 Thu | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 50.9 | FR 9587 | 14:43-21:08 | FrecciaDAYS (BUSINESS) |
+| 2026-11-13 Fri | 27.9 | NI 795 | 22:33-08:25 | 0 | Super Economy (Posto a sedere 2ª classe-EASY) | 61.9 | FR 9583 | 12:43-18:35 | Super Economy (STANDARD) |
+| 2026-11-14 Sat | 21.9 | IC 1589 | 14:26-23:16 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 1589 | 14:26-23:16 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-15 Sun | 33.9 | FR 8333 | 06:49-12:43 | 0 | FrecciaDAYS (STANDARD) | 61.9 | FR 9587 | 14:43-21:08 | Super Economy (STANDARD) |
+| 2026-11-16 Mon | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 56.9 | FR 9583 | 12:43-18:35 | Super Economy (STANDARD) |
+| 2026-11-17 Tue | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 50.9 | FR 9583 | 12:43-18:35 | FrecciaDAYS (BUSINESS) |
+| 2026-11-18 Wed | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 50.9 | FR 9583 | 12:43-18:35 | FrecciaDAYS (BUSINESS) |
+| 2026-11-19 Thu | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 50.9 | FR 9583 | 12:43-18:35 | FrecciaDAYS (BUSINESS) |
+| 2026-11-20 Fri | 27.9 | NI 795 | 22:33-08:25 | 0 | Super Economy (Posto a sedere 2ª classe-EASY) | 61.9 | FR 9583 | 12:43-18:35 | Super Economy (STANDARD) |
+| 2026-11-21 Sat | 21.9 | IC 1589 | 14:26-23:16 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 1589 | 14:26-23:16 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-22 Sun | 33.9 | FR 8333 | 06:49-12:43 | 0 | FrecciaDAYS (STANDARD) | 61.9 | FR 9583 | 12:43-18:35 | Super Economy (STANDARD) |
+| 2026-11-23 Mon | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 56.9 | FR 9583 | 12:43-18:35 | Super Economy (STANDARD) |
+| 2026-11-24 Tue | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 50.9 | FR 9583 | 12:43-18:35 | FrecciaDAYS (BUSINESS) |
+| 2026-11-25 Wed | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 50.9 | FR 9583 | 12:43-18:35 | FrecciaDAYS (BUSINESS) |
+| 2026-11-26 Thu | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 50.9 | FR 9583 | 12:43-18:35 | FrecciaDAYS (BUSINESS) |
+| 2026-11-27 Fri | 27.9 | NI 795 | 22:33-08:25 | 0 | Super Economy (Posto a sedere 2ª classe-EASY) | 61.9 | FR 9583 | 12:43-18:35 | Super Economy (STANDARD) |
+| 2026-11-28 Sat | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 65.9 | FR 9583 | 12:43-18:35 | Super Economy (PREMIUM) |
+| 2026-11-29 Sun | 37.9 | IC 555 | 13:45-22:04 | 0 | Super Economy (1ª CLASSE PLUS) | 61.9 | FR 9583 | 12:43-18:35 | Super Economy (STANDARD) |
+| 2026-11-30 Mon | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 47.9 | FR 9583 | 12:43-18:35 | Super Economy (STANDARD) |
+| 2026-12-01 Tue | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 39.9 | FR 9583 | 12:43-18:35 | Super Economy (STANDARD) |
+| 2026-12-02 Wed | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 51.9 | FR 9583 | 12:43-18:35 | Super Economy (STANDARD) |
+| 2026-12-03 Thu | 21.9 | IC 561 | 15:45-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 76.9 | FR 9583 | 12:43-18:35 | Economy (STANDARD) |
 
 ### Roma Termini -> Villa S. Giovanni (`RomaTer-VillaSG`)
 
@@ -613,6 +726,59 @@ Columns: cheapest overall (price / train / dep-arr / changes / offer) and cheape
 | 2026-10-09 Fri | 33.9 | FR 8333 | 07:29-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-12:43 | FrecciaDAYS (STANDARD) |
 | 2026-10-10 Sat | 27.9 | IC 555 | 14:26-22:04 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 555 | 14:26-22:04 | Super Economy (2ª CLASSE EASY) |
 | 2026-10-11 Sun | 33.9 | FR 8333 | 07:29-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-10-12 Mon | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-13 Tue | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-14 Wed | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-15 Thu | 27.9 | IC 555 | 14:26-22:04 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 555 | 14:26-22:04 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-16 Fri | 33.9 | FR 8333 | 07:29-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-10-17 Sat | 27.9 | IC 555 | 14:26-22:04 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 555 | 14:26-22:04 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-18 Sun | 40.9 | IC 555 | 14:26-22:04 | 0 | Super Economy (2ª CLASSE EASY) | 40.9 | IC 555 | 14:26-22:04 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-19 Mon | 33.9 | FR 8333 | 07:29-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-10-20 Tue | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-21 Wed | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-22 Thu | 27.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-23 Fri | 33.9 | FR 8333 | 07:29-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-10-24 Sat | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-25 Sun | 33.9 | FR 8333 | 07:29-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-10-26 Mon | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-27 Tue | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-28 Wed | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-29 Thu | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-30 Fri | 33.9 | FR 8333 | 07:29-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-10-31 Sat | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-01 Sun | 33.9 | FR 8333 | 07:30-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-11-02 Mon | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-03 Tue | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-04 Wed | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-05 Thu | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-06 Fri | 33.9 | FR 8333 | 07:30-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-11-07 Sat | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-08 Sun | 33.9 | FR 8333 | 07:30-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-11-09 Mon | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-10 Tue | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-11 Wed | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-12 Thu | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-13 Fri | 33.9 | FR 8333 | 07:30-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-11-14 Sat | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-15 Sun | 33.9 | FR 8333 | 07:30-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-11-16 Mon | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-17 Tue | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-18 Wed | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-19 Thu | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-20 Fri | 33.9 | FR 8333 | 07:30-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-11-21 Sat | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-22 Sun | 33.9 | FR 8333 | 07:30-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-11-23 Mon | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-24 Tue | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-25 Wed | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-26 Thu | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-27 Fri | 33.9 | FR 8333 | 07:30-12:43 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-12:43 | FrecciaDAYS (STANDARD) |
+| 2026-11-28 Sat | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-29 Sun | 37.9 | IC 553 | 12:26-19:52 | 0 | Super Economy (1ª CLASSE PLUS) | 37.9 | IC 553 | 12:26-19:52 | Super Economy (1ª CLASSE PLUS) |
+| 2026-11-30 Mon | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-12-01 Tue | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-12-02 Wed | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
+| 2026-12-03 Thu | 21.9 | IC 561 | 16:26-23:40 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-23:40 | Super Economy (2ª CLASSE EASY) |
 
 ### Roma Tiburtina -> Reggio di Calabria Centrale (`RomaTib-ReggioC`)
 
@@ -691,6 +857,66 @@ Columns: cheapest overall (price / train / dep-arr / changes / offer) and cheape
 
 | Date | Cheapest EUR | Train(s) | Dep-Arr | Chg | Offer | Direct daytime EUR | Train | Dep-Arr | Offer |
 |---|---|---|---|---|---|---|---|---|---|
+| 2026-09-27 Sun | 39.9 | FR 8333 | 07:29-13:14 | 0 | Super Economy (STANDARD) | 39.9 | FR 8333 | 07:29-13:14 | Super Economy (STANDARD) |
+| 2026-09-28 Mon | 33.9 | FR 8333 | 07:29-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-09-29 Tue | 27.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-09-30 Wed | 33.9 | FR 8333 | 07:29-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-10-01 Thu | 33.9 | FR 8333 | 07:29-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-10-02 Fri | 33.9 | FR 8333 | 07:29-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-10-03 Sat | 27.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-04 Sun | 33.9 | FR 8333 | 07:29-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-10-05 Mon | 27.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-06 Tue | 27.9 | IC 555 | 14:26-22:27 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 555 | 14:26-22:27 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-07 Wed | 27.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-08 Thu | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-09 Fri | 33.9 | FR 8333 | 07:29-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-10-10 Sat | 27.9 | IC 555 | 14:26-22:27 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 555 | 14:26-22:27 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-11 Sun | 33.9 | FR 8333 | 07:29-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-10-12 Mon | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-13 Tue | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-14 Wed | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-15 Thu | 27.9 | IC 555 | 14:26-22:27 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 555 | 14:26-22:27 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-16 Fri | 33.9 | FR 8333 | 07:29-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-10-17 Sat | 27.9 | IC 555 | 14:26-22:27 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 555 | 14:26-22:27 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-18 Sun | 40.9 | IC 555 | 14:26-22:27 | 0 | Super Economy (2ª CLASSE EASY) | 40.9 | IC 555 | 14:26-22:27 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-19 Mon | 33.9 | FR 8333 | 07:29-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-10-20 Tue | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-21 Wed | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-22 Thu | 27.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 27.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-23 Fri | 33.9 | FR 8333 | 07:29-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-10-24 Sat | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-25 Sun | 33.9 | FR 8333 | 07:29-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-10-26 Mon | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-27 Tue | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-28 Wed | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-29 Thu | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-10-30 Fri | 33.9 | FR 8333 | 07:29-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:29-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-10-31 Sat | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-01 Sun | 33.9 | FR 8333 | 07:30-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-11-02 Mon | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-03 Tue | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-04 Wed | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-05 Thu | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-06 Fri | 33.9 | FR 8333 | 07:30-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-11-07 Sat | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-08 Sun | 33.9 | FR 8333 | 07:30-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-11-09 Mon | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-10 Tue | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-11 Wed | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-12 Thu | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-13 Fri | 33.9 | FR 8333 | 07:30-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-11-14 Sat | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-15 Sun | 33.9 | FR 8333 | 07:30-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-11-16 Mon | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-17 Tue | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-18 Wed | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-19 Thu | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-20 Fri | 33.9 | FR 8333 | 07:30-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-11-21 Sat | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-22 Sun | 33.9 | FR 8333 | 07:30-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-13:08 | FrecciaDAYS (STANDARD) |
+| 2026-11-23 Mon | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-24 Tue | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
+| 2026-11-25 Wed | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
 | 2026-11-26 Thu | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
 | 2026-11-27 Fri | 33.9 | FR 8333 | 07:30-13:08 | 0 | FrecciaDAYS (STANDARD) | 33.9 | FR 8333 | 07:30-13:08 | FrecciaDAYS (STANDARD) |
 | 2026-11-28 Sat | 21.9 | IC 561 | 16:26-00:00 | 0 | Super Economy (2ª CLASSE EASY) | 21.9 | IC 561 | 16:26-00:00 | Super Economy (2ª CLASSE EASY) |
@@ -750,4 +976,19 @@ Columns: cheapest overall (price / train / dep-arr / changes / offer) and cheape
 | 2026-10-10 Sat | 11.99 | 01:30-11:30 (2026-10-10) | 10h 0min | 0 | 2026-09-07T12:52 |
 | 2026-11-10 Tue | 11.99 | 01:30-11:30 (2026-11-10) | 10h 0min | 0 | 2026-09-07T12:52 |
 | 2026-11-14 Sat | 11.99 | 01:30-11:30 (2026-11-14) | 10h 0min | 0 | 2026-09-07T12:52 |
+
+## Re-fetch consistency check (same source, end of run)
+
+| Route | Date | Train | Price recorded | Price re-fetched | Offer re-fetched | Re-fetched at (UTC) |
+|---|---|---|---|---|---|---|
+| MessinaC-RomaTer | 2026-10-10 | Ferry M7 + IC 95070 | 21.9 | 21.9 | Super Economy (2ª CLASSE EASY) | 2026-09-07T13:14 |
+| RomaTer-MessinaC | 2026-10-12 | IC 561 + Ferry V16 | 21.9 | 21.9 | Super Economy (2ª CLASSE EASY) | 2026-09-07T13:15 |
+| MessinaC-RomaTer | 2026-10-22 | Ferry M3 + IC 552 | 21.9 | 21.9 | Super Economy (2ª CLASSE EASY) | 2026-09-07T13:15 |
+| RomaTer-MessinaC | 2026-10-24 | IC 561 + Ferry V16 | 21.9 | 21.9 | Super Economy (2ª CLASSE EASY) | 2026-09-07T13:15 |
+| MessinaC-RomaTer | 2026-10-24 | Ferry M3 + IC 552 | 21.9 | 21.9 | Super Economy (2ª CLASSE EASY) | 2026-09-07T13:15 |
+| RomaTer-MessinaC | 2026-10-26 | IC 561 + Ferry V16 | 21.9 | 21.9 | Super Economy (2ª CLASSE EASY) | 2026-09-07T13:15 |
+| MessinaC-RomaTer | 2026-10-27 | Ferry M3 + IC 552 | 21.9 | 21.9 | Super Economy (2ª CLASSE EASY) | 2026-09-07T13:15 |
+| RomaTer-MessinaC | 2026-10-29 | IC 561 + Ferry V16 | 21.9 | 21.9 | Super Economy (2ª CLASSE EASY) | 2026-09-07T13:15 |
+| MessinaC-RomaTer | 2026-10-29 | Ferry M3 + IC 552 | 21.9 | 21.9 | Super Economy (2ª CLASSE EASY) | 2026-09-07T13:15 |
+| RomaTib-MessinaC | 2026-10-31 | IC 1589 + Ferry V16 | 21.9 | 21.9 | Super Economy (2ª CLASSE EASY) | 2026-09-07T13:15 |
 
