@@ -1,0 +1,403 @@
+origin,out_date,nights,return_date,total_eur,out_price_eur,out_train,out_dep,out_arr,out_arrival_station,out_offer,ret_price_eur,ret_train,ret_dep,ret_arr,ret_from_station,ret_offer
+MessinaC,2026-09-25,2,2026-09-27,73.8,33.9,Ferry M8 + FR 8332,14:25,21:20,Roma Termini,FrecciaDAYS (STANDARD),39.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,Super Economy (STANDARD)
+MessinaC,2026-09-25,3,2026-09-28,67.8,33.9,Ferry M8 + FR 8332,14:25,21:20,Roma Termini,FrecciaDAYS (STANDARD),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-09-26,2,2026-09-28,67.8,33.9,Ferry M8 + FR 8332,14:25,21:20,Roma Termini,FrecciaDAYS (STANDARD),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-09-26,3,2026-09-29,61.8,33.9,Ferry M8 + FR 8332,14:25,21:20,Roma Termini,FrecciaDAYS (STANDARD),27.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-09-27,2,2026-09-29,67.9,40.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),27.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-09-27,3,2026-09-30,73.9,40.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-09-28,2,2026-09-30,57.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-09-28,3,2026-10-01,57.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-09-29,2,2026-10-01,57.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-09-29,3,2026-10-02,57.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-09-30,2,2026-10-02,57.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-09-30,3,2026-10-03,51.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),27.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-01,2,2026-10-03,51.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),27.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-01,3,2026-10-04,57.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-02,2,2026-10-04,67.8,33.9,Ferry M7 + FR 8868,12:35,20:52,Roma Tiburtina,FrecciaDAYS (STANDARD),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-02,3,2026-10-05,61.8,33.9,Ferry M7 + FR 8868,12:35,20:52,Roma Tiburtina,FrecciaDAYS (STANDARD),27.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-03,2,2026-10-05,55.8,27.9,Ferry M8 + IC 560,14:25,00:16,Roma Tiburtina,Super Economy (2ª CLASSE EASY),27.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-03,3,2026-10-06,55.8,27.9,Ferry M8 + IC 560,14:25,00:16,Roma Tiburtina,Super Economy (2ª CLASSE EASY),27.9,IC 555 + Ferry V15,14:26,23:50,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-04,2,2026-10-06,59.9,32.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),27.9,IC 555 + Ferry V15,14:26,23:50,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-04,3,2026-10-07,59.9,32.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),27.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-05,2,2026-10-07,55.8,27.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-05,3,2026-10-08,49.8,27.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-06,2,2026-10-08,45.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-06,3,2026-10-09,57.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-07,2,2026-10-09,55.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-07,3,2026-10-10,47.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),25.9,NI 795 + Ferry V5,22:32,10:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-10-08,2,2026-10-10,49.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),25.9,NI 795 + Ferry V5,22:32,10:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-10-08,3,2026-10-11,57.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-09,2,2026-10-11,63.8,29.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-09,3,2026-10-12,51.8,29.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-10,2,2026-10-12,43.8,21.9,Ferry M7 + IC 95070,12:35,21:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-10,3,2026-10-13,43.8,21.9,Ferry M7 + IC 95070,12:35,21:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-11,2,2026-10-13,53.9,32.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-11,3,2026-10-14,53.9,32.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-12,2,2026-10-14,49.8,27.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-12,3,2026-10-15,55.8,27.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-10-13,2,2026-10-15,49.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-10-13,3,2026-10-16,55.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-14,2,2026-10-16,55.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-14,3,2026-10-17,49.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,IC 1589 + Ferry V16,14:26,00:55,RomaTib,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-15,2,2026-10-17,51.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),27.9,IC 1589 + Ferry V16,14:26,00:55,RomaTib,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-15,3,2026-10-18,64.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),40.9,IC 555 + Ferry V15,14:26,23:50,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-16,2,2026-10-18,70.8,29.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),40.9,IC 555 + Ferry V15,14:26,23:50,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-16,3,2026-10-19,55.8,29.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),25.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-10-17,2,2026-10-19,53.8,27.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),25.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-10-17,3,2026-10-20,49.8,27.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-18,2,2026-10-20,53.9,32.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-18,3,2026-10-21,53.9,32.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-19,2,2026-10-21,48.8,26.9,Ferry M14 + NI 794 + RE 12503,20:55,06:25,Roma Termini,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-19,3,2026-10-22,50.8,26.9,Ferry M14 + NI 794 + RE 12503,20:55,06:25,Roma Termini,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),23.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-10-20,2,2026-10-22,45.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),23.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-10-20,3,2026-10-23,50.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),28.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-10-21,2,2026-10-23,50.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),28.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-10-21,3,2026-10-24,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-22,2,2026-10-24,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-22,3,2026-10-25,55.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-23,2,2026-10-25,57.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-23,3,2026-10-26,45.8,23.9,Ferry M8 + RE 5546 + IC 560,14:25,22:34,Roma Termini,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-24,2,2026-10-26,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-24,3,2026-10-27,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-25,2,2026-10-27,53.9,32.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-25,3,2026-10-28,53.9,32.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-26,2,2026-10-28,45.8,23.9,IC 95070,13:20,21:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-26,3,2026-10-29,45.8,23.9,IC 95070,13:20,21:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-27,2,2026-10-29,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-27,3,2026-10-30,55.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-28,2,2026-10-30,55.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:48,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-28,3,2026-10-31,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 1589 + Ferry V16,14:26,00:55,RomaTib,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-29,2,2026-10-31,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 1589 + Ferry V16,14:26,00:55,RomaTib,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-29,3,2026-11-01,55.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:49,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-30,2,2026-11-01,63.8,29.9,Ferry M14 + NI 794 + RE 20571,20:55,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333 + Ferry V7,06:49,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-10-30,3,2026-11-02,51.8,29.9,Ferry M14 + NI 794 + RE 20571,20:55,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-31,2,2026-11-02,43.8,21.9,Ferry M8 + IC 560,14:25,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-10-31,3,2026-11-03,43.8,21.9,Ferry M8 + IC 560,14:25,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-01,2,2026-11-03,53.9,32.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-01,3,2026-11-04,53.9,32.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-02,2,2026-11-04,45.8,23.9,IC 95070,13:20,21:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-02,3,2026-11-05,45.8,23.9,IC 95070,13:20,21:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-03,2,2026-11-05,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-03,3,2026-11-06,49.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-11-04,2,2026-11-06,49.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-11-04,3,2026-11-07,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-05,2,2026-11-07,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-05,3,2026-11-08,55.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:49,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-11-06,2,2026-11-08,63.8,29.9,Ferry M14 + NI 794 + RE 20571,20:55,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333 + Ferry V7,06:49,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-11-06,3,2026-11-09,51.8,29.9,Ferry M14 + NI 794 + RE 20571,20:55,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-07,2,2026-11-09,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-07,3,2026-11-10,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-08,2,2026-11-10,53.9,32.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-08,3,2026-11-11,53.9,32.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-09,2,2026-11-11,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-09,3,2026-11-12,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-10,2,2026-11-12,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-10,3,2026-11-13,49.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-11-11,2,2026-11-13,49.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-11-11,3,2026-11-14,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 1589 + Ferry V16,14:26,00:55,RomaTib,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-12,2,2026-11-14,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 1589 + Ferry V16,14:26,00:55,RomaTib,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-12,3,2026-11-15,55.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:49,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-11-13,2,2026-11-15,60.8,26.9,Ferry M14 + NI 794 + RE 20571,20:55,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333 + Ferry V7,06:49,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-11-13,3,2026-11-16,48.8,26.9,Ferry M14 + NI 794 + RE 20571,20:55,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-14,2,2026-11-16,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-14,3,2026-11-17,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-15,2,2026-11-17,50.9,29.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-15,3,2026-11-18,50.9,29.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-16,2,2026-11-18,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-16,3,2026-11-19,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-17,2,2026-11-19,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-17,3,2026-11-20,49.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-11-18,2,2026-11-20,49.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-11-18,3,2026-11-21,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 1589 + Ferry V16,14:26,00:55,RomaTib,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-19,2,2026-11-21,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 1589 + Ferry V16,14:26,00:55,RomaTib,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-19,3,2026-11-22,55.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:49,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-11-20,2,2026-11-22,57.8,23.9,IC 95072,10:15,18:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333 + Ferry V7,06:49,14:00,RomaTib,FrecciaDAYS (STANDARD)
+MessinaC,2026-11-20,3,2026-11-23,45.8,23.9,IC 95072,10:15,18:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-21,2,2026-11-23,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-21,3,2026-11-24,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-22,2,2026-11-24,44.9,23.0,Ferry M4 + IC 1588 + RE 21086,08:15,17:24,Roma Termini,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-22,3,2026-11-25,44.9,23.0,Ferry M4 + IC 1588 + RE 21086,08:15,17:24,Roma Termini,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-23,2,2026-11-25,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-23,3,2026-11-26,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-24,2,2026-11-26,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-24,3,2026-11-27,49.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-11-25,2,2026-11-27,49.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,NI 795 + Ferry V4,22:33,09:30,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+MessinaC,2026-11-25,3,2026-11-28,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-26,2,2026-11-28,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-26,3,2026-11-29,58.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),36.9,IC 723,06:45,15:35,RomaTib,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-27,2,2026-11-29,60.8,23.9,IC 95072,10:15,18:34,Roma Termini,Super Economy (2ª CLASSE EASY),36.9,IC 723,06:45,15:35,RomaTib,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-27,3,2026-11-30,45.8,23.9,IC 95072,10:15,18:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-28,2,2026-11-30,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-28,3,2026-12-01,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-29,2,2026-12-01,50.9,29.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-29,3,2026-12-02,50.9,29.0,Ferry M14 + NI 812 + RE 21404,20:55,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-30,2,2026-12-02,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+MessinaC,2026-11-30,3,2026-12-03,43.8,21.9,Ferry M3 + IC 552,07:25,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561 + Ferry V16,16:26,00:55,RomaTer,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-09-25,2,2026-09-27,73.8,33.9,FR 8332,16:05,21:20,Roma Termini,FrecciaDAYS (STANDARD),39.9,FR 8333,06:48,12:48,RomaTib,Super Economy (STANDARD)
+VillaSG,2026-09-25,3,2026-09-28,67.8,33.9,FR 8332,16:05,21:20,Roma Termini,FrecciaDAYS (STANDARD),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-09-26,2,2026-09-28,61.8,27.9,IC 560,14:43,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-09-26,3,2026-09-29,55.8,27.9,IC 560,14:43,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,IC 561,15:45,23:40,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-09-27,2,2026-09-29,67.9,40.0,NI 812 + RE 21404,22:25,06:24,Roma Tiburtina,Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),27.9,IC 561,15:45,23:40,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-09-27,3,2026-09-30,73.9,40.0,NI 812 + RE 21404,22:25,06:24,Roma Tiburtina,Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-09-28,2,2026-09-30,55.8,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-09-28,3,2026-10-01,55.8,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-09-29,2,2026-10-01,55.8,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-09-29,3,2026-10-02,55.8,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-09-30,2,2026-10-02,55.8,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-09-30,3,2026-10-03,49.8,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,IC 561,15:45,23:40,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-10-01,2,2026-10-03,49.8,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,IC 561,15:45,23:40,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-10-01,3,2026-10-04,55.8,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-10-02,2,2026-10-04,67.8,33.9,FR 8868,14:37,20:52,Roma Tiburtina,FrecciaDAYS (STANDARD),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-10-02,3,2026-10-05,61.8,33.9,FR 8868,14:37,20:52,Roma Tiburtina,FrecciaDAYS (STANDARD),27.9,IC 561,15:45,23:40,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-10-03,2,2026-10-05,55.8,27.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,IC 561,15:45,23:40,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-10-03,3,2026-10-06,55.8,27.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,IC 555,13:45,22:04,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-10-04,2,2026-10-06,59.9,32.0,NI 812 + RE 21404,22:25,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),27.9,IC 555,13:45,22:04,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-10-04,3,2026-10-07,59.9,32.0,NI 812 + RE 21404,22:25,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),27.9,IC 561,15:45,23:40,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-10-05,2,2026-10-07,55.8,27.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,IC 561,15:45,23:40,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-10-05,3,2026-10-08,49.8,27.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561,15:45,23:40,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-10-06,2,2026-10-08,43.8,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),21.9,IC 561,15:45,23:40,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-10-06,3,2026-10-09,55.8,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-10-07,2,2026-10-09,55.8,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-10-07,3,2026-10-10,49.8,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,IC 555,13:45,22:04,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-10-08,2,2026-10-10,49.8,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),27.9,IC 555,13:45,22:04,RomaTib,Super Economy (2ª CLASSE EASY)
+VillaSG,2026-10-08,3,2026-10-11,55.8,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-10-09,2,2026-10-11,61.8,27.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),33.9,FR 8333,06:48,12:43,RomaTib,FrecciaDAYS (STANDARD)
+VillaSG,2026-10-09,3,2026-10-12,,27.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-10,2,2026-10-12,,21.9,IC 95070,14:50,22:10,Roma Tiburtina,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-10,3,2026-10-13,,21.9,IC 95070,14:50,22:10,Roma Tiburtina,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-11,2,2026-10-13,,32.0,NI 812 + RE 21404,22:25,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+VillaSG,2026-10-11,3,2026-10-14,,32.0,NI 812 + RE 21404,22:25,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+VillaSG,2026-10-12,2,2026-10-14,,27.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-12,3,2026-10-15,,27.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-13,2,2026-10-15,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-13,3,2026-10-16,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-14,2,2026-10-16,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-14,3,2026-10-17,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-15,2,2026-10-17,,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-15,3,2026-10-18,,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-16,2,2026-10-18,,27.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-16,3,2026-10-19,,27.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-17,2,2026-10-19,,27.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-17,3,2026-10-20,,27.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-18,2,2026-10-20,,33.9,FR 8418,06:17,11:25,Roma Termini,FrecciaDAYS (STANDARD),,MISSING,,,,
+VillaSG,2026-10-18,3,2026-10-21,,33.9,FR 8418,06:17,11:25,Roma Termini,FrecciaDAYS (STANDARD),,MISSING,,,,
+VillaSG,2026-10-19,2,2026-10-21,,26.9,NI 794 + RE 12503,22:03,06:25,Roma Termini,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+VillaSG,2026-10-19,3,2026-10-22,,26.9,NI 794 + RE 12503,22:03,06:25,Roma Termini,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+VillaSG,2026-10-20,2,2026-10-22,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-20,3,2026-10-23,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-21,2,2026-10-23,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-21,3,2026-10-24,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-22,2,2026-10-24,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-22,3,2026-10-25,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-23,2,2026-10-25,,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-23,3,2026-10-26,,21.9,IC 560,15:32,22:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-24,2,2026-10-26,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-24,3,2026-10-27,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-25,2,2026-10-27,,33.9,FR 8418,06:17,11:25,Roma Termini,FrecciaDAYS (STANDARD),,MISSING,,,,
+VillaSG,2026-10-25,3,2026-10-28,,33.9,FR 8418,06:17,11:25,Roma Termini,FrecciaDAYS (STANDARD),,MISSING,,,,
+VillaSG,2026-10-26,2,2026-10-28,,21.9,IC 95070,14:50,21:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-26,3,2026-10-29,,21.9,IC 95070,14:50,21:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-27,2,2026-10-29,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-27,3,2026-10-30,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-28,2,2026-10-30,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-28,3,2026-10-31,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-29,2,2026-10-31,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-29,3,2026-11-01,,21.9,IC 552,08:12,15:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-30,2,2026-11-01,,27.9,IC 95072,11:50,18:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-30,3,2026-11-02,,27.9,IC 95072,11:50,18:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-31,2,2026-11-02,,21.9,IC 95070,14:50,21:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-10-31,3,2026-11-03,,21.9,IC 95070,14:50,21:34,Roma Termini,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+VillaSG,2026-11-01,2,2026-11-03,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-01,3,2026-11-04,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-02,2,2026-11-04,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-02,3,2026-11-05,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-03,2,2026-11-05,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-03,3,2026-11-06,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-04,2,2026-11-06,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-04,3,2026-11-07,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-05,2,2026-11-07,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-05,3,2026-11-08,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-06,2,2026-11-08,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-06,3,2026-11-09,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-07,2,2026-11-09,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-07,3,2026-11-10,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-08,2,2026-11-10,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-08,3,2026-11-11,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-09,2,2026-11-11,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-09,3,2026-11-12,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-10,2,2026-11-12,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-10,3,2026-11-13,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-11,2,2026-11-13,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-11,3,2026-11-14,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-12,2,2026-11-14,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-12,3,2026-11-15,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-13,2,2026-11-15,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-13,3,2026-11-16,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-14,2,2026-11-16,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-14,3,2026-11-17,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-15,2,2026-11-17,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-15,3,2026-11-18,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-16,2,2026-11-18,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-16,3,2026-11-19,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-17,2,2026-11-19,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-17,3,2026-11-20,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-18,2,2026-11-20,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-18,3,2026-11-21,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-19,2,2026-11-21,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-19,3,2026-11-22,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-20,2,2026-11-22,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-20,3,2026-11-23,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-21,2,2026-11-23,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-21,3,2026-11-24,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-22,2,2026-11-24,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-22,3,2026-11-25,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-23,2,2026-11-25,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-23,3,2026-11-26,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-24,2,2026-11-26,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-24,3,2026-11-27,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-25,2,2026-11-27,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-25,3,2026-11-28,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-26,2,2026-11-28,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-26,3,2026-11-29,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-27,2,2026-11-29,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-27,3,2026-11-30,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-28,2,2026-11-30,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-28,3,2026-12-01,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-29,2,2026-12-01,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-29,3,2026-12-02,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-30,2,2026-12-02,,,MISSING,,,,,,MISSING,,,,
+VillaSG,2026-11-30,3,2026-12-03,,,MISSING,,,,,,MISSING,,,,
+ReggioC,2026-09-25,2,2026-09-27,69.8,29.9,NI 37452 + RE 20571,21:08,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),39.9,FR 8333,06:48,13:14,RomaTib,Super Economy (STANDARD)
+ReggioC,2026-09-25,3,2026-09-28,55.8,29.9,NI 37452 + RE 20571,21:08,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:33,08:47,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-09-26,2,2026-09-28,54.8,28.9,IC 560 + RV 4538,14:21,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:33,08:47,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-09-26,3,2026-09-29,56.8,28.9,IC 560 + RV 4538,14:21,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-09-27,2,2026-09-29,67.9,40.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),27.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-09-27,3,2026-09-30,65.9,40.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:33,08:48,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-09-28,2,2026-09-30,48.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:33,08:48,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-09-28,3,2026-10-01,50.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,NI 795,22:33,08:47,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-09-29,2,2026-10-01,50.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,NI 795,22:33,08:47,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-09-29,3,2026-10-02,55.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),32.9,NI 795,22:33,08:47,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-09-30,2,2026-10-02,55.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),32.9,NI 795,22:33,08:47,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-09-30,3,2026-10-03,50.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-01,2,2026-10-03,50.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-01,3,2026-10-04,56.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333,06:48,13:08,RomaTib,FrecciaDAYS (STANDARD)
+ReggioC,2026-10-02,2,2026-10-04,67.8,33.9,FR 8868,14:16,20:52,Roma Tiburtina,FrecciaDAYS (STANDARD),33.9,FR 8333,06:48,13:08,RomaTib,FrecciaDAYS (STANDARD)
+ReggioC,2026-10-02,3,2026-10-05,59.8,33.9,FR 8868,14:16,20:52,Roma Tiburtina,FrecciaDAYS (STANDARD),25.9,NI 795,22:35,08:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-03,2,2026-10-05,54.8,28.9,IC 552 + RV 4156,07:54,16:01,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE PRENOTAZIONE),25.9,NI 795,22:35,08:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-03,3,2026-10-06,56.8,28.9,IC 552 + RV 4156,07:54,16:01,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE PRENOTAZIONE),27.9,IC 555,13:45,22:27,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-04,2,2026-10-06,59.9,32.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),27.9,IC 555,13:45,22:27,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-04,3,2026-10-07,57.9,32.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:33,08:47,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-05,2,2026-10-07,54.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:33,08:47,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-05,3,2026-10-08,50.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-06,2,2026-10-08,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-06,3,2026-10-09,56.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333,06:48,13:08,RomaTib,FrecciaDAYS (STANDARD)
+ReggioC,2026-10-07,2,2026-10-09,56.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333,06:48,13:08,RomaTib,FrecciaDAYS (STANDARD)
+ReggioC,2026-10-07,3,2026-10-10,48.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:32,09:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-08,2,2026-10-10,48.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:32,09:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-08,3,2026-10-11,56.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333,06:48,13:08,RomaTib,FrecciaDAYS (STANDARD)
+ReggioC,2026-10-09,2,2026-10-11,62.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333,06:48,13:08,RomaTib,FrecciaDAYS (STANDARD)
+ReggioC,2026-10-09,3,2026-10-12,50.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-10,2,2026-10-12,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-10,3,2026-10-13,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-11,2,2026-10-13,53.9,32.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-11,3,2026-10-14,53.9,32.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-12,2,2026-10-14,50.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-12,3,2026-10-15,56.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,IC 555,13:45,22:27,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-13,2,2026-10-15,50.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,IC 555,13:45,22:27,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-13,3,2026-10-16,56.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333,06:48,13:08,RomaTib,FrecciaDAYS (STANDARD)
+ReggioC,2026-10-14,2,2026-10-16,62.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333,06:48,13:08,RomaTib,FrecciaDAYS (STANDARD)
+ReggioC,2026-10-14,3,2026-10-17,56.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,IC 555,13:45,22:27,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-15,2,2026-10-17,50.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,IC 555,13:45,22:27,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-15,3,2026-10-18,63.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),40.9,IC 555,13:45,22:27,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-16,2,2026-10-18,69.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),40.9,IC 555,13:45,22:27,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-16,3,2026-10-19,54.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:33,08:47,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-17,2,2026-10-19,54.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:33,08:47,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-17,3,2026-10-20,50.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-18,2,2026-10-20,53.9,32.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-18,3,2026-10-21,53.9,32.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-19,2,2026-10-21,50.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-19,3,2026-10-22,52.8,28.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),23.9,NI 795,22:33,08:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-20,2,2026-10-22,46.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),23.9,NI 795,22:33,08:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-20,3,2026-10-23,51.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),28.9,NI 795,22:33,08:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-21,2,2026-10-23,51.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),28.9,NI 795,22:33,08:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-21,3,2026-10-24,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-22,2,2026-10-24,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-22,3,2026-10-25,48.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:32,09:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-23,2,2026-10-25,48.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:32,09:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-23,3,2026-10-26,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-24,2,2026-10-26,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-24,3,2026-10-27,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-25,2,2026-10-27,53.9,32.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-25,3,2026-10-28,53.9,32.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-26,2,2026-10-28,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-26,3,2026-10-29,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-27,2,2026-10-29,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-27,3,2026-10-30,56.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333,06:48,13:08,RomaTib,FrecciaDAYS (STANDARD)
+ReggioC,2026-10-28,2,2026-10-30,56.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),33.9,FR 8333,06:48,13:08,RomaTib,FrecciaDAYS (STANDARD)
+ReggioC,2026-10-28,3,2026-10-31,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 1589,14:26,23:36,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-29,2,2026-10-31,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 1589,14:26,23:36,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-29,3,2026-11-01,51.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),28.9,NI 795,22:32,09:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-30,2,2026-11-01,58.8,29.9,NI 794 + RE 20571,21:43,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),28.9,NI 795,22:32,09:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-10-30,3,2026-11-02,51.8,29.9,NI 794 + RE 20571,21:43,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-31,2,2026-11-02,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-10-31,3,2026-11-03,44.8,22.9,IC 560 + RV 4538,15:13,22:58,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-01,2,2026-11-03,53.9,32.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-01,3,2026-11-04,53.9,32.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-02,2,2026-11-04,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-02,3,2026-11-05,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-03,2,2026-11-05,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-03,3,2026-11-06,50.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,NI 795,22:33,08:48,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-11-04,2,2026-11-06,50.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,NI 795,22:33,08:48,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-11-04,3,2026-11-07,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-05,2,2026-11-07,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-05,3,2026-11-08,48.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:32,09:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-11-06,2,2026-11-08,55.8,29.9,NI 794 + RE 20571,21:43,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:32,09:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-11-06,3,2026-11-09,51.8,29.9,NI 794 + RE 20571,21:43,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-07,2,2026-11-09,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-07,3,2026-11-10,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-08,2,2026-11-10,53.9,32.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-08,3,2026-11-11,53.9,32.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-09,2,2026-11-11,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-09,3,2026-11-12,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-10,2,2026-11-12,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-10,3,2026-11-13,50.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,NI 795,22:33,08:48,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-11-11,2,2026-11-13,50.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,NI 795,22:33,08:48,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-11-11,3,2026-11-14,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 1589,14:26,23:36,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-12,2,2026-11-14,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 1589,14:26,23:36,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-12,3,2026-11-15,48.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:32,09:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-11-13,2,2026-11-15,52.8,26.9,NI 794 + RE 20571,21:43,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:32,09:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-11-13,3,2026-11-16,48.8,26.9,NI 794 + RE 20571,21:43,06:45,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-14,2,2026-11-16,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-14,3,2026-11-17,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-15,2,2026-11-17,49.8,27.9,IC 1588,08:39,16:31,Roma Tiburtina,Super Economy (2ª CLASSE EASY),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-15,3,2026-11-18,49.8,27.9,IC 1588,08:39,16:31,Roma Tiburtina,Super Economy (2ª CLASSE EASY),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-16,2,2026-11-18,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-16,3,2026-11-19,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-17,2,2026-11-19,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-17,3,2026-11-20,50.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,NI 795,22:33,08:48,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-11-18,2,2026-11-20,50.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),27.9,NI 795,22:33,08:48,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-11-18,3,2026-11-21,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 1589,14:26,23:36,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-19,2,2026-11-21,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 1589,14:26,23:36,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-19,3,2026-11-22,48.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:32,09:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-11-20,2,2026-11-22,50.9,25.0,RE 5598 + IC 95072 + RV 4734,10:30,19:10,Roma Tiburtina,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),25.9,NI 795,22:32,09:45,RomaTib,Super Economy (Posto a sedere 2ª classe-EASY)
+ReggioC,2026-11-20,3,2026-11-23,46.9,25.0,RE 5598 + IC 95072 + RV 4734,10:30,19:10,Roma Tiburtina,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-21,2,2026-11-23,44.8,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),21.9,IC 561,15:45,00:00,RomaTib,Super Economy (2ª CLASSE EASY)
+ReggioC,2026-11-21,3,2026-11-24,,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-22,2,2026-11-24,,21.9,IC 1588,08:39,16:31,Roma Tiburtina,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+ReggioC,2026-11-22,3,2026-11-25,,21.9,IC 1588,08:39,16:31,Roma Tiburtina,Super Economy (2ª CLASSE EASY),,MISSING,,,,
+ReggioC,2026-11-23,2,2026-11-25,,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-23,3,2026-11-26,,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-24,2,2026-11-26,,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-24,3,2026-11-27,,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-25,2,2026-11-27,,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-25,3,2026-11-28,,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-26,2,2026-11-28,,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-26,3,2026-11-29,,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-27,2,2026-11-29,,25.0,RE 5598 + IC 95072 + RV 4734,10:30,19:10,Roma Tiburtina,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-27,3,2026-11-30,,25.0,RE 5598 + IC 95072 + RV 4734,10:30,19:10,Roma Tiburtina,ORDINARIA (2ª CLASSE) + Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-28,2,2026-11-30,,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-28,3,2026-12-01,,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-29,2,2026-12-01,,29.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-29,3,2026-12-02,,29.0,NI 812 + RE 21404,22:04,06:24,Roma Tiburtina,Super Economy (Posto a sedere 2ª classe-EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-30,2,2026-12-02,,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
+ReggioC,2026-11-30,3,2026-12-03,,22.9,IC 560 + RV 4538,15:13,22:55,Roma Tiburtina,Super Economy (2ª CLASSE EASY) + ORDINARIA (2ª CLASSE),,MISSING,,,,
