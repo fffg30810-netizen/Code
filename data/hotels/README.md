@@ -264,6 +264,59 @@ Agoda property pages were loaded with the same dates and occupancy (1 adult, 1 r
 | 2026-11-10 | 2 | BEDS&ROOMS TIBURTINA- Rooms, Camere private | €93.19 | €46.59 | €50 | https://www.agoda.com/it-it/beds-rooms-tiburtina-rooms/hotel/rome-it.html | 2026-09-07T16:13:54.619Z |
 | 2026-11-12 | 2 | BEDS&ROOMS TIBURTINA- Rooms, Camere private | €93.19 | €46.59 | €50 | https://www.agoda.com/it-it/beds-rooms-tiburtina-rooms/hotel/rome-it.html | 2026-09-07T16:15:11.853Z |
 | 2026-11-13 | 2 | BEDS&ROOMS TIBURTINA- Rooms, Camere private | €93.19 | €46.59 | €50 | https://www.agoda.com/it-it/beds-rooms-tiburtina-rooms/hotel/rome-it.html | 2026-09-07T16:16:29.223Z |
+| 2026-11-14 | 2 | BEDS&ROOMS TIBURTINA- Rooms, Camere private | €93.19 | €46.59 | €50 | https://www.agoda.com/it-it/beds-rooms-tiburtina-rooms/hotel/rome-it.html | 2026-09-07T16:17:46.483Z |
+| 2026-11-21 | 2 | BEDS&ROOMS TIBURTINA- Rooms, Camere private | €93.19 | €46.59 | €50 | https://www.agoda.com/it-it/beds-rooms-tiburtina-rooms/hotel/rome-it.html | 2026-09-07T16:18:33.833Z |
+| 2026-11-22 | 2 | BEDS&ROOMS TIBURTINA- Rooms, Camere private | €93.19 | €46.59 | €50 | https://www.agoda.com/it-it/beds-rooms-tiburtina-rooms/hotel/rome-it.html | 2026-09-07T16:19:51.110Z |
+| 2026-11-23 | 2 | BEDS&ROOMS TIBURTINA- Rooms, Camere private | €93.19 | €46.59 | €50 | https://www.agoda.com/it-it/beds-rooms-tiburtina-rooms/hotel/rome-it.html | 2026-09-07T16:21:08.357Z |
+| 2026-11-24 | 2 | BEDS&ROOMS TIBURTINA- Rooms, Camere private | €93.19 | €46.59 | €50 | https://www.agoda.com/it-it/beds-rooms-tiburtina-rooms/hotel/rome-it.html | 2026-09-07T16:21:55.988Z |
+| 2026-11-25 | 2 | BEDS&ROOMS TIBURTINA- Rooms, Camere private | €93.19 | €46.59 | €50 | https://www.agoda.com/it-it/beds-rooms-tiburtina-rooms/hotel/rome-it.html | 2026-09-07T16:22:43.620Z |
+| 2026-11-30 | 2 | 21 Aprile Accommodation | €89.09 | €44.55 | €44 | https://www.agoda.com/it-it/21-aprile-accommodation/hotel/rome-it.html | 2026-09-07T16:24:00.969Z |
+
+## Hostels within 1.5 km: private rooms (Booking property pages)
+
+Booking search results show only a hostel's cheapest unit (a dorm bed), so the two hostels within 1.5 km were opened directly for three of the cheapest dates and every room row was read (1 adult, 2 nights). Dorm beds are listed for reference only.
+
+| hostel | check-in | room | total for 2 nights | conditions |
+|---|---|---|---|---|
+| beds-amp-rooms-tiburtina-beds | 2026-09-27 | Posto Letto in Dormitorio Misto | €70 |   ·  |
+| beds-amp-rooms-tiburtina-beds | 2026-09-27 | Posto Letto in Dormitorio Misto | €98 | free cancellation  · Non include: 10 % di IVA, € 6 di Tassa di soggiorno per pers |
+| beds-amp-rooms-tiburtina-beds | 2026-11-10 | Posto Letto in Dormitorio Misto | €61 | non-refundable  · Non include: 10 % di IVA, € 6 di Tassa di soggiorno per pers |
+| beds-amp-rooms-tiburtina-beds | 2026-11-10 | Posto Letto in Dormitorio Misto | €89 | free cancellation  · Non include: 10 % di IVA, € 6 di Tassa di soggiorno per pers |
+| beds-amp-rooms-tiburtina-beds | 2026-11-30 | Posto Letto in Dormitorio Misto | €61 |   ·  |
+| beds-amp-rooms-tiburtina-beds | 2026-11-30 | Posto Letto in Dormitorio Misto | €89 | free cancellation  · Non include: 10 % di IVA, € 6 di Tassa di soggiorno per pers |
+| roma-scout-center | 2026-09-27 | Posto Letto in Dormitorio Femminile | €84 |   ·  |
+| roma-scout-center | 2026-09-27 | Posto Letto in Dormitorio Femminile | €90 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-09-27 | Posto Letto in Dormitorio Femminile per 4 Persone | €119 | non-refundable  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-09-27 | Posto Letto in Dormitorio Femminile per 4 Persone | €128 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-09-27 | Posto Letto in Dormitorio Femminile | €130 | non-refundable  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-09-27 | Posto Letto in Dormitorio Femminile | €140 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-10 | Posto Letto in Dormitorio Femminile | €77 |   ·  |
+| roma-scout-center | 2026-11-10 | Posto Letto in Dormitorio Femminile | €83 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-10 | Posto Letto in Dormitorio Maschile | €82 | non-refundable  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-10 | Posto Letto in Dormitorio Maschile | €88 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-10 | Posto Letto in Dormitorio Misto con 6 Letti | €98 | non-refundable  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-10 | Posto Letto in Dormitorio Misto con 6 Letti | €106 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-10 | Posto Letto in Dormitorio Misto | €102 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-10 | Posto Letto in Dormitorio Maschile | €129 | non-refundable  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-10 | Posto Letto in Dormitorio Maschile | €139 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-10 | Camera Familiare con Bagno Privato | €211 | non-refundable  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-10 | Camera Familiare con Bagno Privato | €227 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-10 | Camera Familiare con Bagno Privato | €255 | non-refundable  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-10 | Camera Familiare con Bagno Privato | €274 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-30 | Posto Letto in Dormitorio Femminile | €52 |   ·  |
+| roma-scout-center | 2026-11-30 | Posto Letto in Dormitorio Femminile | €56 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-30 | Posto Letto in Dormitorio Maschile | €52 | non-refundable  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-30 | Posto Letto in Dormitorio Maschile | €56 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-30 | Posto Letto in Dormitorio Misto | €52 | non-refundable  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-30 | Posto Letto in Dormitorio Misto | €56 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-30 | Posto Letto in Dormitorio Misto con 6 Letti | €62 | non-refundable  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-30 | Posto Letto in Dormitorio Misto con 6 Letti | €66 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-30 | Posto Letto in Dormitorio Femminile | €88 | non-refundable  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-30 | Posto Letto in Dormitorio Femminile | €95 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-30 | Camera Matrimoniale/Doppia con Letti Singoli con Bagno Privato | €155 | non-refundable  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-30 | Camera Matrimoniale/Doppia con Letti Singoli con Bagno Privato | €167 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-30 | Camera Familiare con Bagno Privato | €178 | non-refundable  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
+| roma-scout-center | 2026-11-30 | Camera Familiare con Bagno Privato | €192 | free cancellation  · Non include: IVA, Tassa di soggiorno Buona colazione per € 5 |
 
 ## Direct (official website) price check for the 5 cheapest properties
 

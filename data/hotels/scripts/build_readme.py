@@ -84,9 +84,13 @@ if hr:
     L('| hostel | check-in | room | total for 2 nights | conditions |'); L('|---|---|---|---|---|')
     for f in hr:
         j = json.load(open(f))
+        room = None
         for row in j['rows']:
+            t = row['text']
+            if not t.startswith('€'):
+                m = re.match(r'(.+?)\s+(?:Ce ne rest|Capienza)', t); room = m.group(1).strip() if m else (row['room'] if row['room'] and row['room'] != 'Confronta' else t[:40])
             if row.get('total_eur') is None: continue
-            L(f"| {j['pageName']} | {j['checkin']} | {row['room']} | €{row['total_eur']} | {'free cancellation' if row['free_cancellation'] else ('non-refundable' if row['non_refundable'] else '')} {'· breakfast' if row['breakfast'] else ''} · {row['text'][row['text'].find('Non include'):][:60] if 'Non include' in row['text'] else ''} |")
+            L(f"| {j['pageName']} | {j['checkin']} | {room} | €{row['total_eur']} | {'free cancellation' if row['free_cancellation'] else ('non-refundable' if row['non_refundable'] else '')} {'· breakfast' if row['breakfast'] else ''} · {row['text'][row['text'].find('Non include'):][:60] if 'Non include' in row['text'] else ''} |")
 # direct check
 dc = os.path.join(base, 'direct_check.csv')
 if os.path.exists(dc):
