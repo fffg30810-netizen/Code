@@ -1,3 +1,74 @@
+# Amsterdam, 15–30 ottobre 2026 — versione 2: ostelli in centro e stime realistiche
+
+Aggiornamento del **9 settembre 2026** al piano qui sotto. Cambiano tre cose: si dorme in **ostello in centro** (dormitorio o tripla privata), la finestra è **15–30 ottobre**, e i prezzi sono dati come **stima realistica** (quello che ci aspettiamo di pagare prenotando entro il 20 settembre) con la forchetta accanto. La pagina condivisibile con le stesse cifre: https://claude.ai/code/artifact/16094e16-ef61-4eda-a96e-8ddbba2478df
+
+## Le due finestre possibili
+
+Tra il 15 e il 30 ottobre l'ADE (21–25) taglia in due il mese. Restano:
+
+| | A · ven 16 → lun 19 | B · lun 26 → ven 30 |
+|---|---|---|
+| Notti | 3 (ven, sab, dom) | 4 (lun → gio) |
+| Voli | Tutti diretti, orario estivo | Messina e Agati diretti; **Enzo con scalo** (Transavia Alghero–Amsterdam finisce il 23) |
+| Rischio orari | basso | orario invernale dal 25/10: giorni Ryanair da riconfermare, tagli annunciati su Sardegna e Calabria |
+| Ostello | prezzi da weekend: dormitorio 45–60 €/notte | bassa stagione: dormitorio 35–45 €/notte |
+| Stima a testa, dormitorio | **≈ 365 €** (300–450) | **≈ 365 €** (300–470) |
+| Stima a testa, tripla privata | **≈ 370 €** (310–460) | **≈ 380 €** (315–485) |
+| Giudizio | **consigliata** | alternativa: una notte in più, più incognite |
+
+## Voli, finestra A (andata ven 16, ritorno lun 19)
+
+| Chi | Percorso | Stima a/r (forchetta) |
+|---|---|---|
+| Messina | SAIS Messina–Catania ≈ 25 € + Ryanair Catania–Eindhoven (lun/mer/ven; 07:05 o 17:20; ritorno 10:25→13:05) ≈ 130 € (100–170) + Flixbus Eindhoven–Amsterdam ≈ 24 € | **≈ 180 €** (150–220) |
+| Enzo | ARST 760 2 € + Transavia Alghero–Schiphol (lun/ven; 08:30→10:55 o 21:50→00:15; ritorno 05:20 o 19:05) ≈ 140 € (110–190) + NS 12,40 € | **≈ 155 €** (125–205) |
+| Agati | regionale + Marconi Express 32,30 € + KLM Bologna–Schiphol (3/giorno) ≈ 160 € (130–200) + NS 12,40 € | **≈ 205 €** (175–245) |
+
+Finestra B: Messina ≈ 140 € (Ryanair in bassa stagione ≈ 90 € a/r; da confermare che i giorni invernali restino lun/mer/ven, una fonte indica mar/gio/sab); Agati ≈ 195 € (KLM) o ≈ 130 € se Ryanair Bologna–Eindhoven vola lun/ven anche d'inverno; **Enzo ≈ 225 € (195–265)** via Roma: Aeroitalia Alghero–Fiumicino in continuità territoriale (tariffa residenti 50,58 € + 68,01 € ≈ 119 € a/r, più voli al giorno) + Ryanair Fiumicino–Eindhoven ≈ 80 € a/r + Flixbus, con 2,5 ore di margine perché i biglietti sono separati. Alternativa: Ryanair Alghero–Bologna (frequenze invernali ridotte, giorni da verificare) + KLM con Agati, ≈ 225 €. Alghero–Linate in continuità è coperta da ITA solo fino al 24 ottobre.
+
+## Ostelli in centro
+
+Prezzi a notte, tassa di soggiorno 12,5% inclusa (su Hostelworld di solito è esclusa e si paga al check-in):
+
+| Sistemazione | A · 3 notti weekend | B · 4 notti feriali |
+|---|---|---|
+| Letto in dormitorio centrale (a persona) | ≈ 62 € (50–78) | ≈ 45 € (36–56) |
+| Tripla privata in ostello centrale (camera) | ≈ 190 € (160–235) | ≈ 145 € (120–180) |
+| Hotel 3 stelle, tripla (confronto) | ≈ 225 € (190–315) | ≈ 170 € (135–215) |
+| Soggiorno a testa, dormitorio | ≈ 185 € | ≈ 180 € |
+| Soggiorno a testa, tripla privata | ≈ 190 € | ≈ 195 € |
+
+Ostelli centrali con tripla privata verificata: **St Christopher's at The Winston** (Warmoesstraat, camere private 84–207 €/notte, dormitori da ~25 €), **Hans Brinker** (Kerkstraat/Leidseplein, triple con bagno), **Hostel The Globe** (davanti a Centraal, triple e camere 2–5), **Amsterdam Hostel Orfeo** (Leidseplein, da ~29 € a persona). Con camere private ma tripla da verificare: Durty Nelly's, Amsterdam Hostel Leidseplein, Ecomama (150–250 €). Dormitori centrali più economici: Flying Pig Downtown, Stayokay Stadsdoelen (18+), Shelter City. Quadruple private: The Bulldog, Stayokay Vondelpark (family room da ~164 €). ClinkNOORD è a 3 minuti di traghetto gratuito da Centraal (camere da ~116 €).
+
+## Totale a testa (stima realistica, forchetta tra parentesi)
+
+| Persona | A dormitorio | A tripla | B dormitorio | B tripla |
+|---|---|---|---|---|
+| Messina | ≈ 365 € (300–455) | ≈ 370 € (310–455) | ≈ 320 € (255–405) | ≈ 335 € (270–420) |
+| Enzo | ≈ 340 € (275–440) | ≈ 345 € (285–440) | ≈ 405 € (340–490) | ≈ 420 € (355–505) |
+| Agati | ≈ 390 € (325–480) | ≈ 395 € (335–480) | ≈ 375 € (310–460) | ≈ 390 € (325–475) |
+| **Media** | **≈ 365 €** | **≈ 370 €** | **≈ 365 €** | **≈ 380 €** |
+
+Hotel 3 stelle al posto dell'ostello: +35–45 € a testa. Tutto compreso (pasti 40–60 €/giorno, GVB 21–27 €, musei 16–25 € l'uno): circa 570–620 € a testa.
+
+Metodo: voli = media rilevata dai comparatori a settembre (Ryanair Catania–Eindhoven media 153 €, Transavia Alghero–Amsterdam 100–194 €, KLM Bologna–Amsterdam da 170 €) corretta per giorno della settimana e bassa stagione; ostelli = media di ottobre di Budget Your Trip (53 $ feriale, 77 $ weekend per letto) e forchette dichiarate dagli ostelli.
+
+## Quando prenotare, realisticamente
+
+- **Ostello: oggi**, con cancellazione gratuita. Ottobre è il mese più caro per gli ostelli di Amsterdam (ADE + vacanze scolastiche) e le triple private centrali sono poche.
+- **Voli: entro il 20 settembre**, tutti e tre lo stesso giorno (prima Enzo, poi Messina, poi Agati). Il minimo statistico per i voli europei è tra 4 e 8 settimane prima; lo studio sui prezzi Ryanair colloca il minimo a 10 giorni dal volo, ma nel 2026 giocano contro i rincari annunciati il 2 settembre, le frequenze invernali ridotte dalla Sardegna e i due soli voli settimanali Transavia da Alghero. Per tre persone sugli stessi giorni, aspettare è una scommessa.
+- **Non oltre il 1° ottobre**: dopo, le low cost salgono ogni settimana.
+- Subito dopo i voli: Casa di Anne Frank (biglietti il martedì alle 10:00 per sei settimane dopo; per il 26–30 escono il 15 e il 22 settembre). Scioperi ENAC la settimana prima.
+
+## Fonti aggiuntive della versione 2
+
+- [Prezzi medi ostelli Amsterdam per mese (Budget Your Trip)](https://www.budgetyourtrip.com/hostels/netherlands/amsterdam-2759794) · [guida ostelli 2026](https://www.amsterdamtourism.org/hostels-backpackers/) · [ostelli in centro su Hostelworld](https://www.hostelworld.com/hostels/europe/netherlands/amsterdam/f/city-centre/)
+- [St Christopher's at The Winston](https://www.hostelworld.com/hostels/p/13607/st-christopher-s-amsterdam-the-winston/) · [Hans Brinker](https://hansbrinker.com/rooms/) · [The Globe](https://www.hostelworld.com/hostels/p/5487/hostel-the-globe-center/) · [Orfeo](https://www.amsterdamhostelorfeo.com/rooms/) · [ClinkNOORD](https://www.clinkhostels.com/clinknoord-private-rooms/)
+- [Ryanair sblocca l'inverno di Alghero, frequenze ridotte](https://www.alguer.it/notizie/n.php?id=191609) · [Alghero–Linate garantita da ITA fino al 24 ottobre](https://www.sardegnaoggi.it/cronaca/2026-06-18/12160/alghero-milano-linate-continuita-territoriale-garantita-da-ita-airways-con-aerei-piu-piccoli-fino-al-2026.html) · [Eindhoven–Catania, giorni più economici](https://www.skyscanner.net/routes/ein/cta/eindhoven-to-catania-fontanarossa.html)
+- [Quando prenotare i voli nel 2026](https://travel.thewom.it/consigli-di-viaggio/quando-prenotare-voli-per-risparmiare.html) · [studio sui prezzi Ryanair](https://in3giorni.com/faq/quando-calano-i-prezzi-voli-ryanair)
+
+---
+
 # Amsterdam, metà ottobre 2026 — piano per tre (Messina, Modena, Sassari)
 
 Ricerca fatta **mercoledì 9 settembre 2026**.
