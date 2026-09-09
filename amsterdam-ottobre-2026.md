@@ -58,7 +58,8 @@ Metodo: voli = media rilevata dai comparatori a settembre (Ryanair Catania–Ein
 - **Ostello: oggi**, con cancellazione gratuita. Ottobre è il mese più caro per gli ostelli di Amsterdam (ADE + vacanze scolastiche) e le triple private centrali sono poche.
 - **Voli: entro il 20 settembre**, tutti e tre lo stesso giorno (prima Enzo, poi Messina, poi Agati). Il minimo statistico per i voli europei è tra 4 e 8 settimane prima; lo studio sui prezzi Ryanair colloca il minimo a 10 giorni dal volo, ma nel 2026 giocano contro i rincari annunciati il 2 settembre, le frequenze invernali ridotte dalla Sardegna e i due soli voli settimanali Transavia da Alghero. Per tre persone sugli stessi giorni, aspettare è una scommessa.
 - **Non oltre il 1° ottobre**: dopo, le low cost salgono ogni settimana.
-- Subito dopo i voli: Casa di Anne Frank (biglietti il martedì alle 10:00 per sei settimane dopo; per il 26–30 escono il 15 e il 22 settembre). Scioperi ENAC la settimana prima.
+- La settimana prima: scioperi ENAC. Niente altro da prenotare.
+- **Coffeeshop (regole 2026):** turisti ammessi, documento obbligatorio, 18+, massimo 5 g a testa per visita; dentro niente alcol né tabacco (canne pure o vaporizzatore); vietato fumare all'aperto nel quartiere a luci rosse, Dam, Damrak e Nieuwmarkt (100 € di multa); niente in valigia al ritorno. Prezzi 2026: canna pronta 3,50–8 €, grammo 12–16 €, space cake 5–8 €; budget 15–25 € a testa. Posti affidabili: Boerejongens, Dampkring, Tweede Kamer, Paradox, Grey Area, Abraxas; il Bulldog è il più turistico. Fonti: [DutchReview](https://dutchreview.com/traveling/cities/amsterdam/is-smoking-weed-in-amsterdam-legal/), [prezzi 2026](https://cannabisamsterdam.org/coffeeshops/prices-and-products).
 
 ## Fonti aggiuntive della versione 2
 
@@ -265,7 +266,7 @@ Zone che valgono la pena a metà ottobre: **Oost, Westerpark, Amsterdam Noord e 
 | Hotel 3 stelle in tripla | €187–307 | €170–280 |
 | **Totale a testa** | **€320–540** | **€305–510** |
 
-Pasti, musei e trasporti urbani esclusi. Per riferimento: tram/metro GVB 1 ora €3,40, biglietto giornaliero ~€9,50; Rijksmuseum e Van Gogh ~€22–25; Casa di Anne Frank ~€16 (i biglietti escono ogni martedì alle 10:00 per sei settimane dopo: per metà ottobre sono già in vendita e vanno presi subito).
+Pasti, musei e trasporti urbani esclusi. Per riferimento: tram/metro GVB 1 ora €3,40, biglietto giornaliero ~€9,50; Rijksmuseum e Van Gogh ~€22–25; un giro al coffeeshop 15–25 € a testa.
 
 ---
 
