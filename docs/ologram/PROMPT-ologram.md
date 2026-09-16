@@ -22,6 +22,8 @@ step into at 1:1 scale. Ologram is a platform, not a single game:
 - **Adapters** — plugins that turn a specific game or genre into HSP scenes, organised in four tiers (§4).
 - **Ologram Forge** — an AI pipeline that generates new adapters from reference footage and game data.
 
+**Reference experience (normative).** Ologram v1 must reproduce, first and exactly, the two "AR Board" experiences documented in `ar-board/ANALISI.md`, `ar-board/PROMPT-ricostruzione.md` and `ar-board/frames/`: a Minecraft-style voxel board (`voxelcraft`) and a Pokémon-style tilemap board with a live Game Boy-palette map screen (`tiletown`). Their look and feel (holographic grid base, black HUD strip with teal accent, BUILD panel, life-size VIEW toggle, grip-move / two-grip scale) is the house style of every other Ologram game.
+
 "Any game" is delivered by tiers: every game gets at least a Tier 4 hologram (a floating screen with holographic
 frame) the moment it is added; Tiers 3, 2 and 1 progressively replace the screen with a true 3D scene.
 
