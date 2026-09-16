@@ -114,13 +114,21 @@ export class HUD {
   onManifest(manifest) {
     const { el, app } = this;
     el.picker.innerHTML = '';
-    for (const def of manifest.bosses) {
+    // I boss con un modello 3D vero vengono per primi.
+    const ordered = [...manifest.bosses].sort((a, b) => (b.model ? 1 : 0) - (a.model ? 1 : 0));
+    for (const def of ordered) {
+      const real = !!def.model;
       const b = document.createElement('button');
       b.className = 'boss-btn';
       b.dataset.id = def.id;
-      b.innerHTML = `<span class="boss-name">${def.short || def.name}</span><span class="boss-meta">${def.stats ? `HP ${def.stats.hp} · ATK ${def.stats.attack}` : ''}</span><span class="boss-swatch" style="background:${def.color || '#d9b654'}"></span>`;
-      b.title = def.name;
-      b.addEventListener('click', () => { app.setSelectedDef(def); this.toast(`Prossima evocazione: ${def.name}`); });
+      b.innerHTML = `<span class="boss-name">${def.short || def.name}${real ? '<i class="tag">3D</i>' : ''}</span>`
+        + `<span class="boss-meta">${def.stats ? `HP ${def.stats.hp} · ATK ${def.stats.attack}` : ''}</span>`
+        + `<span class="boss-swatch" style="background:${def.color || '#d9b654'}"></span>`;
+      b.title = real ? `${def.name} — modello 3D` : `${def.name} — segnaposto`;
+      b.addEventListener('click', () => {
+        app.setSelectedDef(def);
+        this.toast(real ? `Prossima evocazione: ${def.name}` : `${def.short || def.name}: segnaposto (vedi prompts/ per generarlo)`);
+      });
       el.picker.appendChild(b);
     }
     this._refreshPicker();

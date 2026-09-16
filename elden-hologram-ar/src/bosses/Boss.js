@@ -71,6 +71,10 @@ export class Boss {
         this.originalMaterials.set(o, o.material);
         o.castShadow = true;
         o.frustumCulled = false;
+        // I modelli generati da immagine hanno spesso normali sottili o facce singole:
+        // renderizzarli a doppia faccia evita buchi visibili da dietro.
+        const mats = Array.isArray(o.material) ? o.material : [o.material];
+        for (const m of mats) if (m && m.side === THREE.FrontSide && !m.transparent) m.side = THREE.DoubleSide;
       }
     });
 

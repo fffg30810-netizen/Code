@@ -58,7 +58,8 @@ L'URL sarà `https://<utente>.github.io/Code/` (HTTPS incluso: WebXR e fotocamer
 
 ## Come si usa (sul telefono)
 
-1. Scegli il boss nella barra in basso.
+1. Scegli il boss nella barra in basso: quelli con l'etichetta **3D** hanno un modello vero
+   (si scarica al primo utilizzo), gli altri usano il segnaposto procedurale.
 2. **Tocca il tavolo** dove vuoi evocarlo (in WebXR aspetta che appaia il sigillo dorato).
 3. **Pizzica** per ridimensionare, **trascina** per spostare, **due dita** per ruotare, oppure usa lo slider
    e i pulsanti *↻ 45°*, *Scala reale*, *Rimuovi*.

@@ -4,7 +4,7 @@ name: Deploy Elden Hologram AR
 
 on:
   push:
-    branches: [main]
+    branches: [main, claude/elden-ring-hologram-ar-spi8dn]
     paths:
       - 'elden-hologram-ar/**'
       - '.github/workflows/deploy-pages.yml'

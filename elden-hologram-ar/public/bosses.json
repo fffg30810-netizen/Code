@@ -33,8 +33,7 @@
       "id": "margit",
       "name": "Margit, il Presagio Caduto",
       "short": "Margit",
-      "model": "models/margit.glb",
-      "usdz": "usdz/margit.usdz",
+      "model": "https://d8j0ntlcm91z4.cloudfront.net/user_3JJoEanW3aEMdcRpRs2vq8by7iI/hf_20260916_225915_0e45195e-18fb-4dc1-807f-e9a9e2bd518b.glb",
       "loreHeight": 3.4,
       "stats": {
         "hp": 130,
@@ -57,14 +56,21 @@
           "accent": "#e6c56b",
           "weapon": "#8a7a5a"
         }
+      },
+      "fix": {
+        "yaw": 0
+      },
+      "source": {
+        "pipeline": "Tripo text-to-3D (prompt in prompts/bosses/margit.md)",
+        "triangles": 57482,
+        "rigged": false,
+        "note": "senza scheletro: animato a corpo rigido dall'app"
       }
     },
     {
       "id": "godrick",
       "name": "Godrick l'Innestato",
       "short": "Godrick",
-      "model": "models/godrick.glb",
-      "usdz": "usdz/godrick.usdz",
       "loreHeight": 3.2,
       "stats": {
         "hp": 150,
@@ -94,8 +100,6 @@
       "id": "rennala",
       "name": "Rennala, Regina della Luna Piena",
       "short": "Rennala",
-      "model": "models/rennala.glb",
-      "usdz": "usdz/rennala.usdz",
       "loreHeight": 2.2,
       "stats": {
         "hp": 100,
@@ -125,7 +129,6 @@
       "name": "Radahn, Flagello delle Stelle",
       "short": "Radahn",
       "model": "https://d8j0ntlcm91z4.cloudfront.net/user_3JJoEanW3aEMdcRpRs2vq8by7iI/hf_20260916_225436_413ee7a7-357c-4205-a2c9-6076901a4e10.glb",
-      "usdz": "usdz/radahn.usdz",
       "loreHeight": 6.5,
       "stats": {
         "hp": 220,
@@ -165,8 +168,6 @@
       "id": "morgott",
       "name": "Morgott, il Re dei Presagi",
       "short": "Morgott",
-      "model": "models/morgott.glb",
-      "usdz": "usdz/morgott.usdz",
       "loreHeight": 3.5,
       "stats": {
         "hp": 140,
@@ -195,8 +196,6 @@
       "id": "rykard",
       "name": "Rykard, Signore della Blasfemia",
       "short": "Rykard",
-      "model": "models/rykard.glb",
-      "usdz": "usdz/rykard.usdz",
       "loreHeight": 12,
       "stats": {
         "hp": 200,
@@ -226,8 +225,6 @@
       "id": "mohg",
       "name": "Mohg, Signore del Sangue",
       "short": "Mohg",
-      "model": "models/mohg.glb",
-      "usdz": "usdz/mohg.usdz",
       "loreHeight": 3.6,
       "stats": {
         "hp": 160,
@@ -257,7 +254,6 @@
       "name": "Malenia, Lama di Miquella",
       "short": "Malenia",
       "model": "https://d8j0ntlcm91z4.cloudfront.net/user_3JJoEanW3aEMdcRpRs2vq8by7iI/hf_20260916_223932_c35a34be-d056-411e-a8dd-b37cb7cc809a.glb",
-      "usdz": "usdz/malenia.usdz",
       "loreHeight": 2.6,
       "stats": {
         "hp": 120,
@@ -297,8 +293,6 @@
       "id": "maliketh",
       "name": "Maliketh, la Lama Nera",
       "short": "Maliketh",
-      "model": "models/maliketh.glb",
-      "usdz": "usdz/maliketh.usdz",
       "loreHeight": 3.0,
       "stats": {
         "hp": 130,
@@ -327,8 +321,6 @@
       "id": "godfrey",
       "name": "Godfrey, il Primo Lord Ancestrale",
       "short": "Godfrey",
-      "model": "models/godfrey.glb",
-      "usdz": "usdz/godfrey.usdz",
       "loreHeight": 3.6,
       "stats": {
         "hp": 180,
@@ -357,8 +349,6 @@
       "id": "radagon",
       "name": "Radagon dell'Ordine Aureo",
       "short": "Radagon",
-      "model": "models/radagon.glb",
-      "usdz": "usdz/radagon.usdz",
       "loreHeight": 2.3,
       "stats": {
         "hp": 130,
@@ -387,8 +377,6 @@
       "id": "firegiant",
       "name": "Gigante di Fuoco",
       "short": "Gigante",
-      "model": "models/firegiant.glb",
-      "usdz": "usdz/firegiant.usdz",
       "loreHeight": 28,
       "stats": {
         "hp": 260,
@@ -417,8 +405,6 @@
       "id": "messmer",
       "name": "Messmer l'Impalatore",
       "short": "Messmer",
-      "model": "models/messmer.glb",
-      "usdz": "usdz/messmer.usdz",
       "loreHeight": 3.0,
       "stats": {
         "hp": 140,

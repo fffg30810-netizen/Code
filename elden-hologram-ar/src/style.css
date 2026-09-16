@@ -167,3 +167,10 @@ input[type='range'] { width: 100%; accent-color: var(--gold); margin: 0; touch-a
 .quicklook-list { display: flex; gap: 8px; flex-wrap: wrap; }
 .quicklook-list a { display: inline-flex; align-items: center; gap: 6px; color: var(--text); text-decoration: none; border: 1px solid rgba(217,182,84,0.4); border-radius: 999px; padding: 6px 12px; font-size: 13px; background: rgba(255,255,255,0.04); }
 .quicklook-list a img { width: 18px; height: 18px; }
+
+/* Etichetta "3D" sui boss con modello reale */
+.boss-btn .boss-name { display: flex; align-items: baseline; gap: 5px; }
+.boss-btn .tag {
+  font-family: var(--font-ui); font-style: normal; font-size: 9px; font-weight: 700; letter-spacing: 0.08em;
+  color: #0b0a08; background: var(--gold); border-radius: 4px; padding: 1px 4px; line-height: 1.3;
+}

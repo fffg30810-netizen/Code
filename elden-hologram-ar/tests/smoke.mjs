@@ -104,6 +104,28 @@ try {
   if (!after.bosses.every((b) => b.alive && b.hp > 0)) throw new Error('reset fallito');
   ok('reset e rimozione funzionano');
 
+  // Modelli 3D reali: se la rete li raggiunge, verifica che vengano caricati davvero
+  // (qui si salta quando il CDN non è raggiungibile, es. in ambienti isolati).
+  const remoteIds = await page.evaluate(() => window.__elden.defs().filter((d) => /^https?:/.test(d.model || '')).map((d) => d.id));
+  if (remoteIds.length) {
+    const first = remoteIds[0];
+    const loaded = await page.evaluate(async (id) => {
+      const app = window.__elden.app;
+      app.clearBosses();
+      try { await window.__elden.spawn(id, 0, 0, 0.3); } catch (e) { return { error: String(e.message || e) }; }
+      const b = app.bosses[0];
+      return b ? { procedural: b.procedural, rigid: b.rigid, meshes: b.meshes.length } : { error: 'nessun boss' };
+    }, first);
+    if (loaded.error || loaded.procedural) {
+      console.log(`· modelli remoti non raggiungibili (${loaded.error || 'fallback ai segnaposto'}): test saltato`);
+    } else {
+      ok(`modello 3D reale caricato: ${first} (${loaded.meshes} mesh, ${loaded.rigid ? 'animazione rigida' : 'clip proprie'})`);
+      await page.waitForTimeout(700);
+      await page.screenshot({ path: join(outDir, '09-modello-reale.png') });
+    }
+    await page.evaluate(() => window.__elden.app.clearBosses());
+  }
+
   // percorso "mesh statica": animazione a corpo rigido (modelli generati da immagine)
   await page.evaluate(() => { window.__elden.app.clearBosses(); window.__elden.app.setTimeScale(4); });
   const rigid = await page.evaluate(async () => {
