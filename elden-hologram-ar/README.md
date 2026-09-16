@@ -50,11 +50,25 @@ npm run build        # dist/ pronto per GitHub Pages / qualsiasi hosting statico
 npm test             # smoke test headless: evoca, combatte, verifica il vincitore (screenshot in tests/output/)
 ```
 
-### Deploy su GitHub Pages
+### Metterla online (per usarla dal telefono)
 
-Il workflow [`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml) pubblica la
-cartella `dist/` a ogni push su `main`. Nel repository: *Settings → Pages → Source: GitHub Actions*.
-L'URL sarà `https://<utente>.github.io/Code/` (HTTPS incluso: WebXR e fotocamera funzionano).
+Serve un indirizzo **HTTPS**: fotocamera, sensori e WebXR non funzionano in HTTP. Due strade:
+
+**A. GitHub Pages (consigliata, gratis).** Il workflow
+[`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml) compila e pubblica già
+a ogni push. Manca solo un interruttore, una volta sola:
+
+1. apri <https://github.com/fffg30810-netizen/Code/settings/pages>
+2. in *Build and deployment → Source* scegli **GitHub Actions** e salva
+3. torna in *Actions*, apri l'ultimo run di *Deploy Elden Hologram AR* e premi **Re-run all jobs**
+
+L'indirizzo sarà `https://fffg30810-netizen.github.io/Code/`: aprilo dal telefono e premi *Avvia AR*
+(Android) o *Modalità Camera* (iPhone). Finché Pages non è attivo il job `deploy` fallisce con
+`Ensure GitHub Pages has been enabled`: è solo quell'interruttore, la compilazione passa già.
+
+**B. Dal tuo computer, senza pubblicare niente.** `npm run dev` espone un indirizzo HTTPS in rete
+locale (`https://<ip-del-pc>:5173`): aprilo dal telefono sulla stessa Wi-Fi e accetta il certificato
+self-signed.
 
 ## Come si usa (sul telefono)
 
