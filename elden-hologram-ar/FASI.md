@@ -36,15 +36,31 @@ Stato: ✅ fatto · 🔜 prossimo · 💡 idea
   reset, uscita) con screenshot.
 - Workflow GitHub Pages, README in italiano, Quick Look iOS opzionale.
 
-## Fase 5 — Prossimi passi 🔜
+## Fase 5 — Boss reali (immagine → 3D) ✅
+- Pipeline eseguita davvero, non solo documentata: prompt immagine → render di riferimento →
+  conversione image-to-3D → GLB texturizzato → manifest.
+- **Malenia** e **Radahn** da immagine di riferimento (Tripo H3.1 image-to-3D, ~57k triangoli
+  ciascuno), **Margit** da text-to-3D: caricati dall'app via CDN, con `npm run fetch-models`
+  per tenerli in locale.
+- I modelli generati non hanno scheletro: aggiunto `RigidAnimator`, che anima l'intero corpo
+  (respiro, passo, affondo, spazzata rotante, contraccolpo, caduta) così anche una mesh statica
+  combatte. Selezione automatica fra clip del GLB e animazione rigida.
+- Loader esteso agli URL remoti, correzione di orientamento per boss (`fix.yaw`), precaricamento
+  del modello selezionato, avviso di caricamento, fallback ai segnaposto se il modello non arriva.
+- Test headless esteso al percorso "mesh statica" (combattimento completo fino al vincitore).
+
+## Fase 6 — Prossimi passi 🔜
 - **Occlusione**: WebXR `depth-sensing` per far sparire il boss dietro oggetti reali (Android).
 - **Marker mode iOS a 6DoF**: tracciamento immagine (es. MindAR) su un "sigillo" stampato, così anche
   su iPhone il boss resta inchiodato al tavolo mentre ti muovi.
 - **Ancore persistenti** (`anchors`) per tenere la scena stabile in sessioni lunghe.
 - **Registrazione video in-app** in modalità Camera (MediaRecorder su canvas + video).
-- **Modelli HD reali**: eseguire la pipeline per i primi 3-4 boss e caricarli in `public/models/`.
+- **Gli altri dieci boss**: stessa pipeline, ~10 crediti a boss (1 immagine + 1 conversione);
+  i prompt sono già pronti in `prompts/bosses/`.
+- **Rig e animazioni articolate** per i modelli generati (Meshy auto-rigging o Mixamo), al posto
+  dell'animazione a corpo rigido.
 
-## Fase 6 — Idee 💡
+## Fase 7 — Idee 💡
 - Squadre e duelli 1v1 scelti a mano, mosse speciali per boss (Scarlet Aeonia, meteora di Radahn) con
   particelle dedicate.
 - Multiplayer locale (WebRTC) per evocare ognuno il proprio boss sullo stesso tavolo.

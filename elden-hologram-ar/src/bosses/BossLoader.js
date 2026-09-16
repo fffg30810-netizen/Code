@@ -21,6 +21,7 @@ const TEXTURE_SLOTS = ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'emis
 export class BossLoader {
   constructor(renderer, { basePath = './' } = {}) {
     this.renderer = renderer;
+    this.basePath = basePath;
     this.gltf = new GLTFLoader();
     const draco = new DRACOLoader();
     draco.setDecoderPath(`${basePath}decoders/draco/`);
@@ -39,10 +40,18 @@ export class BossLoader {
     return this.cache.get(def.id);
   }
 
+  /** Risolve il percorso del modello: assoluto (http) o relativo alla base dell'app. */
+  _modelUrl(def) {
+    const m = def.model;
+    if (!m) return null;
+    return /^(https?:)?\/\//.test(m) || m.startsWith('data:') ? m : `${this.basePath}${m}`;
+  }
+
   async _load(def) {
-    if (def.model) {
+    const url = this._modelUrl(def);
+    if (url) {
       try {
-        const gltf = await this.gltf.loadAsync(def.model);
+        const gltf = await this.gltf.loadAsync(url);
         gltf.scene.traverse((o) => {
           if (!o.isMesh) return;
           const mats = Array.isArray(o.material) ? o.material : [o.material];
@@ -50,7 +59,7 @@ export class BossLoader {
         });
         return { scene: gltf.scene, clips: gltf.animations || [], hitTimes: {}, procedural: false };
       } catch (e) {
-        console.warn(`[BossLoader] "${def.model}" non disponibile (${e && e.message ? e.message : e}); uso il segnaposto procedurale per ${def.id}.`);
+        console.warn(`[BossLoader] "${url}" non disponibile (${e && e.message ? e.message : e}); uso il segnaposto procedurale per ${def.id}.`);
       }
     }
     return { procedural: true };

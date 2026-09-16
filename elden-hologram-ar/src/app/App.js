@@ -224,6 +224,7 @@ export class App extends Emitter {
   async spawn(def, position, { height, yaw, summon = true } = {}) {
     if (!def) return null;
     this.pendingSpawn = true;
+    const slow = setTimeout(() => this.toast(`Caricamento di ${def.short || def.name} in corso…`), 900);
     try {
       const inst = await this.loader.instantiate(def);
       const boss = new Boss({ def, defaults: this.manifest ? this.manifest.defaults : {}, ...inst });
@@ -242,6 +243,7 @@ export class App extends Emitter {
       this.emit('bosses', this.bosses);
       return boss;
     } finally {
+      clearTimeout(slow);
       this.pendingSpawn = false;
     }
   }
@@ -278,7 +280,12 @@ export class App extends Emitter {
     this.emit('select', boss);
   }
 
-  setSelectedDef(def) { this.selectedDef = def; this.emit('selectedDef', def); }
+  setSelectedDef(def) {
+    this.selectedDef = def;
+    this.emit('selectedDef', def);
+    // scalda la cache: il modello arriva prima del tap
+    if (def) this.loader.loadAsset(def).catch(() => {});
+  }
 
   setHeight(m, { persist = true } = {}) {
     m = clamp(m, 0.02, 50);

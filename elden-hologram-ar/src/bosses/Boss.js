@@ -2,6 +2,7 @@
 // animazioni, statistiche, barra vita, stile (realistico / ologramma) ed effetti di evocazione.
 import * as THREE from 'three';
 import { HPBar } from '../fx/HPBar.js';
+import { ClipAnimator, RigidAnimator } from './Animator.js';
 import { createHologramUniforms, makeHologramMaterial, STYLES } from '../fx/HologramMaterial.js';
 import { clamp } from '../util/math.js';
 
@@ -73,20 +74,13 @@ export class Boss {
       }
     });
 
-    // Animazioni
-    this.mixer = new THREE.AnimationMixer(object);
+    // Animazioni: se il GLB ha le sue clip usiamo il mixer, altrimenti (mesh statica
+    // generata da immagine) animiamo il corpo rigido con pose sintetiche.
     this.clips = clips;
     const resolved = resolveClips(def, defaults, clips);
-    const mk = (clip) => (clip ? this.mixer.clipAction(clip) : null);
-    this.actions = {
-      idle: mk(resolved.idle),
-      walk: mk(resolved.walk),
-      attack: resolved.attack.map(mk).filter(Boolean),
-      hit: mk(resolved.hit),
-      death: mk(resolved.death),
-      victory: mk(resolved.victory),
-    };
-    this.current = null;
+    const hasUsableClips = !!(resolved.idle && (resolved.attack.length || resolved.walk));
+    this.animator = hasUsableClips ? new ClipAnimator(object, resolved) : new RigidAnimator(this.inner);
+    this.rigid = !hasUsableClips;
 
     // Statistiche
     this.stats = { hp: 100, attack: 10, speed: 0.5, range: 0.5, cooldown: 1.5, ...(def.stats || {}) };
@@ -122,6 +116,17 @@ export class Boss {
   }
 
   _normalize() {
+    // Correzione per-boss dal manifest: `fix: { yaw, pitch, roll }` in gradi.
+    // I modelli generati da immagine spesso guardano verso -Z o sono leggermente inclinati.
+    const fix = this.def.fix;
+    if (fix) {
+      this.model.rotation.set(
+        THREE.MathUtils.degToRad(fix.pitch || 0),
+        THREE.MathUtils.degToRad(fix.yaw || 0),
+        THREE.MathUtils.degToRad(fix.roll || 0),
+        'YXZ',
+      );
+    }
     this.model.updateMatrixWorld(true);
     const box = new THREE.Box3().setFromObject(this.model);
     if (box.isEmpty()) { this.bodyRadius = 0.22; return; }
@@ -146,6 +151,7 @@ export class Boss {
   }
 
   hitTimeFor(clipName) {
+    if (this.rigid) return RigidAnimator.hitTimeFor(clipName);
     const ht = this.def.hitTime;
     if (typeof ht === 'number') return ht;
     if (ht && typeof ht === 'object' && ht[clipName] != null) return ht[clipName];
@@ -153,33 +159,12 @@ export class Boss {
     return this.defaults.hitTime ?? 0.45;
   }
 
-  // ----- animazioni -----
-  play(name, { fade = 0.2, loop = true, clamp: clampEnd = true, timeScale = 1 } = {}) {
-    let action = null;
-    if (name === 'attack') {
-      const list = this.actions.attack;
-      action = list.length ? list[Math.floor(Math.random() * list.length)] : null;
-    } else {
-      action = this.actions[name] || null;
-    }
-    if (!action) return null;
-    if (this.current === action && loop && action.isRunning()) return action;
+  /** @returns {boolean} true se esiste un'animazione con questo nome. */
+  hasAnimation(name) { return this.animator.has(name); }
 
-    action.reset();
-    action.setLoop(loop ? THREE.LoopRepeat : THREE.LoopOnce, loop ? Infinity : 1);
-    action.clampWhenFinished = clampEnd;
-    action.enabled = true;
-    action.setEffectiveTimeScale(timeScale);
-    action.setEffectiveWeight(1);
-    action.play();
-    if (this.current && this.current !== action && fade > 0) {
-      this.current.crossFadeTo(action, fade, false);
-    } else if (fade > 0) {
-      action.fadeIn(fade);
-    }
-    this.current = action;
-    return action;
-  }
+  // ----- animazioni -----
+  /** @returns {{name: string, duration: number}|null} clip avviata */
+  play(name, opts = {}) { return this.animator.play(name, opts); }
 
   // ----- stile / ologramma -----
   setStyle(style) {
@@ -241,7 +226,7 @@ export class Boss {
     this.fight.state = 'dead';
     this.fight.deathTimer = 0;
     this.hpBar.sprite.visible = false;
-    if (this.actions.death) this.play('death', { loop: false, fade: 0.15 });
+    if (this.hasAnimation('death')) this.play('death', { loop: false, fade: 0.15 });
     else this.play('idle');
   }
 
@@ -262,7 +247,7 @@ export class Boss {
 
   // ----- aggiornamento per frame -----
   update(dt, time) {
-    this.mixer.update(dt);
+    this.animator.update(dt);
     const u = this.holoUniforms;
     u.uTime.value = time;
 
@@ -286,7 +271,7 @@ export class Boss {
   }
 
   dispose() {
-    this.mixer.stopAllAction();
+    this.animator.stop();
     this.hpBar.dispose();
     this.ring.geometry.dispose();
     this.ring.material.dispose();

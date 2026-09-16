@@ -104,6 +104,25 @@ try {
   if (!after.bosses.every((b) => b.alive && b.hp > 0)) throw new Error('reset fallito');
   ok('reset e rimozione funzionano');
 
+  // percorso "mesh statica": animazione a corpo rigido (modelli generati da immagine)
+  await page.evaluate(() => { window.__elden.app.clearBosses(); window.__elden.app.setTimeScale(4); });
+  const rigid = await page.evaluate(async () => {
+    const a = await window.__elden.spawnRigid('maliketh', -0.22, 0, 0.3);
+    const b = await window.__elden.spawnRigid('godfrey', 0.24, 0, 0.32);
+    a.yaw = Math.PI / 2; b.yaw = -Math.PI / 2;
+    window.__elden.app.startFight(77);
+    return window.__elden.state();
+  });
+  if (!rigid.bosses.every((b) => b.rigid)) throw new Error('animatore rigido non attivo');
+  ok('modelli senza scheletro: animazione a corpo rigido attiva');
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: join(outDir, '07-rigid.png') });
+  await page.waitForFunction(() => window.__elden.state().fight.winner !== null, null, { timeout: 90000 });
+  const rigidFinal = await page.evaluate(() => window.__elden.state());
+  if (rigidFinal.bosses.filter((b) => b.alive).length !== 1) throw new Error('combattimento rigido senza vincitore unico');
+  ok(`combattimento con mesh statiche: vince ${rigidFinal.fight.winner}`);
+  await page.screenshot({ path: join(outDir, '08-rigid-victory.png') });
+
   await page.evaluate(() => window.__elden.app.stopMode());
   await page.waitForFunction(() => window.__elden.state().mode === null, null, { timeout: 5000 });
   ok('uscita dalla modalità');

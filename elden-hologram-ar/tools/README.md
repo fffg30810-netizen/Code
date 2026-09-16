@@ -24,3 +24,20 @@ npm run manifest
 
 Per iOS Quick Look (opzionale) converti il GLB in USDZ con Reality Converter (macOS) o
 `usdzconvert` e mettilo in `public/usdz/<id>.usdz`: il manifest lo rileva da solo.
+
+## Verificare un modello generato
+
+```bash
+npm run preview-glb -- public/models/malenia.glb preview.png     # file locale
+npm run preview-glb -- https://…/model.glb preview.png           # URL remoto
+```
+
+Renderizza il modello da tre angolazioni su una griglia e stampa triangoli, mesh, materiali,
+texture e clip di animazione trovate: utile per capire subito se il GLB è orientato bene
+(deve guardare verso **+Z**), se ha lo scheletro e quanto pesa.
+
+Se guarda dalla parte sbagliata, correggilo nel manifest senza ritoccare il file:
+
+```json
+{ "id": "malenia", "fix": { "yaw": 180 } }
+```

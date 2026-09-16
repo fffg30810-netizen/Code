@@ -11,7 +11,9 @@
     "preview": "vite preview --host",
     "optimize": "node tools/optimize-glb.mjs",
     "manifest": "node tools/build-manifest.mjs",
-    "test": "node tests/smoke.mjs"
+    "test": "node tests/smoke.mjs",
+    "fetch-models": "node tools/fetch-models.mjs",
+    "preview-glb": "node tools/preview-glb.mjs"
   },
   "dependencies": {
     "three": "0.186.0"

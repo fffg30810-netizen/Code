@@ -6,6 +6,10 @@ falli **combattere fra loro**. Web app, niente da installare: si apre da un link
 
 <p align="center"><img src="docs/screens/fight.png" alt="Combattimento in anteprima 3D" width="360" /></p>
 
+> **Malenia, Radahn e Margit sono già modelli 3D veri** generati da immagini di riferimento:
+> l'app li scarica da sola al primo utilizzo. Gli altri boss usano segnaposto procedurali,
+> con i prompt pronti in [`prompts/`](./prompts/) per generarli allo stesso modo.
+
 ## Cosa fa
 
 - **AR vera (WebXR, Android + Chrome):** rileva il tavolo, mostra un sigillo dorato dove appoggiare il
@@ -23,8 +27,10 @@ falli **combattere fra loro**. Web app, niente da installare: si apre da un link
   Ceneri spirituali), *Oro ancestrale*. Evocazione con effetto "materializzazione" dal basso.
 - **HD:** supersampling WebXR 1,4×, pixel ratio 2, texture anisotrope, ombre PCF 2048, supporto GLB
   con Draco / Meshopt / KTX2 / WebP.
-- **13 boss pronti** con statistiche, altezze da lore e **segnaposto procedurali animati**: l'app
-  funziona subito; quando metti i tuoi GLB HD li usa al posto dei segnaposto.
+- **13 boss** con statistiche e altezze da lore: tre con modello 3D reale (Malenia, Radahn,
+  Margit), gli altri con segnaposto procedurali animati, sostituibili con i tuoi GLB.
+- **Modelli senza scheletro supportati**: chi non ha un rig viene animato a corpo rigido, così
+  anche un modello generato da una foto combatte senza altro lavoro.
 
 ## Avvio rapido
 
@@ -62,10 +68,30 @@ L'URL sarà `https://<utente>.github.io/Code/` (HTTPS incluso: WebXR e fotocamer
 Per registrare il combattimento usa la registrazione schermo del telefono (in WebXR la fotocamera
 è composta dal sistema e non è accessibile alla pagina).
 
-## Boss in alta definizione: la pipeline
+## Boss reali già inclusi
 
-I modelli inclusi sono segnaposto procedurali (per motivi di licenza non si possono distribuire asset
-del gioco). Per i boss HD:
+Tre boss sono **modelli 3D veri**, generati con la pipeline immagine → 3D e caricati
+automaticamente dall'app (nessuna installazione, si scaricano al volo dal CDN):
+
+| Boss | Pipeline | Triangoli |
+| --- | --- | --- |
+| Malenia | immagine di riferimento (GPT Image) → Tripo H3.1 *image-to-3D* | ~57.000 |
+| Radahn | immagine di riferimento (GPT Image) → Tripo H3.1 *image-to-3D* | ~57.000 |
+| Margit | Tripo *text-to-3D* | ~60.000 |
+
+Sono mesh texturizzate **senza scheletro**: l'app le anima a **corpo rigido** (respiro, passo
+ondeggiante, affondo, spazzata rotante, contraccolpo, caduta all'indietro), quindi combattono
+regolarmente. Gli altri boss usano i segnaposto procedurali finché non generi i loro modelli.
+
+Per tenerli in locale (offline, niente CDN):
+
+```bash
+npm run fetch-models     # scarica in public/models/ e aggiorna il manifest
+```
+
+## Aggiungere gli altri boss: la pipeline
+
+Per gli altri dieci boss del manifest:
 
 1. Apri [`prompts/README.md`](./prompts/README.md) e il pacchetto prompt del boss in
    [`prompts/bosses/`](./prompts/bosses/) (text-to-3D, character sheet per image-to-3D, retexture,

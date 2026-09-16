@@ -100,7 +100,11 @@ export class HUD {
     app.on('height', (m) => this._syncScale(m));
     app.on('style', (s) => this.toast(`Stile: ${STYLES[s].label}`));
     app.on('settings', () => this._syncSettings());
-    app.on('fight', (active) => { this.fightState = active ? 'fighting' : (app.fight.winner ? 'finished' : 'idle'); this._refresh(); });
+    app.on('fight', (active) => {
+      this.fightState = active ? 'fighting' : (app.fight.winner ? 'finished' : 'idle');
+      if (active) this._hideVictory();
+      this._refresh();
+    });
     app.on('victory', (w) => this._showVictory(w));
     app.on('toast', (msg) => this.toast(msg));
     app.on('selectedDef', () => this._refreshPicker());

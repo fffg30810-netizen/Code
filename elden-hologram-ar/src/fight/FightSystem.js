@@ -49,7 +49,8 @@ export class FightSystem {
       if (this.winner) {
         this.winner.fight.state = 'idle';
         this.winner.hpBar.sprite.visible = false;
-        this.winner.play(this.winner.actions.victory ? 'victory' : 'idle', { loop: !this.winner.actions.victory, fade: 0.2 });
+        const hasVictory = this.winner.hasAnimation('victory');
+        this.winner.play(hasVictory ? 'victory' : 'idle', { loop: !hasVictory, fade: 0.2 });
       }
       this.hooks.onVictory && this.hooks.onVictory(this.winner);
       return;
@@ -107,7 +108,7 @@ export class FightSystem {
             t.takeDamage(dmg);
             this.hooks.onHit && this.hooks.onHit(a, t, dmg, crit);
             if (wasAlive && !t.alive) this.hooks.onDeath && this.hooks.onDeath(t, a);
-            if (t.alive && t.fight.state !== 'attack' && t.actions.hit) {
+            if (t.alive && t.fight.state !== 'attack' && t.hasAnimation('hit')) {
               t.play('hit', { loop: false, fade: 0.05 });
               t.fight.state = 'stagger';
               t.fight.staggerTimer = 0.45;
@@ -135,8 +136,7 @@ export class FightSystem {
 
   _startAttack(a) {
     const f = a.fight;
-    const action = a.play('attack', { loop: false, fade: 0.1 });
-    const clip = action ? action.getClip() : null;
+    const clip = a.play('attack', { loop: false, fade: 0.1 });
     f.state = 'attack';
     f.attackTimer = 0;
     f.hitApplied = false;

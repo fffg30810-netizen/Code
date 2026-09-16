@@ -8,6 +8,25 @@ IA generativa (testo → 3D e immagine → 3D), riggarli, animarli e portarli ne
 > caricare nel repository asset estratti dal gioco. I prompt descrivono i personaggi "ispirati a",
 > in stile dark fantasy: è la strada corretta per un progetto fan-made privato.
 
+## I modelli già inclusi (generati con questa pipeline)
+
+Due boss sono già pronti e vengono caricati dall'app senza che tu debba fare nulla:
+
+| Boss | Come è stato fatto | Triangoli |
+| --- | --- | --- |
+| Malenia | prompt immagine (GPT Image) → Tripo H3.1 *image-to-3D* | ~57.000 |
+| Radahn | prompt immagine (GPT Image) → Tripo H3.1 *image-to-3D* | ~60.000 |
+
+Non hanno scheletro: l'app li anima **a corpo rigido** (respiro, passo, affondo, spazzata
+rotante, contraccolpo, caduta), quindi combattono comunque. Per animazioni articolate
+serve il rig (passi 3-4 qui sotto) oppure l'opzione *rigging* del generatore.
+
+I `.glb` stanno su un CDN e sono referenziati nel manifest. Per averli in locale:
+
+```bash
+npm run fetch-models      # scarica in public/models/ e aggiorna il manifest
+```
+
 ## Pipeline in 5 passi
 
 | Passo | Strumento consigliato | Alternativa | Output |
