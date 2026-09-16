@@ -1,0 +1,155 @@
+{
+  "$schema": "./bosses.schema.json",
+  "version": 1,
+  "notes": "Manifest dei boss. `model` è opzionale: se manca o non si carica, l'app usa il segnaposto procedurale descritto in `procedural`. Altezze da lore: stime della community, non ufficiali.",
+  "defaults": {
+    "height": 0.25,
+    "clips": { "idle": ["Idle"], "walk": ["Walk", "Run"], "attack": ["Attack1", "Attack2", "Attack"], "hit": ["Hit", "React"], "death": ["Death", "Die"] },
+    "hitTime": 0.45
+  },
+  "bosses": [
+    {
+      "id": "margit",
+      "name": "Margit, il Presagio Caduto",
+      "short": "Margit",
+      "model": "models/margit.glb",
+      "usdz": "usdz/margit.usdz",
+      "loreHeight": 3.4,
+      "stats": { "hp": 130, "attack": 16, "speed": 0.55, "range": 0.55, "cooldown": 1.7 },
+      "color": "#b7a37a",
+      "procedural": { "archetype": "humanoid", "weapon": "staff", "helmet": "hood", "cape": true, "bulk": 1.15, "colors": { "armor": "#5a5548", "cloth": "#3b3a36", "skin": "#c7b58f", "accent": "#e6c56b", "weapon": "#8a7a5a" } }
+    },
+    {
+      "id": "godrick",
+      "name": "Godrick l'Innestato",
+      "short": "Godrick",
+      "model": "models/godrick.glb",
+      "usdz": "usdz/godrick.usdz",
+      "loreHeight": 3.2,
+      "stats": { "hp": 150, "attack": 15, "speed": 0.45, "range": 0.6, "cooldown": 1.9 },
+      "color": "#9a8b3a",
+      "procedural": { "archetype": "humanoid", "weapon": "axe", "helmet": "crown", "cape": true, "bulk": 1.35, "extraArms": true, "colors": { "armor": "#8a7f2f", "cloth": "#4a3a2a", "skin": "#d9c5a3", "accent": "#e2c95a", "weapon": "#7d7d7d" } }
+    },
+    {
+      "id": "rennala",
+      "name": "Rennala, Regina della Luna Piena",
+      "short": "Rennala",
+      "model": "models/rennala.glb",
+      "usdz": "usdz/rennala.usdz",
+      "loreHeight": 2.2,
+      "stats": { "hp": 100, "attack": 20, "speed": 0.4, "range": 0.9, "cooldown": 2.2 },
+      "color": "#6e7fd6",
+      "procedural": { "archetype": "humanoid", "weapon": "staff", "helmet": "crown", "cape": true, "bulk": 0.9, "colors": { "armor": "#2b3a7a", "cloth": "#1c2352", "skin": "#efe1d0", "accent": "#a7b7ff", "weapon": "#c9d3ff" } }
+    },
+    {
+      "id": "radahn",
+      "name": "Radahn, Flagello delle Stelle",
+      "short": "Radahn",
+      "model": "models/radahn.glb",
+      "usdz": "usdz/radahn.usdz",
+      "loreHeight": 6.5,
+      "stats": { "hp": 220, "attack": 24, "speed": 0.5, "range": 0.65, "cooldown": 2.0 },
+      "color": "#c0392b",
+      "procedural": { "archetype": "humanoid", "weapon": "greatsword", "dualWield": true, "helmet": "lionmane", "cape": true, "bulk": 1.6, "colors": { "armor": "#7a1f1a", "cloth": "#3a1410", "skin": "#c98e6a", "accent": "#e0a955", "weapon": "#9a9a9a" } }
+    },
+    {
+      "id": "morgott",
+      "name": "Morgott, il Re dei Presagi",
+      "short": "Morgott",
+      "model": "models/morgott.glb",
+      "usdz": "usdz/morgott.usdz",
+      "loreHeight": 3.5,
+      "stats": { "hp": 140, "attack": 18, "speed": 0.6, "range": 0.55, "cooldown": 1.5 },
+      "color": "#c9a44a",
+      "procedural": { "archetype": "humanoid", "weapon": "greatsword", "helmet": "hood", "cape": true, "bulk": 1.2, "colors": { "armor": "#6b5a3a", "cloth": "#2e2a22", "skin": "#c7b58f", "accent": "#f0c85a", "weapon": "#e3c26a" } }
+    },
+    {
+      "id": "rykard",
+      "name": "Rykard, Signore della Blasfemia",
+      "short": "Rykard",
+      "model": "models/rykard.glb",
+      "usdz": "usdz/rykard.usdz",
+      "loreHeight": 12,
+      "stats": { "hp": 200, "attack": 22, "speed": 0.35, "range": 0.8, "cooldown": 2.3 },
+      "color": "#d35400",
+      "procedural": { "archetype": "humanoid", "weapon": "greatsword", "helmet": "none", "cape": false, "bulk": 1.5, "serpent": true, "colors": { "armor": "#5c2a12", "cloth": "#3a1a0a", "skin": "#b5462a", "accent": "#ff8c3a", "weapon": "#c65a1e" } }
+    },
+    {
+      "id": "mohg",
+      "name": "Mohg, Signore del Sangue",
+      "short": "Mohg",
+      "model": "models/mohg.glb",
+      "usdz": "usdz/mohg.usdz",
+      "loreHeight": 3.6,
+      "stats": { "hp": 160, "attack": 19, "speed": 0.5, "range": 0.7, "cooldown": 1.8 },
+      "color": "#8e1b2c",
+      "procedural": { "archetype": "humanoid", "weapon": "trident", "helmet": "horns", "cape": true, "bulk": 1.25, "colors": { "armor": "#5a1622", "cloth": "#2a0b12", "skin": "#8f6a5e", "accent": "#ff3b4e", "weapon": "#d4a052" } }
+    },
+    {
+      "id": "malenia",
+      "name": "Malenia, Lama di Miquella",
+      "short": "Malenia",
+      "model": "models/malenia.glb",
+      "usdz": "usdz/malenia.usdz",
+      "loreHeight": 2.6,
+      "stats": { "hp": 120, "attack": 21, "speed": 0.8, "range": 0.5, "cooldown": 1.2 },
+      "color": "#d4af37",
+      "procedural": { "archetype": "humanoid", "weapon": "katana", "helmet": "winged", "cape": false, "bulk": 0.85, "prosthetic": true, "colors": { "armor": "#c9a24a", "cloth": "#5b3a2e", "skin": "#e8d2b8", "accent": "#ffe4a0", "weapon": "#f3e2a4" } }
+    },
+    {
+      "id": "maliketh",
+      "name": "Maliketh, la Lama Nera",
+      "short": "Maliketh",
+      "model": "models/maliketh.glb",
+      "usdz": "usdz/maliketh.usdz",
+      "loreHeight": 3.0,
+      "stats": { "hp": 130, "attack": 23, "speed": 0.85, "range": 0.6, "cooldown": 1.3 },
+      "color": "#3c3c48",
+      "procedural": { "archetype": "humanoid", "weapon": "greatsword", "helmet": "wolf", "cape": true, "bulk": 1.1, "colors": { "armor": "#2c2c34", "cloth": "#4a4a55", "skin": "#8d8d99", "accent": "#7d6bb0", "weapon": "#1a1a1f" } }
+    },
+    {
+      "id": "godfrey",
+      "name": "Godfrey, il Primo Lord Ancestrale",
+      "short": "Godfrey",
+      "model": "models/godfrey.glb",
+      "usdz": "usdz/godfrey.usdz",
+      "loreHeight": 3.6,
+      "stats": { "hp": 180, "attack": 22, "speed": 0.55, "range": 0.6, "cooldown": 1.6 },
+      "color": "#b08d57",
+      "procedural": { "archetype": "humanoid", "weapon": "axe", "helmet": "lionmane", "cape": true, "bulk": 1.45, "colors": { "armor": "#6a5233", "cloth": "#3a2a1a", "skin": "#d2a377", "accent": "#e4b96a", "weapon": "#bdbdbd" } }
+    },
+    {
+      "id": "radagon",
+      "name": "Radagon dell'Ordine Aureo",
+      "short": "Radagon",
+      "model": "models/radagon.glb",
+      "usdz": "usdz/radagon.usdz",
+      "loreHeight": 2.3,
+      "stats": { "hp": 130, "attack": 20, "speed": 0.7, "range": 0.55, "cooldown": 1.4 },
+      "color": "#e8b04a",
+      "procedural": { "archetype": "humanoid", "weapon": "hammer", "helmet": "none", "cape": false, "bulk": 1.0, "colors": { "armor": "#d9a441", "cloth": "#8a6a2a", "skin": "#f0e3d2", "accent": "#ffd77a", "weapon": "#e8c060" } }
+    },
+    {
+      "id": "firegiant",
+      "name": "Gigante di Fuoco",
+      "short": "Gigante",
+      "model": "models/firegiant.glb",
+      "usdz": "usdz/firegiant.usdz",
+      "loreHeight": 28,
+      "stats": { "hp": 260, "attack": 26, "speed": 0.35, "range": 0.7, "cooldown": 2.6 },
+      "color": "#e67e22",
+      "procedural": { "archetype": "humanoid", "weapon": "hammer", "helmet": "none", "cape": false, "bulk": 1.8, "colors": { "armor": "#7a4a2a", "cloth": "#4a2a14", "skin": "#c98a5a", "accent": "#ff9a2a", "weapon": "#5a3a22" } }
+    },
+    {
+      "id": "messmer",
+      "name": "Messmer l'Impalatore",
+      "short": "Messmer",
+      "model": "models/messmer.glb",
+      "usdz": "usdz/messmer.usdz",
+      "loreHeight": 3.0,
+      "stats": { "hp": 140, "attack": 22, "speed": 0.75, "range": 0.65, "cooldown": 1.3 },
+      "color": "#c0392b",
+      "procedural": { "archetype": "humanoid", "weapon": "spear", "helmet": "none", "cape": true, "bulk": 1.05, "colors": { "armor": "#3a1e1a", "cloth": "#7a1f1a", "skin": "#e8d2b8", "accent": "#ff5a2a", "weapon": "#c9a24a" } }
+    }
+  ]
+}

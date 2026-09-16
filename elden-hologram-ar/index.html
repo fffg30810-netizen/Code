@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#0b0a08" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="Evoca i boss di Elden Ring come ologrammi HD sul tavolo di casa e falli combattere, con la fotocamera del telefono." />
+    <title>Elden Hologram AR</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <!-- Video della fotocamera: usato solo nella modalità "Camera (giroscopio)" -->
+    <video id="camera-feed" playsinline muted autoplay></video>
+
+    <!-- Canvas WebGL: sempre trasparente, così si vede la realtà dietro -->
+    <canvas id="scene"></canvas>
+
+    <!-- Schermata iniziale -->
+    <section id="entry" class="ui">
+      <div class="entry-card">
+        <h1 class="title">Elden Hologram <span>AR</span></h1>
+        <p class="subtitle">Evoca i boss dell'Interregno sul tavolo di casa, scegli quanto sono grandi e falli combattere.</p>
+
+        <div class="entry-actions">
+          <button id="btn-webxr" class="btn primary" disabled>
+            <span class="btn-title">Avvia AR</span>
+            <span class="btn-sub" id="webxr-status">controllo supporto WebXR…</span>
+          </button>
+          <button id="btn-gyro" class="btn">
+            <span class="btn-title">Modalità Camera</span>
+            <span class="btn-sub">fotocamera + giroscopio · funziona su iPhone</span>
+          </button>
+          <button id="btn-preview" class="btn ghost">
+            <span class="btn-title">Anteprima 3D</span>
+            <span class="btn-sub">tavolo virtuale, senza fotocamera</span>
+          </button>
+        </div>
+
+        <div id="quicklook" class="quicklook hidden">
+          <h4>Quick Look (iOS)</h4>
+          <p class="fine">Apri un boss in AR nativa con Safari: un modello alla volta, senza combattimento.</p>
+          <div id="quicklook-list" class="quicklook-list"></div>
+        </div>
+
+        <details class="entry-help">
+          <summary>Come funziona</summary>
+          <ol>
+            <li><b>Avvia AR</b> (Android + Chrome): muovi il telefono finché appare il sigillo sul tavolo, poi tocca per evocare il boss scelto.</li>
+            <li><b>Modalità Camera</b> (iPhone/qualsiasi): il boss viene ancorato al "tavolo virtuale" davanti a te; regola l'altezza del telefono dal tavolo per farlo sedere bene sulla superficie.</li>
+            <li>Pizzica per ridimensionare, trascina per spostare, ruota con due dita. <b>Scala reale</b> usa l'altezza da lore del boss.</li>
+            <li>Evoca almeno due boss e premi <b>Combatti</b>.</li>
+          </ol>
+          <p class="fine">I modelli inclusi sono segnaposto procedurali. Per i boss in alta definizione segui la pipeline in <code>prompts/</code> e metti i <code>.glb</code> in <code>public/models/</code>.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- HUD in sessione (è anche la root del DOM Overlay WebXR) -->
+    <section id="hud" class="ui hidden">
+      <header class="hud-top">
+        <span id="mode-badge" class="badge">—</span>
+        <span id="hint" class="hint">Tocca il tavolo per evocare</span>
+        <button id="btn-exit" class="icon-btn" title="Esci">✕</button>
+      </header>
+
+      <aside class="hud-side">
+        <button id="btn-style" class="icon-btn" title="Stile: realistico / spirito / oro">✦</button>
+        <button id="btn-sound" class="icon-btn" title="Suoni">♪</button>
+        <button id="btn-quality" class="icon-btn" title="Qualità HD">HD</button>
+        <button id="btn-settings" class="icon-btn" title="Impostazioni">⚙</button>
+      </aside>
+
+      <div id="victory" class="victory hidden">
+        <div class="victory-inner">
+          <span class="victory-kicker">VINCITORE</span>
+          <span id="victory-name" class="victory-name">—</span>
+        </div>
+      </div>
+
+      <footer class="hud-bottom">
+        <div id="boss-picker" class="picker" aria-label="Scegli il boss da evocare"></div>
+
+        <div class="controls">
+          <div class="row">
+            <label class="slider">
+              <span class="slider-label">Grandezza <b id="scale-value">25 cm</b></span>
+              <input id="scale" type="range" min="0" max="1000" value="400" />
+            </label>
+            <button id="btn-lore" class="chip" title="Altezza da lore">Scala reale</button>
+          </div>
+          <div class="row">
+            <button id="btn-rotate" class="chip">↻ 45°</button>
+            <button id="btn-remove" class="chip">Rimuovi</button>
+            <button id="btn-clear" class="chip">Svuota</button>
+            <button id="btn-fight" class="chip fight" disabled>⚔ Combatti</button>
+          </div>
+          <div class="row">
+            <label class="slider">
+              <span class="slider-label">Velocità <b id="speed-value">1.0×</b></span>
+              <input id="timescale" type="range" min="10" max="200" value="100" />
+            </label>
+          </div>
+        </div>
+      </footer>
+
+      <div id="settings" class="sheet hidden">
+        <h3>Impostazioni</h3>
+        <label class="slider">
+          <span class="slider-label">Altezza telefono dal tavolo <b id="phone-height-value">60 cm</b></span>
+          <input id="phone-height" type="range" min="20" max="200" value="60" />
+          <small>Solo modalità Camera: quanto è alto il telefono rispetto al piano.</small>
+        </label>
+        <label class="slider">
+          <span class="slider-label">Campo visivo <b id="fov-value">65°</b></span>
+          <input id="fov" type="range" min="40" max="100" value="65" />
+          <small>Solo modalità Camera: allinea la prospettiva virtuale con quella della fotocamera.</small>
+        </label>
+        <label class="check"><input id="shadows" type="checkbox" checked /> Ombre sul tavolo</label>
+        <button id="btn-settings-close" class="btn small">Chiudi</button>
+      </div>
+
+      <div id="toasts" class="toasts"></div>
+    </section>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

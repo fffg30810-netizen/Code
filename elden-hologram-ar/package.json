@@ -1,0 +1,25 @@
+{
+  "name": "elden-hologram-ar",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Ologrammi AR dei boss di Elden Ring sul tavolo di casa: WebXR + three.js, scala libera, combattimenti fra boss.",
+  "scripts": {
+    "postinstall": "node tools/copy-decoders.mjs",
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host",
+    "optimize": "node tools/optimize-glb.mjs",
+    "manifest": "node tools/build-manifest.mjs",
+    "test": "node tests/smoke.mjs"
+  },
+  "dependencies": {
+    "three": "0.186.0"
+  },
+  "devDependencies": {
+    "@gltf-transform/cli": "^4.5.0",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
+    "playwright": "1.56.1",
+    "vite": "^8.3.0"
+  }
+}

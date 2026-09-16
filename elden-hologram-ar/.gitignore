@@ -1,0 +1,8 @@
+public/decoders/
+node_modules/
+dist/
+.DS_Store
+public/models/*.glb
+public/models/raw/
+public/usdz/*.usdz
+tests/output/
