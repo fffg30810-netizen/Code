@@ -3,6 +3,8 @@
 import * as THREE from 'three';
 import { HPBar } from '../fx/HPBar.js';
 import { ClipAnimator, RigidAnimator } from './Animator.js';
+import { SkeletalAnimator } from './SkeletalAnimator.js';
+import { autoRig } from './AutoRig.js';
 import { createHologramUniforms, makeHologramMaterial, STYLES } from '../fx/HologramMaterial.js';
 import { clamp } from '../util/math.js';
 
@@ -58,6 +60,26 @@ export class Boss {
     this.model = object;
     this.inner.add(object);
     this.root.add(this.inner);
+
+    // I modelli generati da immagine sono mesh statiche: qui vengono riggati al volo
+    // (scheletro dedotto dalla forma, pesi per vertice) così muovono braccia, gambe
+    // e testa invece di scivolare rigidi.
+    this.rig = null;
+    let alreadySkinned = false;
+    object.traverse((o) => { if (o.isSkinnedMesh) alreadySkinned = true; });
+    if (alreadySkinned) {
+      // già riggato dal caricatore (o dal file glTF): raccogli le ossa per nome
+      const bones = {};
+      object.traverse((o) => { if (o.isBone && o.name) bones[o.name] = o; });
+      if (bones.Hips && bones.Chest && (bones.ArmR || bones.ArmL)) this.rig = { bones };
+    } else if (!clips.length && def.autoRig !== false) {
+      try {
+        this.rig = autoRig(object);
+      } catch (e) {
+        console.warn(`[Boss] rigging automatico non riuscito per ${def.id}:`, e && e.message);
+        this.rig = null;
+      }
+    }
     this._normalize();
 
     // Materiali: originali + ologramma (creati pigramente, uniform condivise per boss)
@@ -66,7 +88,7 @@ export class Boss {
     this.holoMaterials = new Map();
     this.holoUniforms = createHologramUniforms();
     object.traverse((o) => {
-      if (o.isMesh) {
+      if (o.isMesh || o.isSkinnedMesh) {
         this.meshes.push(o);
         this.originalMaterials.set(o, o.material);
         o.castShadow = true;
@@ -83,8 +105,11 @@ export class Boss {
     this.clips = clips;
     const resolved = resolveClips(def, defaults, clips);
     const hasUsableClips = !!(resolved.idle && (resolved.attack.length || resolved.walk));
-    this.animator = hasUsableClips ? new ClipAnimator(object, resolved) : new RigidAnimator(this.inner);
+    if (hasUsableClips) this.animator = new ClipAnimator(object, resolved);
+    else if (this.rig) this.animator = new SkeletalAnimator(this.inner, this.rig.bones);
+    else this.animator = new RigidAnimator(this.inner);
     this.rigid = !hasUsableClips;
+    this.skeletal = !!this.animator.skeletal;
 
     // Statistiche (baseStats serve a ripristinarle dopo il potenziamento di fase 2)
     this.baseStats = { hp: 100, attack: 10, speed: 0.5, range: 0.5, cooldown: 1.5, ...(def.stats || {}) };
@@ -177,6 +202,18 @@ export class Boss {
 
   /** Fase corrente dell'animazione di mossa: 'windup' | 'active' | 'recovery' | null */
   get movePhase() { return this.animator.movePhase; }
+
+  /** Fa girare la testa verso un punto (coordinate arena). */
+  lookAt(point) {
+    if (!this.animator.setLook) return;
+    const dx = point.x - this.root.position.x;
+    const dz = point.z - this.root.position.z;
+    if (dx * dx + dz * dz < 1e-8) { this.animator.setLook(0); return; }
+    let delta = Math.atan2(dx, dz) - this.yaw;
+    while (delta > Math.PI) delta -= Math.PI * 2;
+    while (delta < -Math.PI) delta += Math.PI * 2;
+    this.animator.setLook(delta);
+  }
 
   // ----- stile / ologramma -----
   setStyle(style) {

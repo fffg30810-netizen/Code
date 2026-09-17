@@ -6,6 +6,7 @@ import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { clone as skeletonClone } from 'three/addons/utils/SkeletonUtils.js';
 import { buildProceduralBoss } from './ProceduralBoss.js';
+import { autoRig } from './AutoRig.js';
 
 export async function loadManifest(url = 'bosses.json') {
   const res = await fetch(url, { cache: 'no-cache' });
@@ -57,7 +58,21 @@ export class BossLoader {
           const mats = Array.isArray(o.material) ? o.material : [o.material];
           for (const m of mats) for (const slot of TEXTURE_SLOTS) if (m && m[slot]) m[slot].anisotropy = this.maxAnisotropy;
         });
-        return { scene: gltf.scene, clips: gltf.animations || [], hitTimes: {}, procedural: false };
+
+        // I modelli senza scheletro vengono riggati qui, una volta per boss: le
+        // istanze successive clonano lo scheletro invece di ricalcolare i pesi.
+        const clips = gltf.animations || [];
+        let skinned = false;
+        gltf.scene.traverse((o) => { if (o.isSkinnedMesh) skinned = true; });
+        if (!clips.length && !skinned && def.autoRig !== false) {
+          const t0 = performance.now();
+          try {
+            if (autoRig(gltf.scene)) console.info(`[BossLoader] ${def.id}: rigging automatico in ${Math.round(performance.now() - t0)} ms`);
+          } catch (e) {
+            console.warn(`[BossLoader] rigging automatico non riuscito per ${def.id}:`, e && e.message);
+          }
+        }
+        return { scene: gltf.scene, clips, hitTimes: {}, procedural: false };
       } catch (e) {
         console.warn(`[BossLoader] "${url}" non disponibile (${e && e.message ? e.message : e}); uso il segnaposto procedurale per ${def.id}.`);
       }
