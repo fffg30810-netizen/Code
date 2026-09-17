@@ -61,6 +61,9 @@ try {
     const a = await spawn('malenia', -0.28, 0.05, 0.3);
     const b = await spawn('radahn', 0.3, -0.05, 0.36);
     a.yaw = Math.PI / 2; b.yaw = -Math.PI / 2;
+    // Qui il rendering è software (pochi fotogrammi al secondo): con la vita piena
+    // lo scontro durerebbe minuti. Si accorcia la vita, la logica testata è la stessa.
+    for (const x of [a, b]) { x.maxHp = 140; x.hp = 140; x.hpBar.set(1); }
     return window.__elden.state();
   });
   if (seedFight.bosses.length !== 2) throw new Error('evocazione fallita');
@@ -127,9 +130,14 @@ try {
   }
 
   // Ancoraggio: spostare l'origine dell'arena non deve muovere i boss nel mondo reale
-  const anchorCheck = await page.evaluate(() => {
+  const anchorCheck = await page.evaluate(async () => {
     const app = window.__elden.app;
     const THREE = window.__elden.THREE;
+    if (!app.bosses.length) await window.__elden.spawn('margit', 0.1, 0, 0.28);
+    // la scossa del tavolo muove l'arena di suo: va spenta prima di misurare
+    app.shake.amp = 0;
+    app.arena.position.copy(app.arenaOrigin);
+    app.arena.updateMatrixWorld(true);
     const before = app.bosses.map((b) => b.root.getWorldPosition(new THREE.Vector3()).toArray());
     app.setArenaOrigin(new THREE.Vector3(0.37, 0.11, -0.22));
     app.arena.updateMatrixWorld(true);

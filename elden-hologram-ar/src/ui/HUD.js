@@ -21,6 +21,7 @@ export class HUD {
       fov: $('fov'), fovValue: $('fov-value'), shadows: $('shadows'), stabilize: $('stabilize'),
       btnRecenter: $('btn-recenter'), btnSettingsClose: $('btn-settings-close'),
       victory: $('victory'), victoryName: $('victory-name'), toasts: $('toasts'),
+      announce: $('announce'), announceText: $('announce-text'),
     };
     this.fightState = 'idle'; // idle | fighting | finished
     this._bind();
@@ -31,15 +32,22 @@ export class HUD {
   // ------------------------------------------------------------------ setup
   async _checkSupport() {
     const ok = await WebXRMode.isSupported();
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const ua = navigator.userAgent;
+    const isIOS = /iPad|iPhone|iPod/.test(ua);
+    const isAndroid = /Android/.test(ua);
+    const el = this.el;
     if (ok) {
-      this.el.btnWebxr.disabled = false;
-      this.el.webxrStatus.textContent = 'WebXR pronto: superfici rilevate automaticamente';
+      el.btnWebxr.disabled = false;
+      el.webxrStatus.textContent = 'Pronto: rileva il tavolo e ancora i boss al punto che tocchi';
+      el.btnWebxr.classList.add('primary');
     } else {
-      this.el.btnWebxr.disabled = true;
-      this.el.webxrStatus.textContent = isIOS
-        ? 'Non disponibile su iPhone/iPad: usa la Modalità Camera'
-        : (window.isSecureContext ? 'WebXR AR non supportato su questo dispositivo/browser' : 'Serve HTTPS per WebXR e fotocamera');
+      el.btnWebxr.disabled = true;
+      if (!window.isSecureContext) el.webxrStatus.textContent = 'Serve HTTPS per fotocamera e AR';
+      else if (isIOS) el.webxrStatus.textContent = 'Non disponibile su iPhone/iPad: usa la Modalità Camera';
+      else if (isAndroid) el.webxrStatus.textContent = 'Serve Chrome e "Servizi Google Play per AR" (ARCore) installato';
+      else el.webxrStatus.textContent = 'AR non supportata su questo browser: usa l\'Anteprima 3D';
+      // su Android l'AR è la modalità giusta: se manca, evidenzia l'alternativa
+      if (isAndroid || isIOS) el.btnGyro.classList.add('primary');
     }
   }
 
@@ -115,6 +123,8 @@ export class HUD {
       this._refresh();
     });
     app.on('victory', (w) => this._showVictory(w));
+    app.on('kill', ({ victim }) => this.announce(`${victim.name} abbattuto`));
+    app.on('phase2', ({ name }) => this.announce(name, 'rot'));
     app.on('toast', (msg) => this.toast(msg));
     app.on('selectedDef', () => this._refreshPicker());
   }
@@ -234,6 +244,19 @@ export class HUD {
     this._victoryTimer = setTimeout(() => this._hideVictory(), 4500);
   }
   _hideVictory() { this.el.victory.classList.add('hidden'); }
+
+  /** Annuncio a schermo: abbattimento, passaggio di fase. */
+  announce(text, variant = '') {
+    const { announce, announceText } = this.el;
+    announceText.textContent = text;
+    announce.className = `announce ${variant}`.trim();
+    // riavvia l'animazione anche se l'annuncio precedente è ancora a schermo
+    announceText.style.animation = 'none';
+    void announceText.offsetWidth;
+    announceText.style.animation = '';
+    clearTimeout(this._announceTimer);
+    this._announceTimer = setTimeout(() => announce.classList.add('hidden'), 2200);
+  }
 
   toast(msg) {
     const t = document.createElement('div');

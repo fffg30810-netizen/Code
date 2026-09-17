@@ -88,6 +88,13 @@ export class App extends Emitter {
     this.clock = new THREE.Clock();
     this.dragging = null;
     this.pendingSpawn = false;
+    // Regia dello scontro: fermo-immagine sui colpi pesanti, rallentatore sul
+    // colpo finale, scossa del tavolo sugli impatti. Rende gli scontri epici
+    // senza toccare la camera, che in AR deve restare quella del telefono.
+    this.arenaOrigin = new THREE.Vector3();
+    this.shake = { amp: 0, decay: 7 };
+    this.hitStop = 0;
+    this.slowmo = { time: 0, scale: 1 };
 
     this.fight = new FightSystem({
       onMoveStart: (a, t, m) => this._onMoveStart(a, t, m),
@@ -104,7 +111,7 @@ export class App extends Emitter {
       onLifesteal: (a, t) => this.combatFx.lifesteal(t.chestPosition(_v3).clone(), a.chestPosition(_v3b).clone(), a.height),
       onRot: (v) => this.particles.burst({ position: v.chestPosition(_v3), color: 0xc0392b, count: 18, speed: 0.5 * v.height, life: 1.0, size: 0.022 * v.height, gravity: -0.1 * v.height, up: 0.6 }),
       onPhase2: (a, name) => this._onPhase2(a, name),
-      onDeath: (t) => { this.sfx.death(); this.particles.burst({ position: t.chestPosition(_v3), color: STYLES.spirit.tint.getHex(), count: 60, speed: 0.9 * t.height, life: 1.2, size: 0.035 * t.height, gravity: -0.2 * t.height, up: 0.8 }); },
+      onDeath: (t, killer) => this._onDeath(t, killer),
       onVictory: (w) => this._onVictory(w),
     });
 
@@ -150,6 +157,7 @@ export class App extends Emitter {
 
   /** Riporta l'arena all'origine (fuori dall'AR non serve ancoraggio). */
   resetArena() {
+    this.arenaOrigin.set(0, 0, 0);
     this.arena.position.set(0, 0, 0);
     this.arena.updateMatrixWorld(true);
   }
@@ -176,7 +184,21 @@ export class App extends Emitter {
   _frame(t, frame) {
     const dt = Math.min(this.clock.getDelta(), 0.1);
     if (this.mode) this.mode.update(dt, frame);
-    const sdt = dt * this.timeScale;
+
+    let sdt = dt * this.timeScale;
+    if (this.hitStop > 0) { this.hitStop -= dt; sdt = 0; }
+    if (this.slowmo.time > 0) { this.slowmo.time -= dt; sdt *= this.slowmo.scale; }
+    if (this.shake.amp > 0.00005) {
+      this.shake.amp *= Math.exp(-this.shake.decay * dt);
+      this.arena.position.set(
+        this.arenaOrigin.x + (Math.random() - 0.5) * this.shake.amp,
+        this.arenaOrigin.y + (Math.random() - 0.5) * this.shake.amp * 0.6,
+        this.arenaOrigin.z + (Math.random() - 0.5) * this.shake.amp,
+      );
+    } else if (this.shake.amp) {
+      this.shake.amp = 0;
+      this.arena.position.copy(this.arenaOrigin);
+    }
     this.time += sdt;
     for (const b of this.bosses) b.update(sdt, this.time);
     this.fight.update(sdt);
@@ -295,12 +317,28 @@ export class App extends Emitter {
 
   /** Aggancia l'arena a un punto del mondo reale, mantenendo i boss dove sono. */
   setArenaOrigin(worldPosition) {
-    const delta = _v3.copy(worldPosition).sub(this.arena.position);
+    const delta = _v3.copy(worldPosition).sub(this.arenaOrigin);
     if (delta.lengthSq() < 1e-10) return;
-    this.arena.position.copy(worldPosition);
+    this.arenaOrigin.copy(worldPosition);
+    this.arena.position.copy(this.arenaOrigin);
     for (const b of this.bosses) b.root.position.sub(delta);
     this.arena.updateMatrixWorld(true);
   }
+
+  /** Scossa del tavolo: ampiezza in altezze del boss che l'ha provocata. */
+  addShake(amount, height) { this.shake.amp = Math.min(0.04, this.shake.amp + amount * height); }
+
+  /**
+   * Fermo-immagine: il colpo pesa. La durata si accorcia quando lo scontro è
+   * accelerato, altrimenti in avanti veloce le pause si sommano e bloccano tutto.
+   */
+  freeze(seconds) {
+    const scaled = seconds / Math.max(1, this.timeScale);
+    this.hitStop = Math.min(0.14, Math.max(this.hitStop, scaled));
+  }
+
+  /** Rallentatore, per il colpo che chiude lo scontro. */
+  slowMotion(scale, seconds) { this.slowmo.scale = scale; this.slowmo.time = seconds; }
 
   remove(boss) {
     if (!boss) return;
@@ -402,6 +440,10 @@ export class App extends Emitter {
     this.particles.burst({ position: p, color: crit ? 0xffffff : 0xffc24a, count: crit ? 46 : 26, speed: (crit ? 1.1 : 0.7) * t.height, life: 0.55, size: 0.022 * t.height, gravity: 1.6 * t.height, up: 0.5 });
     this.particles.burst({ position: p, color: 0xff3b2e, count: 12, speed: 0.5 * t.height, life: 0.7, size: 0.018 * t.height, gravity: 2.0 * t.height, up: 0.3 });
     if (heavy) this.sfx.impactHeavy(); else this.sfx.hit(crit ? 1.4 : 1);
+    const weight = (move && move.poise) || 1;
+    // le raffiche (Danza dei Trampolieri) non si fermano a ogni colpo: sarebbe una melma
+    if (!move || !move.hits || move.hits <= 1) this.freeze(crit ? 0.09 : Math.min(0.06, 0.02 * weight));
+    this.addShake(crit ? 0.05 : 0.02 * weight, t.height);
     this.emit('hit', { attacker: a, target: t, damage: dmg, crit, move });
   }
 
@@ -430,12 +472,24 @@ export class App extends Emitter {
       case 'arcWide': this.combatFx.slashArc(a, { wide: true }); break;
       case 'arcThin': this.combatFx.slashArc(a, { thin: true, color: 0xfff6d8 }); break;
       case 'thrust': this.combatFx.thrustBeam(a, {}); break;
-      case 'shockwave': this.combatFx.shockwave(a.root.position.clone(), h, { radius: move.aoe || 1.6 }); break;
+      case 'shockwave':
+        this.combatFx.shockwave(a.root.position.clone(), h, { radius: move.aoe || 1.6 });
+        this.addShake(0.05, h);
+        break;
       case 'flurry': this._flurryTimer = 0; break;
-      case 'aeonia': this.combatFx.aeonia(a.root.position.clone(), h); break;
+      case 'aeonia':
+        this.combatFx.aeonia(a.root.position.clone(), h);
+        this.addShake(0.11, h);
+        this.freeze(0.12);
+        break;
       case 'gravity': this.combatFx.gravity(a.chestPosition(_v3).clone(), t.chestPosition(_v3b).clone(), t.height); break;
-      case 'meteor': this.combatFx.meteor(t.root.position.clone(), h, {}); break;
-      case 'lightHammer': this.combatFx.lightHammer(t.root.position.clone(), h, {}); break;
+      case 'meteor':
+        this.combatFx.meteor(t.root.position.clone(), h, { onImpact: () => { this.addShake(0.16, h); this.freeze(0.14); } });
+        break;
+      case 'lightHammer':
+        this.combatFx.lightHammer(t.root.position.clone(), h, {});
+        this.addShake(0.07, h);
+        break;
       case 'dustTrail': this.combatFx.dust(a.root.position.clone(), h, 10); break;
       default: break;
     }
@@ -456,9 +510,29 @@ export class App extends Emitter {
     return from.distanceTo(to) / (speed * a.height);
   }
 
+  /** Morte di un boss: rune dorate che salgono, rallentatore e colpo al tavolo. */
+  _onDeath(victim, killer) {
+    const h = victim.height;
+    const p = victim.chestPosition(_v3).clone();
+    this.sfx.death();
+    this.freeze(0.12);
+    this.addShake(0.06, h);
+    const lastOne = this.bosses.filter((b) => b.alive).length <= 1;
+    this.slowMotion(lastOne ? 0.3 : 0.55, lastOne ? 1.6 : 0.7);
+    // le rune: scie dorate che salgono lente, come quando un nemico cade nel gioco
+    this.particles.burst({ position: p, color: 0xffd166, count: 70, speed: 0.35 * h, life: 2.2, size: 0.03 * h, gravity: -0.55 * h, up: 1.0, spread: 0.8 });
+    this.particles.burst({ position: p, color: 0xfff3d0, count: 30, speed: 0.6 * h, life: 1.6, size: 0.022 * h, gravity: -0.35 * h, up: 1.2 });
+    this.particles.burst({ position: p, color: STYLES.spirit.tint.getHex(), count: 40, speed: 0.9 * h, life: 1.2, size: 0.03 * h, gravity: -0.2 * h, up: 0.8 });
+    this.combatFx.shockwave(victim.root.position.clone(), h, { color: 0xffd166, radius: 1.4, life: 0.9 });
+    this.emit('kill', { victim, killer });
+  }
+
   _onPhase2(boss, name) {
     this.combatFx.phaseBurst(boss);
     this.sfx.roar();
+    this.freeze(0.16);
+    this.addShake(0.09, boss.height);
+    this.slowMotion(0.5, 0.9);
     this.emit('phase2', { boss, name });
   }
 
