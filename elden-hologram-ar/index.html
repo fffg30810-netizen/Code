@@ -123,7 +123,12 @@
           <small>Solo modalità Camera: allinea la prospettiva virtuale con quella della fotocamera.</small>
         </label>
         <label class="check"><input id="shadows" type="checkbox" checked /> Ombre sul tavolo</label>
-        <button id="btn-settings-close" class="btn small">Chiudi</button>
+        <label class="check"><input id="stabilize" type="checkbox" checked /> Ancora al tavolo (modalità Camera)</label>
+        <small>Legge il movimento dalla fotocamera e sposta la vista di conseguenza, così il boss resta fermo quando muovi il telefono. In AR vera l'ancoraggio è gestito dal dispositivo.</small>
+        <div class="row">
+          <button id="btn-recenter" class="btn small">Ricentra</button>
+          <button id="btn-settings-close" class="btn small">Chiudi</button>
+        </div>
       </div>
 
       <div id="toasts" class="toasts"></div>

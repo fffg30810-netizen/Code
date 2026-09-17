@@ -86,8 +86,10 @@ export class Boss {
     this.animator = hasUsableClips ? new ClipAnimator(object, resolved) : new RigidAnimator(this.inner);
     this.rigid = !hasUsableClips;
 
-    // Statistiche
-    this.stats = { hp: 100, attack: 10, speed: 0.5, range: 0.5, cooldown: 1.5, ...(def.stats || {}) };
+    // Statistiche (baseStats serve a ripristinarle dopo il potenziamento di fase 2)
+    this.baseStats = { hp: 100, attack: 10, speed: 0.5, range: 0.5, cooldown: 1.5, ...(def.stats || {}) };
+    this.stats = { ...this.baseStats };
+    this.moveset = null;
     this.maxHp = this.stats.hp;
     this.hp = this.maxHp;
     this.alive = true;
@@ -170,6 +172,12 @@ export class Boss {
   /** @returns {{name: string, duration: number}|null} clip avviata */
   play(name, opts = {}) { return this.animator.play(name, opts); }
 
+  /** Esegue una mossa con i tempi decisi dal combattimento. */
+  playMove(motion, timing) { return this.animator.playMove(motion, timing); }
+
+  /** Fase corrente dell'animazione di mossa: 'windup' | 'active' | 'recovery' | null */
+  get movePhase() { return this.animator.movePhase; }
+
   // ----- stile / ologramma -----
   setStyle(style) {
     if (!STYLES[style]) style = 'realistic';
@@ -235,6 +243,7 @@ export class Boss {
   }
 
   resetFight() {
+    this.stats = { ...this.baseStats };
     this.hp = this.maxHp;
     this.alive = true;
     this.fight = this._freshFightState();

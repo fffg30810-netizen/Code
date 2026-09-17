@@ -7,6 +7,7 @@ const DEFAULTS = {
   defaultHeight: 0.25,     // metri: grandezza iniziale dei boss evocati
   phoneHeight: 0.6,        // metri: modalità Camera, altezza del telefono dal piano
   fov: 65,                 // gradi: modalità Camera
+  stabilize: true,         // modalità Camera: compensa lo spostamento del telefono
 };
 export function loadSettings() {
   try { return { ...DEFAULTS, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; }

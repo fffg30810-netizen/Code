@@ -5,6 +5,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { XREstimatedLight } from 'three/addons/webxr/XREstimatedLight.js';
+import { VisualStabilizer } from '../ar/Stabilizer.js';
 
 // ---------------------------------------------------------------------------
 function rayPlaneY(ray, planeY, out) {
@@ -89,6 +90,7 @@ export class PreviewMode {
 }
 
 // ---------------------------------------------------------------------------
+const _anchorVec = new THREE.Vector3();
 const _zee = new THREE.Vector3(0, 0, 1);
 const _euler = new THREE.Euler();
 const _q0 = new THREE.Quaternion();
@@ -122,6 +124,7 @@ export class GyroCameraMode {
       this.screenOrient = THREE.MathUtils.degToRad(angle);
     };
     this.screenOrient = 0;
+    this.stabilizer = null;
   }
   get camera() { return this.app.camera; }
 
@@ -132,6 +135,8 @@ export class GyroCameraMode {
     app.camera.updateProjectionMatrix();
     this.lookYaw = 0;
     this.lookPitch = -0.55;
+    this.stabilizer = new VisualStabilizer(this.video);
+    this.stabilizer.enabled = app.settings.stabilize !== false;
 
     // iOS 13+: i sensori richiedono un permesso esplicito e vanno chiesti PRIMA della fotocamera,
     // finché il gesto dell'utente (tap sul pulsante) è ancora valido.
@@ -166,6 +171,8 @@ export class GyroCameraMode {
     if (screen.orientation) screen.orientation.removeEventListener('change', this._onScreenOrientation);
     if (this.stream) { this.stream.getTracks().forEach((t) => t.stop()); this.stream = null; }
     this.video.srcObject = null;
+    this.stabilizer = null;
+    this.app.camera.position.set(0, 0, 0);
   }
 
   onDragEmpty(dx, dy) {
@@ -174,7 +181,7 @@ export class GyroCameraMode {
     this.lookPitch = THREE.MathUtils.clamp(this.lookPitch - dy * 0.005, -1.4, 1.2);
   }
 
-  update() {
+  update(dt) {
     const cam = this.app.camera;
     this.groundY = -this.app.settings.phoneHeight;
     if (this.hasGyro && this.orientation) {
@@ -184,6 +191,20 @@ export class GyroCameraMode {
       cam.quaternion.setFromEuler(_euler.set(this.lookPitch, this.lookYaw, 0, 'YXZ'));
     }
     if (cam.fov !== this.app.settings.fov) { cam.fov = this.app.settings.fov; cam.updateProjectionMatrix(); }
+
+    // Stabilizzazione: sposta la camera virtuale quanto si è spostato il telefono,
+    // così il boss resta ancorato al punto del tavolo dove l'hai messo.
+    if (this.stabilizer) {
+      this.stabilizer.enabled = this.app.settings.stabilize !== false;
+      const off = this.stabilizer.update(dt || 0.016, cam.quaternion, THREE.MathUtils.degToRad(cam.fov), this.app.settings.phoneHeight);
+      cam.position.copy(off);
+    }
+  }
+
+  /** Riporta l'ologramma al centro se la stima si è allontanata troppo. */
+  recenter() {
+    if (this.stabilizer) this.stabilizer.reset();
+    this.app.camera.position.set(0, 0, 0);
   }
 
   placeFromScreen(x, y) {
@@ -229,6 +250,10 @@ export class WebXRMode {
     this.lastTouchHit = { pos: new THREE.Vector3(), time: -1 };
     this.xrLight = null;
     this._ending = false;
+    this.anchor = null;          // ancora dell'arena
+    this.anchorRequest = false;  // ancora da creare al prossimo frame
+    this.anchorTarget = new THREE.Vector3();
+    this.supportsAnchors = false;
   }
 
   static async isSupported() {
@@ -247,13 +272,16 @@ export class WebXRMode {
     overlay.classList.remove('hidden');
     const init = {
       requiredFeatures: ['hit-test'],
-      optionalFeatures: ['dom-overlay', 'light-estimation'],
+      optionalFeatures: ['dom-overlay', 'light-estimation', 'anchors', 'local-floor'],
       domOverlay: { root: overlay },
     };
     const session = await navigator.xr.requestSession('immersive-ar', init);
     this.session = session;
     this._ending = false;
-    app.renderer.xr.setReferenceSpaceType('local');
+    // local-floor tiene l'origine sul pavimento: meno deriva verticale del piano.
+    app.renderer.xr.setReferenceSpaceType(
+      (session.enabledFeatures && session.enabledFeatures.includes('local-floor')) ? 'local-floor' : 'local',
+    );
     app.renderer.xr.setFramebufferScaleFactor(app.settings.hd ? 1.4 : 1.0);
     await app.renderer.xr.setSession(session);
 
@@ -263,6 +291,7 @@ export class WebXRMode {
       this.transientSource = await session.requestHitTestSourceForTransientInput({ profile: 'generic-touchscreen' });
     } catch { this.transientSource = null; }
 
+    this.supportsAnchors = !!(session.enabledFeatures && session.enabledFeatures.includes('anchors'));
     session.addEventListener('end', () => this._onEnd());
 
     // Stima della luce reale (se disponibile): ambiente + direzione del sole per le ombre
@@ -297,6 +326,9 @@ export class WebXRMode {
   }
 
   _cleanup() {
+    if (this.anchor && this.anchor.delete) { try { this.anchor.delete(); } catch { /* già rimossa */ } }
+    this.anchor = null;
+    this.anchorRequest = false;
     this.session = null;
     this.hitSource = null;
     this.transientSource = null;
@@ -317,16 +349,26 @@ export class WebXRMode {
     const refSpace = this.app.renderer.xr.getReferenceSpace();
     if (!refSpace) return;
 
+    // 1) L'ancora tiene l'arena ferma su un punto reale anche se il tracciamento corregge la deriva.
+    if (this.anchor) {
+      const pose = frame.getPose(this.anchor.anchorSpace, refSpace);
+      if (pose) {
+        const p = pose.transform.position;
+        this.app.setArenaOrigin(_anchorVec.set(p.x, p.y, p.z));
+      }
+    }
+
+    let firstResult = null;
     if (this.hitSource) {
       const results = frame.getHitTestResults(this.hitSource);
-      const pose = results.length ? results[0].getPose(refSpace) : null;
+      firstResult = results.length ? results[0] : null;
+      const pose = firstResult ? firstResult.getPose(refSpace) : null;
       if (pose) {
         this.reticle.matrix.fromArray(pose.transform.matrix);
         this.reticle.matrix.decompose(this.reticle.position, this.reticle.quaternion, this.reticle.scale);
         this.hitPos.copy(this.reticle.position);
         this.hasHit = true;
         this.reticle.visible = !this.app.fight.active;
-        // dimensione del sigillo proporzionale alla grandezza scelta
         const s = THREE.MathUtils.clamp(this.app.settings.defaultHeight * 1.6, 0.6, 12);
         this.reticle.scale.setScalar(s);
       } else {
@@ -334,6 +376,13 @@ export class WebXRMode {
         this.reticle.visible = false;
       }
     }
+
+    // 2) Creazione dell'ancora: va fatta dentro il frame in cui esiste il risultato dell'hit test.
+    if (this.anchorRequest && !this.anchor) {
+      this.anchorRequest = false;
+      this._createAnchor(frame, refSpace, firstResult);
+    }
+
     if (this.transientSource) {
       const list = frame.getHitTestResultsForTransientInput(this.transientSource);
       for (const r of list) {
@@ -349,6 +398,34 @@ export class WebXRMode {
     if (this.xrLight && this.xrLight.directionalLight) {
       this.app.setSunDirection(this.xrLight.directionalLight.position);
     }
+  }
+
+  /** Aggancia l'arena al punto toccato: da qui in poi il tracciamento la tiene ferma. */
+  _createAnchor(frame, refSpace, hitResult) {
+    if (!this.supportsAnchors) return;
+    const target = this.anchorTarget;
+    const finish = (anchor) => {
+      if (!anchor || !this.session) return;
+      this.anchor = anchor;
+      this.app.toast('Ancorato al tavolo');
+    };
+    try {
+      if (hitResult && hitResult.createAnchor) {
+        hitResult.createAnchor().then(finish).catch(() => {});
+        return;
+      }
+      if (frame.createAnchor) {
+        const t = new XRRigidTransform({ x: target.x, y: target.y, z: target.z });
+        frame.createAnchor(t, refSpace).then(finish).catch(() => {});
+      }
+    } catch { /* ancore non disponibili: resta il tracciamento normale */ }
+  }
+
+  /** Richiede l'ancoraggio dell'arena al punto indicato (creata al prossimo frame). */
+  requestAnchor(worldPosition) {
+    if (this.anchor || !this.supportsAnchors) return;
+    this.anchorTarget.copy(worldPosition);
+    this.anchorRequest = true;
   }
 
   placeFromScreen(x, y) {

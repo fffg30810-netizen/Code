@@ -41,9 +41,34 @@ window.__elden = {
     app.emit('bosses', app.bosses);
     return boss;
   },
+  /** Forza una mossa specifica (per test e dimostrazioni). */
+  forceMove: (bossId, moveId) => {
+    const b = app.bosses.find((x) => x.def.id === bossId);
+    if (!b) throw new Error(`boss non evocato: ${bossId}`);
+    const target = app.bosses.find((x) => x !== b && x.alive) || b;
+    if (!b.moveset) b.moveset = null;
+    const f = app.fight;
+    if (!f.active) f.start(app.bosses, 1);
+    const all = b.moveset.moves.concat(b.moveset.phase2);
+    const move = all.find((m) => m.id === moveId);
+    if (!move) throw new Error(`mossa sconosciuta: ${moveId} (disponibili: ${all.map((m) => m.id).join(', ')})`);
+    f._startMove(b, target, move);
+    return { boss: bossId, move: move.name, windup: move.windup, active: move.active };
+  },
+  /** Elenco delle mosse di un boss evocato. */
+  moves: (bossId) => {
+    const b = app.bosses.find((x) => x.def.id === bossId);
+    if (!b || !b.moveset) return [];
+    return b.moveset.moves.concat(b.moveset.phase2).map((m) => ({ id: m.id, name: m.name, kind: m.kind }));
+  },
   state: () => ({
     mode: app.mode ? app.mode.name : null,
     bosses: app.bosses.map((b) => ({ id: b.def.id, hp: b.hp, alive: b.alive, height: b.height, state: b.fight.state, procedural: b.procedural, rigid: b.rigid, pos: b.root.position.toArray() })),
-    fight: { active: app.fight.active, winner: app.fight.winner ? app.fight.winner.def.id : null, elapsed: app.fight.elapsed },
+    fight: {
+      active: app.fight.active,
+      winner: app.fight.winner ? app.fight.winner.def.id : null,
+      elapsed: app.fight.elapsed,
+      states: app.bosses.map((b) => `${b.def.id}:${b.fight.state}${b.fight.move ? '/' + b.fight.move.id : ''}`),
+    },
   }),
 };

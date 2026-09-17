@@ -18,7 +18,8 @@ export class HUD {
       btnRotate: $('btn-rotate'), btnRemove: $('btn-remove'), btnClear: $('btn-clear'), btnFight: $('btn-fight'),
       timescale: $('timescale'), speedValue: $('speed-value'),
       settings: $('settings'), phoneHeight: $('phone-height'), phoneHeightValue: $('phone-height-value'),
-      fov: $('fov'), fovValue: $('fov-value'), shadows: $('shadows'), btnSettingsClose: $('btn-settings-close'),
+      fov: $('fov'), fovValue: $('fov-value'), shadows: $('shadows'), stabilize: $('stabilize'),
+      btnRecenter: $('btn-recenter'), btnSettingsClose: $('btn-settings-close'),
       victory: $('victory'), victoryName: $('victory-name'), toasts: $('toasts'),
     };
     this.fightState = 'idle'; // idle | fighting | finished
@@ -89,6 +90,14 @@ export class HUD {
       el.fovValue.textContent = `${f}°`;
     });
     el.shadows.addEventListener('change', () => app.setShadows(el.shadows.checked));
+    el.stabilize.addEventListener('change', () => {
+      app.updateSetting('stabilize', el.stabilize.checked);
+      this.toast(el.stabilize.checked ? 'Ancoraggio al tavolo attivo' : 'Ancoraggio disattivato');
+    });
+    el.btnRecenter.addEventListener('click', () => {
+      if (app.mode && app.mode.recenter) { app.mode.recenter(); this.toast('Vista ricentrata'); }
+      else this.toast('Disponibile in modalità Camera');
+    });
 
     // Con DOM overlay WebXR, i tocchi sui controlli non devono generare eventi "select" XR
     el.hud.addEventListener('beforexrselect', (e) => { if (e.target.closest('button, input, label, .hud-bottom, .hud-top, .hud-side, .sheet')) e.preventDefault(); });
@@ -213,6 +222,7 @@ export class HUD {
     el.fov.value = String(s.fov);
     el.fovValue.textContent = `${s.fov}°`;
     el.shadows.checked = !!s.shadows;
+    el.stabilize.checked = s.stabilize !== false;
   }
 
   _showVictory(winner) {

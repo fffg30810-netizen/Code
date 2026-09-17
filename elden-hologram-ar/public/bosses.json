@@ -36,7 +36,7 @@
       "model": "https://d8j0ntlcm91z4.cloudfront.net/user_3JJoEanW3aEMdcRpRs2vq8by7iI/hf_20260916_225915_0e45195e-18fb-4dc1-807f-e9a9e2bd518b.glb",
       "loreHeight": 3.4,
       "stats": {
-        "hp": 130,
+        "hp": 390,
         "attack": 16,
         "speed": 0.55,
         "range": 0.55,
@@ -73,7 +73,7 @@
       "short": "Godrick",
       "loreHeight": 3.2,
       "stats": {
-        "hp": 150,
+        "hp": 450,
         "attack": 15,
         "speed": 0.45,
         "range": 0.6,
@@ -102,7 +102,7 @@
       "short": "Rennala",
       "loreHeight": 2.2,
       "stats": {
-        "hp": 100,
+        "hp": 300,
         "attack": 20,
         "speed": 0.4,
         "range": 0.9,
@@ -131,7 +131,7 @@
       "model": "https://d8j0ntlcm91z4.cloudfront.net/user_3JJoEanW3aEMdcRpRs2vq8by7iI/hf_20260916_225436_413ee7a7-357c-4205-a2c9-6076901a4e10.glb",
       "loreHeight": 6.5,
       "stats": {
-        "hp": 220,
+        "hp": 660,
         "attack": 24,
         "speed": 0.5,
         "range": 0.65,
@@ -170,7 +170,7 @@
       "short": "Morgott",
       "loreHeight": 3.5,
       "stats": {
-        "hp": 140,
+        "hp": 420,
         "attack": 18,
         "speed": 0.6,
         "range": 0.55,
@@ -198,7 +198,7 @@
       "short": "Rykard",
       "loreHeight": 12,
       "stats": {
-        "hp": 200,
+        "hp": 600,
         "attack": 22,
         "speed": 0.35,
         "range": 0.8,
@@ -227,7 +227,7 @@
       "short": "Mohg",
       "loreHeight": 3.6,
       "stats": {
-        "hp": 160,
+        "hp": 480,
         "attack": 19,
         "speed": 0.5,
         "range": 0.7,
@@ -256,7 +256,7 @@
       "model": "https://d8j0ntlcm91z4.cloudfront.net/user_3JJoEanW3aEMdcRpRs2vq8by7iI/hf_20260916_223932_c35a34be-d056-411e-a8dd-b37cb7cc809a.glb",
       "loreHeight": 2.6,
       "stats": {
-        "hp": 120,
+        "hp": 360,
         "attack": 21,
         "speed": 0.8,
         "range": 0.5,
@@ -295,7 +295,7 @@
       "short": "Maliketh",
       "loreHeight": 3.0,
       "stats": {
-        "hp": 130,
+        "hp": 390,
         "attack": 23,
         "speed": 0.85,
         "range": 0.6,
@@ -323,7 +323,7 @@
       "short": "Godfrey",
       "loreHeight": 3.6,
       "stats": {
-        "hp": 180,
+        "hp": 540,
         "attack": 22,
         "speed": 0.55,
         "range": 0.6,
@@ -351,7 +351,7 @@
       "short": "Radagon",
       "loreHeight": 2.3,
       "stats": {
-        "hp": 130,
+        "hp": 390,
         "attack": 20,
         "speed": 0.7,
         "range": 0.55,
@@ -379,7 +379,7 @@
       "short": "Gigante",
       "loreHeight": 28,
       "stats": {
-        "hp": 260,
+        "hp": 780,
         "attack": 26,
         "speed": 0.35,
         "range": 0.7,
@@ -407,7 +407,7 @@
       "short": "Messmer",
       "loreHeight": 3.0,
       "stats": {
-        "hp": 140,
+        "hp": 420,
         "attack": 22,
         "speed": 0.75,
         "range": 0.65,

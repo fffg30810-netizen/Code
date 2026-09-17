@@ -13,16 +13,25 @@ falli **combattere fra loro**. Web app, niente da installare: si apre da un link
 ## Cosa fa
 
 - **AR vera (WebXR, Android + Chrome):** rileva il tavolo, mostra un sigillo dorato dove appoggiare il
-  boss, ombre di contatto, stima della luce reale, DOM overlay per i controlli.
-- **Modalità Camera (iPhone e tutto il resto):** fotocamera + giroscopio, i boss sono ancorati a un
-  piano virtuale davanti a te. Regoli l'altezza del telefono dal tavolo e il campo visivo per far
-  coincidere il virtuale con il reale. Su iOS c'è anche **Quick Look** (AR nativa Apple) se aggiungi i file USDZ.
+  boss, ombre di contatto, stima della luce reale, DOM overlay per i controlli. Alla prima evocazione
+  crea un'**ancora** sul punto toccato: da lì in poi i boss restano inchiodati al tavolo anche
+  camminandoci intorno.
+- **Modalità Camera (iPhone e tutto il resto):** fotocamera + giroscopio, i boss stanno su un piano
+  virtuale davanti a te. Il giroscopio da solo non sa se ti sposti, quindi l'app stima il movimento
+  guardando l'immagine della fotocamera e muove la vista di conseguenza: il boss resta fermo sul
+  tavolo invece di seguirti. Si disattiva da *Impostazioni → Ancora al tavolo*, e *Ricentra* rimette
+  la vista a posto. Regoli l'altezza del telefono dal tavolo e il campo visivo. Su iOS c'è anche **Quick Look** (AR nativa Apple) se aggiungi i file USDZ.
 - **Anteprima 3D (desktop):** tavolo virtuale con orbit camera, per provare tutto senza telefono.
 - **Grandezza libera:** slider logaritmico 5 cm → 10 m, pizzico a due dita, pulsante **Scala reale**
   (altezza da lore: Malenia 2,6 m, Radahn 6,5 m, Gigante di Fuoco 28 m…).
-- **Combattimento:** tutti contro tutti. Ogni boss cerca il nemico più vicino, si avvicina, attacca
-  con tempi di impatto per clip, subisce contraccolpi, muore e si dissolve; barre vita, scintille,
-  suoni sintetizzati, banner del vincitore, rivincita, slow-motion (0,1× → 2×).
+- **Combattimento con i moveset veri:** ogni boss ha le sue mosse, con preparazione leggibile
+  (telegrafo a terra), finestra di danno e scopertura. Malenia incatena fendenti, fa la **Danza dei
+  Trampolieri** (nove colpi in tre raffiche) e assorbe vita a ogni colpo; in seconda fase apre la
+  **Scarlet Aeonia**. Radahn alterna doppia spazzata, colpo calante, carica e **attrazione
+  gravitazionale** che trascina l'avversario, e sotto metà vita chiama la **meteora**. Margit
+  concatena bastonate, evoca il **martello di luce**, lancia il **pugnale dorato** e scatta col balzo.
+  Ci sono schivate, parate, rottura della posa, passaggio alla seconda fase con ruggito, e ogni mossa
+  ha il suo effetto e il suo suono. Barre vita, vincitore, rivincita, slow-motion (0,1× → 2×).
 - **Stili:** *Realistico* (PBR, ambiente HDR, tone mapping ACES), *Spirito* (ologramma azzurro come le
   Ceneri spirituali), *Oro ancestrale*. Evocazione con effetto "materializzazione" dal basso.
 - **HD:** supersampling WebXR 1,4×, pixel ratio 2, texture anisotrope, ombre PCF 2048, supporto GLB

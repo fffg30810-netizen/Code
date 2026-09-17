@@ -126,6 +126,21 @@ try {
     await page.evaluate(() => window.__elden.app.clearBosses());
   }
 
+  // Ancoraggio: spostare l'origine dell'arena non deve muovere i boss nel mondo reale
+  const anchorCheck = await page.evaluate(() => {
+    const app = window.__elden.app;
+    const THREE = window.__elden.THREE;
+    const before = app.bosses.map((b) => b.root.getWorldPosition(new THREE.Vector3()).toArray());
+    app.setArenaOrigin(new THREE.Vector3(0.37, 0.11, -0.22));
+    app.arena.updateMatrixWorld(true);
+    const after = app.bosses.map((b) => b.root.getWorldPosition(new THREE.Vector3()).toArray());
+    const drift = before.map((p, i) => Math.hypot(p[0] - after[i][0], p[1] - after[i][1], p[2] - after[i][2]));
+    app.setArenaOrigin(new THREE.Vector3(0, 0, 0));
+    return { max: Math.max(0, ...drift), n: before.length };
+  });
+  if (anchorCheck.max > 1e-6) throw new Error(`ancoraggio: i boss si spostano di ${anchorCheck.max}`);
+  ok(`ancoraggio arena: ${anchorCheck.n} boss restano fermi quando l'ancora si sposta`);
+
   // percorso "mesh statica": animazione a corpo rigido (modelli generati da immagine)
   await page.evaluate(() => { window.__elden.app.clearBosses(); window.__elden.app.setTimeScale(4); });
   const rigid = await page.evaluate(async () => {

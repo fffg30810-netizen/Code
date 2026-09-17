@@ -8,6 +8,7 @@ import { BossLoader, loadManifest } from '../bosses/BossLoader.js';
 import { Boss } from '../bosses/Boss.js';
 import { FightSystem } from '../fight/FightSystem.js';
 import { Particles } from '../fx/Particles.js';
+import { CombatFx } from '../fx/CombatFx.js';
 import { Sfx } from '../fx/Sfx.js';
 import { STYLE_ORDER, STYLES } from '../fx/HologramMaterial.js';
 import { Gestures } from '../input/Gestures.js';
@@ -39,6 +40,11 @@ export class App extends Emitter {
     this.renderer = renderer;
 
     this.scene = new THREE.Scene();
+    // L'arena è il tavolo virtuale: boss, ombre e luce direzionale stanno qui dentro,
+    // così in AR basta agganciare questo gruppo a un punto reale per tenere fermo tutto.
+    this.arena = new THREE.Group();
+    this.arena.name = 'Arena';
+    this.scene.add(this.arena);
     this.pmrem = new THREE.PMREMGenerator(renderer);
     this.defaultEnv = this.pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     this.setEnvironment(null);
@@ -56,7 +62,8 @@ export class App extends Emitter {
     this.sun.shadow.bias = -0.0004;
     this.sun.shadow.normalBias = 0.015;
     this.sunDir = new THREE.Vector3(0.55, 1.4, 0.7).normalize();
-    this.scene.add(this.hemi, this.sun, this.sun.target);
+    this.scene.add(this.hemi);
+    this.arena.add(this.sun, this.sun.target);
 
     // Piano che "cattura" solo l'ombra: fa sembrare il boss appoggiato al tavolo vero
     this.ground = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShadowMaterial({ opacity: 0.42, transparent: true, depthWrite: false }));
@@ -64,9 +71,10 @@ export class App extends Emitter {
     this.ground.receiveShadow = true;
     this.ground.visible = false;
     this.ground.name = 'ShadowCatcher';
-    this.scene.add(this.ground);
+    this.arena.add(this.ground);
 
     this.particles = new Particles(this.scene);
+    this.combatFx = new CombatFx(this.scene, this.particles);
     this.sfx = new Sfx();
     this.sfx.setEnabled(this.settings.sound);
     this.loader = new BossLoader(renderer, { basePath: BASE });
@@ -82,8 +90,20 @@ export class App extends Emitter {
     this.pendingSpawn = false;
 
     this.fight = new FightSystem({
-      onSwing: (a) => this.sfx.swing(),
-      onHit: (a, t, dmg, crit) => this._onHit(a, t, dmg, crit),
+      onMoveStart: (a, t, m) => this._onMoveStart(a, t, m),
+      onTelegraph: (a, t, m, k) => this._onTelegraph(a, t, m, k),
+      onActive: (a, t, m) => this._onActive(a, t, m),
+      onTrail: (a, m) => { if (m.vfx === 'rotTrail') this.combatFx.rotTrail(a); else this.combatFx.dust(a.root.position, a.height, 3); },
+      onHit: (a, t, dmg, crit, m) => this._onHit(a, t, dmg, crit, m),
+      onGuard: (v, a) => { this.sfx.guard(); this.combatFx.guard(v.chestPosition(_v3), v.height); },
+      onEvade: (a) => this.sfx.step(),
+      onEvadeSuccess: (v) => this.particles.burst({ position: v.chestPosition(_v3), color: 0xbfe9ff, count: 10, speed: 0.4 * v.height, life: 0.35, size: 0.016 * v.height, gravity: 0.2 * v.height, up: 0.4 }),
+      onStagger: (v) => this.sfx.stagger(),
+      onProjectile: (a, t, m) => this._onProjectile(a, t, m),
+      onPull: (a, t, m) => { if (Math.random() < 0.12) this.combatFx.gravity(a.chestPosition(_v3).clone(), t.chestPosition(_v3b).clone(), t.height, { life: 0.35 }); },
+      onLifesteal: (a, t) => this.combatFx.lifesteal(t.chestPosition(_v3).clone(), a.chestPosition(_v3b).clone(), a.height),
+      onRot: (v) => this.particles.burst({ position: v.chestPosition(_v3), color: 0xc0392b, count: 18, speed: 0.5 * v.height, life: 1.0, size: 0.022 * v.height, gravity: -0.1 * v.height, up: 0.6 }),
+      onPhase2: (a, name) => this._onPhase2(a, name),
       onDeath: (t) => { this.sfx.death(); this.particles.burst({ position: t.chestPosition(_v3), color: STYLES.spirit.tint.getHex(), count: 60, speed: 0.9 * t.height, life: 1.2, size: 0.035 * t.height, gravity: -0.2 * t.height, up: 0.8 }); },
       onVictory: (w) => this._onVictory(w),
     });
@@ -122,9 +142,16 @@ export class App extends Emitter {
     if (!mode) return;
     this.mode = null;
     this.clearBosses();
+    this.resetArena();
     document.body.classList.remove(`mode-${mode.name}`);
     try { await mode.stop(); } catch (e) { console.warn(e); }
     this.emit('mode', null);
+  }
+
+  /** Riporta l'arena all'origine (fuori dall'AR non serve ancoraggio). */
+  resetArena() {
+    this.arena.position.set(0, 0, 0);
+    this.arena.updateMatrixWorld(true);
   }
 
   /** Chiamato quando la sessione WebXR termina dall'esterno (tasto indietro di sistema). */
@@ -154,6 +181,7 @@ export class App extends Emitter {
     for (const b of this.bosses) b.update(sdt, this.time);
     this.fight.update(sdt);
     this.particles.update(sdt, this.renderer);
+    this.combatFx.update(sdt);
     this._updateStage();
     this.renderer.render(this.scene, this.camera);
   }
@@ -229,15 +257,19 @@ export class App extends Emitter {
       const inst = await this.loader.instantiate(def);
       const boss = new Boss({ def, defaults: this.manifest ? this.manifest.defaults : {}, ...inst });
       boss.setHeight(height ?? this.settings.defaultHeight);
-      boss.root.position.copy(position);
+      boss.root.position.copy(this.toArena(position));
       boss.yaw = yaw ?? this.yawTowardsCamera(position);
       boss.setStyle(this.settings.style);
-      this.scene.add(boss.root);
+      this.arena.add(boss.root);
       this.bosses.push(boss);
       if (summon) {
         boss.summon();
         this.sfx.summon();
         this.particles.burst({ position: _v3.copy(position).add(_v3b.set(0, boss.height * 0.05, 0)), color: 0xffd166, count: 50, speed: 0.6 * boss.height, life: 1.1, size: 0.03 * boss.height, gravity: -0.35 * boss.height, up: 1.2 });
+      }
+      // In AR il primo boss definisce il punto di ancoraggio dell'arena.
+      if (this.mode && this.mode.requestAnchor && this.bosses.length === 1) {
+        this.mode.requestAnchor(position);
       }
       this.select(boss);
       this.emit('bosses', this.bosses);
@@ -251,7 +283,23 @@ export class App extends Emitter {
   yawTowardsCamera(position) {
     const cam = this.activeCamera();
     _v3.setFromMatrixPosition(cam.matrixWorld);
-    return Math.atan2(_v3.x - position.x, _v3.z - position.z);
+    this.toArena(_v3);
+    const p = this.toArena(_v3b.copy(position));
+    return Math.atan2(_v3.x - p.x, _v3.z - p.z);
+  }
+
+  /** Da coordinate mondo a coordinate arena (l'arena trasla soltanto). */
+  toArena(v) { return this.arena.worldToLocal(v); }
+  /** Da coordinate arena a coordinate mondo. */
+  toWorld(v) { return this.arena.localToWorld(v); }
+
+  /** Aggancia l'arena a un punto del mondo reale, mantenendo i boss dove sono. */
+  setArenaOrigin(worldPosition) {
+    const delta = _v3.copy(worldPosition).sub(this.arena.position);
+    if (delta.lengthSq() < 1e-10) return;
+    this.arena.position.copy(worldPosition);
+    for (const b of this.bosses) b.root.position.sub(delta);
+    this.arena.updateMatrixWorld(true);
   }
 
   remove(boss) {
@@ -266,6 +314,7 @@ export class App extends Emitter {
 
   clearBosses() {
     this.fight.stop();
+    this.combatFx.clear();
     this.fight.winner = null;
     for (const b of this.bosses) b.dispose();
     this.bosses = [];
@@ -340,18 +389,77 @@ export class App extends Emitter {
   stopFight() { this.fight.stop(); this.emit('fight', false); }
   resetFight() {
     this.fight.stop();
+    this.combatFx.clear();
     this.fight.winner = null;
     for (const b of this.bosses) b.resetFight();
     this.emit('fight', false);
     this.emit('bosses', this.bosses);
   }
 
-  _onHit(a, t, dmg, crit) {
+  _onHit(a, t, dmg, crit, move) {
     const p = t.chestPosition(_v3);
+    const heavy = move && (move.poise || 1) >= 1.8;
     this.particles.burst({ position: p, color: crit ? 0xffffff : 0xffc24a, count: crit ? 46 : 26, speed: (crit ? 1.1 : 0.7) * t.height, life: 0.55, size: 0.022 * t.height, gravity: 1.6 * t.height, up: 0.5 });
     this.particles.burst({ position: p, color: 0xff3b2e, count: 12, speed: 0.5 * t.height, life: 0.7, size: 0.018 * t.height, gravity: 2.0 * t.height, up: 0.3 });
-    this.sfx.hit(crit ? 1.4 : 1);
-    this.emit('hit', { attacker: a, target: t, damage: dmg, crit });
+    if (heavy) this.sfx.impactHeavy(); else this.sfx.hit(crit ? 1.4 : 1);
+    this.emit('hit', { attacker: a, target: t, damage: dmg, crit, move });
+  }
+
+  /** Inizio mossa: telegrafo a terra e aura per le speciali. */
+  _onMoveStart(a, t, move) {
+    if (move.kind === 'evade') { this.sfx.step(); return; }
+    const h = a.height;
+    if (move.telegraph === 'rise' || move.kind === 'special') {
+      this.combatFx.chargeAura(a, { color: move.rot ? 0xc0392b : 0xffd166, life: Math.max(0.4, move.windup) });
+      this.sfx.telegraph();
+    }
+    if (move.aoe && move.aoe > 1.2) {
+      const center = move.kind === 'special' && move.id === 'meteor' ? t.root.position : a.root.position;
+      this.combatFx.telegraph(center.clone(), h, { radius: move.aoe, life: move.windup, color: move.rot ? 0xc0392b : 0xff5a3c });
+    }
+    this.emit('move', { boss: a, move });
+  }
+
+  _onTelegraph() { /* il telegrafo è già mostrato all'inizio della mossa */ }
+
+  /** La mossa entra nella finestra attiva: effetto e suono. */
+  _onActive(a, t, move) {
+    const h = a.height;
+    switch (move.vfx) {
+      case 'arc': this.combatFx.slashArc(a, {}); break;
+      case 'arcWide': this.combatFx.slashArc(a, { wide: true }); break;
+      case 'arcThin': this.combatFx.slashArc(a, { thin: true, color: 0xfff6d8 }); break;
+      case 'thrust': this.combatFx.thrustBeam(a, {}); break;
+      case 'shockwave': this.combatFx.shockwave(a.root.position.clone(), h, { radius: move.aoe || 1.6 }); break;
+      case 'flurry': this._flurryTimer = 0; break;
+      case 'aeonia': this.combatFx.aeonia(a.root.position.clone(), h); break;
+      case 'gravity': this.combatFx.gravity(a.chestPosition(_v3).clone(), t.chestPosition(_v3b).clone(), t.height); break;
+      case 'meteor': this.combatFx.meteor(t.root.position.clone(), h, {}); break;
+      case 'lightHammer': this.combatFx.lightHammer(t.root.position.clone(), h, {}); break;
+      case 'dustTrail': this.combatFx.dust(a.root.position.clone(), h, 10); break;
+      default: break;
+    }
+    const sound = this.sfx[move.sfx];
+    if (typeof sound === 'function') sound.call(this.sfx);
+    if (move.vfx === 'flurry') {
+      // la raffica emette scie ripetute per tutta la durata attiva
+      const n = move.hits || 8;
+      for (let i = 0; i < n; i++) setTimeout(() => { if (a.alive) this.combatFx.flurry(a, {}); }, (i * move.active * 1000) / n / Math.max(0.05, this.timeScale));
+    }
+  }
+
+  _onProjectile(a, t, move) {
+    const from = a.chestPosition(_v3).clone();
+    const to = t.chestPosition(_v3b).clone();
+    const speed = move.projectileSpeed || 5;
+    this.combatFx.projectile(from, to, a.height, { color: 0xffd166, speed });
+    return from.distanceTo(to) / (speed * a.height);
+  }
+
+  _onPhase2(boss, name) {
+    this.combatFx.phaseBurst(boss);
+    this.sfx.roar();
+    this.emit('phase2', { boss, name });
   }
 
   _onVictory(winner) {
@@ -386,8 +494,13 @@ export class App extends Emitter {
     g.on('drag', (x, y, dx, dy) => {
       if (!this.mode) return;
       if (this.dragging) {
-        const p = this.mode.groundPointFromScreen(x, y, this.dragging.root.position.y);
-        if (p) { this.dragging.root.position.x = p.x; this.dragging.root.position.z = p.z; }
+        const worldY = this.toWorld(_v3.copy(this.dragging.root.position)).y;
+        const p = this.mode.groundPointFromScreen(x, y, worldY);
+        if (p) {
+          this.toArena(p);
+          this.dragging.root.position.x = p.x;
+          this.dragging.root.position.z = p.z;
+        }
       } else if (this.mode.onDragEmpty) {
         this.mode.onDragEmpty(dx, dy);
       }
