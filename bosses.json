@@ -1,0 +1,475 @@
+{
+  "$schema": "./bosses.schema.json",
+  "version": 1,
+  "notes": "Manifest dei boss. `model` può essere un percorso locale (models/<id>.glb) o un URL remoto; se manca o non si carica, l'app usa il segnaposto procedurale descritto in `procedural`. I modelli generati da immagine non hanno scheletro: l'app li anima come corpo rigido. `fix` ruota il modello (gradi) se non guarda verso +Z. Altezze da lore: stime della community, non ufficiali.",
+  "defaults": {
+    "height": 0.25,
+    "clips": {
+      "idle": [
+        "Idle"
+      ],
+      "walk": [
+        "Walk",
+        "Run"
+      ],
+      "attack": [
+        "Attack1",
+        "Attack2",
+        "Attack"
+      ],
+      "hit": [
+        "Hit",
+        "React"
+      ],
+      "death": [
+        "Death",
+        "Die"
+      ]
+    },
+    "hitTime": 0.45
+  },
+  "bosses": [
+    {
+      "id": "margit",
+      "name": "Margit, il Presagio Caduto",
+      "short": "Margit",
+      "model": "models/margit.glb",
+      "loreHeight": 3.4,
+      "stats": {
+        "hp": 390,
+        "attack": 16,
+        "speed": 0.55,
+        "range": 0.55,
+        "cooldown": 1.7
+      },
+      "color": "#b7a37a",
+      "procedural": {
+        "archetype": "humanoid",
+        "weapon": "staff",
+        "helmet": "hood",
+        "cape": true,
+        "bulk": 1.15,
+        "colors": {
+          "armor": "#5a5548",
+          "cloth": "#3b3a36",
+          "skin": "#c7b58f",
+          "accent": "#e6c56b",
+          "weapon": "#8a7a5a"
+        }
+      },
+      "fix": {
+        "yaw": -90
+      },
+      "source": {
+        "pipeline": "Tripo text-to-3D (prompt in prompts/bosses/margit.md)",
+        "triangles": 57482,
+        "rigged": false,
+        "note": "senza scheletro: animato a corpo rigido dall'app"
+      },
+      "weaponLength": 0.48,
+      "trailColor": "#fff0c8",
+      "trailEdge": "#d9a441",
+      "modelRemote": "https://d8j0ntlcm91z4.cloudfront.net/user_3JJoEanW3aEMdcRpRs2vq8by7iI/hf_20260916_225915_0e45195e-18fb-4dc1-807f-e9a9e2bd518b.glb"
+    },
+    {
+      "id": "godrick",
+      "name": "Godrick l'Innestato",
+      "short": "Godrick",
+      "loreHeight": 3.2,
+      "stats": {
+        "hp": 450,
+        "attack": 15,
+        "speed": 0.45,
+        "range": 0.6,
+        "cooldown": 1.9
+      },
+      "color": "#9a8b3a",
+      "procedural": {
+        "archetype": "humanoid",
+        "weapon": "axe",
+        "helmet": "crown",
+        "cape": true,
+        "bulk": 1.35,
+        "extraArms": true,
+        "colors": {
+          "armor": "#8a7f2f",
+          "cloth": "#4a3a2a",
+          "skin": "#d9c5a3",
+          "accent": "#e2c95a",
+          "weapon": "#7d7d7d"
+        }
+      },
+      "weaponLength": 0.55,
+      "trailColor": "#fff0c8",
+      "trailEdge": "#c9a23a"
+    },
+    {
+      "id": "rennala",
+      "name": "Rennala, Regina della Luna Piena",
+      "short": "Rennala",
+      "loreHeight": 2.2,
+      "stats": {
+        "hp": 300,
+        "attack": 20,
+        "speed": 0.4,
+        "range": 0.9,
+        "cooldown": 2.2
+      },
+      "color": "#6e7fd6",
+      "procedural": {
+        "archetype": "humanoid",
+        "weapon": "staff",
+        "helmet": "crown",
+        "cape": true,
+        "bulk": 0.9,
+        "colors": {
+          "armor": "#2b3a7a",
+          "cloth": "#1c2352",
+          "skin": "#efe1d0",
+          "accent": "#a7b7ff",
+          "weapon": "#c9d3ff"
+        }
+      },
+      "weaponLength": 0.5,
+      "trailColor": "#cfe6ff",
+      "trailEdge": "#4f8ad8"
+    },
+    {
+      "id": "radahn",
+      "name": "Radahn, Flagello delle Stelle",
+      "short": "Radahn",
+      "model": "models/radahn.glb",
+      "loreHeight": 6.5,
+      "stats": {
+        "hp": 660,
+        "attack": 24,
+        "speed": 0.5,
+        "range": 0.65,
+        "cooldown": 2
+      },
+      "color": "#c0392b",
+      "procedural": {
+        "archetype": "humanoid",
+        "weapon": "greatsword",
+        "dualWield": true,
+        "helmet": "lionmane",
+        "cape": true,
+        "bulk": 1.6,
+        "colors": {
+          "armor": "#7a1f1a",
+          "cloth": "#3a1410",
+          "skin": "#c98e6a",
+          "accent": "#e0a955",
+          "weapon": "#9a9a9a"
+        }
+      },
+      "fix": {
+        "yaw": -90
+      },
+      "source": {
+        "pipeline": "immagine di riferimento (GPT Image) -> Tripo H3.1 image-to-3D",
+        "reference": "https://d8j0ntlcm91z4.cloudfront.net/user_3JJoEanW3aEMdcRpRs2vq8by7iI/hf_20260916_225348_4cc5d21a-4fe8-4442-8d92-07984300f81d.png",
+        "triangles": 57003,
+        "rigged": false,
+        "note": "senza scheletro: animato a corpo rigido dall'app"
+      },
+      "weaponLength": 0.62,
+      "trailColor": "#ffe0b0",
+      "trailEdge": "#9b5cd6",
+      "modelRemote": "https://d8j0ntlcm91z4.cloudfront.net/user_3JJoEanW3aEMdcRpRs2vq8by7iI/hf_20260916_225436_413ee7a7-357c-4205-a2c9-6076901a4e10.glb"
+    },
+    {
+      "id": "morgott",
+      "name": "Morgott, il Re dei Presagi",
+      "short": "Morgott",
+      "loreHeight": 3.5,
+      "stats": {
+        "hp": 420,
+        "attack": 18,
+        "speed": 0.6,
+        "range": 0.55,
+        "cooldown": 1.5
+      },
+      "color": "#c9a44a",
+      "procedural": {
+        "archetype": "humanoid",
+        "weapon": "greatsword",
+        "helmet": "hood",
+        "cape": true,
+        "bulk": 1.2,
+        "colors": {
+          "armor": "#6b5a3a",
+          "cloth": "#2e2a22",
+          "skin": "#c7b58f",
+          "accent": "#f0c85a",
+          "weapon": "#e3c26a"
+        }
+      },
+      "weaponLength": 0.5,
+      "trailColor": "#ffe6b4",
+      "trailEdge": "#d98a2b"
+    },
+    {
+      "id": "rykard",
+      "name": "Rykard, Signore della Blasfemia",
+      "short": "Rykard",
+      "loreHeight": 12,
+      "stats": {
+        "hp": 600,
+        "attack": 22,
+        "speed": 0.35,
+        "range": 0.8,
+        "cooldown": 2.3
+      },
+      "color": "#d35400",
+      "procedural": {
+        "archetype": "humanoid",
+        "weapon": "greatsword",
+        "helmet": "none",
+        "cape": false,
+        "bulk": 1.5,
+        "serpent": true,
+        "colors": {
+          "armor": "#5c2a12",
+          "cloth": "#3a1a0a",
+          "skin": "#b5462a",
+          "accent": "#ff8c3a",
+          "weapon": "#c65a1e"
+        }
+      },
+      "weaponLength": 0.7,
+      "trailColor": "#ffb08a",
+      "trailEdge": "#c0392b"
+    },
+    {
+      "id": "mohg",
+      "name": "Mohg, Signore del Sangue",
+      "short": "Mohg",
+      "loreHeight": 3.6,
+      "stats": {
+        "hp": 480,
+        "attack": 19,
+        "speed": 0.5,
+        "range": 0.7,
+        "cooldown": 1.8
+      },
+      "color": "#8e1b2c",
+      "procedural": {
+        "archetype": "humanoid",
+        "weapon": "trident",
+        "helmet": "horns",
+        "cape": true,
+        "bulk": 1.25,
+        "colors": {
+          "armor": "#5a1622",
+          "cloth": "#2a0b12",
+          "skin": "#8f6a5e",
+          "accent": "#ff3b4e",
+          "weapon": "#d4a052"
+        }
+      },
+      "weaponLength": 0.62,
+      "trailColor": "#ffb9c4",
+      "trailEdge": "#a3123a"
+    },
+    {
+      "id": "malenia",
+      "name": "Malenia, Lama di Miquella",
+      "short": "Malenia",
+      "model": "models/malenia.glb",
+      "loreHeight": 2.6,
+      "stats": {
+        "hp": 360,
+        "attack": 21,
+        "speed": 0.8,
+        "range": 0.5,
+        "cooldown": 1.2
+      },
+      "color": "#d4af37",
+      "procedural": {
+        "archetype": "humanoid",
+        "weapon": "katana",
+        "helmet": "winged",
+        "cape": false,
+        "bulk": 0.85,
+        "prosthetic": true,
+        "colors": {
+          "armor": "#c9a24a",
+          "cloth": "#5b3a2e",
+          "skin": "#e8d2b8",
+          "accent": "#ffe4a0",
+          "weapon": "#f3e2a4"
+        }
+      },
+      "source": {
+        "pipeline": "immagine di riferimento (GPT Image) -> Tripo H3.1 image-to-3D",
+        "reference": "https://d8j0ntlcm91z4.cloudfront.net/user_3JJoEanW3aEMdcRpRs2vq8by7iI/hf_20260916_222635_6e26d81f-0ded-45c1-88c8-4ca523a62837.png",
+        "triangles": 56848,
+        "rigged": false,
+        "note": "senza scheletro: animato a corpo rigido dall'app"
+      },
+      "fix": {
+        "yaw": -90
+      },
+      "weaponLength": 0.88,
+      "trailColor": "#ffeccd",
+      "trailEdge": "#c23b2b",
+      "modelRemote": "https://d8j0ntlcm91z4.cloudfront.net/user_3JJoEanW3aEMdcRpRs2vq8by7iI/hf_20260916_223932_c35a34be-d056-411e-a8dd-b37cb7cc809a.glb"
+    },
+    {
+      "id": "maliketh",
+      "name": "Maliketh, la Lama Nera",
+      "short": "Maliketh",
+      "loreHeight": 3,
+      "stats": {
+        "hp": 390,
+        "attack": 23,
+        "speed": 0.85,
+        "range": 0.6,
+        "cooldown": 1.3
+      },
+      "color": "#3c3c48",
+      "procedural": {
+        "archetype": "humanoid",
+        "weapon": "greatsword",
+        "helmet": "wolf",
+        "cape": true,
+        "bulk": 1.1,
+        "colors": {
+          "armor": "#2c2c34",
+          "cloth": "#4a4a55",
+          "skin": "#8d8d99",
+          "accent": "#7d6bb0",
+          "weapon": "#1a1a1f"
+        }
+      },
+      "weaponLength": 0.75,
+      "trailColor": "#e8e8ff",
+      "trailEdge": "#7d6bd8"
+    },
+    {
+      "id": "godfrey",
+      "name": "Godfrey, il Primo Lord Ancestrale",
+      "short": "Godfrey",
+      "loreHeight": 3.6,
+      "stats": {
+        "hp": 540,
+        "attack": 22,
+        "speed": 0.55,
+        "range": 0.6,
+        "cooldown": 1.6
+      },
+      "color": "#b08d57",
+      "procedural": {
+        "archetype": "humanoid",
+        "weapon": "axe",
+        "helmet": "lionmane",
+        "cape": true,
+        "bulk": 1.45,
+        "colors": {
+          "armor": "#6a5233",
+          "cloth": "#3a2a1a",
+          "skin": "#d2a377",
+          "accent": "#e4b96a",
+          "weapon": "#bdbdbd"
+        }
+      },
+      "weaponLength": 0.66,
+      "trailColor": "#ffdfae",
+      "trailEdge": "#c98a2e"
+    },
+    {
+      "id": "radagon",
+      "name": "Radagon dell'Ordine Aureo",
+      "short": "Radagon",
+      "loreHeight": 2.3,
+      "stats": {
+        "hp": 390,
+        "attack": 20,
+        "speed": 0.7,
+        "range": 0.55,
+        "cooldown": 1.4
+      },
+      "color": "#e8b04a",
+      "procedural": {
+        "archetype": "humanoid",
+        "weapon": "hammer",
+        "helmet": "none",
+        "cape": false,
+        "bulk": 1,
+        "colors": {
+          "armor": "#d9a441",
+          "cloth": "#8a6a2a",
+          "skin": "#f0e3d2",
+          "accent": "#ffd77a",
+          "weapon": "#e8c060"
+        }
+      },
+      "weaponLength": 0.58,
+      "trailColor": "#ffd9a0",
+      "trailEdge": "#d4af37"
+    },
+    {
+      "id": "firegiant",
+      "name": "Gigante di Fuoco",
+      "short": "Gigante",
+      "loreHeight": 28,
+      "stats": {
+        "hp": 780,
+        "attack": 26,
+        "speed": 0.35,
+        "range": 0.7,
+        "cooldown": 2.6
+      },
+      "color": "#e67e22",
+      "procedural": {
+        "archetype": "humanoid",
+        "weapon": "hammer",
+        "helmet": "none",
+        "cape": false,
+        "bulk": 1.8,
+        "colors": {
+          "armor": "#7a4a2a",
+          "cloth": "#4a2a14",
+          "skin": "#c98a5a",
+          "accent": "#ff9a2a",
+          "weapon": "#5a3a22"
+        }
+      },
+      "weaponLength": 0.9,
+      "trailColor": "#ffb469",
+      "trailEdge": "#c2401f"
+    },
+    {
+      "id": "messmer",
+      "name": "Messmer l'Impalatore",
+      "short": "Messmer",
+      "loreHeight": 3,
+      "stats": {
+        "hp": 420,
+        "attack": 22,
+        "speed": 0.75,
+        "range": 0.65,
+        "cooldown": 1.3
+      },
+      "color": "#c0392b",
+      "procedural": {
+        "archetype": "humanoid",
+        "weapon": "spear",
+        "helmet": "none",
+        "cape": true,
+        "bulk": 1.05,
+        "colors": {
+          "armor": "#3a1e1a",
+          "cloth": "#7a1f1a",
+          "skin": "#e8d2b8",
+          "accent": "#ff5a2a",
+          "weapon": "#c9a24a"
+        }
+      },
+      "weaponLength": 0.72,
+      "trailColor": "#ffc9a0",
+      "trailEdge": "#b4341f"
+    }
+  ]
+}

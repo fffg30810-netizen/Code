@@ -1,0 +1,11 @@
+{
+  "name": "Elden Hologram AR",
+  "short_name": "Elden AR",
+  "description": "Boss di Elden Ring come ologrammi AR sul tavolo di casa.",
+  "start_url": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#0b0a08",
+  "theme_color": "#0b0a08",
+  "icons": [{ "src": "./icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
