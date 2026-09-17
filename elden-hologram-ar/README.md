@@ -55,16 +55,19 @@ npm test             # smoke test headless: evoca, combatte, verifica il vincito
 Serve un indirizzo **HTTPS**: fotocamera, sensori e WebXR non funzionano in HTTP. Due strade:
 
 **A. GitHub Pages (consigliata, gratis).** Il workflow
-[`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml) compila e pubblica già
-a ogni push. Manca solo un interruttore, una volta sola:
+[`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml) a ogni push compila il
+sito, ci scarica dentro i tre modelli 3D e lo pubblica in due forme: l'artefatto Pages **e** il
+branch `gh-pages`. Manca solo l'interruttore, una volta sola:
 
 1. apri <https://github.com/fffg30810-netizen/Code/settings/pages>
-2. in *Build and deployment → Source* scegli **GitHub Actions** e salva
-3. torna in *Actions*, apri l'ultimo run di *Deploy Elden Hologram AR* e premi **Re-run all jobs**
+2. in *Build and deployment → Source* scegli una delle due (funzionano entrambe):
+   - **GitHub Actions**, oppure
+   - **Deploy from a branch** → branch `gh-pages`, cartella `/ (root)`
+3. salva: il sito è online in un minuto, senza rilanciare niente
 
-L'indirizzo sarà `https://fffg30810-netizen.github.io/Code/`: aprilo dal telefono e premi *Avvia AR*
-(Android) o *Modalità Camera* (iPhone). Finché Pages non è attivo il job `deploy` fallisce con
-`Ensure GitHub Pages has been enabled`: è solo quell'interruttore, la compilazione passa già.
+L'indirizzo è `https://fffg30810-netizen.github.io/Code/`: aprilo dal telefono e premi *Avvia AR*
+(Android) o *Modalità Camera* (iPhone). Senza quell'interruttore GitHub risponde
+`Site not found`: il repository è privato e Pages resta spento finché non lo accendi tu.
 
 **B. Dal tuo computer, senza pubblicare niente.** `npm run dev` espone un indirizzo HTTPS in rete
 locale (`https://<ip-del-pc>:5173`): aprilo dal telefono sulla stessa Wi-Fi e accetta il certificato
