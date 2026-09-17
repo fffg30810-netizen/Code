@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { Emitter } from '../util/events.js';
 import { loadSettings, saveSettings } from '../util/settings.js';
-import { clamp } from '../util/math.js';
+import { clamp, dampAngle } from '../util/math.js';
 import { BossLoader, loadManifest } from '../bosses/BossLoader.js';
 import { Boss } from '../bosses/Boss.js';
 import { FightSystem } from '../fight/FightSystem.js';
@@ -201,11 +201,37 @@ export class App extends Emitter {
     }
     this.time += sdt;
     for (const b of this.bosses) b.update(sdt, this.time);
+    if (!this.fight.active) this._idleBehaviour(sdt);
     this.fight.update(sdt);
     this.particles.update(sdt, this.renderer);
     this.combatFx.update(sdt);
     this._updateStage();
     this.renderer.render(this.scene, this.camera);
+  }
+
+  /**
+   * Fuori dal combattimento i boss non restano immobili: si girano lentamente
+   * verso l'avversario più vicino, o verso chi guarda se sono soli.
+   */
+  _idleBehaviour(dt) {
+    const alive = this.bosses.filter((b) => b.root.visible && b.alive);
+    if (!alive.length) return;
+    const cam = this.activeCamera();
+    _v3.setFromMatrixPosition(cam.matrixWorld);
+    this.toArena(_v3);
+    for (const b of alive) {
+      if (b.fight.state !== 'idle' && b.fight.state !== 'approach') continue;
+      let target = null, best = Infinity;
+      for (const o of alive) {
+        if (o === b) continue;
+        const d = b.root.position.distanceToSquared(o.root.position);
+        if (d < best) { best = d; target = o; }
+      }
+      const p = target ? target.root.position : _v3;
+      const yaw = Math.atan2(p.x - b.root.position.x, p.z - b.root.position.z);
+      b.root.rotation.y = dampAngle(b.root.rotation.y, yaw, 1.1, dt);
+      b.lookAt(p);
+    }
   }
 
   _updateStage() {

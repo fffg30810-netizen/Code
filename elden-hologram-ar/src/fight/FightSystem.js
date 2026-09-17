@@ -191,6 +191,7 @@ export class FightSystem {
     const desiredYaw = Math.atan2(t.root.position.x - a.root.position.x, t.root.position.z - a.root.position.z);
     const turnSpeed = f.state === 'windup' ? 5 : f.state === 'active' ? 1.2 : 9;
     a.root.rotation.y = dampAngle(a.root.rotation.y, desiredYaw, turnSpeed, dt);
+    a.lookAt(t.root.position);   // la testa resta puntata sull'avversario
 
     switch (f.state) {
       case 'approach': {
