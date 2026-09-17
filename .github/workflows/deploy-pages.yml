@@ -1,5 +1,12 @@
-# Pubblica elden-hologram-ar su GitHub Pages (serve HTTPS per WebXR e fotocamera).
-# Attivalo una volta: Settings → Pages → Source: "GitHub Actions".
+# Pubblica elden-hologram-ar su GitHub Pages.
+#
+# Il sito viene compilato e pubblicato in DUE modi, così funziona qualunque
+# sorgente sia selezionata in Settings → Pages:
+#   1. artefatto Pages  → sorgente "GitHub Actions"
+#   2. branch gh-pages  → sorgente "Deploy from a branch: gh-pages / (root)"
+#
+# I modelli 3D dei boss vengono scaricati durante la build (`npm run fetch-models`),
+# quindi il sito è autonomo e non dipende dal CDN di generazione.
 name: Deploy Elden Hologram AR
 
 on:
@@ -11,7 +18,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -35,10 +42,26 @@ jobs:
           cache: npm
           cache-dependency-path: elden-hologram-ar/package-lock.json
       - run: npm ci
+      - name: Scarica i modelli 3D dei boss
+        run: npm run fetch-models
+        continue-on-error: true
       - run: npm run build
+      - name: Prepara il sito
+        run: touch dist/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
           path: elden-hologram-ar/dist
+      - name: Pubblica sul branch gh-pages
+        run: |
+          cd dist
+          git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Build del sito da ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     needs: build
@@ -49,3 +72,4 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: true

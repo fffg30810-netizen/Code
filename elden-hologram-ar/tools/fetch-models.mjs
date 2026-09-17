@@ -21,11 +21,17 @@ await mkdir(modelsDir, { recursive: true });
 
 let changed = 0, failed = 0;
 for (const boss of manifest.bosses) {
-  const url = boss.model;
-  if (!url || !/^https?:\/\//.test(url)) continue;
+  // `modelRemote` è l'originale salvato da un download precedente: permette di
+  // rieseguire lo script (es. in CI) anche dopo che il manifest è stato riscritto.
+  const url = /^https?:\/\//.test(boss.model || '') ? boss.model : boss.modelRemote;
+  if (!url) continue;
   if (only.length && !only.includes(boss.id)) continue;
   const dest = join(modelsDir, `${boss.id}.glb`);
-  if (existsSync(dest)) { console.log(`· ${boss.id}: già presente, salto`); continue; }
+  if (existsSync(dest)) {
+    console.log(`· ${boss.id}: già presente, salto`);
+    if (!keepRemote && boss.model !== `models/${boss.id}.glb`) { boss.modelRemote = url; boss.model = `models/${boss.id}.glb`; changed++; }
+    continue;
+  }
   process.stdout.write(`↓ ${boss.id} … `);
   try {
     const res = await fetch(url);
