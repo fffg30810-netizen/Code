@@ -63,9 +63,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  # Questo lavoro serve solo se in Settings → Pages la sorgente è "GitHub Actions".
+  # Con la sorgente impostata su "Deploy from a branch: gh-pages" (come adesso) la
+  # creazione del deployment fallisce prima ancora dei passi: il sito è già stato
+  # pubblicato dal lavoro `build`, quindi l'errore va ignorato e non deve tingere
+  # di rosso l'intera esecuzione.
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    continue-on-error: true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
