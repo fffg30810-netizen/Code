@@ -8,6 +8,7 @@ const DEFAULTS = {
   phoneHeight: 0.6,        // metri: modalità Camera, altezza del telefono dal piano
   fov: 65,                 // gradi: modalità Camera
   stabilize: true,         // modalità Camera: compensa lo spostamento del telefono
+  autoLight: true,         // modalità Camera: luce e riflessi presi dall'immagine della stanza
 };
 export function loadSettings() {
   try { return { ...DEFAULTS, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; }

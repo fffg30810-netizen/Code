@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { XREstimatedLight } from 'three/addons/webxr/XREstimatedLight.js';
 import { VisualStabilizer } from '../ar/Stabilizer.js';
+import { CameraLight } from '../ar/CameraLight.js';
 
 // ---------------------------------------------------------------------------
 function rayPlaneY(ray, planeY, out) {
@@ -125,6 +126,7 @@ export class GyroCameraMode {
     };
     this.screenOrient = 0;
     this.stabilizer = null;
+    this.light = null;      // luce dedotta dall'immagine della fotocamera
   }
   get camera() { return this.app.camera; }
 
@@ -137,6 +139,9 @@ export class GyroCameraMode {
     this.lookPitch = -0.55;
     this.stabilizer = new VisualStabilizer(this.video);
     this.stabilizer.enabled = app.settings.stabilize !== false;
+    // luce, esposizione e riflessi presi dalla stanza vera: senza questo
+    // l'ologramma resta "incollato sopra" l'immagine invece di starci dentro
+    this.light = new CameraLight(this.video, app.renderer);
 
     // iOS 13+: i sensori richiedono un permesso esplicito e vanno chiesti PRIMA della fotocamera,
     // finché il gesto dell'utente (tap sul pulsante) è ancora valido.
@@ -172,6 +177,8 @@ export class GyroCameraMode {
     if (this.stream) { this.stream.getTracks().forEach((t) => t.stop()); this.stream = null; }
     this.video.srcObject = null;
     this.stabilizer = null;
+    if (this.light) { this.light.dispose(); this.light = null; }
+    this.app.applyRoomLight(null);
     this.app.camera.position.set(0, 0, 0);
   }
 
@@ -198,6 +205,13 @@ export class GyroCameraMode {
       this.stabilizer.enabled = this.app.settings.stabilize !== false;
       const off = this.stabilizer.update(dt || 0.016, cam.quaternion, THREE.MathUtils.degToRad(cam.fov), this.app.settings.phoneHeight);
       cam.position.copy(off);
+    }
+
+    // La luce della stanza cambia mentre ti muovi: aggiornarla di continuo tiene
+    // i boss illuminati come gli oggetti veri che hanno intorno.
+    if (this.light && this.app.settings.autoLight !== false) {
+      this.light.update(dt || 0.016);
+      if (this.light.ready) this.app.applyRoomLight(this.light);
     }
   }
 
@@ -397,6 +411,9 @@ export class WebXRMode {
     }
     if (this.xrLight && this.xrLight.directionalLight) {
       this.app.setSunDirection(this.xrLight.directionalLight.position);
+      // stanza buia → ombra di contatto più tenue, come per gli oggetti veri
+      const lit = THREE.MathUtils.clamp(this.xrLight.directionalLight.intensity / 2.2, 0, 1);
+      this.app.shadowStrength = 0.45 + lit * 0.65;
     }
   }
 

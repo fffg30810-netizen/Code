@@ -165,6 +165,67 @@ export const MOVESETS = {
   },
 };
 
+/**
+ * Carattere del colpo, per mossa.
+ *
+ *  `impact`   famiglia sonora e visiva dell'urto: acciaio, punta, contundente,
+ *             magia, marciume. Decide timbro, colore delle scintille e polvere.
+ *  `variants` primitive di movimento fra cui scegliere a ogni esecuzione: lo
+ *             stesso attacco arriva da angoli diversi invece di ripetersi uguale.
+ *  `swing`    famiglia del fruscio d'aria in preparazione.
+ *  `mirror`   false per le mosse che non hanno senso specchiate.
+ */
+const FLAVOUR = {
+  // generiche
+  slash: { impact: 'slash', variants: ['slash', 'slashDiag', 'slashRise'] },
+  thrust: { impact: 'thrust', swing: 'thrust', mirror: false },
+  spin: { impact: 'slash', variants: ['spin', 'reverseSpin'], swing: 'spin', mirror: false },
+  slam: { impact: 'blunt', variants: ['leapSlam', 'stomp'], swing: 'heavy' },
+  // Malenia: lama lunga e velocissima
+  cleave: { impact: 'slash', variants: ['slash', 'slashDiag', 'slashRise', 'doubleCleave'] },
+  thrustStep: { impact: 'thrust', variants: ['thrust', 'kick'], swing: 'thrust', mirror: false },
+  waterfowl: { impact: 'slash', swing: 'spin', mirror: false },
+  aeonia: { impact: 'rot', mirror: false },
+  wingDash: { impact: 'slash', swing: 'heavy', mirror: false },
+  // Radahn: due spadoni, tutto peso
+  doubleSweep: { impact: 'slash', variants: ['doubleSpin', 'reverseSpin'], swing: 'spin', mirror: false },
+  overhead: { impact: 'blunt', variants: ['overhead', 'stomp'], swing: 'heavy' },
+  gravityPull: { impact: 'magic', mirror: false },
+  chargeRush: { impact: 'blunt', swing: 'heavy', mirror: false },
+  meteor: { impact: 'magic', mirror: false },
+  // Margit: bastone, martello di luce, pugnali
+  caneCombo: { impact: 'blunt', variants: ['slash', 'slashDiag', 'doubleCleave', 'uppercut'] },
+  goldenHammer: { impact: 'magic', variants: ['overhead', 'uppercut'], swing: 'heavy' },
+  daggerThrow: { impact: 'thrust', mirror: false },
+  leapStrike: { impact: 'blunt', variants: ['leapSlam', 'stomp'], swing: 'heavy', mirror: false },
+  goldenCleaver: { impact: 'magic', variants: ['overhead', 'slashDiag'], swing: 'heavy' },
+};
+
+/** Ricava il carattere di una mossa che non è in tabella. */
+function fallbackFlavour(m) {
+  if (m.rot) return { impact: 'rot' };
+  if (m.kind === 'projectile') return { impact: 'thrust' };
+  if (m.vfx === 'shockwave' || m.vfx === 'lightHammer' || m.vfx === 'meteor') return { impact: 'blunt', swing: 'heavy' };
+  if (m.vfx === 'gravity' || m.vfx === 'aeonia') return { impact: 'magic' };
+  if (m.vfx === 'thrust') return { impact: 'thrust', swing: 'thrust' };
+  return { impact: 'slash' };
+}
+
+/** Aggiunge il carattere alle mosse: impatto, varianti, fruscio. */
+function withFlavour(moves) {
+  return moves.map((m) => {
+    if (m.kind === 'evade') return m;
+    const f = FLAVOUR[m.id] || fallbackFlavour(m);
+    return {
+      ...m,
+      impact: m.impact || f.impact || 'slash',
+      variants: m.variants || f.variants || [m.motion],
+      swing: m.swing || f.swing || 'light',
+      mirror: m.mirror !== undefined ? m.mirror : f.mirror !== false,
+    };
+  });
+}
+
 /** Moveset di riserva, scelto in base all'arma del segnaposto procedurale. */
 const BY_WEAPON = {
   greatsword: ['slash', 'slam', 'spin'],
@@ -181,8 +242,8 @@ export function movesetFor(def) {
   if (custom) {
     return {
       traits: { aggression: 0.75, preferredRange: 0.85, dodgeChance: 0.2, comboChance: 0.4, ...custom.traits },
-      moves: custom.moves,
-      phase2: custom.phase2 || [],
+      moves: withFlavour(custom.moves),
+      phase2: withFlavour(custom.phase2 || []),
       phase2Name: custom.phase2Name || def.name,
     };
   }
@@ -191,7 +252,7 @@ export function movesetFor(def) {
   const moves = GENERIC.filter((m) => ids.includes(m.id));
   return {
     traits: { aggression: 0.7, preferredRange: 0.85, dodgeChance: 0.18, comboChance: 0.35 },
-    moves: moves.length ? moves : GENERIC.slice(0, 2),
+    moves: withFlavour(moves.length ? moves : GENERIC.slice(0, 2)),
     phase2: [],
     phase2Name: def.name,
   };

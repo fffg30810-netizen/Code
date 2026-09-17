@@ -40,6 +40,31 @@ falli **combattere fra loro**. Web app, niente da installare: si apre da un link
   Margit), gli altri con segnaposto procedurali animati, sostituibili con i tuoi GLB.
 - **Modelli senza scheletro supportati**: chi non ha un rig viene animato a corpo rigido, così
   anche un modello generato da una foto combatte senza altro lavoro.
+- **Integrazione con la stanza vera:** in modalità Camera l'app legge ogni mezzo secondo un fotogramma
+  ridotto e ne ricava colore della luce, esposizione, direzione dominante e una mappa di riflessione:
+  i boss vengono illuminati e riflettono la stanza in cui sono appoggiati. Sotto ognuno c'è
+  un'**ombra di contatto** morbida che si allarga e si schiarisce quando il corpo si stacca da terra,
+  e i materiali prendono **grana, alzata del nero e desaturazione** della fotocamera, così il modello
+  non sembra un adesivo pulito incollato sopra l'immagine. In AR vera la stessa regia arriva dalla
+  stima della luce di WebXR. Si disattiva da *Impostazioni → Luce della stanza*.
+- **Peso dei colpi:** ogni fendente lascia una **scia dell'arma** agganciata alla mano, le scintille
+  partono dal punto in cui la lama tocca davvero e schizzano nella direzione del colpo, chi incassa
+  viene **spinto indietro** e reagisce secondo la provenienza del colpo (davanti, dietro, di lato).
+  Un colpo pesante che rompe la posa **atterra** l'avversario, che resta a terra e si rialza: la
+  finestra in cui l'altro lo punisce con la mossa più dannosa, a danno maggiorato. Passi con polvere
+  e rumore, suoni posizionati in stereo secondo dove si trova il boss rispetto a te.
+- **Nessun colpo uguale al precedente:** lo stesso attacco sceglie ogni volta un arco diverso
+  (fendente diritto, diagonale, risalita, doppio taglio, montante, pestone, calcio) e può essere
+  **specchiato** per arrivare dall'altro lato; preparazione, finestra di danno e recupero cambiano a
+  ogni esecuzione. Come nel gioco ci sono i **colpi trattenuti** — l'arma resta ferma in alto un
+  istante di troppo — e le **finte**, dove la preparazione si spegne a metà e parte un altro colpo.
+  Dentro una catena il colpo successivo parte già caricato.
+- **Impatti a strati:** niente campioni audio, ma un motore d'urto costruito su cinque strati
+  (transiente, tonfo del corpo, parziali inarmonici del metallo, rumore dell'urto, sotto-basso sui
+  colpi pesanti) con accordatura e durate diverse a ogni colpo, mandato a un breve **riverbero di
+  stanza**. Ogni famiglia — acciaio, punta, contundente, magia, marciume — ha il suo timbro, il suo
+  colore di scintille, il suo lampo e il suo segno del taglio. Il fruscio del fendente segue la
+  curva Doppler della lama che passa e la velocità vera di quella esecuzione.
 
 ## Avvio rapido
 
@@ -146,12 +171,16 @@ elden-hologram-ar/
 ├── src/bosses/ProceduralBoss.js   segnaposto animati costruiti con primitive
 ├── src/fight/FightSystem.js       IA di combattimento tutti-contro-tutti
 ├── src/fx/                        shader ologramma, particelle, barre HP, suoni WebAudio
+│                                  + WeaponTrail (scia della lama), ContactShadow (ombra sotto i piedi),
+│                                  CameraMatch (grana e resa "ripreso dalla fotocamera")
+├── src/ar/                        Stabilizer (movimento del telefono), CameraLight (luce della stanza)
 ├── src/input/Gestures.js          tap / drag / pinch / rotazione (Pointer Events)
 ├── public/bosses.json             manifest dei boss (stat, altezze da lore, clip, segnaposto)
 ├── public/models/, public/usdz/   i tuoi asset HD (ignorati da git)
 ├── prompts/                       prompt pack per generare i boss con l'IA
 ├── tools/                         ottimizzazione GLB, manifest, script Blender
-└── tests/smoke.mjs                smoke test Playwright headless
+├── tests/smoke.mjs                smoke test Playwright headless
+└── tests/realism.mjs              verifica ombra di contatto, scia, contraccolpo, atterramento, luce
 ```
 
 ## Requisiti e limiti

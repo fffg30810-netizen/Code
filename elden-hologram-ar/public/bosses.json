@@ -65,7 +65,10 @@
         "triangles": 57482,
         "rigged": false,
         "note": "senza scheletro: animato a corpo rigido dall'app"
-      }
+      },
+      "weaponLength": 0.48,
+      "trailColor": "#fff0c8",
+      "trailEdge": "#d9a441"
     },
     {
       "id": "godrick",
@@ -94,7 +97,10 @@
           "accent": "#e2c95a",
           "weapon": "#7d7d7d"
         }
-      }
+      },
+      "weaponLength": 0.55,
+      "trailColor": "#fff0c8",
+      "trailEdge": "#c9a23a"
     },
     {
       "id": "rennala",
@@ -122,7 +128,10 @@
           "accent": "#a7b7ff",
           "weapon": "#c9d3ff"
         }
-      }
+      },
+      "weaponLength": 0.5,
+      "trailColor": "#cfe6ff",
+      "trailEdge": "#4f8ad8"
     },
     {
       "id": "radahn",
@@ -162,7 +171,10 @@
         "triangles": 57003,
         "rigged": false,
         "note": "senza scheletro: animato a corpo rigido dall'app"
-      }
+      },
+      "weaponLength": 0.62,
+      "trailColor": "#ffe0b0",
+      "trailEdge": "#9b5cd6"
     },
     {
       "id": "morgott",
@@ -190,7 +202,10 @@
           "accent": "#f0c85a",
           "weapon": "#e3c26a"
         }
-      }
+      },
+      "weaponLength": 0.5,
+      "trailColor": "#ffe6b4",
+      "trailEdge": "#d98a2b"
     },
     {
       "id": "rykard",
@@ -219,7 +234,10 @@
           "accent": "#ff8c3a",
           "weapon": "#c65a1e"
         }
-      }
+      },
+      "weaponLength": 0.7,
+      "trailColor": "#ffb08a",
+      "trailEdge": "#c0392b"
     },
     {
       "id": "mohg",
@@ -247,7 +265,10 @@
           "accent": "#ff3b4e",
           "weapon": "#d4a052"
         }
-      }
+      },
+      "weaponLength": 0.62,
+      "trailColor": "#ffb9c4",
+      "trailEdge": "#a3123a"
     },
     {
       "id": "malenia",
@@ -287,7 +308,10 @@
       },
       "fix": {
         "yaw": -90
-      }
+      },
+      "weaponLength": 0.88,
+      "trailColor": "#ffeccd",
+      "trailEdge": "#c23b2b"
     },
     {
       "id": "maliketh",
@@ -315,7 +339,10 @@
           "accent": "#7d6bb0",
           "weapon": "#1a1a1f"
         }
-      }
+      },
+      "weaponLength": 0.75,
+      "trailColor": "#e8e8ff",
+      "trailEdge": "#7d6bd8"
     },
     {
       "id": "godfrey",
@@ -343,7 +370,10 @@
           "accent": "#e4b96a",
           "weapon": "#bdbdbd"
         }
-      }
+      },
+      "weaponLength": 0.66,
+      "trailColor": "#ffdfae",
+      "trailEdge": "#c98a2e"
     },
     {
       "id": "radagon",
@@ -371,7 +401,10 @@
           "accent": "#ffd77a",
           "weapon": "#e8c060"
         }
-      }
+      },
+      "weaponLength": 0.58,
+      "trailColor": "#ffd9a0",
+      "trailEdge": "#d4af37"
     },
     {
       "id": "firegiant",
@@ -399,7 +432,10 @@
           "accent": "#ff9a2a",
           "weapon": "#5a3a22"
         }
-      }
+      },
+      "weaponLength": 0.9,
+      "trailColor": "#ffb469",
+      "trailEdge": "#c2401f"
     },
     {
       "id": "messmer",
@@ -427,7 +463,10 @@
           "accent": "#ff5a2a",
           "weapon": "#c9a24a"
         }
-      }
+      },
+      "weaponLength": 0.72,
+      "trailColor": "#ffc9a0",
+      "trailEdge": "#b4341f"
     }
   ]
 }

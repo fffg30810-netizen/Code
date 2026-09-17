@@ -65,14 +65,19 @@ export class Particles {
     this._c = new THREE.Color();
   }
 
-  /** Emette `count` particelle da `position` (world). Dimensioni in metri. */
-  burst({ position, color = 0xffd166, count = 24, speed = 0.6, spread = 1, life = 0.6, size = 0.02, gravity = 1.2, up = 0.4 }) {
+  /**
+   * Emette `count` particelle da `position` (coordinate dell'arena). Dimensioni in metri.
+   * Con `dir` + `cone` lo spruzzo segue una direzione: le scintille di un colpo
+   * schizzano via dalla lama invece di esplodere a palla.
+   */
+  burst({ position, color = 0xffd166, count = 24, speed = 0.6, spread = 1, life = 0.6, size = 0.02, gravity = 1.2, up = 0.4, dir: bias = null, cone = 0.7 }) {
     this._c.set(color);
     for (let n = 0; n < count; n++) {
       const i = this.cursor;
       this.cursor = (this.cursor + 1) % this.max;
       const i3 = i * 3;
       const dir = new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5 + up, Math.random() - 0.5).normalize();
+      if (bias) dir.multiplyScalar(1 - cone).addScaledVector(bias, cone).normalize();
       const s = speed * (0.4 + Math.random() * 0.9) * spread;
       this.pos[i3] = position.x; this.pos[i3 + 1] = position.y; this.pos[i3 + 2] = position.z;
       this.vel[i3] = dir.x * s; this.vel[i3 + 1] = dir.y * s; this.vel[i3 + 2] = dir.z * s;

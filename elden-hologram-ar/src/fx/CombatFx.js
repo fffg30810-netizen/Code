@@ -49,21 +49,62 @@ export class CombatFx {
     return mesh;
   }
 
-  /** Arco di lama: spazzata attorno al boss, leggibile da qualsiasi angolo. */
-  slashArc(boss, { color = 0xfff0c0, wide = false, thin = false, life = 0.32 } = {}) {
+  /**
+   * Arco di lama: la spazzata attorno al boss, leggibile da qualsiasi angolo.
+   * `tilt` è l'inclinazione del piano su cui corre la lama: quasi orizzontale per
+   * una spazzata, ripida per un diagonale, rovesciata per una risalita. `flip`
+   * esegue lo stesso arco dall'altro lato, per i colpi specchiati.
+   */
+  slashArc(boss, { color = 0xfff0c0, wide = false, thin = false, life = 0.32, tilt = null, flip = 1, yawOffset = null, rise = 0 } = {}) {
     const h = boss.height;
     const m = new THREE.Mesh(wide ? this.geo.arcWide : this.geo.arc, additive(color, 1));
     const r = (wide ? 0.88 : thin ? 0.6 : 0.74) * h;
     m.scale.set(r, r, (thin ? 0.7 : 1.1) * h);
     boss.chestPosition(_v);
-    m.position.copy(_v).add(_v2.set(0, -0.05 * h, 0));
-    // spazzata quasi orizzontale, inclinata in avanti: si legge sia di lato sia dall'alto
-    m.quaternion.setFromEuler(new THREE.Euler(Math.PI / 2 - (wide ? 0.12 : 0.42), boss.yaw + (wide ? 0 : -0.35), 0, 'YXZ'));
+    m.position.copy(_v).add(_v2.set(0, (-0.05 + rise) * h, 0));
+    const pitch = tilt != null ? tilt : (wide ? 0.12 : 0.42);
+    const yaw = yawOffset != null ? yawOffset : (wide ? 0 : -0.35);
+    m.quaternion.setFromEuler(new THREE.Euler(Math.PI / 2 - pitch * flip, boss.yaw + yaw * flip, 0, 'YXZ'));
     const s0 = m.scale.clone();
+    const spin = (wide ? 3.0 : 1.8) * 0.016 * flip;
     return this._add(m, life, (it, k) => {
       it.mesh.scale.copy(s0).multiplyScalar(1 + k * (wide ? 0.35 : 0.22));
       it.mesh.material.opacity = (1 - k) ** 1.3;
-      it.mesh.rotateOnAxis(_axisY, (wide ? 3.0 : 1.8) * 0.016);
+      it.mesh.rotateOnAxis(_axisY, spin);
+    });
+  }
+
+  /**
+   * Lampo dell'urto: il bagliore breve nel punto esatto in cui la lama tocca.
+   * Senza, un colpo che arriva è solo una barra vita che cala.
+   * @param {THREE.Vector3} point punto di contatto (coordinate arena)
+   * @param {number} height altezza del bersaglio
+   */
+  impactFlash(point, height, { color = 0xfff2c0, scale = 1, life = 0.16 } = {}) {
+    const m = new THREE.Mesh(this.geo.sphere, additive(color, 1));
+    const r = 0.085 * height * scale;
+    m.position.copy(point);
+    m.scale.setScalar(r);
+    return this._add(m, life, (it, k) => {
+      const s = r * (0.55 + k * 2.1);
+      it.mesh.scale.set(s, s * 0.72, s);
+      it.mesh.material.opacity = (1 - k) ** 2;
+    });
+  }
+
+  /**
+   * Segno del taglio: l'arco sottile che resta un istante dove la lama è
+   * passata sul corpo. Orientato come il fendente, non come il bersaglio.
+   */
+  slashMark(point, height, yaw, { color = 0xffffff, scale = 1, life = 0.18, tilt = 0.6 } = {}) {
+    const m = new THREE.Mesh(this.geo.arc, additive(color, 1));
+    const r = 0.26 * height * scale;
+    m.position.copy(point);
+    m.scale.set(r, r, 0.28 * height * scale);
+    m.quaternion.setFromEuler(new THREE.Euler(Math.PI / 2 - tilt, yaw, 0, 'YXZ'));
+    return this._add(m, life, (it, k) => {
+      it.mesh.material.opacity = (1 - k) ** 1.6;
+      it.mesh.scale.z = 0.28 * height * scale * (1 + k * 0.8);
     });
   }
 

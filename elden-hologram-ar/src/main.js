@@ -35,7 +35,8 @@ window.__elden = {
     boss.setHeight(height ?? app.settings.defaultHeight);
     boss.root.position.set(x, y, z);
     boss.setStyle(app.settings.style);
-    app.scene.add(boss.root);
+    app.arena.add(boss.root);
+    app.arena.add(boss.trail.mesh);
     app.bosses.push(boss);
     app.select(boss);
     app.emit('bosses', app.bosses);

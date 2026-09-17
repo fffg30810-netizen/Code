@@ -6,9 +6,18 @@ import { ClipAnimator, RigidAnimator } from './Animator.js';
 import { SkeletalAnimator } from './SkeletalAnimator.js';
 import { autoRig } from './AutoRig.js';
 import { createHologramUniforms, makeHologramMaterial, STYLES } from '../fx/HologramMaterial.js';
+import { ContactShadow } from '../fx/ContactShadow.js';
+import { applyCameraMatch, createMatchUniforms } from '../fx/CameraMatch.js';
+import { WeaponTrail } from '../fx/WeaponTrail.js';
 import { clamp } from '../util/math.js';
 
 let nextUid = 1;
+const _w1 = new THREE.Vector3();
+const _w2 = new THREE.Vector3();
+const _w3 = new THREE.Vector3();
+const _s1 = new THREE.Vector3();
+const _s2 = new THREE.Vector3();
+const _s3 = new THREE.Vector3();
 
 const toArray = (v) => (v == null ? [] : Array.isArray(v) ? v : [v]);
 
@@ -87,16 +96,23 @@ export class Boss {
     this.originalMaterials = new Map();
     this.holoMaterials = new Map();
     this.holoUniforms = createHologramUniforms();
+    this.matchUniforms = createMatchUniforms();
     object.traverse((o) => {
       if (o.isMesh || o.isSkinnedMesh) {
         this.meshes.push(o);
         this.originalMaterials.set(o, o.material);
         o.castShadow = true;
+        // e ricevono: in uno scontro l'ombra di un boss cade sull'altro
+        o.receiveShadow = true;
         o.frustumCulled = false;
         // I modelli generati da immagine hanno spesso normali sottili o facce singole:
         // renderizzarli a doppia faccia evita buchi visibili da dietro.
         const mats = Array.isArray(o.material) ? o.material : [o.material];
-        for (const m of mats) if (m && m.side === THREE.FrontSide && !m.transparent) m.side = THREE.DoubleSide;
+        for (const m of mats) {
+          if (!m) continue;
+          if (m.side === THREE.FrontSide && !m.transparent) m.side = THREE.DoubleSide;
+          applyCameraMatch(m, this.matchUniforms);
+        }
       }
     });
 
@@ -135,6 +151,25 @@ export class Boss {
     this.ring.raycast = () => {};
     this.root.add(this.ring);
 
+    // Ombra di contatto: la macchia morbida sotto i piedi. È quella che convince
+    // l'occhio che il boss poggia sul tavolo e non galleggia sopra l'immagine.
+    this.contact = new ContactShadow(clamp(this.bodyRadius * 1.55, 0.26, 0.6));
+    this.root.add(this.contact.mesh);
+
+    // Scia dell'arma: vive nell'arena (non nel boss), così resta dove la lama è
+    // passata mentre il corpo prosegue il movimento.
+    this.trail = new WeaponTrail({ color: def.trailColor || 0xfff3d2, edgeColor: def.trailEdge || 0xffb347 });
+    this.weaponLength = def.weaponLength != null ? def.weaponLength : 0.62;
+    this.handBone = (this.rig && (this.rig.bones.HandR || this.rig.bones.ForearmR)) || null;
+    this.elbowBone = (this.rig && (this.rig.bones.ForearmR || this.rig.bones.ArmR)) || null;
+    if (this.handBone === this.elbowBone) this.elbowBone = (this.rig && this.rig.bones.ArmR) || null;
+    this._socket = this._makeSocket();
+
+    // Spinta: il contraccolpo dei colpi pesanti, smorzato dall'attrito
+    this.vel = new THREE.Vector3();
+    this._skid = 0;        // strada percorsa scivolando, per dosare la polvere
+    this.shadowStrength = 1;
+
     this.style = 'realistic';
     this.reveal = 1;
     this.revealTarget = 1;
@@ -170,6 +205,51 @@ export class Boss {
     this.bodyRadius = clamp((Math.max(size.x, size.z) / h) * 0.32, 0.12, 0.45);
   }
 
+  /**
+   * Punti (impugnatura, punta) dell'arma quando non c'è scheletro: si esprimono
+   * in unità normalizzate e si riportano nello spazio del modello, così seguono
+   * il movimento d'insieme che l'animatore applica a `inner`.
+   */
+  _makeSocket() {
+    const base = this.animator && this.animator.base;
+    if (!base) return null;
+    const s = base.scale.x || 1;
+    const toModel = (x, y, z) => new THREE.Vector3(x, y, z).sub(base.position).divideScalar(s);
+    return { hilt: toModel(0.19, 0.6, 0.24), tip: toModel(0.24, 0.62, 0.24 + this.weaponLength) };
+  }
+
+  /**
+   * Posizione di impugnatura e punta dell'arma, in coordinate dell'arena.
+   * Con lo scheletro segue davvero la mano; senza, segue il corpo.
+   * @returns {boolean} true se i punti sono validi
+   */
+  sampleWeapon(outHilt, outTip) {
+    const parent = this.root.parent;
+    if (!parent) return false;
+    if (this.handBone && this.elbowBone) {
+      // scratch dedicati: outHilt/outTip possono essere gli stessi _w1.._w3 del chiamante
+      this.root.updateMatrixWorld(true);
+      _s1.setFromMatrixPosition(this.handBone.matrixWorld);
+      _s2.setFromMatrixPosition(this.elbowBone.matrixWorld);
+      _s3.subVectors(_s1, _s2);
+      if (_s3.lengthSq() < 1e-10) _s3.set(Math.sin(this.yaw), 0, Math.cos(this.yaw));
+      _s3.normalize().multiplyScalar(this.weaponLength * this.height);
+      outHilt.copy(_s1);
+      outTip.copy(_s1).add(_s3);
+    } else if (this._socket) {
+      this.inner.updateMatrixWorld(true);
+      outHilt.copy(this._socket.hilt).applyMatrix4(this.inner.matrixWorld);
+      outTip.copy(this._socket.tip).applyMatrix4(this.inner.matrixWorld);
+    } else {
+      this.root.updateMatrixWorld(true);
+      outHilt.set(0.19, 0.6, 0.24).applyMatrix4(this.root.matrixWorld);
+      outTip.set(0.24, 0.62, 0.24 + this.weaponLength).applyMatrix4(this.root.matrixWorld);
+    }
+    parent.worldToLocal(outHilt);
+    parent.worldToLocal(outTip);
+    return true;
+  }
+
   // ----- dimensioni / trasformazioni -----
   get height() { return this.root.scale.x; }
   setHeight(m) { this.root.scale.setScalar(clamp(m, 0.02, 50)); }
@@ -177,8 +257,38 @@ export class Boss {
   get yaw() { return this.root.rotation.y; }
   set yaw(v) { this.root.rotation.y = v; }
 
+  /**
+   * Altezza del petto, in coordinate dell'arena (come `root.position`): effetti e
+   * particelle vivono nell'arena, così restano incollati al tavolo anche in AR.
+   */
   chestPosition(out = new THREE.Vector3()) {
-    return out.set(0, 0.62, 0).applyMatrix4(this.root.matrixWorld);
+    return out.copy(this.root.position).add(_w1.set(0, 0.62 * this.height, 0));
+  }
+
+  /** Spinta orizzontale (contraccolpo): direzione in coordinate arena, forza in metri/s. */
+  applyImpulse(dx, dz, strength) {
+    const d = Math.hypot(dx, dz);
+    if (d < 1e-6 || !(strength > 0)) return;
+    this.vel.x += (dx / d) * strength;
+    this.vel.z += (dz / d) * strength;
+    const max = 3.2 * this.height;
+    const v = Math.hypot(this.vel.x, this.vel.z);
+    if (v > max) { this.vel.x *= max / v; this.vel.z *= max / v; }
+  }
+
+  /**
+   * Reazione al colpo, orientata: calcola da dove arriva il fendente rispetto
+   * al corpo e passa la direzione all'animatore.
+   */
+  hitFrom(attackerPosition, anim = 'hit') {
+    const dx = this.root.position.x - attackerPosition.x;
+    const dz = this.root.position.z - attackerPosition.z;
+    const d = Math.hypot(dx, dz) || 1;
+    const ux = dx / d, uz = dz / d;                     // verso in cui spinge il colpo
+    const sy = Math.sin(this.yaw), cy = Math.cos(this.yaw);
+    if (this.animator.setHitDir) this.animator.setHitDir(ux * sy + uz * cy, ux * cy - uz * sy);
+    if (anim) this.play(anim, { loop: false, fade: 0.05 });
+    return { x: ux, z: uz };
   }
 
   hitTimeFor(clipName) {
@@ -281,6 +391,9 @@ export class Boss {
 
   resetFight() {
     this.stats = { ...this.baseStats };
+    this.vel.set(0, 0, 0);
+    this._skid = 0;
+    this.trail.clear();
     this.hp = this.maxHp;
     this.alive = true;
     this.fight = this._freshFightState();
@@ -300,6 +413,32 @@ export class Boss {
     this.animator.update(dt);
     const u = this.holoUniforms;
     u.uTime.value = time;
+    this.matchUniforms.uTime.value = time;
+
+    // contraccolpo: scivolata smorzata, mai una scivolata infinita
+    if (this.vel.x || this.vel.z) {
+      this.root.position.x += this.vel.x * dt;
+      this.root.position.z += this.vel.z * dt;
+      const damp = Math.exp(-8.5 * dt);
+      this.vel.x *= damp; this.vel.z *= damp;
+      if (Math.abs(this.vel.x) + Math.abs(this.vel.z) < 1e-4 * this.height) this.vel.set(0, 0, 0);
+    }
+
+    // ombra di contatto: si allarga e schiarisce quando il corpo si stacca da terra
+    this.contact.mesh.visible = this.root.visible && this.reveal > 0.15;
+    if (this.contact.mesh.visible) {
+      // l'ombra sta sotto il corpo, non sotto il punto d'appoggio: se il boss
+      // affonda in avanti o cade all'indietro, la macchia lo segue
+      const off = this.animator.bodyOffset;
+      if (off) this.contact.mesh.position.set(off.x, 0.0015, off.z);
+      this.contact.update(this.animator.lift || 0, this.shadowStrength || 1);
+    }
+
+    // scia dell'arma
+    if (this.trail.emitting) {
+      if (this.sampleWeapon(_w2, _w3)) this.trail.push(_w2, _w3);
+    }
+    this.trail.update(dt);
 
     if (!this.alive && this.fight.state === 'dead') {
       this.fight.deathTimer += dt;
@@ -323,6 +462,8 @@ export class Boss {
   dispose() {
     this.animator.stop();
     this.hpBar.dispose();
+    this.contact.dispose();
+    this.trail.dispose();
     this.ring.geometry.dispose();
     this.ring.material.dispose();
     for (const m of this.holoMaterials.values()) m.dispose();

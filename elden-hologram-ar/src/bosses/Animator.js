@@ -31,7 +31,13 @@ export class ClipAnimator {
     };
     this.current = null;
     this.rigid = false;
+    this.hitDir = { f: -1, r: 0 };
+    this.footfall = 0;
   }
+
+  setHitDir(f, r) { const n = Math.hypot(f, r) || 1; this.hitDir.f = f / n; this.hitDir.r = r / n; }
+  get lift() { return 0; }
+  get bodyOffset() { return null; }
 
   has(name) {
     const a = this.actions[name];
@@ -103,6 +109,9 @@ const mix = (a, b, k) => ({
 const ease = (k) => k * k * (3 - 2 * k);          // dolce in entrata e uscita
 const snap = (k) => 1 - Math.pow(1 - k, 3);       // scatto: veloce poi frena
 const arc = (k) => Math.sin(k * Math.PI);         // campana: 0 → 1 → 0
+// Direzione di provenienza del colpo, nel sistema della vittima:
+// f = -1 frontale, +1 alle spalle; r = -1 da sinistra, +1 da destra.
+const FRONT_HIT = { f: -1, r: 0 };
 
 // Cicli continui
 const LOOPS = {
@@ -223,6 +232,53 @@ const MOVES = {
     active: (k) => mix(P({ roll: 0.35, pitch: -0.15, yaw: -0.3 }), P({ roll: -0.2, pitch: 0.2, yaw: 0.25, z: 0.05 }), snap(k)),
     recovery: (k) => mix(P({ roll: -0.2, pitch: 0.2, yaw: 0.25, z: 0.05 }), P(), ease(k)),
   },
+  // Varianti del fendente: lo stesso colpo non arriva mai due volte dallo stesso
+  // angolo. Cambia l'arco che la lama descrive, non solo i tempi.
+  slashRise: {
+    windup: (k) => mix(P(), P({ pitch: 0.26, roll: -0.32, yaw: 0.46, y: -0.05, z: -0.03 }), ease(k)),
+    active: (k) => mix(P({ pitch: 0.26, roll: -0.32, yaw: 0.46, y: -0.05, z: -0.03 }), P({ pitch: -0.38, roll: 0.3, yaw: -0.5, y: 0.09, z: 0.08 }), snap(k)),
+    recovery: (k) => mix(P({ pitch: -0.38, roll: 0.3, yaw: -0.5, y: 0.09, z: 0.08 }), P(), ease(k)),
+  },
+  slashDiag: {
+    windup: (k) => mix(P(), P({ pitch: -0.32, roll: 0.38, yaw: -0.56, y: 0.05 }), ease(k)),
+    active: (k) => mix(P({ pitch: -0.32, roll: 0.38, yaw: -0.56, y: 0.05 }), P({ pitch: 0.48, roll: -0.44, yaw: 0.52, y: -0.06, z: 0.13 }), snap(k)),
+    recovery: (k) => mix(P({ pitch: 0.48, roll: -0.44, yaw: 0.52, y: -0.06, z: 0.13 }), P(), ease(k)),
+  },
+  // Due tagli in un solo gesto: andata e ritorno, senza fermarsi in mezzo.
+  doubleCleave: {
+    windup: (k) => mix(P(), P({ pitch: -0.24, roll: 0.34, yaw: -0.52 }), ease(k)),
+    active: (k) => {
+      const A = P({ pitch: -0.24, roll: 0.34, yaw: -0.52 });
+      const B = P({ pitch: 0.36, roll: -0.38, yaw: 0.52, z: 0.1 });
+      const C = P({ pitch: -0.12, roll: 0.3, yaw: -0.44, z: 0.06 });
+      return k < 0.5 ? mix(A, B, snap(k * 2)) : mix(B, C, snap((k - 0.5) * 2));
+    },
+    recovery: (k) => mix(P({ pitch: -0.12, roll: 0.3, yaw: -0.44, z: 0.06 }), P(), ease(k)),
+  },
+  // Colpo che risale: il corpo si carica in basso e si stende verso l'alto.
+  uppercut: {
+    windup: (k) => mix(P(), P({ y: -0.07, pitch: 0.22, squash: 0.92, z: -0.03 }), ease(k)),
+    active: (k) => mix(P({ y: -0.07, pitch: 0.22, squash: 0.92, z: -0.03 }), P({ y: 0.11, pitch: -0.36, squash: 1.07, z: 0.07 }), snap(k)),
+    recovery: (k) => mix(P({ y: 0.11, pitch: -0.36, squash: 1.07, z: 0.07 }), P(), ease(k)),
+  },
+  // Pestone: tutto il peso che scende in un punto.
+  stomp: {
+    windup: (k) => mix(P(), P({ y: 0.08, pitch: -0.16, roll: 0.08, squash: 1.05 }), ease(k)),
+    active: (k) => mix(P({ y: 0.08, pitch: -0.16, roll: 0.08, squash: 1.05 }), P({ y: -0.08, pitch: 0.12, squash: 0.88 }), snap(k)),
+    recovery: (k) => mix(P({ y: -0.08, pitch: 0.12, squash: 0.88 }), P(), ease(k)),
+  },
+  // Calcio o spallata: corto, in avanti, per aprire la guardia.
+  kick: {
+    windup: (k) => mix(P(), P({ z: -0.07, pitch: -0.1, roll: -0.14 }), ease(k)),
+    active: (k) => mix(P({ z: -0.07, pitch: -0.1, roll: -0.14 }), P({ z: 0.17, pitch: 0.2, roll: 0.12 }), snap(k)),
+    recovery: (k) => mix(P({ z: 0.17, pitch: 0.2, roll: 0.12 }), P(), ease(k)),
+  },
+  // Spazzata al contrario: chiude dal lato opposto a `spin`.
+  reverseSpin: {
+    windup: (k) => mix(P(), P({ yaw: 0.85, squash: 0.94, y: -0.03, pitch: 0.1 }), ease(k)),
+    active: (k) => P({ yaw: 0.85 - (Math.PI * 2 + 0.85) * snap(k), roll: -arc(k) * 0.22, y: arc(k) * 0.03, pitch: 0.12 }),
+    recovery: (k) => mix(P({ yaw: -Math.PI * 2, pitch: 0.12 }), P({ yaw: -Math.PI * 2 }), ease(k)),
+  },
   roar: {
     windup: (k) => mix(P(), P({ y: 0.05, pitch: -0.35, squash: 1.08 }), ease(k)),
     active: (k) => P({ y: 0.05, pitch: -0.35 + Math.sin(k * Math.PI * 12) * 0.05, squash: 1.08, roll: Math.sin(k * Math.PI * 16) * 0.03 }),
@@ -232,11 +288,39 @@ const MOVES = {
 
 // Reazioni una tantum
 const ONESHOT = {
+  // La reazione al colpo dipende da dove arriva: chi viene colpito di fronte
+  // incassa all'indietro, chi viene preso di lato ruota sul fianco.
   hit: {
     duration: 0.45,
-    pose: (t) => {
+    pose: (t, self) => {
+      const d = (self && self.hitDir) || FRONT_HIT;
       const k = Math.exp(-t * 7) * Math.cos(t * 26);
-      return P({ z: -0.09 * k, x: 0.02 * k, pitch: -0.28 * k, roll: 0.1 * k, squash: 1 - 0.03 * k });
+      return P({
+        z: 0.09 * d.f * k, x: 0.05 * d.r * k,
+        pitch: 0.28 * d.f * k, roll: -0.14 * d.r * k, yaw: -0.1 * d.r * k,
+        squash: 1 - 0.03 * k,
+      });
+    },
+  },
+  // Rottura della posa pesante: il corpo va giù, resta a terra, poi si rialza.
+  knockdown: {
+    duration: 2.1,
+    pose: (t, self) => {
+      const d = (self && self.hitDir) || FRONT_HIT;
+      const dir = d.f < 0 ? -1 : 1;        // colpito di fronte → cade all'indietro
+      const FALL = 0.42, LIE = 1.25;
+      const down = P({ y: -0.06, z: dir * 0.24, pitch: dir * (Math.PI / 2), roll: d.r * 0.3, yaw: d.r * 0.2, squash: 0.94 });
+      if (t < FALL) {
+        const k = snap(t / FALL);
+        return mix(P({ pitch: dir * 0.2, y: 0.03 }), down, k);
+      }
+      if (t < LIE) {
+        const b = Math.exp(-(t - FALL) * 7) * Math.sin((t - FALL) * 28);
+        return P({ ...down, y: down.y + b * 0.035, pitch: down.pitch + b * 0.12, roll: down.roll + b * 0.06 });
+      }
+      // rialzata: si punta sulle braccia, il busto risale
+      const k = ease(Math.min(1, (t - LIE) / (2.1 - LIE)));
+      return mix(down, P({ squash: 1 }), k);
     },
   },
   guard: {
@@ -251,7 +335,7 @@ const ONESHOT = {
     pose: (t) => {
       const k = Math.min(1, t / 0.8), e = ease(k);
       const bounce = t > 0.8 ? Math.exp(-(t - 0.8) * 9) * Math.sin((t - 0.8) * 30) * 0.05 : 0;
-      return P({ y: -0.5 * e, z: -0.33 * e, x: 0.03 * e, pitch: -(Math.PI / 2) * e + bounce, roll: 0.1 * e, yaw: 0.12 * e });
+      return P({ y: -0.09 * e, z: -0.33 * e, x: 0.03 * e, pitch: -(Math.PI / 2) * e + bounce, roll: 0.1 * e, yaw: 0.12 * e });
     },
   },
   victory: {
@@ -283,7 +367,22 @@ export class RigidAnimator {
     this.move = null;        // { key, phases, time, total }
     this.blend = { from: null, t: 0, dur: 0 };
     this._pose = P();
+    this.hitDir = { f: -1, r: 0 };
+    this.footfall = 0;   // 1 / -1 nel frame in cui un piede tocca terra
   }
+
+  /** Da dove arriva il colpo (coordinate della vittima), per la reazione giusta. */
+  setHitDir(f, r) {
+    const n = Math.hypot(f, r) || 1;
+    this.hitDir.f = f / n;
+    this.hitDir.r = r / n;
+  }
+
+  /** Quanto il corpo è sollevato da terra, in altezze (per l'ombra di contatto). */
+  get lift() { return this._pose ? this._pose.y : 0; }
+
+  /** Scostamento orizzontale del corpo rispetto ai piedi, in altezze. */
+  get bodyOffset() { return this._pose; }
 
   has(name) {
     return !!(LOOPS[name] || ONESHOT[name] || MOVES[name] || name === 'attack');
@@ -314,12 +413,18 @@ export class RigidAnimator {
    * preparazione, finestra di danno e scopertura decise dal combattimento.
    * @param {string} key nome della primitiva (slash, overhead, flurry…)
    */
-  playMove(key, { windup = 0.4, active = 0.15, recovery = 0.4, fade = 0.08 } = {}) {
+  playMove(key, { windup = 0.4, active = 0.15, recovery = 0.4, fade = 0.08, mirror = false, hold = false } = {}) {
     const phases = MOVES[key] || MOVES.slash;
     this._startBlend(fade);
-    this.move = { key, phases, time: 0, windup, active, recovery, total: windup + active + recovery };
+    this.move = { key, phases, time: 0, windup, active, recovery, mirror: !!mirror, hold: !!hold, total: windup + active + recovery };
     this.oneshot = null;
     return { name: key, duration: windup + active + recovery };
+  }
+
+  /** Specchia una posa: lo stesso colpo eseguito dall'altro lato. */
+  static mirrorPose(p) {
+    p.x = -p.x; p.roll = -p.roll; p.yaw = -p.yaw;
+    return p;
   }
 
   /** Posa corrente della mossa: 'windup' | 'active' | 'recovery' | null */
@@ -337,31 +442,46 @@ export class RigidAnimator {
   }
 
   _rawPose(dt) {
+    this.footfall = 0;
     const m = this.move;
     if (m) {
       m.time += dt;
       const { windup, active, recovery, phases } = m;
-      if (m.time < windup) return phases.windup(windup > 0 ? m.time / windup : 1);
-      if (m.time < windup + active) return phases.active(active > 0 ? (m.time - windup) / active : 1);
-      if (m.time < m.total) return phases.recovery(recovery > 0 ? (m.time - windup - active) / recovery : 1);
-      this.move = null;
-      return P();
+      let p = null;
+      // Colpo trattenuto: il corpo arriva presto alla posa di carica e ci resta,
+      // come i boss che aspettano che tu schivi prima di calare il colpo.
+      if (m.time < windup) {
+        const raw = windup > 0 ? m.time / windup : 1;
+        p = phases.windup(m.hold ? Math.min(1, raw / 0.6) : raw);
+      }
+      else if (m.time < windup + active) p = phases.active(active > 0 ? (m.time - windup) / active : 1);
+      else if (m.time < m.total) p = phases.recovery(recovery > 0 ? (m.time - windup - active) / recovery : 1);
+      else { this.move = null; return P(); }
+      return m.mirror ? RigidAnimator.mirrorPose(p) : p;
     }
     const o = this.oneshot;
     if (o) {
       o.time += dt;
       if (o.time >= o.anim.duration) {
-        const last = o.anim.pose(o.anim.duration);
+        const last = o.anim.pose(o.anim.duration, this);
         if (o.key === 'death') return last;     // resta a terra
         this.oneshot = null;
-        return this.loop ? this.loop.anim.pose(0) : P();
+        return this.loop ? this.loop.anim.pose(0, this) : P();
       }
-      return o.anim.pose(o.time);
+      return o.anim.pose(o.time, this);
     }
     const l = this.loop;
     if (!l) return P();
-    l.time = (l.time + dt) % l.anim.duration;
-    return l.anim.pose(l.time / l.anim.duration);
+    const before = l.time;
+    l.time += dt;
+    // il passo cade a metà e a fine ciclo: segnalarlo permette polvere e rumore
+    if (l.key === 'walk' || l.key === 'strafe') {
+      const half = l.anim.duration / 2;
+      const b = Math.floor(before / half), a = Math.floor(l.time / half);
+      if (a !== b) this.footfall = a % 2 ? 1 : -1;
+    }
+    l.time %= l.anim.duration;
+    return l.anim.pose(l.time / l.anim.duration, this);
   }
 
   update(dt) {

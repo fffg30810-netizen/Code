@@ -107,16 +107,58 @@ const LOOPS = {
 
 // ------------------------------------------------------------- reazioni
 const ONESHOT = {
-  hit: (t, d) => {
+  hit: (t, self) => {
+    const d = (self && self.hitDir) || { f: -1, r: 0 };
     const k = Math.exp(-t * 8) * Math.cos(t * 24);
+    const f = d.f * k, r = d.r * k;
+    // di fronte si incassa all'indietro, di lato si ruota sul fianco colpito
     return pose({
-      Spine: [-0.3 * k, 0, 0.08 * k],
-      Chest: [-0.2 * k, 0.1 * k, 0],
-      Head: [-0.35 * k, 0.12 * k, 0],
-      ArmL: [-0.5 * k, 0, 0.3 * k],
-      ArmR: [-0.5 * k, 0, -0.3 * k],
-      ThighL: [0.2 * k, 0, 0],
-      ThighR: [0.15 * k, 0, 0],
+      Spine: [0.3 * f, -0.2 * r, -0.12 * r],
+      Chest: [0.2 * f, -0.25 * r, -0.1 * r],
+      Head: [0.35 * f, -0.3 * r, -0.08 * r],
+      ArmL: [0.5 * f, 0, 0.3 * k + 0.3 * r],
+      ArmR: [0.5 * f, 0, -0.3 * k + 0.3 * r],
+      ForearmL: [-0.35 * k, 0, 0],
+      ForearmR: [-0.35 * k, 0, 0],
+      ThighL: [-0.2 * f, 0, 0],
+      ThighR: [-0.15 * f, 0, 0],
+    });
+  },
+  // Caduta a terra e rialzata: la parte pesante la fa il corpo (RigidAnimator),
+  // qui le articolazioni raccolgono gli arti e poi puntellano la rialzata.
+  knockdown: (t) => {
+    const FALL = 0.42, LIE = 1.25, END = 2.1;
+    if (t < FALL) {
+      const e = ease(t / FALL);
+      return pose({
+        Chest: [-0.25 * e, 0, 0], Head: [-0.35 * e, 0, 0], Spine: [-0.15 * e, 0, 0],
+        ArmL: [-1.1 * e, 0, 0.7 * e], ForearmL: [-0.8 * e, 0, 0],
+        ArmR: [-1.1 * e, 0, -0.7 * e], ForearmR: [-0.8 * e, 0, 0],
+        ThighL: [0.5 * e, 0, 0.18 * e], ShinL: [-0.5 * e, 0, 0],
+        ThighR: [0.45 * e, 0, -0.16 * e], ShinR: [-0.45 * e, 0, 0],
+      });
+    }
+    if (t < LIE) {
+      const b = Math.exp(-(t - FALL) * 6) * Math.sin((t - FALL) * 24) * 0.12;
+      return pose({
+        Chest: [-0.25 + b, 0, 0], Head: [-0.35 + b, 0, 0], Spine: [-0.15, 0, 0],
+        ArmL: [-1.1, 0, 0.7 + b], ForearmL: [-0.8, 0, 0],
+        ArmR: [-1.1, 0, -0.7 - b], ForearmR: [-0.8, 0, 0],
+        ThighL: [0.5, 0, 0.18], ShinL: [-0.5 + b, 0, 0],
+        ThighR: [0.45, 0, -0.16], ShinR: [-0.45 + b, 0, 0],
+      });
+    }
+    const k = ease(Math.min(1, (t - LIE) / (END - LIE)));
+    const push = arc(Math.min(1, (t - LIE) / (END - LIE)));   // spinta sulle braccia
+    return pose({
+      Chest: [(-0.25 + 0.45 * push) * (1 - k * 0.6), 0, 0],
+      Head: [-0.35 * (1 - k) + 0.25 * push, 0, 0],
+      ArmL: [-1.1 * (1 - k) + 0.7 * push, 0, 0.7 * (1 - k)],
+      ArmR: [-1.1 * (1 - k) - 0.0 * push, 0, -0.7 * (1 - k)],
+      ForearmL: [-0.8 * (1 - k) - 0.5 * push, 0, 0],
+      ForearmR: [-0.8 * (1 - k), 0, 0],
+      ThighL: [0.5 * (1 - k) + 0.9 * push, 0, 0.18 * (1 - k)], ShinL: [-0.5 * (1 - k) - 1.0 * push, 0, 0],
+      ThighR: [0.45 * (1 - k) + 0.3 * push, 0, -0.16 * (1 - k)], ShinR: [-0.45 * (1 - k) - 0.3 * push, 0, 0],
     });
   },
   guard: (t) => {
@@ -127,7 +169,7 @@ const ONESHOT = {
       Chest: [0.12 * k, 0, 0],
     });
   },
-  death: (t, d) => {
+  death: (t) => {
     const k = Math.min(1, t / 0.8), e = ease(k);
     return pose({
       Spine: [0.35 * e, 0, 0.1 * e],
@@ -345,7 +387,107 @@ const MOVES = {
   roll: { charge: pose({ ThighL: [1.1, 0, 0], ShinL: [-1.6, 0, 0], ThighR: [1.1, 0, 0], ShinR: [-1.6, 0, 0], Chest: [0.5, 0, 0], Head: [0.4, 0, 0], ArmL: [-1.4, 0, 0.6], ArmR: [-1.4, 0, -0.6] }),
     strike: pose({ ThighL: [1.3, 0, 0], ShinL: [-1.8, 0, 0], ThighR: [1.3, 0, 0], ShinR: [-1.8, 0, 0], Chest: [0.6, 0, 0], ArmL: [-1.6, 0, 0.5], ArmR: [-1.6, 0, -0.5] }) },
 };
+// ---- varianti del fendente: stesso colpo, angolo diverso ------------------
+MOVES.slashRise = {
+  charge: pose({
+    ArmR: [0.9, 0.25, -0.7], ForearmR: [-0.45, 0, 0], HandR: [0.2, 0, 0],
+    ArmL: [0.5, 0, 0.5], ForearmL: [-0.6, 0, 0],
+    Chest: [0.18, -0.45, 0], Spine: [0.1, -0.2, 0], Head: [0.1, -0.26, 0],
+    ThighR: [0.22, 0, 0], ThighL: [-0.16, 0, 0], ShinR: [-0.3, 0, 0],
+  }),
+  strike: pose({
+    ArmR: [-2.5, -0.2, 0.3], ForearmR: [-0.2, 0, 0], HandR: [-0.2, 0, 0],
+    ArmL: [-0.6, 0, 0.35],
+    Chest: [-0.28, 0.5, 0], Spine: [-0.15, 0.26, 0], Head: [-0.22, 0.3, 0],
+    ThighR: [-0.26, 0, 0], ThighL: [0.3, 0, 0], ShinL: [-0.3, 0, 0],
+  }),
+};
+MOVES.slashDiag = {
+  charge: pose({
+    ArmR: [-2.6, 0.35, -0.55], ForearmR: [-0.7, 0, 0],
+    ArmL: [-0.9, 0, 0.6], ForearmL: [-0.8, 0, 0],
+    Chest: [-0.26, -0.55, 0], Spine: [-0.12, -0.28, 0], Head: [-0.18, -0.32, 0],
+    ThighR: [-0.2, 0, 0], ThighL: [0.18, 0, 0],
+  }),
+  strike: pose({
+    ArmR: [0.95, -0.25, 0.28], ForearmR: [-0.12, 0, 0],
+    ArmL: [0.4, 0, 0.22],
+    Chest: [0.4, 0.5, 0], Spine: [0.22, 0.26, 0], Head: [0.24, 0.3, 0],
+    ThighR: [0.4, 0, 0], ShinR: [-0.35, 0, 0], ThighL: [-0.3, 0, 0],
+  }),
+};
+MOVES.doubleCleave = {
+  charge: MOVES.slash.charge,
+  strike: null,
+  // due tagli di seguito: andata e ritorno senza fermarsi in mezzo
+  beat: (k) => {
+    const first = k < 0.5;
+    const local = first ? k * 2 : (k - 0.5) * 2;
+    const sgn = first ? 1 : -1;
+    const sw = Math.cos(local * Math.PI);        // da +1 a -1 dentro ogni taglio
+    return pose({
+      ArmR: [-1.0 - sw * 1.25 * sgn, 0, -0.32 - sw * 0.35 * sgn], ForearmR: [-0.45 - sw * 0.28, 0, 0],
+      ArmL: [-0.5 + sw * 0.3 * sgn, 0, 0.36], ForearmL: [-0.6, 0, 0],
+      Chest: [0.1, -sw * 0.5 * sgn, 0], Spine: [0.06, -sw * 0.2 * sgn, 0], Head: [0.08, -sw * 0.3 * sgn, 0],
+      ThighR: [sw * 0.2 * sgn, 0, 0], ThighL: [-sw * 0.2 * sgn, 0, 0],
+    });
+  },
+};
+MOVES.uppercut = {
+  charge: pose({
+    ArmR: [0.75, 0, -0.35], ForearmR: [-1.25, 0, 0], HandR: [0.3, 0, 0],
+    ArmL: [0.3, 0, 0.4], ForearmL: [-1.0, 0, 0],
+    Chest: [0.22, -0.2, 0], Spine: [0.12, -0.1, 0],
+    ThighL: [0.32, 0, 0], ShinL: [-0.42, 0, 0], ThighR: [0.2, 0, 0],
+  }),
+  strike: pose({
+    ArmR: [-2.7, 0, -0.18], ForearmR: [-0.3, 0, 0],
+    ArmL: [-0.5, 0, 0.35],
+    Chest: [-0.32, 0.16, 0], Spine: [-0.16, 0.08, 0], Head: [-0.32, 0, 0],
+    ThighL: [-0.22, 0, 0], ThighR: [0.22, 0, 0], ShinR: [-0.2, 0, 0],
+  }),
+};
+MOVES.stomp = {
+  charge: pose({
+    ThighR: [1.05, 0, -0.1], ShinR: [-1.25, 0, 0], FootR: [0.5, 0, 0],
+    Chest: [-0.14, 0, 0], ArmL: [-0.55, 0, 0.45], ArmR: [-0.55, 0, -0.45],
+    ForearmL: [-0.5, 0, 0], ForearmR: [-0.5, 0, 0], ThighL: [-0.1, 0, 0],
+  }),
+  strike: pose({
+    ThighR: [-0.18, 0, -0.05], ShinR: [-0.12, 0, 0], FootR: [0.22, 0, 0],
+    Chest: [0.28, 0, 0], Head: [0.22, 0, 0], Spine: [0.14, 0, 0],
+    ArmL: [0.35, 0, 0.3], ArmR: [0.35, 0, -0.3], ThighL: [0.25, 0, 0], ShinL: [-0.3, 0, 0],
+  }),
+};
+MOVES.kick = {
+  charge: pose({
+    ThighR: [0.95, 0, 0], ShinR: [-1.35, 0, 0],
+    Chest: [-0.12, 0, 0], ArmL: [-0.65, 0, 0.5], ArmR: [-0.35, 0, -0.35],
+    ThighL: [0.12, 0, 0], ShinL: [-0.2, 0, 0],
+  }),
+  strike: pose({
+    ThighR: [-0.72, 0, 0], ShinR: [-0.1, 0, 0], FootR: [-0.22, 0, 0],
+    Chest: [0.24, 0, 0], Spine: [0.14, 0, 0],
+    ArmL: [0.45, 0, 0.5], ArmR: [0.5, 0, -0.42], ThighL: [0.2, 0, 0],
+  }),
+};
 MOVES.doubleSpin = MOVES.spin;
+MOVES.reverseSpin = MOVES.spin;
+
+/**
+ * Specchia una posa articolare: le ossa di destra prendono il posto di quelle
+ * di sinistra e le rotazioni attorno a Y e Z cambiano segno. Serve a eseguire
+ * lo stesso colpo dal lato opposto senza scrivere una seconda tabella.
+ */
+function mirrorBones(src, out) {
+  for (const k in out) delete out[k];
+  for (const name in src) {
+    const v = src[name];
+    const n = name.endsWith('L') ? `${name.slice(0, -1)}R` : name.endsWith('R') ? `${name.slice(0, -1)}L` : name;
+    out[n] = [v[0], -v[1], -v[2]];
+  }
+  return out;
+}
 
 export class SkeletalAnimator extends RigidAnimator {
   /**
@@ -360,6 +502,7 @@ export class SkeletalAnimator extends RigidAnimator {
     this._pose = {};
     this._current = {};
     this._smoothed = {};
+    this._mirrored = {};
     this._e = new THREE.Euler();
     // guarda dove punta il corpo: la testa segue il bersaglio
     this.lookYaw = 0;
@@ -375,7 +518,9 @@ export class SkeletalAnimator extends RigidAnimator {
       const def = MOVES[m.key] || MOVES.slash;
       const t = m.time;
       if (t < m.windup) {
-        return blendPose(READY, def.charge, ease(m.windup > 0 ? t / m.windup : 1), this._current);
+        // come sopra: con `hold` la posa di carica si raggiunge presto e si tiene
+        const raw = m.windup > 0 ? t / m.windup : 1;
+        return blendPose(READY, def.charge, ease(m.hold ? Math.min(1, raw / 0.6) : raw), this._current);
       }
       if (t < m.windup + m.active) {
         const k = m.active > 0 ? (t - m.windup) / m.active : 1;
@@ -389,7 +534,7 @@ export class SkeletalAnimator extends RigidAnimator {
     const o = this.oneshot;
     if (o) {
       const fn = ONESHOT[o.key];
-      if (fn) return fn(o.time, o.anim.duration);
+      if (fn) return fn(o.time, this);
     }
     const l = this.loop;
     if (l) {
@@ -405,11 +550,16 @@ export class SkeletalAnimator extends RigidAnimator {
     // già gran parte del lavoro, e sommarci l'inclinazione del corpo piega troppo.
     const p = this._pose;
     if (p) {
+      // Cadere è l'eccezione: lì il corpo deve ruotare per intero, altrimenti
+      // resta in piedi e inclinato invece di coricarsi davvero sul tavolo.
+      const falling = this.oneshot && (this.oneshot.key === 'death' || this.oneshot.key === 'knockdown');
+      const kp = falling ? 1 : 0.45, kr = falling ? 1 : 0.5;
       this.target.quaternion.copy(this.base.quaternion).multiply(
-        _q2.setFromEuler(_e2.set(p.pitch * 0.45, p.yaw, p.roll * 0.5, 'YXZ')),
+        _q2.setFromEuler(_e2.set(p.pitch * kp, p.yaw, p.roll * kr, 'YXZ')),
       );
     }
-    const target = this._statePose();
+    let target = this._statePose();
+    if (this.move && this.move.mirror) target = mirrorBones(target, this._mirrored);
 
     // smorzamento: le pose cambiano di colpo, le articolazioni no
     const lambda = this.move ? 26 : 12;

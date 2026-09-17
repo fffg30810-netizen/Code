@@ -18,7 +18,7 @@ export class HUD {
       btnRotate: $('btn-rotate'), btnRemove: $('btn-remove'), btnClear: $('btn-clear'), btnFight: $('btn-fight'),
       timescale: $('timescale'), speedValue: $('speed-value'),
       settings: $('settings'), phoneHeight: $('phone-height'), phoneHeightValue: $('phone-height-value'),
-      fov: $('fov'), fovValue: $('fov-value'), shadows: $('shadows'), stabilize: $('stabilize'),
+      fov: $('fov'), fovValue: $('fov-value'), shadows: $('shadows'), stabilize: $('stabilize'), autolight: $('autolight'),
       btnRecenter: $('btn-recenter'), btnSettingsClose: $('btn-settings-close'),
       victory: $('victory'), victoryName: $('victory-name'), toasts: $('toasts'),
       announce: $('announce'), announceText: $('announce-text'),
@@ -101,6 +101,11 @@ export class HUD {
     el.stabilize.addEventListener('change', () => {
       app.updateSetting('stabilize', el.stabilize.checked);
       this.toast(el.stabilize.checked ? 'Ancoraggio al tavolo attivo' : 'Ancoraggio disattivato');
+    });
+    el.autolight.addEventListener('change', () => {
+      app.updateSetting('autoLight', el.autolight.checked);
+      if (!el.autolight.checked) app.applyRoomLight(null);
+      this.toast(el.autolight.checked ? 'Luce presa dalla stanza' : 'Luce fissa');
     });
     el.btnRecenter.addEventListener('click', () => {
       if (app.mode && app.mode.recenter) { app.mode.recenter(); this.toast('Vista ricentrata'); }
@@ -233,6 +238,7 @@ export class HUD {
     el.fovValue.textContent = `${s.fov}°`;
     el.shadows.checked = !!s.shadows;
     el.stabilize.checked = s.stabilize !== false;
+    el.autolight.checked = s.autoLight !== false;
   }
 
   _showVictory(winner) {
