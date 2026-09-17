@@ -58,7 +58,7 @@
         }
       },
       "fix": {
-        "yaw": 0
+        "yaw": -90
       },
       "source": {
         "pipeline": "Tripo text-to-3D (prompt in prompts/bosses/margit.md)",
@@ -135,7 +135,7 @@
         "attack": 24,
         "speed": 0.5,
         "range": 0.65,
-        "cooldown": 2.0
+        "cooldown": 2
       },
       "color": "#c0392b",
       "procedural": {
@@ -154,7 +154,7 @@
         }
       },
       "fix": {
-        "yaw": 0
+        "yaw": -90
       },
       "source": {
         "pipeline": "immagine di riferimento (GPT Image) -> Tripo H3.1 image-to-3D",
@@ -286,14 +286,14 @@
         "note": "senza scheletro: animato a corpo rigido dall'app"
       },
       "fix": {
-        "yaw": 0
+        "yaw": -90
       }
     },
     {
       "id": "maliketh",
       "name": "Maliketh, la Lama Nera",
       "short": "Maliketh",
-      "loreHeight": 3.0,
+      "loreHeight": 3,
       "stats": {
         "hp": 390,
         "attack": 23,
@@ -363,7 +363,7 @@
         "weapon": "hammer",
         "helmet": "none",
         "cape": false,
-        "bulk": 1.0,
+        "bulk": 1,
         "colors": {
           "armor": "#d9a441",
           "cloth": "#8a6a2a",
@@ -405,7 +405,7 @@
       "id": "messmer",
       "name": "Messmer l'Impalatore",
       "short": "Messmer",
-      "loreHeight": 3.0,
+      "loreHeight": 3,
       "stats": {
         "hp": 420,
         "attack": 22,
