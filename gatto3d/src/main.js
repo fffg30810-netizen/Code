@@ -228,6 +228,75 @@ async function exportGLB() {
   const exporter = new GLTFExporter();
   return exporter.parseAsync(root, { binary: true });
 }
+// ---- salvataggio: in locale via link, dentro l'artifact di claude.ai tramite la capacità "downloads"
+let dlApi = null;
+let toastTimer = 0;
+function toast(msg) {
+  const el = $('toast');
+  if (!el) return;
+  el.textContent = msg;
+  el.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.hidden = true; }, 4500);
+}
+async function initDownloads() {
+  const c = window.claude;
+  if (!c || typeof c.use !== 'function') return;
+  try { dlApi = await c.use('downloads'); } catch (e) { dlApi = null; }
+  if (!dlApi) return;
+  document.querySelectorAll('.only-local').forEach((el) => el.classList.add('dl-ready'));
+  if (btnGlb) btnGlb.textContent = 'Scarica GLB (zip)';
+}
+const CRC_TABLE = (() => {
+  const t = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; }
+  return t;
+})();
+function crc32(bytes) {
+  let c = 0xffffffff;
+  for (let i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xff] ^ (c >>> 8);
+  return (c ^ 0xffffffff) >>> 0;
+}
+// Archivio ZIP "stored" (senza compressione) scritto a mano: basta per consegnare un GLB.
+function makeZip(entries) {
+  const enc = new TextEncoder();
+  const parts = [], central = [];
+  let offset = 0;
+  const now = new Date();
+  const dosTime = ((now.getHours() << 11) | (now.getMinutes() << 5) | (now.getSeconds() >> 1)) & 0xffff;
+  const dosDate = (((now.getFullYear() - 1980) << 9) | ((now.getMonth() + 1) << 5) | now.getDate()) & 0xffff;
+  for (const { name, data } of entries) {
+    const nameB = enc.encode(name), crc = crc32(data);
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true);
+    lh.setUint16(10, dosTime, true); lh.setUint16(12, dosDate, true); lh.setUint32(14, crc, true);
+    lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true); lh.setUint16(26, nameB.length, true); lh.setUint16(28, 0, true);
+    parts.push(lh.buffer, nameB, data);
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true);
+    ch.setUint16(12, dosTime, true); ch.setUint16(14, dosDate, true); ch.setUint32(16, crc, true);
+    ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true); ch.setUint16(28, nameB.length, true);
+    ch.setUint16(30, 0, true); ch.setUint16(32, 0, true); ch.setUint16(34, 0, true); ch.setUint16(36, 0, true); ch.setUint32(38, 0, true); ch.setUint32(42, offset, true);
+    central.push(ch.buffer, nameB);
+    offset += 30 + nameB.length + data.length;
+  }
+  const cdSize = central.reduce((s, p) => s + (p.byteLength ?? p.length), 0);
+  const eocd = new DataView(new ArrayBuffer(22));
+  eocd.setUint32(0, 0x06054b50, true); eocd.setUint16(4, 0, true); eocd.setUint16(6, 0, true);
+  eocd.setUint16(8, entries.length, true); eocd.setUint16(10, entries.length, true);
+  eocd.setUint32(12, cdSize, true); eocd.setUint32(16, offset, true); eocd.setUint16(20, 0, true);
+  return new Blob([...parts, ...central, eocd.buffer], { type: 'application/zip' });
+}
+async function saveFile(filename, blob) {
+  if (!dlApi) { download(blob, filename); return; }
+  try {
+    await dlApi.save({ filename, data: blob });
+    toast(`${filename} salvato.`);
+  } catch (e) {
+    if (e && e.code === 'declined') return;
+    toast(`Non riesco a salvare il file qui (${(e && (e.code || e.message)) || 'errore'}).`);
+  }
+}
 function download(blob, name) {
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -254,14 +323,18 @@ if (autorot) {
 }
 const btnGlb = $('btn-glb');
 if (btnGlb) btnGlb.addEventListener('click', async () => {
+  const label = btnGlb.textContent;
   btnGlb.disabled = true; btnGlb.textContent = 'Preparo il GLB…';
-  try { download(new Blob([await exportGLB()], { type: 'model/gltf-binary' }), 'artu-persiano.glb'); }
-  finally { btnGlb.disabled = false; btnGlb.textContent = 'Scarica GLB'; }
+  try {
+    const glb = new Uint8Array(await exportGLB());
+    if (dlApi) await saveFile('artu-persiano-glb.zip', makeZip([{ name: 'artu-persiano.glb', data: glb }]));
+    else download(new Blob([glb], { type: 'model/gltf-binary' }), 'artu-persiano.glb');
+  } finally { btnGlb.disabled = false; btnGlb.textContent = label; }
 });
 const btnPng = $('btn-png');
 if (btnPng) btnPng.addEventListener('click', () => {
   render();
-  canvas.toBlob((blob) => blob && download(blob, 'artu-3d.png'), 'image/png');
+  canvas.toBlob((blob) => blob && saveFile('artu-3d.png', blob), 'image/png');
 });
 
 // ------------------------------------------------------------ avvio
@@ -277,6 +350,7 @@ window.__artu = {
     return btoa(s);
   },
 };
+initDownloads();
 setStatus('Pettino il pelo…');
 requestAnimationFrame(() => {
   render(); // compila gli shader
