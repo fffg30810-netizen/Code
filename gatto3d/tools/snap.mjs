@@ -7,7 +7,7 @@ import { chromium } from 'playwright';
 import { startServer } from './serve.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const OUT = path.join(ROOT, process.env.SNAP_DIR || 'screenshots');
+const OUT = path.resolve(ROOT, process.env.SNAP_DIR || 'screenshots');
 const views = (process.env.VIEWS || 'trequarti,fronte,profilo,retro,alto,muso').split(',');
 const layers = +(process.env.LAYERS || 24);
 const width = +(process.env.W || 1100), height = +(process.env.H || 800);
