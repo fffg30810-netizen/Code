@@ -59,7 +59,7 @@ void main() {
   vec3 V = normalize(cameraPosition - vWp);
   float diff = clamp(dot(N, uKeyDir), 0.0, 1.0) * 0.8 + 0.5;
   vec3 hemi = mix(uGroundCol, uSkyCol, N.y * 0.5 + 0.5);
-  vec3 lit = col * (uKeyCol * diff * 0.9 + hemi * 0.9);
+  vec3 lit = col * (uKeyCol * diff * 0.75 + hemi * 0.8);
   vec3 H1 = normalize(uKeyDir + V);
   float s1 = pow(max(dot(N, H1), 0.0), 260.0);
   vec3 H2 = normalize(uFillDir + V);
@@ -67,8 +67,9 @@ void main() {
   float fres = 0.04 + 0.96 * pow(1.0 - max(dot(N, V), 0.0), 5.0);
   vec3 R = reflect(-V, N);
   vec3 env = mix(uGroundCol * 0.8, uSkyCol * 1.4, smoothstep(-0.3, 0.8, R.y));
-  lit += (s1 * 1.2 + s2) * uKeyCol + env * fres * 0.9;
+  lit += (s1 * 0.8 + s2) * uKeyCol + env * fres * 0.7;
   lit *= 1.0 - 0.45 * smoothstep(0.85, 1.35, ang);
+  lit *= 1.0 - 0.3 * smoothstep(0.35, 0.9, d.y); // ombra della palpebra superiore
   gl_FragColor = vec4(lit, 1.0);
   #include <tonemapping_fragment>
   #include <colorspace_fragment>

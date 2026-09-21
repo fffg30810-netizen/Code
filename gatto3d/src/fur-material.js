@@ -3,7 +3,7 @@
 // per maglia grazie all'instancing. Il colore di base è per vertice; i dettagli del muso (bordo degli
 // occhi, tartufo, narici, bocca) sono calcolati per pixel nello spazio della testa.
 import * as THREE from 'three';
-import { HEAD, EYES, NOSE } from './cat-shape.js';
+import { HEAD, EYES, NOSE, LID } from './cat-shape.js';
 
 const VERT = /* glsl */ `
 attribute float aFur;
@@ -49,6 +49,7 @@ uniform vec3 uHead;
 uniform vec3 uEyeL;
 uniform vec3 uEyeR;
 uniform vec3 uNose;
+uniform vec3 uLid;
 uniform float uIsSkin;
 uniform float uDensity;
 uniform float uThick;
@@ -82,10 +83,15 @@ void main() {
   vec3 albedo = srgbToLinear(vColor);
   vec3 q = vBase - uHead;
 
-  // bordo scuro delle palpebre
-  float ed = min(distance(q, uEyeL), distance(q, uEyeR));
-  float liner = 1.0 - smoothstep(1.40, 1.72, ed);
-  albedo = mix(albedo, uDarkCol, liner * 0.9);
+  // bordo scuro delle palpebre: anello attorno all'apertura dell'occhio
+  vec3 eL = q - uEyeL;
+  vec3 eR = q - uEyeR;
+  float adL = length(vec2(eL.x / uLid.x, (eL.y - uLid.z) / uLid.y));
+  float adR = length(vec2(eR.x / uLid.x, (eR.y - uLid.z) / uLid.y));
+  float lL = smoothstep(0.9, 1.02, adL) * (1.0 - smoothstep(1.12, 1.28, adL)) * step(0.4, eL.z);
+  float lR = smoothstep(0.9, 1.02, adR) * (1.0 - smoothstep(1.12, 1.28, adR)) * step(0.4, eR.z);
+  float liner = max(lL, lR);
+  albedo = mix(albedo, uDarkCol, liner * 0.85);
 
   // tartufo rosa-bruno con bordo più scuro e narici
   vec3 nq = q - uNose;
@@ -183,6 +189,7 @@ export function createFurMaterials(lights) {
     uEyeL: { value: new THREE.Vector3(EYES[1].x, EYES[1].y, EYES[1].z) },
     uEyeR: { value: new THREE.Vector3(EYES[0].x, EYES[0].y, EYES[0].z) },
     uNose: { value: new THREE.Vector3(NOSE.x, NOSE.y, NOSE.z) },
+    uLid: { value: new THREE.Vector3(LID.rx, LID.ry, LID.dy) },
     uFurScale: { value: 1.0 },
     uGravity: { value: 1.0 },
     uDensity: { value: 7.0 },

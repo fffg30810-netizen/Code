@@ -2,11 +2,11 @@
 import { noise3 } from './noise.js';
 
 export const EYE_LOOK = {
-  irisInner: 0xe2a44a,  // ambra chiara vicino alla pupilla
-  irisOuter: 0xb5661c,  // rame
+  irisInner: 0xd4923c,  // ambra vicino alla pupilla
+  irisOuter: 0xa1581a,  // rame scuro
   rim: 0x4a2608,        // anello limbare scuro
   sclera: 0xe6d6bf,
-  pupil: 0.34,          // raggio della pupilla (proiezione frontale, 0..1)
+  pupil: 0.36,          // raggio della pupilla (proiezione frontale, 0..1)
   irisEdge: 1.05,       // raggio angolare dell'iride (radianti)
 };
 

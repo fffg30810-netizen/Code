@@ -7,11 +7,17 @@ import { fbm3 } from './noise.js';
 export const HEAD = { x: 0, y: 21.6, z: 3.0 };
 export const EYE_R = 1.4;
 export const EYES = [-1, 1].map((s) => {
-  const g = norm3(s * 0.13, 0.02, 1);
-  return { s, x: s * 2.35, y: 0.55, z: 4.05, gx: g.x, gy: g.y, gz: g.z };
+  const g = norm3(s * 0.06, 0.0, 1);
+  // base ortonormale dell'occhio: f = sguardo, r = destra, u = alto
+  const r = norm3(g.z, 0, -g.x);
+  const u = { x: r.y * g.z - r.z * g.y, y: r.z * g.x - r.x * g.z, z: r.x * g.y - r.y * g.x };
+  return { s, x: s * 2.35, y: 0.55, z: 3.75, gx: g.x, gy: g.y, gz: g.z, r, u };
 });
-export const NOSE = { x: 0, y: -0.55, z: 5.45 };
-export const MUZZLE = { x: 0, y: -1.75, z: 4.6 };
+// Apertura palpebrale (nel riferimento dell'occhio): semiassi e spostamento verso il basso,
+// così la palpebra superiore copre la parte alta dell'iride.
+export const LID = { rx: 1.2, ry: 0.95, dy: -0.1, depth: 1.0, rz: 1.4 };
+export const NOSE = { x: 0, y: -0.55, z: 5.25 };
+export const MUZZLE = { x: 0, y: -1.75, z: 4.5 };
 export const CHIN = { x: 0, y: -3.4, z: 3.7 };
 export const EARS = [-1, 1].map((s) => ({ s, bx: s * 4.3, by: 2.8, bz: -0.6, tx: s * 5.7, ty: 5.9, tz: -0.3 }));
 export const TAIL = [[0, 3.4, -11], [4.6, 2.6, -12.8], [9.3, 2.2, -10.2], [11.7, 2.0, -4.5], [11.4, 2.0, 2.6], [9.0, 2.1, 7.8]];
@@ -42,10 +48,13 @@ export function headSDF(qx, qy, qz) {
     d = smax(d, -sdEllipsoid(qx, qy, qz, mx, my, mz + 1.25, 1.2, 2.0, 0.9), 0.3); // conca del padiglione
   }
   for (const e of EYES) {
-    d = smax(d, -sdSphere(qx, qy, qz, e.x, e.y, e.z, 1.6), 0.25);           // orbita
-    const lid = sdTorusAxis(qx, qy, qz, e.x + e.gx * 0.6, e.y + e.gy * 0.6, e.z + e.gz * 0.6, e.gx, e.gy, e.gz, 1.33, 0.34);
-    d = smin(d, lid, 0.35);                                                  // bordo palpebrale
-    d = smax(d, -sdSphere(qx, qy, qz, e.x, e.y, e.z, EYE_R + 0.08), 0.1);  // spazio per il bulbo
+    d = smin(d, sdSphere(qx, qy, qz, e.x, e.y, e.z, EYE_R + 0.15), 0.45);   // palpebre: guscio attorno al bulbo
+    const px = qx - e.x, py = qy - e.y, pz = qz - e.z;
+    const lx = px * e.r.x + py * e.r.y + pz * e.r.z;
+    const ly = px * e.u.x + py * e.u.y + pz * e.u.z;
+    const lz = px * e.gx + py * e.gy + pz * e.gz;
+    d = smax(d, -sdEllipsoid(lx, ly, lz, 0, LID.dy, LID.depth, LID.rx, LID.ry, LID.rz), 0.15); // apertura palpebrale
+    d = smax(d, -sdSphere(qx, qy, qz, e.x, e.y, e.z, EYE_R + 0.05), 0.1);  // cavità per il bulbo
   }
   d = smin(d, sdEllipsoid(qx, qy, qz, NOSE.x, NOSE.y, NOSE.z, 0.88, 0.62, 0.5), 0.3); // tartufo
   return d;
@@ -222,9 +231,12 @@ export function catColor(px, py, pz, nx, ny, nz) {
     mixInto(hc, COL.cream, 0.55 * (1 - smoothstep(2.3, 3.4, dist3(qx, qy, qz, MUZZLE.x, MUZZLE.y, MUZZLE.z))));
     mixInto(hc, COL.cream, 0.55 * (1 - smoothstep(1.5, 2.6, dist3(qx, qy, qz, CHIN.x, CHIN.y, CHIN.z))));
     for (const e of EYES) {
-      const ed = dist3(qx, qy, qz, e.x, e.y, e.z);
-      mixInto(hc, COL.cream, 0.4 * smoothstep(1.55, 1.95, ed) * (1 - smoothstep(2.3, 3.0, ed)));   // "occhiali" chiari
-      mixInto(hc, COL.liner, 0.85 * (1 - smoothstep(1.38, 1.78, ed)));                            // bordo scuro
+      const ex = qx - e.x, ey = qy - e.y, ez = qz - e.z;
+      if (ez > 0.4) {
+        const ad = Math.sqrt((ex / LID.rx) ** 2 + ((ey - LID.dy) / LID.ry) ** 2);
+        mixInto(hc, COL.liner, 0.7 * smoothstep(0.88, 1.02, ad) * (1 - smoothstep(1.12, 1.3, ad)));   // riga scura sul margine delle palpebre
+        mixInto(hc, COL.cream, 0.35 * smoothstep(1.6, 2.0, ad) * (1 - smoothstep(2.5, 3.1, ad)));   // "occhiali" chiari
+      }
       const tear = segDist(qx, qy, qz, e.s * 1.35, 0.05, 4.65, e.s * 0.95, -1.2, 5.05);
       mixInto(hc, COL.tear, 0.6 * (1 - smoothstep(0.22, 0.45, tear)));                            // riga lacrimale
       const cs1 = segDist(qx, qy, qz, e.s * 3.5, 0.3, 4.1, e.s * 5.9, -1.4, 1.0);
