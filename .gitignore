@@ -1,0 +1,7 @@
+node_modules/
+.playwright-out/
+gatto3d/build/
+gatto3d/dist/artifact.html
+gatto3d/export/artu-persiano-browser.glb
+
+gatto3d/screenshots/*.png

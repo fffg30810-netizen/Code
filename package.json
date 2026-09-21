@@ -1,0 +1,31 @@
+{
+  "name": "gatto-3d",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gen": "node gatto3d/tools/gen.mjs",
+    "build": "node gatto3d/tools/build.mjs",
+    "snap": "node gatto3d/tools/snap.mjs",
+    "serve": "node gatto3d/tools/serve.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fffg30810-netizen/Code.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fffg30810-netizen/Code/issues"
+  },
+  "homepage": "https://github.com/fffg30810-netizen/Code#readme",
+  "private": "true",
+  "type": "module",
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "playwright": "^1.56.1",
+    "three": "^0.170.0"
+  }
+}

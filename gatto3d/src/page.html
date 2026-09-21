@@ -1,0 +1,134 @@
+<title>Artù in 3D</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Manrope:wght@500;600;700&display=swap">
+<style>
+  :root {
+    --bg-a: #f3eadf; --bg-b: #dfd0bd;
+    --ink: #2b211a; --ink-soft: #6f5f52;
+    --accent: #b5661c; --accent-ink: #fff7ee;
+    --panel: rgba(255, 251, 245, 0.74); --panel-border: rgba(90, 60, 30, 0.14);
+    --btn: rgba(255, 255, 255, 0.55); --btn-hover: rgba(255, 255, 255, 0.85);
+    --shadow: 0 14px 40px rgba(60, 35, 15, 0.18);
+    --focus: #7a4210;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg-a: #262a32; --bg-b: #111317;
+      --ink: #f2eadf; --ink-soft: #b3a698;
+      --accent: #e39a48; --accent-ink: #1e150c;
+      --panel: rgba(28, 30, 36, 0.7); --panel-border: rgba(255, 238, 215, 0.14);
+      --btn: rgba(255, 255, 255, 0.08); --btn-hover: rgba(255, 255, 255, 0.16);
+      --shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+      --focus: #ffd9a8;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg-a: #262a32; --bg-b: #111317;
+    --ink: #f2eadf; --ink-soft: #b3a698;
+    --accent: #e39a48; --accent-ink: #1e150c;
+    --panel: rgba(28, 30, 36, 0.7); --panel-border: rgba(255, 238, 215, 0.14);
+    --btn: rgba(255, 255, 255, 0.08); --btn-hover: rgba(255, 255, 255, 0.16);
+    --shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+    --focus: #ffd9a8;
+    color-scheme: dark;
+  }
+  html, body { height: 100%; }
+  [hidden] { display: none !important; }
+  body {
+    margin: 0; overflow: hidden; color: var(--ink);
+    background: radial-gradient(120% 90% at 50% 35%, var(--bg-a) 0%, var(--bg-b) 100%);
+    font-family: "Manrope", "Segoe UI", system-ui, sans-serif; font-size: 14px;
+  }
+  .app { position: fixed; inset: 0; }
+  canvas#c { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+  .hud {
+    position: absolute; left: 16px; right: 16px; top: calc(16px + env(safe-area-inset-top, 0px));
+    pointer-events: none; display: flex; flex-direction: column; gap: 2px;
+  }
+  .hud h1 {
+    margin: 0; font-family: "Fraunces", "Georgia", serif; font-variation-settings: "SOFT" 100, "opsz" 144;
+    font-weight: 600; font-size: clamp(40px, 7vw, 64px); line-height: 1; letter-spacing: -0.01em; color: var(--ink);
+  }
+  .hud .eyebrow { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .hud .hint { margin: 6px 0 0; color: var(--ink-soft); max-width: 34ch; line-height: 1.4; }
+  .panel {
+    position: absolute; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+    width: min(100% - 32px, 980px); box-sizing: border-box;
+    background: var(--panel); border: 1px solid var(--panel-border); border-radius: 18px; box-shadow: var(--shadow);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    padding: 12px 14px; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: center;
+  }
+  .group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); font-weight: 700; margin-right: 4px; }
+  .panel button, .panel select {
+    font: inherit; font-weight: 600; color: var(--ink); background: var(--btn); border: 1px solid var(--panel-border);
+    border-radius: 999px; padding: 7px 13px; cursor: pointer; transition: background .15s, transform .15s;
+  }
+  .panel button:hover, .panel select:hover { background: var(--btn-hover); }
+  .panel button:active { transform: translateY(1px); }
+  .panel button.active { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+  .panel button:focus-visible, .panel select:focus-visible, .panel input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .panel select { padding-right: 28px; appearance: auto; }
+  .panel label.inline { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); font-weight: 600; }
+  .panel input[type="range"] { width: 120px; accent-color: var(--accent); }
+  .panel input[type="checkbox"] { accent-color: var(--accent); width: 16px; height: 16px; }
+  .panel .primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+  .panel .primary:hover { filter: brightness(1.08); background: var(--accent); }
+  [data-flavor="artifact"] .only-local { display: none; }
+  .overlay {
+    position: absolute; inset: 0; display: grid; place-items: center; background: color-mix(in srgb, var(--bg-b) 70%, transparent);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); z-index: 5;
+  }
+  .overlay .box { display: flex; flex-direction: column; align-items: center; gap: 14px; color: var(--ink); }
+  .spinner { width: 42px; height: 42px; border-radius: 50%; border: 4px solid var(--panel-border); border-top-color: var(--accent); animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .spinner { animation: none; } .panel button { transition: none; } }
+  @media (max-width: 640px) {
+    .hud .hint { display: none; }
+    .panel { gap: 8px 12px; padding: 10px 12px; border-radius: 14px; }
+    .panel button, .panel select { padding: 6px 11px; }
+    .panel input[type="range"] { width: 90px; }
+  }
+</style>
+<!--BODY-->
+<div class="app" id="app" data-flavor="__FLAVOR__">
+  <canvas id="c" aria-label="Modello 3D di Artù, un gatto Persiano rosso tabby"></canvas>
+  <header class="hud">
+    <span class="eyebrow">Persiano rosso tabby</span>
+    <h1>Artù</h1>
+    <p class="hint">Trascina per girarlo, usa la rotella o due dita per avvicinarti, tasto destro per spostarlo.</p>
+  </header>
+  <div class="panel" role="toolbar" aria-label="Controlli del modello">
+    <div class="group" aria-label="Vista">
+      <span class="label">Vista</span>
+      <button type="button" data-view="fronte">Fronte</button>
+      <button type="button" data-view="trequarti" class="active">Tre quarti</button>
+      <button type="button" data-view="profilo">Profilo</button>
+      <button type="button" data-view="retro">Retro</button>
+      <button type="button" data-view="alto">Dall'alto</button>
+      <button type="button" data-view="muso">Muso</button>
+    </div>
+    <div class="group">
+      <label class="inline" for="quality"><span class="label">Pelliccia</span></label>
+      <select id="quality" aria-label="Qualità della pelliccia">
+        <option value="leggera">Leggera · 12 strati</option>
+        <option value="media">Media · 24 strati</option>
+        <option value="alta" selected>Alta · 36 strati</option>
+        <option value="ultra">Ultra · 56 strati</option>
+      </select>
+    </div>
+    <div class="group">
+      <label class="inline" for="furlen"><span class="label">Lunghezza pelo</span></label>
+      <input type="range" id="furlen" min="50" max="140" value="100" aria-label="Lunghezza del pelo">
+    </div>
+    <label class="inline"><input type="checkbox" id="autorot" checked> Gira da solo</label>
+    <div class="group only-local">
+      <button type="button" id="btn-glb" class="primary">Scarica GLB</button>
+      <button type="button" id="btn-png">Salva foto</button>
+    </div>
+  </div>
+  <div class="overlay" id="overlay"><div class="box"><div class="spinner" aria-hidden="true"></div><p id="status">Preparo Artù…</p></div></div>
+</div>
+<script id="artu-geo" type="application/octet-stream">__GEO_B64__</script>
+<script>__BUNDLE__</script>
