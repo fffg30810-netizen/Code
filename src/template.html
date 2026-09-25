@@ -1,0 +1,117 @@
+<title>Oltre l'orizzonte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap">
+<style>
+/*@STYLE@*/
+</style>
+
+<div id="app">
+  <canvas id="view" aria-label="Buco nero di Kerr ray-tracciato in tempo reale. Pizzica o usa la rotella per avvicinarti, trascina per orbitare."></canvas>
+
+  <header class="brand">
+    <h1>Oltre l'orizzonte</h1>
+    <p class="sub"><span id="presetLabel">Buco nero supermassiccio</span> · <span id="spinLabel">a* 0,90</span></p>
+  </header>
+
+  <section class="hud" id="hud" aria-label="Strumenti">
+    <div class="row"><span class="k">Distanza</span><span class="v" id="hDist">–</span></div>
+    <div class="row"><span class="k">Regione</span><span class="v" id="hRegion">–</span></div>
+    <div class="row"><span class="k">Caduta</span><span class="v" id="hFall">–</span></div>
+    <div class="row"><span class="k">Marea su 2 m</span><span class="v" id="hTide">–</span></div>
+    <div class="row"><span class="k">Cielo</span><span class="v" id="hSky">–</span></div>
+    <div class="row" id="hTimeRow" hidden><span class="k">Tempo proprio</span><span class="v" id="hTime">–</span></div>
+  </section>
+
+  <nav class="gauge" id="gauge" aria-label="Profondità: tocca un confine per raggiungerlo">
+    <div class="track"></div>
+    <div class="marks" id="gaugeMarks"></div>
+    <div class="me" id="gaugeMe"></div>
+  </nav>
+
+  <div class="dock">
+    <button type="button" id="btnInfo" class="round" aria-label="La fisica della simulazione">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M12 10.6v6.2M12 7.3v.2"/></svg>
+    </button>
+    <button type="button" id="btnDive" class="dive"><span class="dot"></span><span id="diveText">Tuffati</span></button>
+    <button type="button" id="btnSettings" class="round" aria-label="Impostazioni">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>
+    </button>
+  </div>
+
+  <p class="hint" id="hint">Pizzica per avvicinarti · trascina per orbitare · due dita per guardarti intorno</p>
+
+  <button type="button" class="lookchip" id="btnLook" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6.5 10.5L12 5l5.5 5.5"/></svg>
+    <span id="lookText">Guarda verso l’alto</span>
+  </button>
+
+  <aside class="sheet" id="settings" hidden aria-label="Impostazioni">
+    <div class="sheet-head">
+      <h2>Parametri</h2>
+      <button type="button" class="close" id="closeSettings" aria-label="Chiudi">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="group">
+      <p class="label">Oggetto</p>
+      <div class="chips" id="presetChips" role="radiogroup" aria-label="Oggetto"></div>
+      <p class="note" id="presetNote"></p>
+    </div>
+    <div class="group">
+      <label class="slider" for="inSpin"><span>Rotazione <i>a*</i></span><output id="outSpin">0,90</output></label>
+      <input type="range" id="inSpin" min="0" max="0.998" step="0.001" value="0.9">
+      <label class="slider" for="inTemp"><span>Temperatura massima del disco</span><output id="outTemp">9000 K</output></label>
+      <input type="range" id="inTemp" min="3.3" max="7.3" step="0.01" value="3.954">
+      <label class="slider" for="inROut"><span>Raggio esterno del disco</span><output id="outROut">22 r<sub>g</sub></output></label>
+      <input type="range" id="inROut" min="8" max="48" step="0.5" value="22">
+    </div>
+    <div class="group toggles">
+      <label class="toggle"><input type="checkbox" id="inDisk" checked><span>Disco di accrescimento</span></label>
+      <label class="toggle"><input type="checkbox" id="inDoppler" checked><span>Doppler e redshift gravitazionale</span></label>
+      <label class="toggle"><input type="checkbox" id="inStars" checked><span>Stelle e Via Lattea</span></label>
+      <label class="toggle"><input type="checkbox" id="inAuto" checked><span>Esposizione automatica (occhio)</span></label>
+    </div>
+    <div class="group">
+      <label class="slider" for="inEV"><span>Esposizione</span><output id="outEV">0 EV</output></label>
+      <input type="range" id="inEV" min="-4" max="4" step="0.1" value="0">
+      <label class="slider" for="inBloom"><span>Bagliore dell'obiettivo</span><output id="outBloom">50%</output></label>
+      <input type="range" id="inBloom" min="0" max="1" step="0.01" value="0.5">
+      <label class="slider" for="inTime"><span>Scorrere del tempo</span><output id="outTime">20 GM/c³ al secondo</output></label>
+      <input type="range" id="inTime" min="0" max="4" step="0.05" value="1">
+    </div>
+    <div class="group">
+      <p class="label">Qualità</p>
+      <div class="chips" id="qualityChips" role="radiogroup" aria-label="Qualità"></div>
+      <p class="note" id="perfNote"></p>
+    </div>
+  </aside>
+
+  <aside class="reader" id="info" hidden aria-label="La fisica">
+    <div class="reader-inner">
+      <button type="button" class="close" id="closeInfo" aria-label="Chiudi">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <!--@SCIENCE@-->
+    </div>
+  </aside>
+
+  <div class="endcard" id="endcard" hidden>
+    <p class="eyebrow" id="endEyebrow">Fine del viaggio</p>
+    <h2 id="endTitle">Orizzonte interno</h2>
+    <p id="endText"></p>
+    <div class="endbtns">
+      <button type="button" id="btnRestart" class="dive">Ricomincia</button>
+      <button type="button" id="btnStay" class="ghost">Resta qui</button>
+    </div>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="spinner" aria-hidden="true"></div>
+    <p id="loadingText">Preparo lo spaziotempo…</p>
+  </div>
+</div>
+
+<script>
+/*@SCRIPTS@*/
+</script>
