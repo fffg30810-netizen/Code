@@ -242,6 +242,34 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .lookchip.down svg { transform: rotate(180deg); }
 .lookchip:hover { border-color: rgba(236, 230, 219, 0.45); }
 
+/* -------------------------------------------------------------- caption */
+.caption {
+  position: absolute;
+  left: 50%;
+  bottom: calc(136px + var(--safe-b));
+  transform: translate(-50%, 8px);
+  width: min(460px, calc(100% - 32px));
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  text-shadow: 0 1px 14px #000, 0 0 30px rgba(0, 0, 0, 0.8);
+}
+.caption.show { opacity: 1; transform: translate(-50%, 0); }
+.caption .eyebrow {
+  margin: 0 0 6px;
+  color: var(--amber);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.caption .line {
+  margin: 0;
+  font: italic 400 19px/1.4 var(--serif);
+  color: var(--ink);
+  text-wrap: balance;
+}
+
 /* ------------------------------------------------------- settings sheet */
 .sheet {
   position: absolute;
@@ -490,6 +518,8 @@ input[type='range']::-moz-range-thumb {
   .gauge .mark.passed, .gauge .mark.horizon { opacity: 1; }
   .gauge .tick { width: 8px; }
   .hint { bottom: calc(84px + var(--safe-b)); font-size: 10.5px; }
+  .caption { bottom: calc(132px + var(--safe-b)); }
+  .caption .line { font-size: 16.5px; }
   .dock { gap: 12px; }
   .sheet { top: auto; left: 12px; right: 12px; width: auto; max-height: 72vh; bottom: calc(82px + var(--safe-b)); }
   .reader-inner { font-size: 16.5px; }
@@ -497,7 +527,7 @@ input[type='range']::-moz-range-thumb {
 
 @media (prefers-reduced-motion: reduce) {
   .spinner, .dive[aria-pressed='true'] .dot { animation: none; }
-  .gauge .me, .hint, .loading { transition: none; }
+  .gauge .me, .hint, .loading, .caption { transition: none; }
 }
 
 </style>
@@ -538,6 +568,11 @@ input[type='range']::-moz-range-thumb {
 
   <p class="hint" id="hint">Pizzica per avvicinarti · trascina per orbitare · due dita per guardarti intorno</p>
 
+  <div class="caption" id="caption" aria-live="polite">
+    <p class="eyebrow" id="capTitle"></p>
+    <p class="line" id="capText"></p>
+  </div>
+
   <button type="button" class="lookchip" id="btnLook" hidden>
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6.5 10.5L12 5l5.5 5.5"/></svg>
     <span id="lookText">Guarda verso l’alto</span>
@@ -554,6 +589,12 @@ input[type='range']::-moz-range-thumb {
       <p class="label">Oggetto</p>
       <div class="chips" id="presetChips" role="radiogroup" aria-label="Oggetto"></div>
       <p class="note" id="presetNote"></p>
+    </div>
+    <div class="group">
+      <p class="label">Vista</p>
+      <div class="chips" id="viewChips" role="radiogroup" aria-label="Vista"></div>
+      <label class="toggle" id="blurRow" hidden><input type="checkbox" id="inBlur"><span>Nitidezza dell’EHT (fascio di circa 20 µas)</span></label>
+      <p class="note" id="viewNote"></p>
     </div>
     <div class="group">
       <label class="slider" for="inSpin"><span>Rotazione <i>a*</i></span><output id="outSpin">0,90</output></label>
@@ -609,6 +650,7 @@ input[type='range']::-moz-range-thumb {
 
 <h3><small>02 · L’immagine</small>L’ombra e l’anello di fotoni</h3>
 <p>L’ombra è l’insieme delle direzioni da cui nessuna luce può arrivare: i raggi che le percorrono all’indietro finiscono nell’orizzonte. Il suo bordo è la <em>curva critica</em>, fatta di luce che ha girato intorno al buco nero prima di raggiungerti. Ogni mezzo giro in più produce un’immagine più sottile dell’intero universo, circa 23 volte più stretta della precedente: sono i sottoanelli dell’anello fotonico (Johnson e colleghi, 2020). Dentro la curva critica, quando il gas arriva fino all’orizzonte come qui, si vede l’<em>ombra interna</em>, l’immagine diretta dell’orizzonte (Chael, Johnson e Lupsasca, 2021).</p>
+<p>Nelle impostazioni puoi passare alla <em>vista radio a 1,3 mm</em>, quella dell’Event Horizon Telescope. Lì il gas è caldo e trasparente fino all’orizzonte, come nel modello semianalitico usato per studiare l’anello fotonico: ogni attraversamento del piano aggiunge luce, pesata con g³. Le immagini successive diventano anelli sempre più sottili, e con la nitidezza dell’EHT tutto si fonde nella ciambella arancione delle fotografie reali.</p>
 <p>L’Event Horizon Telescope ha fotografato M87* (immagine pubblicata nel 2019, anello di <span class="num">42 ± 3 µas</span>) e Sagittarius A* (2022, <span class="num">51,8 ± 2,3 µas</span>). Le campagne 2017, 2018 e 2021 di M87* mostrano un anello di diametro stabile (<span class="num">43,9 ± 0,6 µas</span>) mentre la zona più brillante si sposta e la polarizzazione inverte il verso della sua spirale. L’anello fotonico vero e proprio non è ancora stato misurato: è l’obiettivo di missioni spaziali proposte come BHEX.</p>
 
 <h3><small>03 · La luce</small>Il disco di accrescimento</h3>
@@ -1398,6 +1440,7 @@ uniform vec3 uGalZ;      // galactic north pole
 uniform vec4 uStarAvg;   // mean radiance of the three star layers, then unused
 uniform float uStepK;
 uniform int uMaxSteps;
+uniform vec4 uRadio;     // on, profile centre μ, width σ, skew γ (Johnson SU)
 uniform sampler2D uDiskTex;
 uniform sampler3D uNoise;
 uniform samplerCube uSky;
@@ -1485,34 +1528,41 @@ float diskPattern(float r, float psi, float seed) {
   return v * 0.8 + fine * 0.2;
 }
 
+// ν_obs / ν_emit for light leaving the equatorial gas at radius r (the photon
+// has radial momentum ṙ there). Also returns the gas angular velocity Ω used to
+// advect its pattern. Returns g ≤ 0 when the geometry is not physical.
+float gasShift(float r, float rd, out float Om) {
+  float rI = uHor.z;
+  if (r >= rI) {
+    // Prograde Keplerian orbit: ν_obs/ν_em = 1 / (u^t (E − Ω L)).
+    float sr = sqrt(r);
+    float den = pow(r, 0.75) * sqrt(max(r * sr - 3.0 * sr + 2.0 * gA, 1e-6));
+    Om = 1.0 / (r * sr + gA);
+    return den / ((r * sr + gA) * (gE - Om * gL));
+  }
+  // Gas plunging from the ISCO on the geodesic (E_I, L_I).
+  float EI = uIsco.x, LI = uIsco.y;
+  float ra = r * r + gA2;
+  float D = r * r - 2.0 * r + gA2;
+  float Pp = gE * ra - gAL;
+  float Pu = EI * ra - gA * LI;
+  float Ku = r * r + (LI - gA * EI) * (LI - gA * EI);
+  float sqRu = sqrt(r) * uIsco.w * pow(max(rI - r, 0.0), 1.5);
+  float du = Ku / (Pu + sqRu);
+  float X = radialX(r, rd);
+  float pu = (X * Pu + du * Pp - D * X * du - (gL - gA * gE) * (LI - gA * EI)) / (r * r);
+  Om = uIsco.z;
+  return 1.0 / pu;
+}
+
 // Light from the disk at radius r where the ray crossed the equator.
 // Returns emitted radiance (already shifted to the camera frame) and opacity.
 vec4 diskEmission(float r, float rd, float phi, float dv) {
   if (r > uDisk.y || r < uDisk.x) return vec4(0.0);
   vec4 lut = diskLut(r);
   float rI = uHor.z;
-  float ra = r * r + gA2;
-  float g, Om;
-  if (r >= rI) {
-    // Prograde Keplerian orbit: ν_obs/ν_em = 1 / (u^t (E − Ω L)).
-    float sr = sqrt(r);
-    float den = pow(r, 0.75) * sqrt(max(r * sr - 3.0 * sr + 2.0 * gA, 1e-6));
-    Om = 1.0 / (r * sr + gA);
-    g = den / ((r * sr + gA) * (gE - Om * gL));
-  } else {
-    // Gas plunging from the ISCO on the geodesic (E_I, L_I).
-    float EI = uIsco.x, LI = uIsco.y;
-    float D = r * r - 2.0 * r + gA2;
-    float Pp = gE * ra - gAL;
-    float Pu = EI * ra - gA * LI;
-    float Ku = r * r + (LI - gA * EI) * (LI - gA * EI);
-    float sqRu = sqrt(r) * uIsco.w * pow(max(rI - r, 0.0), 1.5);
-    float du = Ku / (Pu + sqRu);
-    float X = radialX(r, rd);
-    float pu = (X * Pu + du * Pp - D * X * du - (gL - gA * gE) * (LI - gA * EI)) / (r * r);
-    g = 1.0 / pu;
-    Om = uIsco.z;
-  }
+  float Om;
+  float g = gasShift(r, rd, Om);
   if (!(g > 0.0) || g > 1e4) return vec4(0.0);
   float gs = uOpt.x > 0.5 ? g : 1.0;
 
@@ -1701,6 +1751,8 @@ void main() {
   float trans = 1.0;
   int fate = 0;           // 0 lost (step budget), 1 sky, 2 hole, 3 opaque disk
   bool diskOn = uOpt.z > 0.5;
+  bool radio = uRadio.x > 0.5;
+  int crossings = 0;
 
   for (int i = 0; i < 1200; i++) {
     if (i >= uMaxSteps) break;
@@ -1732,12 +1784,27 @@ void main() {
     if (diskOn && n.z * nN.z < 0.0) {
       float t = hermiteRoot(n.z, nN.z, m.z * h, mN.z * h);
       float rc = hermite(s.x, sN.x, ds.x * h, dsN.x * h, t);
-      vec3 nc = normalize(mix(n, nN, t));
-      float phc = atan(nc.y, nc.x) + mix(s.z, sN.z, t);
-      vec4 em = diskEmission(rc, mix(s.y, sN.y, t), phc, mix(s.w, sN.w, t));
-      col += trans * em.a * em.rgb;
-      trans *= 1.0 - em.a;
-      if (trans < 0.003) { fate = 3; break; }
+      if (radio) {
+        // 1.3 mm view: hot, optically thin gas near the equator. Each crossing
+        // adds g³ J(r) (flat spectrum); crossings after the first are weighted
+        // by ξ = 1.5 to mimic the thickness of the flow (Chael et al. 2021).
+        float Om;
+        float g = gasShift(rc, mix(s.y, sN.y, t), Om);
+        if (g > 0.0 && g < 1e3 && rc > uDisk.x) {
+          float z = (rc - uRadio.y) / uRadio.z;
+          float a2 = uRadio.w + log(z + sqrt(z * z + 1.0));
+          float J = exp(-0.5 * a2 * a2) / sqrt((rc - uRadio.y) * (rc - uRadio.y) + uRadio.z * uRadio.z);
+          col += vec3((crossings == 0 ? 1.0 : 1.5) * g * g * g * J);
+        }
+        crossings++;
+      } else {
+        vec3 nc = normalize(mix(n, nN, t));
+        float phc = atan(nc.y, nc.x) + mix(s.z, sN.z, t);
+        vec4 em = diskEmission(rc, mix(s.y, sN.y, t), phc, mix(s.w, sN.w, t));
+        col += trans * em.a * em.rgb;
+        trans *= 1.0 - em.a;
+        if (trans < 0.003) { fate = 3; break; }
+      }
     }
     s = sN; n = nN; m = mN; ds = dsN; dm = dmN; X = XN;
   }
@@ -1747,7 +1814,7 @@ void main() {
   vec3 D = fate == 1 ? skyDirection(s, n, m) : vec3(0.0, 0.0, 1.0);
   vec3 dDx = dFdx(D), dDy = dFdy(D);
   bool validJ = fwidth(esc) == 0.0 && dot(dDx, dDx) < 0.02 && dot(dDy, dDy) < 0.02;
-  if (fate == 1 && trans > 0.003) {
+  if (fate == 1 && trans > 0.003 && !radio) {
     col += trans * skyRadiance(D, dDx, dDy, validJ, 1.0 / gE);
   }
   if (any(isnan(col)) || any(isinf(col))) col = vec3(0.0);
@@ -1945,6 +2012,32 @@ void main() {
   o = vec4(s * (uWeight / 16.0), 1.0);
 }`;
 
+  // Separable Gaussian blur, used to show the radio image at the resolution of
+  // the Event Horizon Telescope.
+  const BLUR = `#version 300 es
+precision highp float;
+uniform sampler2D uSrc;
+uniform vec2 uDir;
+uniform vec2 uRes;
+uniform float uSigma;
+out vec4 o;
+void main() {
+  vec2 uv = gl_FragCoord.xy / uRes;
+  vec2 st = uDir / uRes;
+  float s = max(uSigma, 0.5);
+  int n = int(min(ceil(s * 2.5), 80.0));
+  vec3 acc = texture(uSrc, uv).rgb;
+  float w = 1.0;
+  for (int i = 1; i <= 80; i++) {
+    if (i > n) break;
+    float fi = float(i);
+    float wi = exp(-0.5 * fi * fi / (s * s));
+    acc += wi * (texture(uSrc, uv + st * fi).rgb + texture(uSrc, uv - st * fi).rgb);
+    w += 2.0 * wi;
+  }
+  o = vec4(acc / w, 1.0);
+}`;
+
   // Exposure adapts like an eye. The meter uses the arithmetic mean luminance:
   // a log average would be dragged down by the shadow, which is black by nature.
   const EXPOSURE = `#version 300 es
@@ -1988,6 +2081,7 @@ uniform float uBloomAmt;
 uniform float uBloomNorm;
 uniform float uFrame;
 uniform float uTone;
+uniform float uRadioView;
 out vec4 o;
 ${HASH}
 // Catmull–Rom upscaling in 9 bilinear taps.
@@ -2044,6 +2138,15 @@ vec3 agx(vec3 c) {
 void main() {
   vec2 uv = gl_FragCoord.xy / uDstRes;
   vec3 c = sampleCR(uv);
+  if (uRadioView > 0.5) {
+    // Radio intensity in the "afmhot" map of EHT figures (black, red, orange, yellow, white).
+    // A colormap's output is already a display value, so no transfer curve here.
+    float x = c.r * texelFetch(uExp, ivec2(0), 0).r * 0.55;
+    vec3 a = clamp(vec3(2.0 * x, 2.0 * x - 0.5, 2.0 * x - 1.0), 0.0, 1.0);
+    vec4 hr = rand4(uvec4(uvec2(gl_FragCoord.xy), uint(uFrame), 5u));
+    o = vec4(clamp(a + (hr.x + hr.y - 1.0) / 255.0, 0.0, 1.0), 1.0);
+    return;
+  }
   vec3 b = texture(uBloom, uv).rgb * uBloomNorm;   // the pyramid sums its levels
   c = mix(c, b, uBloomAmt);
   c *= texelFetch(uExp, ivec2(0), 0).r;
@@ -2069,7 +2172,7 @@ void main() {
   fragColor = vec4(pow(c2, vec3(1.0 / 2.2)), 1.0);`
   );
 
-  return { VERT, TRACE, TRACE_DIRECT, SKY, ACCUM, DOWN, UP, EXPOSURE, COMPOSITE };
+  return { VERT, TRACE, TRACE_DIRECT, SKY, ACCUM, DOWN, UP, BLUR, EXPOSURE, COMPOSITE };
 })();
 
 if (typeof module !== 'undefined') module.exports = Shaders;
@@ -2133,9 +2236,14 @@ if (typeof module !== 'undefined') module.exports = Shaders;
     preset: 'smbh', mass: 1e8, spin: 0.9, T: 9000, rOut: 22,
     disk: true, doppler: true, stars: true, autoExp: true,
     ev: 0, bloom: 0.5, timeSpeed: 1, quality: 'auto', tone: 0,
+    view: 'visible', ehtBlur: false,
   };
+  const VIEWS = [
+    { id: 'visible', label: 'Luce visibile', note: 'Il disco sottile brilla come un corpo nero; stelle e Via Lattea sono deviate dalla lente gravitazionale.' },
+    { id: 'radio', label: 'Radio 1,3 mm (EHT)', note: 'Come lo vedrebbe l’Event Horizon Telescope: gas caldo e trasparente fino all’orizzonte, in falsi colori. Gli anelli sottili sono le immagini n = 1 e n = 2 dell’anello fotonico, che nessun telescopio ha ancora separato.' },
+  ];
   const cam = { s: 0, th: 84 * DEG, ph: 0, yaw: 0, pitch: 0, vth: 0, vph: 0 };
-  const dive = { active: false, tau: 0, ended: false, rate: 0.24 };
+  const dive = { active: false, tau: 0, ended: false };
   let simTime = 0;
 
   /* ================================================================== GL */
@@ -2331,7 +2439,7 @@ if (typeof module !== 'undefined') module.exports = Shaders;
   }
 
   /* ============================================================ programs */
-  let progTrace, progAccum, progDown, progUp, progExp, progComp;
+  let progTrace, progAccum, progDown, progUp, progExp, progComp, progBlur;
   function buildPrograms() {
     progTrace = makeProgram(floatRT ? SH.TRACE : SH.TRACE_DIRECT);
     if (!floatRT) return;
@@ -2340,20 +2448,22 @@ if (typeof module !== 'undefined') module.exports = Shaders;
     progUp = makeProgram(SH.UP);
     progExp = makeProgram(SH.EXPOSURE);
     progComp = makeProgram(SH.COMPOSITE);
+    progBlur = makeProgram(SH.BLUR);
   }
 
   /* ======================================================= render targets */
-  const RT = { w: 0, h: 0, trace: null, acc: [null, null], bloom: [], exp: [null, null], cur: 0, expCur: 0 };
+  const RT = { w: 0, h: 0, trace: null, acc: [null, null], blur: [null, null], bloom: [], exp: [null, null], cur: 0, expCur: 0 };
   const BLOOM_LEVELS = 6;
   const BLOOM_DECAY = 0.55;
   const BLOOM_NORM = 1 / Array.from({ length: BLOOM_LEVELS }, (_, i) => BLOOM_DECAY ** i).reduce((x, y) => x + y);
   function ensureTargets(w, h) {
     if (!floatRT) return;
     if (RT.w === w && RT.h === h) return;
-    freeTarget(RT.trace); RT.acc.forEach(freeTarget); RT.bloom.forEach(freeTarget);
+    freeTarget(RT.trace); RT.acc.forEach(freeTarget); RT.blur.forEach(freeTarget); RT.bloom.forEach(freeTarget);
     RT.w = w; RT.h = h;
     RT.trace = makeTarget(w, h);
     RT.acc = [makeTarget(w, h), makeTarget(w, h)];
+    RT.blur = [makeTarget(w, h), makeTarget(w, h)];
     RT.bloom = [];
     let bw = w, bh = h;
     for (let i = 0; i < BLOOM_LEVELS; i++) {
@@ -2414,7 +2524,7 @@ if (typeof module !== 'undefined') module.exports = Shaders;
     const tanY = Math.tan(fovY / 2), tanX = tanY * (size.cw / size.ch);
 
     // Anything that changes the image besides the flow of time resets the accumulation.
-    const key = [r, th, ph, cam.yaw, cam.pitch, a, params.T, params.rOut, params.disk, params.doppler, params.stars, w, h, q.k, q.steps].map((x) => (typeof x === 'number' ? x.toPrecision(7) : x)).join('|');
+    const key = [r, th, ph, cam.yaw, cam.pitch, a, params.T, params.rOut, params.disk, params.doppler, params.stars, params.view, w, h, q.k, q.steps].map((x) => (typeof x === 'number' ? x.toPrecision(7) : x)).join('|');
     if (key !== lastKey) { accumFrames = 0; lastKey = key; }
     const timeRunning = params.timeSpeed > 0 && params.disk;
     const jit = accumFrames > 0 ? [halton(frameNo % 64 + 1, 2) - 0.5, halton(frameNo % 64 + 1, 3) - 0.5] : [0, 0];
@@ -2426,6 +2536,7 @@ if (typeof module !== 'undefined') module.exports = Shaders;
     const pat = [f1 * Tc, f2 * Tc, 1 - Math.abs(2 * f1 - 1), 1 - Math.abs(2 * f2 - 1)];
 
     const d = diskInfo.disk;
+    const radio = params.view === 'radio';
     const fcol = params.T > 1e5 ? 1.7 : 1.0;
     const diskGain = 1 / Math.max(lumOf(fcol * params.T), 1e-30);
     const skyGain = 0.024;
@@ -2447,6 +2558,7 @@ if (typeof module !== 'undefined') module.exports = Shaders;
       .f('uGalZ', ...galFrame.z)
       .fv('uStarAvg', starAvg)
       .f('uStepK', q.k).i('uMaxSteps', q.steps)
+      .f('uRadio', radio ? 1 : 0, rm, 1.0, -1.5)
       .fv('uPlanckLut', planckUni)
       .i('uPlanck', 0).i('uDiskTex', 1).i('uNoise', 2).i('uSky', 3).i('uDust', 4);
     bindTex(0, gl.TEXTURE_2D, planckTex);
@@ -2468,8 +2580,26 @@ if (typeof module !== 'undefined') module.exports = Shaders;
     RT.cur = 1 - RT.cur;
     accumFrames++;
 
+    // The image the rest of the pipeline sees; in the radio view it can be
+    // blurred to the resolution of the Event Horizon Telescope: a beam of about
+    // 20 µas, some 5 gravitational radii across for M87* and Sgr A*.
+    let img = dst;
+    if (radio && params.ehtBlur) {
+      const sigma = ((5 / 2.355) / r) * (h / (2 * tanY));
+      progBlur.use().i('uSrc', 5).f('uRes', w, h).f('uSigma', Math.min(sigma, 80));
+      gl.bindFramebuffer(gl.FRAMEBUFFER, RT.blur[0].fb);
+      progBlur.f('uDir', 1, 0);
+      bindTex(5, gl.TEXTURE_2D, dst.tex);
+      draw();
+      gl.bindFramebuffer(gl.FRAMEBUFFER, RT.blur[1].fb);
+      progBlur.f('uDir', 0, 1);
+      bindTex(5, gl.TEXTURE_2D, RT.blur[0].tex);
+      draw();
+      img = RT.blur[1];
+    }
+
     // ------------------------------------------------------------ bloom
-    let prev = dst;
+    let prev = img;
     progDown.use().i('uSrc', 5);
     for (let i = 0; i < BLOOM_LEVELS; i++) {
       const t = RT.bloom[i];
@@ -2486,7 +2616,7 @@ if (typeof module !== 'undefined') module.exports = Shaders;
     gl.viewport(0, 0, 1, 1);
     progExp.use().i('uSmall', 5).i('uPrev', 6)
       .f('uBlend', frameNo < 3 || TEST ? 1 : 1 - Math.exp(-dt * 2.2))
-      .f('uKey', 0.9).f('uAuto', params.autoExp ? 1 : 0)
+      .f('uKey', radio ? 0.45 : 0.9).f('uAuto', params.autoExp || radio ? 1 : 0)
       .f('uManual', Math.pow(2, params.ev) * (params.autoExp ? 1 : 1.6));
     bindTex(5, gl.TEXTURE_2D, RT.bloom[Math.min(4, BLOOM_LEVELS - 1)].tex);
     bindTex(6, gl.TEXTURE_2D, expSrc.tex);
@@ -2494,18 +2624,20 @@ if (typeof module !== 'undefined') module.exports = Shaders;
     RT.expCur = 1 - RT.expCur;
 
     // Wider levels are weaker, like the fall-off of a real lens's glare.
-    progUp.use().i('uSrc', 5).f('uWeight', BLOOM_DECAY);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.ONE, gl.ONE);
-    for (let i = BLOOM_LEVELS - 1; i > 0; i--) {
-      const s = RT.bloom[i], t = RT.bloom[i - 1];
-      gl.bindFramebuffer(gl.FRAMEBUFFER, t.fb);
-      gl.viewport(0, 0, t.w, t.h);
-      progUp.f('uTexel', 1 / s.w, 1 / s.h).f('uDstRes', t.w, t.h);
-      bindTex(5, gl.TEXTURE_2D, s.tex);
-      draw();
+    if (!radio) {
+      progUp.use().i('uSrc', 5).f('uWeight', BLOOM_DECAY);
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.ONE, gl.ONE);
+      for (let i = BLOOM_LEVELS - 1; i > 0; i--) {
+        const s = RT.bloom[i], t = RT.bloom[i - 1];
+        gl.bindFramebuffer(gl.FRAMEBUFFER, t.fb);
+        gl.viewport(0, 0, t.w, t.h);
+        progUp.f('uTexel', 1 / s.w, 1 / s.h).f('uDstRes', t.w, t.h);
+        bindTex(5, gl.TEXTURE_2D, s.tex);
+        draw();
+      }
+      gl.disable(gl.BLEND);
     }
-    gl.disable(gl.BLEND);
 
     // -------------------------------------------------------- composite
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
@@ -2513,8 +2645,8 @@ if (typeof module !== 'undefined') module.exports = Shaders;
     progComp.use().i('uHdr', 5).i('uBloom', 6).i('uExp', 7)
       .f('uSrcRes', w, h).f('uDstRes', size.cw, size.ch)
       .f('uBloomAmt', 0.02 + 0.1 * params.bloom).f('uBloomNorm', BLOOM_NORM).f('uFrame', frameNo % 1024)
-      .f('uTone', params.tone);
-    bindTex(5, gl.TEXTURE_2D, dst.tex);
+      .f('uTone', params.tone).f('uRadioView', radio ? 1 : 0);
+    bindTex(5, gl.TEXTURE_2D, img.tex);
     bindTex(6, gl.TEXTURE_2D, RT.bloom[0].tex);
     bindTex(7, gl.TEXTURE_2D, expDst.tex);
     draw();
@@ -2579,6 +2711,7 @@ if (typeof module !== 'undefined') module.exports = Shaders;
       if (pinch.d > 10 && d > 10) {
         cam.s = clampS(cam.s - Math.log(d / pinch.d) * 1.35);
         stopDive();
+        fly = null;
       }
       look(mx - pinch.mx, my - pinch.my);
       pinch = { d, mx, my };
@@ -2605,6 +2738,7 @@ if (typeof module !== 'undefined') module.exports = Shaders;
     const dy = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaMode === 2 ? e.deltaY * 400 : e.deltaY;
     cam.s = clampS(cam.s + dy * 0.0016);
     stopDive();
+    fly = null;
     touched();
   }, { passive: false });
   document.addEventListener('gesturestart', (e) => e.preventDefault());
@@ -2701,7 +2835,12 @@ if (typeof module !== 'undefined') module.exports = Shaders;
     if (dive.active) {
       const a = params.spin;
       const r0 = camR();
-      const s1 = clampS(cam.s - dive.rate * dt);
+      // Cinematic pace: slower where the strong-field sights are, between the
+      // photon orbits and the horizon.
+      const { rp } = K.horizons(a);
+      const sm = (x0, x1, x) => { const t = Math.min(1, Math.max(0, (x - x0) / (x1 - x0))); return t * t * (3 - 2 * t); };
+      const rate = r0 > rp ? 0.11 + 0.15 * sm(2.5, 9, r0) : 0.22;
+      const s1 = clampS(cam.s - rate * dt);
       const r1 = rEnd + Math.exp(s1);
       // Follow the Doran geodesic: zero angular momentum, dragged in φ̃ by the spin.
       cam.ph += K.doranDphiDr(a, 0.5 * (r0 + r1)) * (r1 - r0);
@@ -2720,6 +2859,61 @@ if (typeof module !== 'undefined') module.exports = Shaders;
       ? 'Guarda verso l’alto: la luce dell’universo esterno si concentra in un punto sempre più blu, amplificata senza limite. È l’instabilità dell’orizzonte interno (inflazione di massa): la curvatura diverge e la relatività generale classica non basta più. Nessuno sa cosa ci sia oltre.'
       : 'In un buco nero che non ruota tutto finisce in r = 0. La marea ti stira all’infinito lungo la direzione di caduta e ti schiaccia di lato, e il cielo si riduce a una sottile fascia luminosa intorno a te.';
     $('endcard').hidden = false;
+  }
+
+  /* ============================================================= captions */
+  // Short lines that appear as you cross each boundary on the way in.
+  const caption = $('caption');
+  let capTimer = 0, prevR = null;
+  const capShown = {};
+  function captionList() {
+    const a = params.spin;
+    const { rp, rm } = K.horizons(a);
+    const kerr = a > 0.02;
+    const list = [
+      { id: 'disk', r: params.rOut, title: 'Sopra il disco', text: 'Sotto di te il gas orbita a una frazione della velocità della luce e brilla a migliaia di gradi.' },
+      { id: 'isco', r: K.iscoRadius(a), title: 'Ultima orbita stabile', text: 'Più all’interno nessuna orbita regge: il gas smette di girare e precipita a spirale verso l’orizzonte.' },
+      { id: 'photon', r: K.photonOrbits(a).retro, title: 'Dove la luce orbita', text: 'Qui un raggio di luce può girare intorno al buco nero. Il bordo dell’ombra è fatto di questa luce.' },
+      { id: 'horizon', r: rp, title: 'Orizzonte degli eventi', text: 'Non hai sentito nulla. Ma da qui nessun segnale può più uscire: lo spazio cade verso il centro più veloce della luce.' },
+      { id: 'inside', r: kerr ? rm + 0.55 * (rp - rm) : 1.2, title: 'Dentro il buco nero', text: 'Qui r misura il tempo, non lo spazio: il centro non è un luogo davanti a te, è il tuo futuro.' },
+    ];
+    if (kerr && K.ergosphere(a, cam.th) > rp + 0.02) {
+      list.splice(3, 0, { id: 'ergo', r: K.ergosphere(a, cam.th), title: 'Ergosfera', text: 'Lo spazio è trascinato dalla rotazione del buco nero: nulla può restare fermo, nemmeno con un razzo.' });
+    }
+    list.push(kerr
+      ? { id: 'inner', r: rm + 0.06, title: 'Verso l’orizzonte interno', text: 'Guarda verso l’alto: la luce di tutto l’universo esterno si concentra in un punto sempre più blu.' }
+      : { id: 'inner', r: 0.35, title: 'Verso la singolarità', text: 'La marea ti stira lungo la caduta e ti schiaccia di lato. Guarda di lato: il cielo si stringe in una fascia.' });
+    return list;
+  }
+  // Captions queue up so each one stays readable for a few seconds.
+  const capQueue = [];
+  let capBusyUntil = 0;
+  function showCaption(c) {
+    capQueue.push(c);
+    pumpCaptions();
+  }
+  function pumpCaptions() {
+    const now = performance.now();
+    if (!capQueue.length) return;
+    if (now < capBusyUntil) { setTimeout(pumpCaptions, capBusyUntil - now + 20); return; }
+    const c = capQueue.shift();
+    $('capTitle').textContent = c.title;
+    $('capText').textContent = c.text;
+    caption.classList.add('show');
+    capBusyUntil = now + 4200;
+    clearTimeout(capTimer);
+    capTimer = setTimeout(() => { if (!capQueue.length) caption.classList.remove('show'); }, 6500);
+    if (capQueue.length) setTimeout(pumpCaptions, 4220);
+  }
+  function checkCaptions(r) {
+    if (prevR !== null && r < prevR) {
+      for (const c of captionList()) {
+        if (prevR >= c.r && r < c.r && !capShown[c.id]) { capShown[c.id] = true; showCaption(c); }
+      }
+    }
+    // Leaving well outside a boundary lets its caption play again next time.
+    for (const c of captionList()) if (r > c.r * 1.4 + 0.05) capShown[c.id] = false;
+    prevR = r;
   }
 
   /* ========================================================== instruments */
@@ -2795,6 +2989,7 @@ if (typeof module !== 'undefined') module.exports = Shaders;
   }
 
   let hudTimer = 0;
+  let endShownAt = -1e9;
   function updateHUD() {
     const a = params.spin;
     const r = camR(), th = cam.th;
@@ -2819,6 +3014,11 @@ if (typeof module !== 'undefined') module.exports = Shaders;
     $('spinLabel').textContent = `a* ${a.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 3 })}`;
     updateGauge(r);
     syncLook(r);
+    if (!TEST) checkCaptions(r);
+    if (cam.s <= S_MIN + 0.02 && !dive.ended && $('endcard').hidden && performance.now() - endShownAt > 30000) {
+      endShownAt = performance.now();
+      showEnd();
+    }
   }
 
   /* ================================================================ gauge */
@@ -2866,9 +3066,9 @@ if (typeof module !== 'undefined') module.exports = Shaders;
     });
   }
   let fly = null;
-  function flyTo(r) {
+  function flyTo(r, dur = 1.6) {
     stopDive();
-    fly = { from: cam.s, to: clampS(Math.log(Math.max(r - rEnd, 0.0036))), t: 0 };
+    fly = { from: cam.s, to: clampS(Math.log(Math.max(r - rEnd, 0.0036))), t: 0, dur };
   }
   function updateGauge(r) {
     const a = params.spin;
@@ -2958,6 +3158,14 @@ if (typeof module !== 'undefined') module.exports = Shaders;
   const bindToggle = (id, key) => $(id).addEventListener('change', (e) => { params[key] = e.target.checked; });
   bindToggle('inDisk', 'disk'); bindToggle('inDoppler', 'doppler'); bindToggle('inStars', 'stars'); bindToggle('inAuto', 'autoExp');
   chipGroup($('presetChips'), PRESETS, params.preset, (p) => applyPreset(p));
+  function syncView() {
+    const v = VIEWS.find((x) => x.id === params.view);
+    $('viewNote').textContent = v.note;
+    $('blurRow').hidden = params.view !== 'radio';
+  }
+  chipGroup($('viewChips'), VIEWS, params.view, (v) => { params.view = v.id; syncView(); });
+  $('inBlur').addEventListener('change', (e) => { params.ehtBlur = e.target.checked; });
+  syncView();
   chipGroup($('qualityChips'), QUALITIES, params.quality, (q) => { params.quality = q.id; perfNote(); });
   function perfNote() {
     $('perfNote').textContent = floatRT
@@ -2972,9 +3180,10 @@ if (typeof module !== 'undefined') module.exports = Shaders;
     const dt = lastT ? Math.min(0.1, (t - lastT) / 1000) : 1 / 60;
     lastT = t;
     if (fly) {
-      fly.t = Math.min(1, fly.t + dt / 1.6);
+      fly.t = Math.min(1, fly.t + dt / fly.dur);
       const e = fly.t < 0.5 ? 4 * fly.t ** 3 : 1 - (-2 * fly.t + 2) ** 3 / 2;
       cam.s = fly.from + (fly.to - fly.from) * e;
+      if (fly.dur > 3 && pointers.size === 0) cam.th += (PRESETS[0].th * DEG - cam.th) * Math.min(1, dt * 0.5);
       if (fly.t >= 1) fly = null;
     }
     updateCamera(dt);
@@ -3019,6 +3228,8 @@ if (typeof module !== 'undefined') module.exports = Shaders;
       params.autoExp = qs.get('auto') !== '0';
       params.ev = num('ev', 0);
       params.tone = num('tone', 0);
+      if (qs.get('view') === 'radio') params.view = 'radio';
+      params.ehtBlur = qs.get('blur') === '1';
       params.timeSpeed = 0;
       simTime = num('t', 0);
       perf.scale = num('scale', 1);
@@ -3041,6 +3252,12 @@ if (typeof module !== 'undefined') module.exports = Shaders;
       }
       $('loading').classList.add('done');
       window.__bhReady = true;
+      if (!TEST) {
+        // Opening shot: drift in from afar while the lensing tightens around the hole.
+        setR(95);
+        cam.th = (p.th - 4) * DEG;
+        flyTo(p.dist, 7);
+      }
       requestAnimationFrame(loop);
     }, 30);
   }

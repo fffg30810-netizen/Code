@@ -57,9 +57,14 @@
     preset: 'smbh', mass: 1e8, spin: 0.9, T: 9000, rOut: 22,
     disk: true, doppler: true, stars: true, autoExp: true,
     ev: 0, bloom: 0.5, timeSpeed: 1, quality: 'auto', tone: 0,
+    view: 'visible', ehtBlur: false,
   };
+  const VIEWS = [
+    { id: 'visible', label: 'Luce visibile', note: 'Il disco sottile brilla come un corpo nero; stelle e Via Lattea sono deviate dalla lente gravitazionale.' },
+    { id: 'radio', label: 'Radio 1,3 mm (EHT)', note: 'Come lo vedrebbe l’Event Horizon Telescope: gas caldo e trasparente fino all’orizzonte, in falsi colori. Gli anelli sottili sono le immagini n = 1 e n = 2 dell’anello fotonico, che nessun telescopio ha ancora separato.' },
+  ];
   const cam = { s: 0, th: 84 * DEG, ph: 0, yaw: 0, pitch: 0, vth: 0, vph: 0 };
-  const dive = { active: false, tau: 0, ended: false, rate: 0.24 };
+  const dive = { active: false, tau: 0, ended: false };
   let simTime = 0;
 
   /* ================================================================== GL */
@@ -255,7 +260,7 @@
   }
 
   /* ============================================================ programs */
-  let progTrace, progAccum, progDown, progUp, progExp, progComp;
+  let progTrace, progAccum, progDown, progUp, progExp, progComp, progBlur;
   function buildPrograms() {
     progTrace = makeProgram(floatRT ? SH.TRACE : SH.TRACE_DIRECT);
     if (!floatRT) return;
@@ -264,20 +269,22 @@
     progUp = makeProgram(SH.UP);
     progExp = makeProgram(SH.EXPOSURE);
     progComp = makeProgram(SH.COMPOSITE);
+    progBlur = makeProgram(SH.BLUR);
   }
 
   /* ======================================================= render targets */
-  const RT = { w: 0, h: 0, trace: null, acc: [null, null], bloom: [], exp: [null, null], cur: 0, expCur: 0 };
+  const RT = { w: 0, h: 0, trace: null, acc: [null, null], blur: [null, null], bloom: [], exp: [null, null], cur: 0, expCur: 0 };
   const BLOOM_LEVELS = 6;
   const BLOOM_DECAY = 0.55;
   const BLOOM_NORM = 1 / Array.from({ length: BLOOM_LEVELS }, (_, i) => BLOOM_DECAY ** i).reduce((x, y) => x + y);
   function ensureTargets(w, h) {
     if (!floatRT) return;
     if (RT.w === w && RT.h === h) return;
-    freeTarget(RT.trace); RT.acc.forEach(freeTarget); RT.bloom.forEach(freeTarget);
+    freeTarget(RT.trace); RT.acc.forEach(freeTarget); RT.blur.forEach(freeTarget); RT.bloom.forEach(freeTarget);
     RT.w = w; RT.h = h;
     RT.trace = makeTarget(w, h);
     RT.acc = [makeTarget(w, h), makeTarget(w, h)];
+    RT.blur = [makeTarget(w, h), makeTarget(w, h)];
     RT.bloom = [];
     let bw = w, bh = h;
     for (let i = 0; i < BLOOM_LEVELS; i++) {
@@ -338,7 +345,7 @@
     const tanY = Math.tan(fovY / 2), tanX = tanY * (size.cw / size.ch);
 
     // Anything that changes the image besides the flow of time resets the accumulation.
-    const key = [r, th, ph, cam.yaw, cam.pitch, a, params.T, params.rOut, params.disk, params.doppler, params.stars, w, h, q.k, q.steps].map((x) => (typeof x === 'number' ? x.toPrecision(7) : x)).join('|');
+    const key = [r, th, ph, cam.yaw, cam.pitch, a, params.T, params.rOut, params.disk, params.doppler, params.stars, params.view, w, h, q.k, q.steps].map((x) => (typeof x === 'number' ? x.toPrecision(7) : x)).join('|');
     if (key !== lastKey) { accumFrames = 0; lastKey = key; }
     const timeRunning = params.timeSpeed > 0 && params.disk;
     const jit = accumFrames > 0 ? [halton(frameNo % 64 + 1, 2) - 0.5, halton(frameNo % 64 + 1, 3) - 0.5] : [0, 0];
@@ -350,6 +357,7 @@
     const pat = [f1 * Tc, f2 * Tc, 1 - Math.abs(2 * f1 - 1), 1 - Math.abs(2 * f2 - 1)];
 
     const d = diskInfo.disk;
+    const radio = params.view === 'radio';
     const fcol = params.T > 1e5 ? 1.7 : 1.0;
     const diskGain = 1 / Math.max(lumOf(fcol * params.T), 1e-30);
     const skyGain = 0.024;
@@ -371,6 +379,7 @@
       .f('uGalZ', ...galFrame.z)
       .fv('uStarAvg', starAvg)
       .f('uStepK', q.k).i('uMaxSteps', q.steps)
+      .f('uRadio', radio ? 1 : 0, rm, 1.0, -1.5)
       .fv('uPlanckLut', planckUni)
       .i('uPlanck', 0).i('uDiskTex', 1).i('uNoise', 2).i('uSky', 3).i('uDust', 4);
     bindTex(0, gl.TEXTURE_2D, planckTex);
@@ -392,8 +401,26 @@
     RT.cur = 1 - RT.cur;
     accumFrames++;
 
+    // The image the rest of the pipeline sees; in the radio view it can be
+    // blurred to the resolution of the Event Horizon Telescope: a beam of about
+    // 20 µas, some 5 gravitational radii across for M87* and Sgr A*.
+    let img = dst;
+    if (radio && params.ehtBlur) {
+      const sigma = ((5 / 2.355) / r) * (h / (2 * tanY));
+      progBlur.use().i('uSrc', 5).f('uRes', w, h).f('uSigma', Math.min(sigma, 80));
+      gl.bindFramebuffer(gl.FRAMEBUFFER, RT.blur[0].fb);
+      progBlur.f('uDir', 1, 0);
+      bindTex(5, gl.TEXTURE_2D, dst.tex);
+      draw();
+      gl.bindFramebuffer(gl.FRAMEBUFFER, RT.blur[1].fb);
+      progBlur.f('uDir', 0, 1);
+      bindTex(5, gl.TEXTURE_2D, RT.blur[0].tex);
+      draw();
+      img = RT.blur[1];
+    }
+
     // ------------------------------------------------------------ bloom
-    let prev = dst;
+    let prev = img;
     progDown.use().i('uSrc', 5);
     for (let i = 0; i < BLOOM_LEVELS; i++) {
       const t = RT.bloom[i];
@@ -410,7 +437,7 @@
     gl.viewport(0, 0, 1, 1);
     progExp.use().i('uSmall', 5).i('uPrev', 6)
       .f('uBlend', frameNo < 3 || TEST ? 1 : 1 - Math.exp(-dt * 2.2))
-      .f('uKey', 0.9).f('uAuto', params.autoExp ? 1 : 0)
+      .f('uKey', radio ? 0.45 : 0.9).f('uAuto', params.autoExp || radio ? 1 : 0)
       .f('uManual', Math.pow(2, params.ev) * (params.autoExp ? 1 : 1.6));
     bindTex(5, gl.TEXTURE_2D, RT.bloom[Math.min(4, BLOOM_LEVELS - 1)].tex);
     bindTex(6, gl.TEXTURE_2D, expSrc.tex);
@@ -418,18 +445,20 @@
     RT.expCur = 1 - RT.expCur;
 
     // Wider levels are weaker, like the fall-off of a real lens's glare.
-    progUp.use().i('uSrc', 5).f('uWeight', BLOOM_DECAY);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.ONE, gl.ONE);
-    for (let i = BLOOM_LEVELS - 1; i > 0; i--) {
-      const s = RT.bloom[i], t = RT.bloom[i - 1];
-      gl.bindFramebuffer(gl.FRAMEBUFFER, t.fb);
-      gl.viewport(0, 0, t.w, t.h);
-      progUp.f('uTexel', 1 / s.w, 1 / s.h).f('uDstRes', t.w, t.h);
-      bindTex(5, gl.TEXTURE_2D, s.tex);
-      draw();
+    if (!radio) {
+      progUp.use().i('uSrc', 5).f('uWeight', BLOOM_DECAY);
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.ONE, gl.ONE);
+      for (let i = BLOOM_LEVELS - 1; i > 0; i--) {
+        const s = RT.bloom[i], t = RT.bloom[i - 1];
+        gl.bindFramebuffer(gl.FRAMEBUFFER, t.fb);
+        gl.viewport(0, 0, t.w, t.h);
+        progUp.f('uTexel', 1 / s.w, 1 / s.h).f('uDstRes', t.w, t.h);
+        bindTex(5, gl.TEXTURE_2D, s.tex);
+        draw();
+      }
+      gl.disable(gl.BLEND);
     }
-    gl.disable(gl.BLEND);
 
     // -------------------------------------------------------- composite
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
@@ -437,8 +466,8 @@
     progComp.use().i('uHdr', 5).i('uBloom', 6).i('uExp', 7)
       .f('uSrcRes', w, h).f('uDstRes', size.cw, size.ch)
       .f('uBloomAmt', 0.02 + 0.1 * params.bloom).f('uBloomNorm', BLOOM_NORM).f('uFrame', frameNo % 1024)
-      .f('uTone', params.tone);
-    bindTex(5, gl.TEXTURE_2D, dst.tex);
+      .f('uTone', params.tone).f('uRadioView', radio ? 1 : 0);
+    bindTex(5, gl.TEXTURE_2D, img.tex);
     bindTex(6, gl.TEXTURE_2D, RT.bloom[0].tex);
     bindTex(7, gl.TEXTURE_2D, expDst.tex);
     draw();
@@ -503,6 +532,7 @@
       if (pinch.d > 10 && d > 10) {
         cam.s = clampS(cam.s - Math.log(d / pinch.d) * 1.35);
         stopDive();
+        fly = null;
       }
       look(mx - pinch.mx, my - pinch.my);
       pinch = { d, mx, my };
@@ -529,6 +559,7 @@
     const dy = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaMode === 2 ? e.deltaY * 400 : e.deltaY;
     cam.s = clampS(cam.s + dy * 0.0016);
     stopDive();
+    fly = null;
     touched();
   }, { passive: false });
   document.addEventListener('gesturestart', (e) => e.preventDefault());
@@ -625,7 +656,12 @@
     if (dive.active) {
       const a = params.spin;
       const r0 = camR();
-      const s1 = clampS(cam.s - dive.rate * dt);
+      // Cinematic pace: slower where the strong-field sights are, between the
+      // photon orbits and the horizon.
+      const { rp } = K.horizons(a);
+      const sm = (x0, x1, x) => { const t = Math.min(1, Math.max(0, (x - x0) / (x1 - x0))); return t * t * (3 - 2 * t); };
+      const rate = r0 > rp ? 0.11 + 0.15 * sm(2.5, 9, r0) : 0.22;
+      const s1 = clampS(cam.s - rate * dt);
       const r1 = rEnd + Math.exp(s1);
       // Follow the Doran geodesic: zero angular momentum, dragged in φ̃ by the spin.
       cam.ph += K.doranDphiDr(a, 0.5 * (r0 + r1)) * (r1 - r0);
@@ -644,6 +680,61 @@
       ? 'Guarda verso l’alto: la luce dell’universo esterno si concentra in un punto sempre più blu, amplificata senza limite. È l’instabilità dell’orizzonte interno (inflazione di massa): la curvatura diverge e la relatività generale classica non basta più. Nessuno sa cosa ci sia oltre.'
       : 'In un buco nero che non ruota tutto finisce in r = 0. La marea ti stira all’infinito lungo la direzione di caduta e ti schiaccia di lato, e il cielo si riduce a una sottile fascia luminosa intorno a te.';
     $('endcard').hidden = false;
+  }
+
+  /* ============================================================= captions */
+  // Short lines that appear as you cross each boundary on the way in.
+  const caption = $('caption');
+  let capTimer = 0, prevR = null;
+  const capShown = {};
+  function captionList() {
+    const a = params.spin;
+    const { rp, rm } = K.horizons(a);
+    const kerr = a > 0.02;
+    const list = [
+      { id: 'disk', r: params.rOut, title: 'Sopra il disco', text: 'Sotto di te il gas orbita a una frazione della velocità della luce e brilla a migliaia di gradi.' },
+      { id: 'isco', r: K.iscoRadius(a), title: 'Ultima orbita stabile', text: 'Più all’interno nessuna orbita regge: il gas smette di girare e precipita a spirale verso l’orizzonte.' },
+      { id: 'photon', r: K.photonOrbits(a).retro, title: 'Dove la luce orbita', text: 'Qui un raggio di luce può girare intorno al buco nero. Il bordo dell’ombra è fatto di questa luce.' },
+      { id: 'horizon', r: rp, title: 'Orizzonte degli eventi', text: 'Non hai sentito nulla. Ma da qui nessun segnale può più uscire: lo spazio cade verso il centro più veloce della luce.' },
+      { id: 'inside', r: kerr ? rm + 0.55 * (rp - rm) : 1.2, title: 'Dentro il buco nero', text: 'Qui r misura il tempo, non lo spazio: il centro non è un luogo davanti a te, è il tuo futuro.' },
+    ];
+    if (kerr && K.ergosphere(a, cam.th) > rp + 0.02) {
+      list.splice(3, 0, { id: 'ergo', r: K.ergosphere(a, cam.th), title: 'Ergosfera', text: 'Lo spazio è trascinato dalla rotazione del buco nero: nulla può restare fermo, nemmeno con un razzo.' });
+    }
+    list.push(kerr
+      ? { id: 'inner', r: rm + 0.06, title: 'Verso l’orizzonte interno', text: 'Guarda verso l’alto: la luce di tutto l’universo esterno si concentra in un punto sempre più blu.' }
+      : { id: 'inner', r: 0.35, title: 'Verso la singolarità', text: 'La marea ti stira lungo la caduta e ti schiaccia di lato. Guarda di lato: il cielo si stringe in una fascia.' });
+    return list;
+  }
+  // Captions queue up so each one stays readable for a few seconds.
+  const capQueue = [];
+  let capBusyUntil = 0;
+  function showCaption(c) {
+    capQueue.push(c);
+    pumpCaptions();
+  }
+  function pumpCaptions() {
+    const now = performance.now();
+    if (!capQueue.length) return;
+    if (now < capBusyUntil) { setTimeout(pumpCaptions, capBusyUntil - now + 20); return; }
+    const c = capQueue.shift();
+    $('capTitle').textContent = c.title;
+    $('capText').textContent = c.text;
+    caption.classList.add('show');
+    capBusyUntil = now + 4200;
+    clearTimeout(capTimer);
+    capTimer = setTimeout(() => { if (!capQueue.length) caption.classList.remove('show'); }, 6500);
+    if (capQueue.length) setTimeout(pumpCaptions, 4220);
+  }
+  function checkCaptions(r) {
+    if (prevR !== null && r < prevR) {
+      for (const c of captionList()) {
+        if (prevR >= c.r && r < c.r && !capShown[c.id]) { capShown[c.id] = true; showCaption(c); }
+      }
+    }
+    // Leaving well outside a boundary lets its caption play again next time.
+    for (const c of captionList()) if (r > c.r * 1.4 + 0.05) capShown[c.id] = false;
+    prevR = r;
   }
 
   /* ========================================================== instruments */
@@ -719,6 +810,7 @@
   }
 
   let hudTimer = 0;
+  let endShownAt = -1e9;
   function updateHUD() {
     const a = params.spin;
     const r = camR(), th = cam.th;
@@ -743,6 +835,11 @@
     $('spinLabel').textContent = `a* ${a.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 3 })}`;
     updateGauge(r);
     syncLook(r);
+    if (!TEST) checkCaptions(r);
+    if (cam.s <= S_MIN + 0.02 && !dive.ended && $('endcard').hidden && performance.now() - endShownAt > 30000) {
+      endShownAt = performance.now();
+      showEnd();
+    }
   }
 
   /* ================================================================ gauge */
@@ -790,9 +887,9 @@
     });
   }
   let fly = null;
-  function flyTo(r) {
+  function flyTo(r, dur = 1.6) {
     stopDive();
-    fly = { from: cam.s, to: clampS(Math.log(Math.max(r - rEnd, 0.0036))), t: 0 };
+    fly = { from: cam.s, to: clampS(Math.log(Math.max(r - rEnd, 0.0036))), t: 0, dur };
   }
   function updateGauge(r) {
     const a = params.spin;
@@ -882,6 +979,14 @@
   const bindToggle = (id, key) => $(id).addEventListener('change', (e) => { params[key] = e.target.checked; });
   bindToggle('inDisk', 'disk'); bindToggle('inDoppler', 'doppler'); bindToggle('inStars', 'stars'); bindToggle('inAuto', 'autoExp');
   chipGroup($('presetChips'), PRESETS, params.preset, (p) => applyPreset(p));
+  function syncView() {
+    const v = VIEWS.find((x) => x.id === params.view);
+    $('viewNote').textContent = v.note;
+    $('blurRow').hidden = params.view !== 'radio';
+  }
+  chipGroup($('viewChips'), VIEWS, params.view, (v) => { params.view = v.id; syncView(); });
+  $('inBlur').addEventListener('change', (e) => { params.ehtBlur = e.target.checked; });
+  syncView();
   chipGroup($('qualityChips'), QUALITIES, params.quality, (q) => { params.quality = q.id; perfNote(); });
   function perfNote() {
     $('perfNote').textContent = floatRT
@@ -896,9 +1001,10 @@
     const dt = lastT ? Math.min(0.1, (t - lastT) / 1000) : 1 / 60;
     lastT = t;
     if (fly) {
-      fly.t = Math.min(1, fly.t + dt / 1.6);
+      fly.t = Math.min(1, fly.t + dt / fly.dur);
       const e = fly.t < 0.5 ? 4 * fly.t ** 3 : 1 - (-2 * fly.t + 2) ** 3 / 2;
       cam.s = fly.from + (fly.to - fly.from) * e;
+      if (fly.dur > 3 && pointers.size === 0) cam.th += (PRESETS[0].th * DEG - cam.th) * Math.min(1, dt * 0.5);
       if (fly.t >= 1) fly = null;
     }
     updateCamera(dt);
@@ -943,6 +1049,8 @@
       params.autoExp = qs.get('auto') !== '0';
       params.ev = num('ev', 0);
       params.tone = num('tone', 0);
+      if (qs.get('view') === 'radio') params.view = 'radio';
+      params.ehtBlur = qs.get('blur') === '1';
       params.timeSpeed = 0;
       simTime = num('t', 0);
       perf.scale = num('scale', 1);
@@ -965,6 +1073,12 @@
       }
       $('loading').classList.add('done');
       window.__bhReady = true;
+      if (!TEST) {
+        // Opening shot: drift in from afar while the lensing tightens around the hole.
+        setR(95);
+        cam.th = (p.th - 4) * DEG;
+        flyTo(p.dist, 7);
+      }
       requestAnimationFrame(loop);
     }, 30);
   }

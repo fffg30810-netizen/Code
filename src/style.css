@@ -230,6 +230,34 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .lookchip.down svg { transform: rotate(180deg); }
 .lookchip:hover { border-color: rgba(236, 230, 219, 0.45); }
 
+/* -------------------------------------------------------------- caption */
+.caption {
+  position: absolute;
+  left: 50%;
+  bottom: calc(136px + var(--safe-b));
+  transform: translate(-50%, 8px);
+  width: min(460px, calc(100% - 32px));
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  text-shadow: 0 1px 14px #000, 0 0 30px rgba(0, 0, 0, 0.8);
+}
+.caption.show { opacity: 1; transform: translate(-50%, 0); }
+.caption .eyebrow {
+  margin: 0 0 6px;
+  color: var(--amber);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.caption .line {
+  margin: 0;
+  font: italic 400 19px/1.4 var(--serif);
+  color: var(--ink);
+  text-wrap: balance;
+}
+
 /* ------------------------------------------------------- settings sheet */
 .sheet {
   position: absolute;
@@ -478,6 +506,8 @@ input[type='range']::-moz-range-thumb {
   .gauge .mark.passed, .gauge .mark.horizon { opacity: 1; }
   .gauge .tick { width: 8px; }
   .hint { bottom: calc(84px + var(--safe-b)); font-size: 10.5px; }
+  .caption { bottom: calc(132px + var(--safe-b)); }
+  .caption .line { font-size: 16.5px; }
   .dock { gap: 12px; }
   .sheet { top: auto; left: 12px; right: 12px; width: auto; max-height: 72vh; bottom: calc(82px + var(--safe-b)); }
   .reader-inner { font-size: 16.5px; }
@@ -485,5 +515,5 @@ input[type='range']::-moz-range-thumb {
 
 @media (prefers-reduced-motion: reduce) {
   .spinner, .dive[aria-pressed='true'] .dot { animation: none; }
-  .gauge .me, .hint, .loading { transition: none; }
+  .gauge .me, .hint, .loading, .caption { transition: none; }
 }

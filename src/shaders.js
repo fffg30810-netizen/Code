@@ -73,6 +73,7 @@ uniform vec3 uGalZ;      // galactic north pole
 uniform vec4 uStarAvg;   // mean radiance of the three star layers, then unused
 uniform float uStepK;
 uniform int uMaxSteps;
+uniform vec4 uRadio;     // on, profile centre μ, width σ, skew γ (Johnson SU)
 uniform sampler2D uDiskTex;
 uniform sampler3D uNoise;
 uniform samplerCube uSky;
@@ -160,34 +161,41 @@ float diskPattern(float r, float psi, float seed) {
   return v * 0.8 + fine * 0.2;
 }
 
+// ν_obs / ν_emit for light leaving the equatorial gas at radius r (the photon
+// has radial momentum ṙ there). Also returns the gas angular velocity Ω used to
+// advect its pattern. Returns g ≤ 0 when the geometry is not physical.
+float gasShift(float r, float rd, out float Om) {
+  float rI = uHor.z;
+  if (r >= rI) {
+    // Prograde Keplerian orbit: ν_obs/ν_em = 1 / (u^t (E − Ω L)).
+    float sr = sqrt(r);
+    float den = pow(r, 0.75) * sqrt(max(r * sr - 3.0 * sr + 2.0 * gA, 1e-6));
+    Om = 1.0 / (r * sr + gA);
+    return den / ((r * sr + gA) * (gE - Om * gL));
+  }
+  // Gas plunging from the ISCO on the geodesic (E_I, L_I).
+  float EI = uIsco.x, LI = uIsco.y;
+  float ra = r * r + gA2;
+  float D = r * r - 2.0 * r + gA2;
+  float Pp = gE * ra - gAL;
+  float Pu = EI * ra - gA * LI;
+  float Ku = r * r + (LI - gA * EI) * (LI - gA * EI);
+  float sqRu = sqrt(r) * uIsco.w * pow(max(rI - r, 0.0), 1.5);
+  float du = Ku / (Pu + sqRu);
+  float X = radialX(r, rd);
+  float pu = (X * Pu + du * Pp - D * X * du - (gL - gA * gE) * (LI - gA * EI)) / (r * r);
+  Om = uIsco.z;
+  return 1.0 / pu;
+}
+
 // Light from the disk at radius r where the ray crossed the equator.
 // Returns emitted radiance (already shifted to the camera frame) and opacity.
 vec4 diskEmission(float r, float rd, float phi, float dv) {
   if (r > uDisk.y || r < uDisk.x) return vec4(0.0);
   vec4 lut = diskLut(r);
   float rI = uHor.z;
-  float ra = r * r + gA2;
-  float g, Om;
-  if (r >= rI) {
-    // Prograde Keplerian orbit: ν_obs/ν_em = 1 / (u^t (E − Ω L)).
-    float sr = sqrt(r);
-    float den = pow(r, 0.75) * sqrt(max(r * sr - 3.0 * sr + 2.0 * gA, 1e-6));
-    Om = 1.0 / (r * sr + gA);
-    g = den / ((r * sr + gA) * (gE - Om * gL));
-  } else {
-    // Gas plunging from the ISCO on the geodesic (E_I, L_I).
-    float EI = uIsco.x, LI = uIsco.y;
-    float D = r * r - 2.0 * r + gA2;
-    float Pp = gE * ra - gAL;
-    float Pu = EI * ra - gA * LI;
-    float Ku = r * r + (LI - gA * EI) * (LI - gA * EI);
-    float sqRu = sqrt(r) * uIsco.w * pow(max(rI - r, 0.0), 1.5);
-    float du = Ku / (Pu + sqRu);
-    float X = radialX(r, rd);
-    float pu = (X * Pu + du * Pp - D * X * du - (gL - gA * gE) * (LI - gA * EI)) / (r * r);
-    g = 1.0 / pu;
-    Om = uIsco.z;
-  }
+  float Om;
+  float g = gasShift(r, rd, Om);
   if (!(g > 0.0) || g > 1e4) return vec4(0.0);
   float gs = uOpt.x > 0.5 ? g : 1.0;
 
@@ -376,6 +384,8 @@ void main() {
   float trans = 1.0;
   int fate = 0;           // 0 lost (step budget), 1 sky, 2 hole, 3 opaque disk
   bool diskOn = uOpt.z > 0.5;
+  bool radio = uRadio.x > 0.5;
+  int crossings = 0;
 
   for (int i = 0; i < 1200; i++) {
     if (i >= uMaxSteps) break;
@@ -407,12 +417,27 @@ void main() {
     if (diskOn && n.z * nN.z < 0.0) {
       float t = hermiteRoot(n.z, nN.z, m.z * h, mN.z * h);
       float rc = hermite(s.x, sN.x, ds.x * h, dsN.x * h, t);
-      vec3 nc = normalize(mix(n, nN, t));
-      float phc = atan(nc.y, nc.x) + mix(s.z, sN.z, t);
-      vec4 em = diskEmission(rc, mix(s.y, sN.y, t), phc, mix(s.w, sN.w, t));
-      col += trans * em.a * em.rgb;
-      trans *= 1.0 - em.a;
-      if (trans < 0.003) { fate = 3; break; }
+      if (radio) {
+        // 1.3 mm view: hot, optically thin gas near the equator. Each crossing
+        // adds g³ J(r) (flat spectrum); crossings after the first are weighted
+        // by ξ = 1.5 to mimic the thickness of the flow (Chael et al. 2021).
+        float Om;
+        float g = gasShift(rc, mix(s.y, sN.y, t), Om);
+        if (g > 0.0 && g < 1e3 && rc > uDisk.x) {
+          float z = (rc - uRadio.y) / uRadio.z;
+          float a2 = uRadio.w + log(z + sqrt(z * z + 1.0));
+          float J = exp(-0.5 * a2 * a2) / sqrt((rc - uRadio.y) * (rc - uRadio.y) + uRadio.z * uRadio.z);
+          col += vec3((crossings == 0 ? 1.0 : 1.5) * g * g * g * J);
+        }
+        crossings++;
+      } else {
+        vec3 nc = normalize(mix(n, nN, t));
+        float phc = atan(nc.y, nc.x) + mix(s.z, sN.z, t);
+        vec4 em = diskEmission(rc, mix(s.y, sN.y, t), phc, mix(s.w, sN.w, t));
+        col += trans * em.a * em.rgb;
+        trans *= 1.0 - em.a;
+        if (trans < 0.003) { fate = 3; break; }
+      }
     }
     s = sN; n = nN; m = mN; ds = dsN; dm = dmN; X = XN;
   }
@@ -422,7 +447,7 @@ void main() {
   vec3 D = fate == 1 ? skyDirection(s, n, m) : vec3(0.0, 0.0, 1.0);
   vec3 dDx = dFdx(D), dDy = dFdy(D);
   bool validJ = fwidth(esc) == 0.0 && dot(dDx, dDx) < 0.02 && dot(dDy, dDy) < 0.02;
-  if (fate == 1 && trans > 0.003) {
+  if (fate == 1 && trans > 0.003 && !radio) {
     col += trans * skyRadiance(D, dDx, dDy, validJ, 1.0 / gE);
   }
   if (any(isnan(col)) || any(isinf(col))) col = vec3(0.0);
@@ -620,6 +645,32 @@ void main() {
   o = vec4(s * (uWeight / 16.0), 1.0);
 }`;
 
+  // Separable Gaussian blur, used to show the radio image at the resolution of
+  // the Event Horizon Telescope.
+  const BLUR = `#version 300 es
+precision highp float;
+uniform sampler2D uSrc;
+uniform vec2 uDir;
+uniform vec2 uRes;
+uniform float uSigma;
+out vec4 o;
+void main() {
+  vec2 uv = gl_FragCoord.xy / uRes;
+  vec2 st = uDir / uRes;
+  float s = max(uSigma, 0.5);
+  int n = int(min(ceil(s * 2.5), 80.0));
+  vec3 acc = texture(uSrc, uv).rgb;
+  float w = 1.0;
+  for (int i = 1; i <= 80; i++) {
+    if (i > n) break;
+    float fi = float(i);
+    float wi = exp(-0.5 * fi * fi / (s * s));
+    acc += wi * (texture(uSrc, uv + st * fi).rgb + texture(uSrc, uv - st * fi).rgb);
+    w += 2.0 * wi;
+  }
+  o = vec4(acc / w, 1.0);
+}`;
+
   // Exposure adapts like an eye. The meter uses the arithmetic mean luminance:
   // a log average would be dragged down by the shadow, which is black by nature.
   const EXPOSURE = `#version 300 es
@@ -663,6 +714,7 @@ uniform float uBloomAmt;
 uniform float uBloomNorm;
 uniform float uFrame;
 uniform float uTone;
+uniform float uRadioView;
 out vec4 o;
 ${HASH}
 // Catmull–Rom upscaling in 9 bilinear taps.
@@ -719,6 +771,15 @@ vec3 agx(vec3 c) {
 void main() {
   vec2 uv = gl_FragCoord.xy / uDstRes;
   vec3 c = sampleCR(uv);
+  if (uRadioView > 0.5) {
+    // Radio intensity in the "afmhot" map of EHT figures (black, red, orange, yellow, white).
+    // A colormap's output is already a display value, so no transfer curve here.
+    float x = c.r * texelFetch(uExp, ivec2(0), 0).r * 0.55;
+    vec3 a = clamp(vec3(2.0 * x, 2.0 * x - 0.5, 2.0 * x - 1.0), 0.0, 1.0);
+    vec4 hr = rand4(uvec4(uvec2(gl_FragCoord.xy), uint(uFrame), 5u));
+    o = vec4(clamp(a + (hr.x + hr.y - 1.0) / 255.0, 0.0, 1.0), 1.0);
+    return;
+  }
   vec3 b = texture(uBloom, uv).rgb * uBloomNorm;   // the pyramid sums its levels
   c = mix(c, b, uBloomAmt);
   c *= texelFetch(uExp, ivec2(0), 0).r;
@@ -744,7 +805,7 @@ void main() {
   fragColor = vec4(pow(c2, vec3(1.0 / 2.2)), 1.0);`
   );
 
-  return { VERT, TRACE, TRACE_DIRECT, SKY, ACCUM, DOWN, UP, EXPOSURE, COMPOSITE };
+  return { VERT, TRACE, TRACE_DIRECT, SKY, ACCUM, DOWN, UP, BLUR, EXPOSURE, COMPOSITE };
 })();
 
 if (typeof module !== 'undefined') module.exports = Shaders;
