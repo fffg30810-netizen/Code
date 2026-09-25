@@ -17,6 +17,7 @@ Per ogni pixel, a ogni fotogramma, lo shader segue all’indietro un raggio di l
 ## Verifiche
 
 `node tests/physics.test.mjs` confronta la fisica con risultati indipendenti. Tutti i controlli passano.
+`node tests/gpu-crosscheck.mjs` (serve Playwright) verifica che lo shader GLSL dia gli stessi raggi del riferimento JavaScript: stesso destino per ogni raggio e direzioni entro circa 0,01°.
 
 - Il bordo dell’ombra coincide con i valori analitici di Bardeen: 3√3 per a = 0 e i bordi della forma a “D” per a = 0,9, alla sesta cifra.
 - La zona buia vista in caduta libera ha il raggio esatto di Chang & Zhu: 17,32° a r = 10, 42,10° sull’orizzonte e 53,27° dentro il buco nero a r = 1.

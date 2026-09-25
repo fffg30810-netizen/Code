@@ -8,6 +8,7 @@
 
 <div id="app">
   <canvas id="view" aria-label="Buco nero di Kerr ray-tracciato in tempo reale. Pizzica o usa la rotella per avvicinarti, trascina per orbitare."></canvas>
+  <div class="veil" aria-hidden="true"></div>
 
   <header class="brand">
     <h1>Oltre l'orizzonte</h1>
@@ -72,8 +73,8 @@
     <div class="group">
       <label class="slider" for="inSpin"><span>Rotazione <i>a*</i></span><output id="outSpin">0,90</output></label>
       <input type="range" id="inSpin" min="0" max="0.998" step="0.001" value="0.9">
-      <label class="slider" for="inTemp"><span>Temperatura massima del disco</span><output id="outTemp">9000 K</output></label>
-      <input type="range" id="inTemp" min="3.3" max="7.3" step="0.01" value="3.954">
+      <label class="slider" for="inTemp"><span>Temperatura massima del disco</span><output id="outTemp">6800 K</output></label>
+      <input type="range" id="inTemp" min="3.3" max="7.3" step="0.01" value="3.833">
       <label class="slider" for="inROut"><span>Raggio esterno del disco</span><output id="outROut">22 r<sub>g</sub></output></label>
       <input type="range" id="inROut" min="8" max="48" step="0.5" value="22">
     </div>

@@ -74,6 +74,7 @@ uniform vec4 uStarAvg;   // mean radiance of the three star layers, then unused
 uniform float uStepK;
 uniform int uMaxSteps;
 uniform vec4 uRadio;     // on, profile centre μ, width σ, skew γ (Johnson SU)
+uniform int uDebug;      // 1: write the ray's fate and sky direction instead of colour (tests)
 uniform sampler2D uDiskTex;
 uniform sampler3D uNoise;
 uniform samplerCube uSky;
@@ -450,6 +451,7 @@ void main() {
   if (fate == 1 && trans > 0.003 && !radio) {
     col += trans * skyRadiance(D, dDx, dDy, validJ, 1.0 / gE);
   }
+  if (uDebug == 1) { fragColor = vec4(D, float(fate) + 0.001 * float(crossings)); return; }
   if (any(isnan(col)) || any(isinf(col))) col = vec3(0.0);
   fragColor = vec4(max(col, vec3(0.0)), 1.0);
 }`;

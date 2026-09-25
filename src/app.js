@@ -9,6 +9,7 @@
   const DEG = Math.PI / 180;
   const qs = new URLSearchParams(location.search);
   const TEST = qs.has('test');
+  const DEBUG = TEST && qs.get('debug') === '1' ? 1 : 0;
 
   // Physical constants for the instruments.
   const GM_C2 = 1476.625;      // m, per solar mass
@@ -20,8 +21,8 @@
   const PRESETS = [
     {
       id: 'smbh', label: 'Supermassiccio', title: 'Buco nero supermassiccio',
-      mass: 1e8, spin: 0.9, T: 9000, rOut: 22, th: 84, dist: 26, doppler: true,
-      note: '10⁸ masse solari, come i motori dei quasar. Disco sottile e poco luminoso (circa 10⁻⁵ del limite di Eddington), quindi abbastanza freddo da brillare nel visibile.',
+      mass: 1e8, spin: 0.9, T: 6800, rOut: 22, th: 84, dist: 26, doppler: true,
+      note: '10⁸ masse solari, come i motori dei quasar. Qui accresce pochissimo, pochi milionesimi del limite di Eddington: il disco è abbastanza freddo da brillare nel visibile, dal bianco al dorato.',
     },
     {
       id: 'sgra', label: 'Sgr A*', title: 'Sagittarius A*',
@@ -54,7 +55,7 @@
   const MOBILE = matchMedia('(pointer: coarse)').matches || /Android|iPhone|iPad/i.test(navigator.userAgent);
 
   const params = {
-    preset: 'smbh', mass: 1e8, spin: 0.9, T: 9000, rOut: 22,
+    preset: 'smbh', mass: 1e8, spin: 0.9, T: 6800, rOut: 22,
     disk: true, doppler: true, stars: true, autoExp: true,
     ev: 0, bloom: 0.5, timeSpeed: 1, quality: 'auto', tone: 0,
     view: 'visible', ehtBlur: false,
@@ -250,8 +251,9 @@
   })();
 
   /* ============================================================== disk LUT */
-  let diskTex = null, diskInfo = null, diskSpin = -1;
+  let diskTex = null, diskInfo = null, diskSpin = -1, diskBuiltAt = -1e9;
   function buildDisk(a) {
+    diskBuiltAt = performance.now();
     const lut = K.diskLUT(a, { rHi: 64 });
     if (diskTex) gl.deleteTexture(diskTex);
     diskTex = makeTex(lut.n, 1, gl.RGBA16F, gl.RGBA, gl.FLOAT, lut.data);
@@ -296,7 +298,6 @@
   }
 
   /* ========================================================= camera math */
-  const horizonsNow = () => K.horizons(params.spin);
   function rEndOf(a) { return Math.max(K.horizons(a).rm, 0.012); }
   let rEnd = rEndOf(params.spin);
   const S_MIN = Math.log(0.0035), S_MAX = Math.log(5000);
@@ -313,6 +314,7 @@
 
   /* =========================================================== rendering */
   let accumFrames = 0;
+  let gainT = -1, diskGain = 1;
   let lastKey = '';
   let frameNo = 0;
   const halton = (i, b) => { let f = 1, r = 0; while (i > 0) { f /= b; r += f * (i % b); i = Math.floor(i / b); } return r; };
@@ -333,7 +335,9 @@
 
   function render(dt) {
     const a = params.spin;
-    if (diskSpin !== a) buildDisk(a);
+    // Rebuild the disk tables when the spin changes, at most ~8 times a second
+    // while the slider moves.
+    if (diskSpin !== a && (performance.now() - diskBuiltAt > 120 || !diskInfo)) buildDisk(a);
     const { rp, rm } = K.horizons(a);
     const r = camR();
     const th = cam.th, ph = cam.ph;
@@ -348,7 +352,7 @@
     const key = [r, th, ph, cam.yaw, cam.pitch, a, params.T, params.rOut, params.disk, params.doppler, params.stars, params.view, w, h, q.k, q.steps].map((x) => (typeof x === 'number' ? x.toPrecision(7) : x)).join('|');
     if (key !== lastKey) { accumFrames = 0; lastKey = key; }
     const timeRunning = params.timeSpeed > 0 && params.disk;
-    const jit = accumFrames > 0 ? [halton(frameNo % 64 + 1, 2) - 0.5, halton(frameNo % 64 + 1, 3) - 0.5] : [0, 0];
+    const jit = accumFrames > 0 && !DEBUG ? [halton(frameNo % 64 + 1, 2) - 0.5, halton(frameNo % 64 + 1, 3) - 0.5] : [0, 0];
 
     // Flow-noise phases: two copies of the gas pattern restart in turn, each
     // fading out before it restarts, so the sheared pattern never over-winds.
@@ -359,7 +363,7 @@
     const d = diskInfo.disk;
     const radio = params.view === 'radio';
     const fcol = params.T > 1e5 ? 1.7 : 1.0;
-    const diskGain = 1 / Math.max(lumOf(fcol * params.T), 1e-30);
+    if (gainT !== fcol * params.T) { gainT = fcol * params.T; diskGain = 1 / Math.max(lumOf(gainT), 1e-30); }
     const skyGain = 0.024;
 
     // ------------------------------------------------------------ trace
@@ -379,7 +383,7 @@
       .f('uGalZ', ...galFrame.z)
       .fv('uStarAvg', starAvg)
       .f('uStepK', q.k).i('uMaxSteps', q.steps)
-      .f('uRadio', radio ? 1 : 0, rm, 1.0, -1.5)
+      .f('uRadio', radio ? 1 : 0, rm, 1.0, -1.5).i('uDebug', DEBUG)
       .fv('uPlanckLut', planckUni)
       .i('uPlanck', 0).i('uDiskTex', 1).i('uNoise', 2).i('uSky', 3).i('uDust', 4);
     bindTex(0, gl.TEXTURE_2D, planckTex);
@@ -602,7 +606,7 @@
   function toggleDive() {
     if (dive.ended) return;
     dive.active = !dive.active;
-    if (dive.active && camR() > 60) setR(60);
+    fly = null;
     syncDive();
   }
   btnDive.addEventListener('click', () => { toggleDive(); touched(); });
@@ -653,6 +657,7 @@
       const decay = Math.exp(-dt * 5.5);
       cam.vth *= decay; cam.vph *= decay;
     }
+    if (dive.ended && cam.s > S_MIN + 0.6) { dive.ended = false; syncDive(); }
     if (dive.active) {
       const a = params.spin;
       const r0 = camR();
@@ -660,7 +665,7 @@
       // photon orbits and the horizon.
       const { rp } = K.horizons(a);
       const sm = (x0, x1, x) => { const t = Math.min(1, Math.max(0, (x - x0) / (x1 - x0))); return t * t * (3 - 2 * t); };
-      const rate = r0 > rp ? 0.11 + 0.15 * sm(2.5, 9, r0) : 0.22;
+      const rate = r0 > rp ? 0.11 + 0.15 * sm(2.5, 9, r0) + 0.5 * sm(40, 120, r0) : 0.22;
       const s1 = clampS(cam.s - rate * dt);
       const r1 = rEnd + Math.exp(s1);
       // Follow the Doran geodesic: zero angular momentum, dragged in φ̃ by the spin.
@@ -779,7 +784,7 @@
     if (r < re) return 'Ergosfera';
     if (r < po.retro) return 'Regione delle orbite di luce';
     if (r < rI) return 'Sotto l’ISCO';
-    if (r < params.rOut * 1.05) return 'Nel disco';
+    if (r < params.rOut * 1.05) return Math.cos(th) >= 0 ? 'Sopra il disco' : 'Sotto il disco';
     return 'Spazio esterno';
   }
 
@@ -817,7 +822,7 @@
     const M = params.mass;
     const rg = GM_C2 * M, tg = GM_C3 * M;
     const { rp, rm } = K.horizons(a);
-    $('hDist').innerHTML = `${fmtNum(r, r < 10 ? 3 : 3)} r<sub>g</sub> <em>· ${fmtLen(r * rg)}</em>`;
+    $('hDist').innerHTML = `${fmtNum(r, 3)} r<sub>g</sub> <em>· ${fmtLen(r * rg)}</em>`;
     $('hRegion').innerHTML = regionOf(r, th);
     const beta = Math.sqrt((2 * r) / (r * r + a * a));
     $('hFall').innerHTML = `${fmtNum(beta, 3)} c <em>${beta > 1 ? 'più veloce della luce' : 'caduta libera'}</em>`;
@@ -1063,7 +1068,9 @@
     setTimeout(() => {
       try {
         buildPrograms();
-        const skySize = TEST ? num0('sky', 512) : MOBILE ? 1024 : 2048;
+        const mem = navigator.deviceMemory || 8;
+        const maxCube = gl.getParameter(gl.MAX_CUBE_MAP_TEXTURE_SIZE);
+        const skySize = TEST ? num0('sky', 512) : Math.min(maxCube, MOBILE || mem < 8 ? 1024 : 2048);
         buildSky(skySize);
         buildDisk(params.spin);
       } catch (err) {
@@ -1090,6 +1097,15 @@
     get r() { return camR(); },
     renderOnce: (n = 1) => { for (let i = 0; i < n; i++) render(1 / 60); },
     // Read back HDR values for automated checks: a horizontal line through the centre.
+    raw(pixels) {
+      const buf = new Float32Array(4);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, RT.trace.fb);
+      return {
+        w: RT.w, h: RT.h,
+        tan: [Math.tan(((MOBILE && canvas.clientHeight > canvas.clientWidth ? 74 : 62) * DEG) / 2) * (canvas.width / canvas.height), Math.tan(((MOBILE && canvas.clientHeight > canvas.clientWidth ? 74 : 62) * DEG) / 2)],
+        px: pixels.map(([i, j]) => { gl.readPixels(i, j, 1, 1, gl.RGBA, gl.FLOAT, buf); return [...buf]; }),
+      };
+    },
     probe(y = 0.5, n = 16) {
       if (!floatRT) return null;
       const out = [];

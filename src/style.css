@@ -41,6 +41,17 @@ button { font: inherit; color: inherit; }
 button:focus-visible, input:focus-visible { outline: 1.5px solid var(--amber); outline-offset: 3px; }
 svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
 
+/* A soft vignette keeps the instruments legible over a bright disk. */
+.veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 560px 360px at 0 0, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.3) 45%, transparent 78%),
+    radial-gradient(ellipse 260px 60% at 100% 55%, rgba(0, 0, 0, 0.42), transparent 80%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent 200px);
+}
+
 /* ---------------------------------------------------------------- brand */
 .brand {
   position: absolute;
@@ -80,7 +91,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   text-transform: uppercase;
 }
 .hud .v { font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.hud .v em { font-style: normal; color: var(--muted); }
+.hud .v em { font-style: normal; color: var(--muted); text-shadow: 0 0 6px #000, 0 1px 10px #000; }
 .hud .v .blue { color: var(--blue); }
 .hud .v .red { color: var(--red); }
 .hud .v .amber { color: var(--amber); }
